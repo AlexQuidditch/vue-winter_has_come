@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>radio off</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Material-Design-Stickersheet" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.54">
+        <g id="components" transform="translate(-2283.000000, -1049.000000)" fill="#010101">
+            <g id="switches-+-sliders" transform="translate(2065.000000, 890.000000)">
+                <g id="switches-light" transform="translate(0.000000, 41.000000)">
+                    <g id="Material/Light/Radio-button-off" transform="translate(216.000000, 116.000000)">
+                        <path d="M12,2 C6.5,2 2,6.5 2,12 C2,17.5 6.5,22 12,22 C17.5,22 22,17.5 22,12 C22,6.5 17.5,2 12,2 L12,2 Z M12,20 C7.6,20 4,16.4 4,12 C4,7.6 7.6,4 12,4 C16.4,4 20,7.6 20,12 C20,16.4 16.4,20 12,20 L12,20 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

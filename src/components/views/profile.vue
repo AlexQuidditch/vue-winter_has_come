@@ -1,31 +1,22 @@
 <template lang="html">
 	<main class="main">
+		<personal></personal>
+		<social></social>
+		<portfolio></portfolio>
+		<reviews></reviews>
 	</main>
 </template>
 
 <script>
 
+	import personal from '@views/profile/personal';
+	import reviews from '@views/profile/reviews';
+	import portfolio from '@views/profile/portfolio';
+	import social from '@views/profile/social';
+
     export default {
         name: "profile",
-        data() {
-            return {
-				title: 'Hello'
-            }
-        },
-		computed: {
-		    Personal() {
-		        return this.$store.state.User.personal
-		    },
-			Information() {
-				return this.$store.state.User.information
-			}
-		}
+		components: { personal , reviews , portfolio , social }
     }
 
 </script>
-
-<style lang="scss">
-
-    .profile {}
-
-</style>

@@ -1,18 +1,18 @@
 <template lang="html">
     <div class="recommendations">
-		<h4 class="recommendations__title">Рекомендации</h4>
+		<h4 class="recommendations__title">Подходит Вам...</h4>
 		<ul class="recommendations-list">
 			<li v-for="( recommsItem , index ) in recommsList" :key="index"
 				class="recommendations-item">
-				<img :src=" '../../../../static/assets/shared/' + recommsItem.picture " :alt="recommsItem.title"
+				<img :src=" '/static/assets/shared/' + recommsItem.picture " :alt="recommsItem.title"
 						class="recommendations-item__picture" />
 				<h5 class="recommendations-item__title">{{ recommsItem.title }}</h5>
 				<p class="recommendations-item__annotation">
-					<img src="../../../../static/assets/sidebar/disc.svg" alt="Бюджет" />
+					<img src="/static/assets/sidebar/disc.svg" alt="Бюджет" />
 					<span>{{ recommsItem.budget }} баллов</span>
 				</p>
 				<p class="recommendations-item__annotation">
-					<img src="../../../../static/assets/sidebar/clock.svg" alt="Сроки" />
+					<img src="/static/assets/sidebar/clock.svg" alt="Сроки" />
 					<span>{{ recommsItem.deadline }}</span>
 				</p>
 			</li>
@@ -67,7 +67,7 @@
 			span {
 				font-size: 12px;
 				line-height: 1.5;
-				color: #9b9b9b;
+				color: #4b4b4b;
 				color: var(--purpley-grey);
 			}
 		}

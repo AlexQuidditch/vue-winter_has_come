@@ -1,18 +1,30 @@
 <template lang="html">
     <header class="header">
 		<div class="header-row _first">
-			<img src="../../../static/assets/header/logo.png"
-			     	class="header__logo" />
-			<search></search>
-			<partner></partner>
+			<div class="container">
+				<router-link tag="img" to="/"
+                    src="/static/assets/header/logo.png" class="header__logo">
+				</router-link>
+				<search></search>
+				<partner :class="{ '_menu-is-opened' : partnerMenuIsOpened }"
+					@toggleMenu="toggleMenu()">
+				</partner>
+				<partner-menu :class="{ '_menu-is-opened' : partnerMenuIsOpened }"></partner-menu>
+			</div>
 		</div>
-		<nav class="header-row _second">
-			<router-link to="/" class="header-row__link">Найти работу</router-link>
-			<div class="header-row__devider"></div>
-			<router-link to="/" class="header-row__link">Исполнители</router-link>
-			<router-link to="/" class="header-row__link">Агенты</router-link>
-			<router-link to="/" class="header-row__link">Команды</router-link>
-		</nav>
+		<div class="header-row _second">
+			<nav class="container">
+				<router-link :to="{ name: 'find-job' , query: { section : 'all' } }"
+                    class="header-row__link waves-effect waves-light">
+					<icon-home class="header-row__link-icon"></icon-home>
+                    <span>Найти работу</span>
+                </router-link>
+				<div class="header-row__divider"></div>
+				<router-link to="/" class="header-row__link waves-effect waves-light">Исполнители</router-link>
+				<router-link :to="{ name: 'agent' }" class="header-row__link waves-effect waves-light">Агенты</router-link>
+				<router-link to="/" class="header-row__link waves-effect waves-light">Команды</router-link>
+			</nav>
+		</div>
     </header>
 </template>
 
@@ -20,14 +32,23 @@
 
 	import search from './header/search';
 	import partner from './header/partner';
+	import partnerMenu from './header/partner-menu';
+	import iconHome from '@icons/home';
 
     export default {
         name: "header",
-		components: { search , partner },
+		components: { search , partner , partnerMenu , iconHome },
         data() {
-            return {}
-        }
-    }
+            return {
+				partnerMenuIsOpened: false
+			}
+        },
+		methods: {
+		    toggleMenu() {
+				this.partnerMenuIsOpened =! this.partnerMenuIsOpened;
+			}
+		}
+    };
 
 </script>
 
@@ -38,7 +59,6 @@
         position: fixed;
         top: 0;
 		width: 100%;
-		max-width: 1180px;
 		&__logo {
             size: 164px 17px;
 			height: 100%;
@@ -48,49 +68,63 @@
 
 	.header-row {
 		&._first {
-			display: flex;
-			justify-content: space-between;
 			height: 60px;
-			padding: 0 30px;
 			background-color: #f8f8f8;
 			background-color: var(--white-two);
+			.container {
+			    position: relative;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 0 0 0 30px;
+			}
 		}
 		&._second {
-			display: flex;
-			align-items: center;
 			height: 40px;
-			padding: 0 30px;
 			background-color: #009d2f;
 			background-color: var(--irish-green);
 			box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.25);
 			box-shadow: 0 0 5px 0 var(--black-25);
+			.container {
+				display: flex;
+				align-items: center;
+				padding: 0 30px 0 20px;
+			}
 		}
-		&__devider {
-			width: 0;
-			height: 20px;
+		&__divider {
+			size: 0 20px;
 			margin: 0 5px;
 			opacity: 0.4;
-			border-left: solid 1px #ffffff;
+			border-left: solid 1px #fff;
 			border-left: solid 1px var(--whited);
 		}
 		&__link {
 			padding: 0 15px;
 			font-size: 13px;
 			font-weight: 600;
-			color: #ffffff;
+			color: #fff;
 			color: var(--whited);
 			line-height: 40px;
 			box-shadow: inset 0 2px 0 transparent;
 			transition:
 				color .3s ease-in-out,
 				box-shadow .3s ease-in-out;
-			&:first-child {
-				padding-left: 0;
-			}
 			&._active {
 				box-shadow: inset 0 -2px 0 #fff;
 				box-shadow: inset 0 -2px 0 var(--whited);
 			}
+			&:first-child {
+				padding-left: 12px;
+			}
+		}
+		&__link-icon {
+			vertical-align: middle;
+			margin: 0 4px 4px 0;
+			width: 18px;
+			line-height: 45px;
+			stroke-width: 2;
+			stroke: #fff;
+			stroke: var(--whited);
 		}
 	}
 

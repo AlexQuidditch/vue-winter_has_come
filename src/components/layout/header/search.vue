@@ -1,14 +1,14 @@
 <template lang="html">
     <form @submit.prevent="searchByRequest(request)" class="search">
 		<label for="search-field" class="search-field">
-			<img :src="icon" alt=""
+			<img src="/static/assets/header/ic-search-24-px.svg" alt="Поиск..."
 				class="search-field__icon" />
 			<input v-model="request" placeholder="Найдите задание своей мечты..."
 				id="search-field" name="search-field"
 				class="search-field__input" />
 		</label>
 		<button type="submit" name="Find"
-			class="search-field__button"
+			class="search-field__button waves-effect waves-light"
 			>Найти
 		</button>
     </form>
@@ -20,7 +20,6 @@
         name: "search",
         data() {
             return {
-				icon: '../../../../static/assets/header/ic-search-24-px.svg',
 				request: ''
             }
         },
@@ -29,39 +28,40 @@
 		        this.$swal( 'Идёт поиск...' , q , 'info' )
 		    }
 		}
-    }
+    };
 
 </script>
 
 <style lang="scss">
 
+	@import "../../../stylesheets/partials/_mixins";
+
     .search {
     	display: flex;
 		align-items: center;
+		margin-right: 32px;
     }
 
 	.search-field {
-		display: flex;
-		align-items: center;
-		size: 455px 30px;
-		padding: 0 15px;
-		border-radius: 3px;
-		background-color: #ffffff;
-		background-color: var(--whited);
-		border: none;
-		&__icon {}
+		position: relative;
+		&__icon {
+			position: absolute 9px 0 0 14px;
+		}
 		&__input {
-			width: 90%;
-			margin-left: 10px;
+			display: flex;
+			align-items: center;
+			size: 455px 30px;
+			padding: 0 15px 0 36px;
+			font-size: 14px;
+			line-height: 30px;
+			border-radius: 3px;
+			background-color: #ffffff;
+			background-color: var(--whited);
 			border: none;
+			@include MDShadow-1;
 			&::placeholder {
-				font-size: 12px;
-				line-height: 1.5;
-				color: #9b9b9b;
+				color: #4b4b4b;
 				color: var(--purpley-grey);
-			}
-			&:focus {
-				outline: none;
 			}
 		}
 		&__button {
@@ -76,6 +76,7 @@
 			background-color: var(--irish-green);
 			border: none;
 			border-radius: 3px;
+			@include MDShadow-1;
 		}
 	}
 

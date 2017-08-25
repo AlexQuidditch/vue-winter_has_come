@@ -28,8 +28,7 @@
 <style lang="scss">
 
     .aside {
-    	position: relative;
-    	top: 100px;
+    	margin-top: 100px;
 		width: 205px;
 		padding: 30px;
 		background-color: #ffffff;
@@ -40,7 +39,7 @@
 	.divider {
 		height: 1px;
 		opacity: 0.2;
-		border-top: solid 1px #9b9b9b;
+		border-top: solid 1px #4b4b4b;
 		border-top: solid 1px var(--purpley-grey);
 	}
 

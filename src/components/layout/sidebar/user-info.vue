@@ -1,14 +1,14 @@
 <template lang="html">
     <div class="user">
-		<div class="user-avatar">
-			<img :src=" '../../../../static/assets/shared/' + Personal.avatar " alt=""
+		<router-link :to="{ name: 'profile' }" tag="div" class="user-avatar">
+			<img :src=" '/static/assets/shared/' + Personal.avatar " :alt="Personal.name + ' ' + Personal.sename"
 				class="user-avatar__image"/><h3 class="user-avatar__name">{{ Personal.name + ' ' + Personal.sename }}</h3>
-		</div>
+		</router-link>
 		<nav class="user-controls">
 			<router-link to="/" v-for="control in Controls" :key="control.name"
 				class="user-control">
-				<img :src=" '../../../../static/assets/sidebar/' + control.icon " alt="control.name"
-					class="user-control__icon" />
+				<img :src=" '/static/assets/sidebar/' + control.icon " :alt="control.name"
+						class="user-control__icon" />
 				<span v-if="control.counter !== 0 "
 					class="user-control__counter">{{ control.counter }}</span>
 			</router-link>
@@ -49,6 +49,7 @@
 			object-fit: cover;
 			object-position: top;
 			border-radius: 3px;
+			cursor: pointer;
 			@include MDShadow-1( #4a4a4a );
 		}
 		&__name {
@@ -78,15 +79,15 @@
 		padding: 15px;
 		margin: 9px 0;
 		&__icon {
-			size: 16px;
+			size: 20px;
 		}
 		&__counter {
 			position: absolute 11px 11px auto auto;
 			display: flex;
-			align-items: center;
 			justify-content: center;
-			size: 11px;
-			font-size: 7px;
+			align-items: center;
+			size: 14px;
+			font-size: 8px;
 			text-align: center;
 			color: #ffffff;
 			color: var(--whited);

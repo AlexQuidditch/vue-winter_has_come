@@ -9,7 +9,14 @@ const state = {
 		password: '',
 		caption: '',
 		publishEmail: false
-	}
+	},
+	confidential: {
+		contacts: 1,
+		teams: 2,
+		messages: 3,
+		reviews: 4
+	},
+	payments: {}
 };
 
 const actions = {
@@ -33,6 +40,19 @@ const actions = {
 	},
 	updateCheck({ commit } , payload ) {
 		commit('UPDATE_CHECK' , payload )
+	},
+	// confidential
+	updateContacts({ commit } , payload ) {
+		commit('UPDATE_CONTACTS' , payload )
+	},
+	updateTeams({ commit } , payload ) {
+		commit('UPDATE_TEAMS' , payload )
+	},
+	updateMessages({ commit } , payload ) {
+		commit('UPDATE_MESSAGES' , payload )
+	},
+	updateReviews({ commit } , payload ) {
+		commit('UPDATE_REVIEWS' , payload )
 	}
 };
 
@@ -57,6 +77,15 @@ const mutations = {
 	},
 	UPDATE_CHECK( state , payload ) {
 		state.common.publishEmail = payload
+	},
+	UPDATE_CONTACTS( state , payload ) {
+		state.confidential.contacts = payload
+	},
+	UPDATE_TEAMS( state , payload ) {
+		state.confidential.teams = payload
+	},
+	UPDATE_REVIEWS( state , payload ) {
+		state.confidential.reviews = payload
 	}
 };
 

@@ -4,12 +4,12 @@
 		<ul class="partner-menu-list">
 			<li v-for="( linkItem , index ) in Links" :key="index"
 				class="partner-menu-item">
-				<router-link :to="linkItem.route" class="partner-menu-item__link">{{ linkItem.text }}</router-link>
+				<router-link :to="{ name : linkItem.route }" class="partner-menu-item__link">{{ linkItem.text }}</router-link>
 			</li>
 		</ul>
 		<a :href="bankLink" class="partner-menu__link">Перейти на сайт банка ></a>
-		<img src="../../../../static/assets/header/bars.png" alt="АКБ Барс официальный партнёр"
-			 class="partner-menu__image" />
+		<img src="/static/assets/header/bars.png" alt="АКБ Барс официальный партнёр"
+                class="partner-menu__image" />
     </div>
 </template>
 
@@ -25,18 +25,18 @@
 						text: 'Оплата услуг'
 					},
 					{
-						route: '/',
+						route: 'settings',
 						text: 'Настройки'
 					},
 					{
-						route: '/',
+						route: 'support',
 						text: 'Поддержка'
 					}
 				],
 				bankLink: '//akbars.ru'
             }
         }
-    }
+    };
 
 </script>
 

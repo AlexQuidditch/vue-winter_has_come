@@ -1,18 +1,16 @@
 <template lang="html">
     <button @click="$emit( 'toggleMenu' )"
 		class="partner">
-		<img src="../../../../static/assets/header/chevron-down.svg" alt="Меню"
+		<img src="/static/assets/header/chevron-down.svg" alt="Меню"
 				class="partner__arrow">
-		<img src="../../../../static/assets/header/bars.png" alt="АКБ Барс официальный партнёр"
+		<img src="/static/assets/header/bars.png" alt="АКБ Барс официальный партнёр"
 			 class="partner__image" />
 		<p class="partner__title">Официальный партнёр</p>
     </button>
 </template>
 
 <script>
-
-    export default { name: "partner" }
-
+    export default { name: "partner" };
 </script>
 
 <style lang="scss">
@@ -30,13 +28,9 @@
 		cursor: pointer;
 		transition: background-color .3s ease-in-out;
 		border: none;
-		&:hover {
-			background-color: rgba(155, 155, 155, 0.2);
-			background-color: var(--purpley-grey-20);
-		}
+		&:hover,
 		&._menu-is-opened {
-			background-color: rgba(155, 155, 155, 0.2);
-			background-color: var(--purpley-grey-20);
+			background-color: rgba(155, 155, 155, .3);
 		}
 		&__arrow {
 			width: 20px;

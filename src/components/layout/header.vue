@@ -43,6 +43,11 @@
 				partnerMenuIsOpened: false
 			}
         },
+        watch: {
+            '$route' ( to , from ) {
+                this.partnerMenuIsOpened = false;
+            }
+        },
 		methods: {
 		    toggleMenu() {
 				this.partnerMenuIsOpened =! this.partnerMenuIsOpened;

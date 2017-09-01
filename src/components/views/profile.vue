@@ -1,5 +1,5 @@
 <template lang="html">
-	<main class="main">
+	<main class="main _profile">
 		<personal></personal>
 		<social></social>
 		<portfolio></portfolio>
@@ -20,3 +20,9 @@
     }
 
 </script>
+
+<style lang="scss">
+	.main._profile {
+		padding: 0;
+	}
+</style>

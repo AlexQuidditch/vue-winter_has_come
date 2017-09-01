@@ -6,10 +6,8 @@
                     src="/static/assets/header/logo.png" class="header__logo">
 				</router-link>
 				<search></search>
-				<partner :class="{ '_menu-is-opened' : partnerMenuIsOpened }"
-					@toggleMenu="toggleMenu()">
-				</partner>
-				<partner-menu :class="{ '_menu-is-opened' : partnerMenuIsOpened }"></partner-menu>
+				<partner></partner>
+				<partner-menu></partner-menu>
 			</div>
 		</div>
 		<div class="header-row _second">
@@ -31,28 +29,13 @@
 <script>
 
 	import search from './header/search';
-	import partner from './header/partner';
-	import partnerMenu from './header/partner-menu';
+	import partner from './header/partner.vue';
+	import partnerMenu from './header/partner-menu.vue';
 	import iconHome from '@icons/home';
 
     export default {
         name: "header",
-		components: { search , partner , partnerMenu , iconHome },
-        data() {
-            return {
-				partnerMenuIsOpened: false
-			}
-        },
-        watch: {
-            '$route' ( to , from ) {
-                this.partnerMenuIsOpened = false;
-            }
-        },
-		methods: {
-		    toggleMenu() {
-				this.partnerMenuIsOpened =! this.partnerMenuIsOpened;
-			}
-		}
+		components: { search , partner , partnerMenu , iconHome }
     };
 
 </script>

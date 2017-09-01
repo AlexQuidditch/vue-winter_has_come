@@ -3,11 +3,6 @@
 		<img src="/static/assets/profile/reviews/star.svg" alt="Отзывы"
 				class="reviews__icon">
 		<h3 class="reviews__title">Отзывы</h3>
-		<p class="reviews__subtitle">
-			<span>Все отзывы</span>
-			<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-			<span>(Выбрать)</span>
-		</p>
 		<ul class="reviews-list">
 			<reviews-item v-for="( reviewItem , index ) in Reviews" :key="index"
 				:reviewsItem="reviewItem">
@@ -25,10 +20,17 @@
 		components: { reviewsItem },
 		computed: {
 		    Reviews() {
-		        return this.$store.state.User.reviews
+				const storeReviews = this.$store.state.User.reviews;
+				const Reviews = [];
+				storeReviews.forEach( item => {
+					this.$store.state.Reviews.filter( review => {
+						if ( review.id === item ) Reviews.push( review );
+					})
+				});
+				return Reviews;
 		    }
 		}
-    }
+    };
 
 </script>
 

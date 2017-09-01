@@ -31,7 +31,7 @@
 		        return this.$store.state.User.ratings
 		    }
 		}
-    }
+    };
 
 </script>
 

@@ -1,5 +1,5 @@
 <template lang="html">
-	<main class="main">
+	<main class="main _agent">
 		<personal></personal>
 		<social></social>
 		<tasks></tasks>
@@ -20,3 +20,9 @@
     };
 
 </script>
+
+<style lang="scss">
+	.main._agent {
+		padding: 0;
+	}
+</style>

@@ -1,6 +1,6 @@
 <template lang="html">
 	<div class="material-radio__component">
-	    <div class="material-radio">
+		<div class="material-radio">
 			<div @click="check()" :class="computedClasses" class="material-radio-wrapper">
 				<input type="radio"
 					:name="name"
@@ -11,7 +11,7 @@
 			<MaterialRipple v-if="ripple && isChecked && !disabled"
 				:center="true"
 				:size="36">
-	        </MaterialRipple>
+			</MaterialRipple>
 		</div>
 
 		<label class="material-radio-label"
@@ -37,7 +37,7 @@
 				required: true
 			},
 			value: {
-				type: Boolean,
+				type: [ String , Boolean , Number ],
 				required: true
 			},
 			name: {

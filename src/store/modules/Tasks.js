@@ -6,6 +6,7 @@ const state = [
 		id: 1, // ID задачи, ссылка для перехода, и для базы данных
 		// всё нижестоящее должно подтягиваться из базы
 		authorID: 3, // ID автора задачи
+		engagedID: 1, // ID исполнителя
 		title: 'Разработать технологичный Landing с анимацией и инфографикой', // название задачи
 		picture: 'project.jpg',
 		town: 'Москва',
@@ -20,11 +21,17 @@ const state = [
 		isRush: true, // срочна ли задача? Если true, то аннулирует deadline
 		views: 168, // кол-во просмотров задачи
 		response: 12, // кол-во отлкликов
-		isEngaged: false // указывает, есть ли исполнитель
+		isEngaged: false, // указывает, есть ли исполнитель
+		completed: {
+			rate: 3, // оценка выполнения задачи
+			status: 'notCompleted', // статус задачи 'completed' | 'not completed' | 'cancelled'
+			review: '' // текст отзыва
+		}
 	},
 	{
 		id: 2,
 		authorID: 2,
+		engagedID: 2,
 		title: 'Отрисовка макетов внутренних страниц интернет-магазина',
 		picture: 'project2.jpg',
 		published: '3 часа 22 минуты назад',
@@ -35,13 +42,57 @@ const state = [
 		isRush: false,
 		views: 1042,
 		response: 42,
-		isEngaged: true
+		isEngaged: true,
+		completed: {
+			rate: 3,
+			status: 'notCompleted',
+			review: ''
+		}
 	}
 ];
 
-const actions = {};
+const actions = {
+	updateRate( { commit } , payload ) {
+		commit( 'UPDATE_RATE' , payload )
+	},
+	updateReview( { commit } , payload ) {
+		commit( 'UPDATE_REVIEW' , payload )
+	},
+	updateStatus( { commit } , payload ) {
+		commit( 'UPDATE_STATUS' , payload )
+	},
+	saveComplete( { commit } , payload ) {
+		commit( 'SAVE_COMPLETE' , payload )
+	}
+};
 
-const mutations = {};
+const mutations = {
+	UPDATE_RATE( state , payload ) {
+		state.find( item => {
+			if ( item.id === payload[1] ) {
+				item.completed.rate = payload[0];
+			}
+		})
+	},
+	UPDATE_REVIEW( state , payload ) {
+		state.find( item => {
+			if ( item.id === payload[1] ) {
+				item.completed.review = payload[0];
+			}
+		})
+	},
+	UPDATE_STATUS( state , payload ) {
+		state.find( item => {
+			console.log(payload);
+			if ( item.id === payload[1] ) {
+				item.completed.status = payload[0];
+			}
+		})
+	},
+	SAVE_COMPLETE( state , payload ) {
+		console.log( payload );
+	}
+};
 
 const getters = {};
 

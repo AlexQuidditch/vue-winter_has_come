@@ -87,14 +87,14 @@
 					if ( item.id === ID ) avatar = item.avatar;
 				});
 				return avatar;
-		    },
+			},
 		    getAuthorName(ID) {
 				let fullName = '';
 				this.$store.state.Stub.friends.filter( item => {
 					if ( item.id === ID ) fullName = item.name + ' ' + item.sename;
 				});
 				return fullName;
-		    }
+			}
 		}
     };
 

@@ -15,9 +15,9 @@
 				<span class="scores-item__value">{{ tasksItem.budget }} баллов</span>
 			</li>
 			<li class="scores-item">
-				<img src="/static/assets/agent/tasks/clock.svg" alt="Сроки"
-						class="scores-item__icon" />
-				<span class="scores-item__value">{{ tasksItem.time }} дней</span>
+				<icon-clock :class="{ '_is-rush' : tasksItem.isRush }" class="scores-item__icon"></icon-clock>
+				<span v-if="tasksItem.isRush" class="scores-item__value _is-rush">Срочно!</span>
+				<span v-else class="scores-item__value">{{ tasksItem.time }} дней</span>
 			</li>
 		</ul>
 	</router-link>
@@ -25,8 +25,11 @@
 
 <script>
 
+	import iconClock from '@icons/clock';
+
     export default {
         name: "tasks-item",
+		components: { iconClock },
 		props: {
 		    'tasksItem': {
 		        type: Object,
@@ -62,7 +65,7 @@
 	    	opacity: 0;
 			visibility: hidden;
 			position: absolute 0 0 auto auto;
-			size: 100% 176px;
+			size: 420px 176px;
 			padding: 20px;
 			background-color: rgba( #fff , .85 );
 			transition:
@@ -87,11 +90,15 @@
 			}
 		}
 		&__description {
+			overflow: hidden;
+			max-height: 95px;
 			margin: 12px 0 0 0;
 			font-size: 13px;
 			font-weight: 300;
 			line-height: 1.46;
 			text-align: left;
+			white-space: pre;
+			text-overflow: ellipsis;
 			color: #4a4a4a;
 			color: var(--charcoal-grey);
 		}
@@ -115,12 +122,24 @@
 			display: inline-block;
 			vertical-align: middle;
 			size: 18px;
+			fill: #fff;
+			fill: var(--whited);
+			stroke: #009d2f;
+			stroke: var(--irish-green);
+			&._is-rush {
+				stroke: #d0011b;
+				stroke: var(--scarlet);
+			}
 		}
 		&__value {
 			font-size: 12px;
 			line-height: 21px;
 			color: #4a4a4a;
 			color: var(--charcoal-grey);
+			&._is-rush {
+				color: #d0011b;
+				color: var(--scarlet);
+			}
 		}
 	}
 

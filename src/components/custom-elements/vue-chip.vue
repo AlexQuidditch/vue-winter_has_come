@@ -43,6 +43,10 @@
 		background-color: var(--whited);
 		box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
 		@include MDShadow-1;
+		&._create-task {
+			flex: 1 1 auto;
+			margin: 5px;
+		}
 		&__remove {
 			height: 25px;
 			padding: 0 10px;

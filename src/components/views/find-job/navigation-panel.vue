@@ -41,7 +41,7 @@
 						}
 					},
 					{
-						name: 'agent',
+						name: 'create-task',
 						text: 'Создать задание'
 					}
 				]

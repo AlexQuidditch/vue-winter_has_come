@@ -10,9 +10,9 @@
 
 <script>
 
-	import taskSummary from './task/task-summary';
-	import taskDetail from './task/task-detail';
-	import taskResponse from './task/task-response';
+	import taskSummary from './task/task-summary.vue';
+	import taskDetail from './task/task-detail.vue';
+	import taskResponse from './task/task-response.vue';
 
     export default {
         name: "task",

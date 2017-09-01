@@ -1,8 +1,10 @@
 <template lang="html">
 	<wrapper>
 		<layout-header></layout-header>
-		<layout-sidebar></layout-sidebar>
-		<layout-main></layout-main>
+		<div class="container _main">
+			<layout-sidebar></layout-sidebar>
+			<layout-main></layout-main>
+		</div>
 		<layout-footer></layout-footer>
 	</wrapper>
 </template>
@@ -20,9 +22,6 @@
 	export default {
 		name: 'Winter-has-Come',
 		components: { wrapper , layoutHeader , layoutSidebar , layoutMain ,layoutFooter },
-		data() {
-		    return {}
-		},
 		beforeCreate() {
 			// firebase.auth().onAuthStateChanged( user => {
 			// 	if ( user ) {
@@ -34,17 +33,10 @@
 			// }),
 			auth.onChange = loggedIn => {
 				this.$store.dispatch( 'changeAuth' , !!window.localStorage.token );
-				loggedIn == false
+				loggedIn === false
 				? this.isExpanded = false
 				: this.isExpanded = true
 			}
-		},
-		mounted() {
-			this.$nextTick( () => {
-				Waves.init();
-				Waves.attach('[ripple-dark]', 'waves-dark');
-				Waves.attach('[ripple-light]', 'waves-light');
-			})
 		},
 		methods: {
 		    toggleSize() {
@@ -52,6 +44,9 @@
 				? this.isExpanded =! this.isExpanded
 				: this.isExpanded = false
 		    }
+		},
+		mounted() {
+			this.$nextTick( () => Waves.init() );
 		}
 	};
 
@@ -73,16 +68,16 @@
 		--charcoal-grey: #4a4a4a;
 		--irish-green: #009d2f;
 		--white-two: #f8f8f8;
-  		--purpley-grey: #9b9b9b;
-		--purpley-grey-20: rgba(155, 155, 155, 0.2);
+  		--purpley-grey: #4b4b4b;
+		--purpley-grey-20: rgba(75, 75, 75, 0.5);
 		--pale-grey: #f0f4f7;
+		--scarlet: #d0011b;
 
-		--whited: #fff;
-		--blacked: #000;
+		--whited: white;
+		--blacked: black;
 
 		--accent-color: var(--irish-green);
 		--descent-color: var(--white);
-
 	}
 
 	html , body {
@@ -90,36 +85,47 @@
 	}
 	body {
 		height: 100%;
+		font-family: 'Lato', Arial, sans-serif;
 		-webkit-tap-highlight-color: transparent;
-		background-color: #f8f8f8;
-  		background-color: var(--white-two);
+		background-color: #f0f4f7;
+		background-color: var(--pale-grey);
 		::selection {
+			color: #fff;
+			color: var(--whited);
 			background-color: #009d2f;
 			background-color: var(--irish-green);
 		}
 	}
 	.wrapper {
 		position: relative;
-		display: flex;
-		flex-flow: row wrap;
-		align-items: stretch;
 		width: 100%;
-		max-width: 1180px;
-		margin: 0 auto;
-		min-height: 100vh;
 		color: #4a4a4a;
 		color: var(--charcoal-grey);
-		background-color: #f8f8f8;
-		background-color: var(--white-two);
 		@include font-smoothing;
 	}
 
-	@include waves-light( $whited , .6 );
-	@include waves-dark( $red , .6 );
+	.container {
+		size: 100% auto;
+		min-height: 100%;
+		max-width: 1180px;
+		margin: 0 auto;
+		&._main {
+			display: flex;
+			flex-flow: row wrap;
+			align-items: stretch;
+		}
+	}
+
+	.main {
+		padding: 30px;
+	}
 
 	button {
 		cursor: pointer;
 	}
+
+	@include waves-light( #fff , $ripple-opacity);
+	@include waves-dark( #009d2f , $ripple-opacity);
 
 	.fade-enter,
 	.fade-leave-to {

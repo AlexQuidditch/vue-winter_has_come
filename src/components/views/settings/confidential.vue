@@ -1,12 +1,12 @@
 <template lang="html">
-    <section class="settings _confidential">
+	<section class="settings _confidential">
 		<h3 class="settings__title">Настройки конфиденциальности</h3>
 		<div class="settings-container">
 			<div class="settings-column">
 				<label for="email" class="settings-column__label">
 					<h6 class="settings-column__title">Кто может видеть мои контакты</h6>
-					<select :value="Confidential.contacts" @change="updateContacts($event)"
-						class="settings-column__select">
+					<select :value="Confidential.contacts" @change="updateContacts($event.target.value)"
+									class="settings-column__select">
 						<option disabled value="">Выберите один из вариантов</option>
 						<option v-for="selectorItem in Selectors" :key="selectorItem.value"
 							:value="selectorItem.value"
@@ -16,8 +16,8 @@
 				</label>
 				<label for="phone" class="settings-column__label">
 					<h6 class="settings-column__title">Кто может видеть мои команды</h6>
-					<select :value="Confidential.teams" @change="updateTeams($event)"
-						class="settings-column__select">
+					<select :value="Confidential.teams" @change="updateTeams($event.target.value)"
+									class="settings-column__select">
 						<option disabled value="">Выберите один из вариантов</option>
 						<option v-for="selectorItem in Selectors" :key="selectorItem.value"
 							:value="selectorItem.value"
@@ -29,8 +29,8 @@
 			<div class="settings-column">
 				<label for="caption" class="settings-column__label">
 					<h6 class="settings-column__title">Кто может отправлять мне сообщения</h6>
-					<select :value="Confidential.messages" @change="updateMessages($event)"
-						class="settings-column__select">
+					<select :value="Confidential.messages" @change="updateMessages($event.target.value)"
+							 		class="settings-column__select">
 						<option disabled value="">Выберите один из вариантов</option>
 						<option v-for="selectorItem in Selectors" :key="selectorItem.value"
 							:value="selectorItem.value"
@@ -40,8 +40,8 @@
 				</label>
 				<label for="link" class="settings-column__label">
 					<h6 class="settings-column__title">Кто может видеть отзывы обо мне</h6>
-					<select :value="Confidential.reviews" @change="updateReviews($event)"
-						class="settings-column__select">
+					<select :value="Confidential.reviews" @change="updateReviews($event.target.value)"
+									class="settings-column__select">
 						<option disabled value="">Выберите один из вариантов</option>
 						<option v-for="selectorItem in Selectors" :key="selectorItem.value"
 							:value="selectorItem.value"
@@ -59,16 +59,18 @@
 				</button>
 			</div>
 		</div>
-    </section>
+	</section>
 </template>
 
 <script>
+
+	import { mapActions } from 'vuex';
 
 	import iconCheck from '@icons/check-square';
 
 	export default {
 		name: "confidential-settings",
-		components: { iconCheck  },
+		components: { iconCheck },
 		data() {
 			return {
 				Selectors: [
@@ -109,20 +111,12 @@
 			}
 		},
 		methods: {
+			...mapActions([
+				'updateContacts', 'updateTeams',
+				'updateMessages', 'updateReviews'
+			]),
 			saveChanges() {
 				this.$swal( 'Сохранено!' , `${ this.Confidential.email }` , 'success' )
-			},
-			updateContacts(e) {
-				this.$store.dispatch( 'updateContacts', e.target.value );
-			},
-			updateTeams(e) {
-				this.$store.dispatch( 'updateTeams', e.target.value );
-			},
-			updateMessages(e) {
-				this.$store.dispatch( 'updateMessages', e.target.value );
-			},
-			updateReviews(e) {
-				this.$store.dispatch( 'updateReviews', e.target.value );
 			}
 		}
 	};

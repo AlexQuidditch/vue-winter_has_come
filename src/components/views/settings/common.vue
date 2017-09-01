@@ -5,7 +5,7 @@
 			<div class="settings-column">
 				<label class="settings-column__label">
 					<h6 class="settings-column__title">Электронная почта:</h6>
-					<input :value="Common.email" @input="updateEmail($event)"
+					<input :value="Common.email" @input="updateEmail($event.target.value)"
 						:placeholder="Placeholders.email"
 						type="email" class="settings-column__input" />
 				</label>
@@ -22,7 +22,7 @@
 			<div class="settings-column">
 				<label class="settings-column__label">
 					<h6 class="settings-column__title">Ссылка на страницу:</h6>
-					<input :value="Common.link" @input="updateLink($event)"
+					<input :value="Common.link" @input="updateLink($event.target.value)"
 						:placeholder="Placeholders.link"
 						type="email" class="settings-column__input" />
 				</label>
@@ -39,7 +39,7 @@
 			<div class="settings-column">
 			<label class="settings-column__label">
 				<h6 class="settings-column__title">Подпись:</h6>
-				<textarea :value="Common.caption" @input="updateCaption($event)"
+				<textarea :value="Common.caption" @input="updateCaption($event.target.value)"
 					:placeholder="Placeholders.caption"
 					class="settings-column__input _textarea">
 				</textarea>
@@ -49,12 +49,13 @@
 		<div class="settings-bottom">
 			<label class="settings-bottom__label">
 				<h6 class="settings-bottom__title">Пароль:</h6>
-				<input :value="Common.password" @input="updatePassword($event)"
+				<input :value="Common.password" @input="updatePassword($event.target.value)"
 				:placeholder="Placeholders.password"
 				type="password" class="settings-bottom__input" />
 			</label>
 			<label class="settings-bottom__label _checkbox">
-				<checkbox value="cat" color="#009d2f"
+				<checkbox :checked="Common.publishEmail" @change="updateCheck($event)"
+                    :color=" '#009d2f' "
 					class="settings-bottom__checkbox">Не публиковать на сайте</checkbox>
 			</label>
 			<button @click="saveChanges()"
@@ -69,6 +70,8 @@
 
 <script>
 
+	import { mapActions } from 'vuex';
+
 	import iconCheck from '@icons/check-square';
 	import iconCalendar from '@icons/calendar';
 
@@ -81,9 +84,7 @@
 					format: 'dd-MM-yyyy',
 					language: 'ru',
 					wrapperClass: 'column-settings__label',
-					inputClass: 'column-settings__input',
-					calendarButton: true,
-					calendarButtonIcon: 'fa fa-calendar'
+					calendarButton: true
 				},
 				Placeholders: {
 					email: 'elena.ivanova@gmail.com',
@@ -101,26 +102,18 @@
 			}
 		},
 		methods: {
+			...mapActions([
+				'updateEmail',
+				'updatePassword',
+				'updatePhone',
+				'updateLink',
+				'updateBornDate',
+				'updateCaption',
+				'updateCheck'
+			]),
 			saveChanges() {
+				console.log( this.Common );
 				this.$swal( 'Сохранено!' , `${ this.Common.email }` , 'success' )
-			},
-			updatePassword(e) {
-				this.$store.dispatch( 'updatePassword', e.target.value );
-			},
-			updatePhone(e) {
-				this.$store.dispatch( 'updatePhone', e );
-			},
-			updateLink(e) {
-				this.$store.dispatch( 'updateLink', e.target.value );
-			},
-			updateBornDate(e) {
-				this.$store.dispatch( 'updateBornDate', e );
-			},
-			updateCaption(e) {
-				this.$store.dispatch( 'updateCaption', e.target.value );
-			},
-			updateCheck(e) {
-				this.$store.dispatch( 'updateCheck', e );
 			}
 		}
 	};
@@ -228,8 +221,14 @@
 				color: #9b9b9b;
 				color: var(--purpley-grey);
 			}
+			input:focus {
+				@include MDShadow-3;
+			}
 		}
 		&__button {
+			display: flex;
+			justify-content: center;
+			align-items: center;
 			size: 270px 35px;
 			padding: 0 10px;
 			margin-top: 30px;
@@ -241,13 +240,16 @@
 			border-radius: 3px;
 			border: solid 1px rgba(155, 155, 155, 0.2);
 			border: solid 1px var(--purpley-grey-20);
-			transition: box-shadow .3s ease-in-out;
+			transition: box-shadow .35s ease-in-out;
+			&:focus,
 			&:hover {
 				@include MDShadow-1;
 			}
+			&:active {
+				@include MDShadow-2;
+			}
 		}
 		&__button-icon {
-			vertical-align: middle;
 			width: 20px;
 			margin-right: 10px;
 			stroke-width: 2;

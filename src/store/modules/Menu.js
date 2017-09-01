@@ -1,7 +1,4 @@
-//Imports on top
-
 const state = {
-    // Initial state of your store
 	list: {
 		main: {
 			route: 'profile',
@@ -28,16 +25,22 @@ const state = {
 			text: 'Команды',
 			Counters: {
 				state: 2,
-				add: 0
+				add: 2
 			}
 		},
 		settings: {
+			text: 'Настройки',
 			route: 'settings',
-			text: 'Настройки'
+			query: {
+				section: 'common'
+			}
 		},
 		support: {
+			text: 'Поддержка',
 			route: 'support',
-			text: 'Поддержка'
+			query: {
+				section: 'opened'
+			}
 		}
 	}
 };

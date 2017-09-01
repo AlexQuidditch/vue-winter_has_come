@@ -1,27 +1,26 @@
 <template lang="html">
-	<li class="portfolio-item">
-		<input v-model="portfolioItem.title" type="text" name="title"
-			placeholder="Название"
-			class="portfolio-item__input" />
-		<input v-model="portfolioItem.picture" type="text" name="picture"
-			placeholder="Изображение"
-			class="portfolio-item__input" />
-		<textarea v-model="portfolioItem.description"
-			name="description" rows="3" cols="40"
-			placeholder="Описание"
-			class="portfolio-item__textarea">
-		</textarea>
-		<input v-model="portfolioItem.link" type="text" name="link"
-			placeholder="Ссылка"
-			class="portfolio-item__input" />
-		<input v-model="portfolioItem.repository" type="text" name="repository"
-			placeholder="Репозиторий"
-			class="portfolio-item__input" />
-		<button @click="$emit( 'remove' )"
-			class="portfolio-item__button waves-effect waves-light"
-			>Удалить
-		</button>
-	</li>
+	<router-link to="/" tag="li"
+		class="portfolio-item">
+		<div class="portfolio-item__overlay">
+			<h5 class="portfolio-item__title">{{ portfolioItem.title }}</h5>
+			<p class="portfolio-item__description">{{ portfolioItem.description }}</p>
+		</div>
+		<img :src=" '/static/assets/shared/' + portfolioItem.picture " :alt="portfolioItem.title"
+				class="portfolio-item__picture" />
+		<span class="portfolio-item__title _bottom">{{ portfolioItem.title }}</span>
+		<ul class="scores-list">
+			<li class="scores-item">
+				<img src="/static/assets/profile/portfolio/heart.svg" alt="Лайки"
+						class="scores-item__icon" />
+				<span class="scores-item__value">{{ portfolioItem.likes }}</span>
+			</li>
+			<li class="scores-item">
+				<img src="/static/assets/profile/portfolio/comments.svg" alt="Комментарии"
+						class="scores-item__icon" />
+				<span class="scores-item__value">{{ portfolioItem.comments }}</span>
+			</li>
+		</ul>
+	</router-link>
 </template>
 
 <script>
@@ -34,47 +33,94 @@
 		        required: true
 			}
 		}
-    }
+    };
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
-	@import "../stylesheets/partials/_mixins";
-	@import "../stylesheets/partials/_variables";
+	@import "../../stylesheets/partials/_mixins";
+	@import "../../stylesheets/partials/_variables";
 
 	.portfolio-item {
-		width: 375px;
-		padding: 8px 16px;
-		margin: 16px 0;
-		background-color: google-color( grey , 100 );
+		position: relative;
+		size: 291px 211px;
+		background-color: #fff;
+		background-color: var(--whited);
+		cursor: pointer;
+		transition: box-shadow .2s ease-in-out;
 		@include MDShadow-1;
-		transition: 1s ease-in-out;
-		&__input,
-		&__textarea {
-			size: 100% auto;
-			padding: 1rem;
-			margin: 8px 0;
-			font-size: 1rem;
-			color: $red $whited;
-			border: solid 3px $red;
-			@include MDShadow-1;
-			transition:
-				box-shadow .3s ease-in-out,
-				color .3s ease-in-out,
-				background-color .3s ease-in-out;
-			&::placeholder {
-				color: google-color( blueGrey , 800 )
+		&:hover {
+			@include MDShadow-2;
+			.portfolio-item__overlay {
+				opacity: 1;
+				visibility: visible;
 			}
 		}
-		&__button {
-			@include MDButton( $whited , $red ) {
-				size: 100% 3rem;
-				line-height: 3rem;
-			};
+		&__overlay {
+			overflow: hidden;
+	    	opacity: 0;
+			visibility: hidden;
+			position: absolute 0 0 auto auto;
+			size: 100% 176px;
+			padding: 20px;
+			background-color: rgba( #fff , .85 );
+			transition:
+				opacity .3s ease-in-out,
+				visibility .3s ease-in-out;
 		}
-		&._new-item {
-			flex: none;
+		&__title {
+			font-size: 13px;
+			font-weight: 600;
+			line-height: 1.46;
+			color: #4a4a4a;
+			color: var(--charcoal-grey);
+			&._bottom {
+				overflow: hidden;
+				position: absolute;
+				left: 20px;
+				bottom: 10px;
+				size: 155px 1rem;
+				font-weight: normal;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+		}
+		&__description {
+			margin: 12px 0 0 0;
+			font-size: 13px;
+			font-weight: 300;
+			line-height: 1.46;
+			text-align: left;
+			color: #4a4a4a;
+			color: var(--charcoal-grey);
+		}
+		&__picture {
+			display: block;
+			size: 100% 176px;
+			object-fit: cover;
+			object-position: top;
+		}
+	}
+	.scores-list {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		height: 35px;
+		padding: 0 5px;
+	}
+	.scores-item {
+		padding: 0 7.5px;
+		&__icon {
+			display: inline-block;
+			vertical-align: middle;
+			size: 18px;
+		}
+		&__value {
+			font-size: 12px;
+			line-height: 21px;
+			color: #4a4a4a;
+			color: var(--charcoal-grey);
 		}
 	}
 

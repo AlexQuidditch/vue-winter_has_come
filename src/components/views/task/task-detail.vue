@@ -74,8 +74,8 @@
 				</li>
 			</ul>
 			<div class="detail-footer__row">
-				<button class="detail-footer__row-button _complete waves-effect waves-light">Завершить</button>
-				<button class="detail-footer__row-button _edit waves-effect waves-light">Редактировать</button>
+				<button @click="completeTask( $route.query.id )" class="detail-footer__row-button _complete waves-effect waves-light">Завершить</button>
+				<button @click="editTask( $route.query.id )" class="detail-footer__row-button _edit waves-effect waves-light">Редактировать</button>
 			</div>
 		</div>
     </div>
@@ -97,6 +97,15 @@
 			},
 			Author() {
 				return this.$store.state.Stub.friends.find( item => item.id === this.taskItem.authorID );
+			}
+		},
+		methods: {
+			completeTask( q ) {
+				this.$router.push({ name: 'complete-task' , query: { id: q } })
+			},
+			editTask( q ) {
+				console.log( q );
+				// this.$router.push({ name: '' , query: { id: q } })
 			}
 		}
     };

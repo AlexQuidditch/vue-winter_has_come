@@ -18,20 +18,20 @@
 
 <script>
 
-    export default {
-        name: "user-info",
-        data() {
-            return {}
-        },
-		computed: {
-			Personal() {
-				return this.$store.state.User.personal
-			},
-			Controls() {
-				return this.$store.state.Controls.indicators
-			}
-		}
+  export default {
+    name: "user-info",
+    data() {
+      return {}
+    },
+    computed: {
+      Personal() {
+        return this.$store.state.User.personal
+      },
+      Controls() {
+        return this.$store.state.Controls.indicators
+      }
     }
+  };
 
 </script>
 
@@ -39,7 +39,7 @@
 
 	@import "../../../stylesheets/partials/_mixins";
 
-    .user {}
+  .user {}
 
 	.user-avatar {
 		&__image {
@@ -63,6 +63,10 @@
 			text-align: left;
 			color: #4a4a4a;
 			color: var(--charcoal-grey);
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline !important
+      }
 		}
 	}
 

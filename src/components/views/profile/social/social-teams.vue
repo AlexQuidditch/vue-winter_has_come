@@ -1,10 +1,13 @@
 <template lang="html">
     <div class="social-teams">
-		<img src=" ../../../../../static/assets/profile/social/users.svg " alt="Команды"
+		<img src=" /static/assets/profile/social/users.svg " alt="Команды"
 				class="social-teams__icon" />
-		<h4 class="social-teams__title">Команды</h4>
+		<h4 class="social-teams__title">Мои команды</h4>
 		<p class="social-teams__text">
-			<span v-for="( teamItem , index ) in Teams" :key="index">{{ teamItem }} </span>
+			<span v-for="( teamItem , index ) in Teams" :key="index">
+				{{ teamItem.title }}
+				<span>{{ Teams.indexOf( teamItem ) == Teams.length - 1 ? '' : ' | ' }}</span>
+			</span>
 		</p>
     </div>
 </template>
@@ -15,10 +18,17 @@
         name: "social-teams",
 		computed: {
 		    Teams() {
-		        return this.$store.state.User.social.teams
+				const storeTeams = this.$store.state.User.social.teams;
+				const Teams = [];
+				storeTeams.forEach( item => {
+					this.$store.state.Teams.filter( team => {
+						if ( team.id === item ) Teams.push( team );
+					})
+				});
+				return Teams;
 		    }
 		}
-    }
+    };
 
 </script>
 

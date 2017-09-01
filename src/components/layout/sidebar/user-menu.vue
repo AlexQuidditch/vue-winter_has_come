@@ -8,8 +8,7 @@
 		<li class="menu-item">
 			<router-link :to="{ name: Menu.messages.route }" class="menu-item__link">
 				<span class="menu-item__text">{{ Menu.messages.text }}</span>
-				<span class="menu-item__counter _state">({{ Menu.messages.Counters.state }})</span>
-				<span v-if="Menu.messages.Counters && Menu.messages.Counters.add !== 0"
+				<span v-if="Menu.messages.Counters && Menu.messages.Counters.add > 0"
 					class="menu-item__counter _add">(+{{ Menu.messages.Counters.add }})</span>
 			</router-link>
 		</li>
@@ -17,7 +16,7 @@
 			<router-link :to="{ name: Menu.friends.route, query: { section: 'all' } }" class="menu-item__link">
 				<span class="menu-item__text">{{ Menu.friends.text }}</span>
 				<span class="menu-item__counter _state">({{ Menu.friends.Counters.state }})</span>
-				<span v-if="Menu.friends.Counters && Menu.friends.Counters.add !== 0"
+				<span v-if="Menu.friends.Counters && Menu.friends.Counters.add > 0"
 					class="menu-item__counter _add">(+{{ Menu.friends.Counters.add }})</span>
 			</router-link>
 		</li>
@@ -25,17 +24,17 @@
 			<router-link :to="{ name: Menu.teams.route }" class="menu-item__link">
 				<span class="menu-item__text">{{ Menu.teams.text }}</span>
 				<span class="menu-item__counter _state">({{ Menu.teams.Counters.state }})</span>
-				<span v-if="Menu.teams.Counters && Menu.teams.Counters.add !== 0"
+				<span v-if="Menu.teams.Counters && Menu.teams.Counters.add > 0"
 					class="menu-item__counter _add">(+{{ Menu.teams.Counters.add }})</span>
 			</router-link>
 		</li>
 		<li class="menu-item">
-			<router-link :to="{ name: Menu.settings.route }" class="menu-item__link">
+			<router-link :to="{ name: Menu.settings.route , query: Menu.settings.query }" class="menu-item__link">
 				<span class="menu-item__text">{{ Menu.settings.text }}</span>
 			</router-link>
 		</li>
 		<li class="menu-item">
-			<router-link :to="{ name: Menu.support.route }" class="menu-item__link">
+			<router-link :to="{ name: Menu.support.route , query: Menu.support.query }" class="menu-item__link">
 				<span class="menu-item__text">{{ Menu.support.text }}</span>
 			</router-link>
 		</li>
@@ -46,9 +45,6 @@
 
     export default {
         name: "user-menu",
-        data() {
-            return {}
-        },
 		computed: {
 		    Menu() {
 		        return this.$store.state.Menu.list
@@ -65,11 +61,51 @@
     }
 
 	.menu-item {
+		&:first-child .menu-item__link {
+			&._active {
+				&::after {
+					opacity: 0;
+				}
+				.menu-item__text {
+					color: initial !important;
+				}
+			}
+			&._exact-active {
+				&::after {
+					opacity: 1;
+				}
+				.menu-item__text {
+					color: #009d2f !important;
+					color: var(--irish-green) !important;
+				}
+			}
+		}
 		&__link {
-			margin-left: 15px;
+			position: relative;
+			display: block;
+			padding-left: 15px;
 			font-size: 13px;
 			font-weight: 600;
 			line-height: 32px;
+			&::after {
+				opacity: 0;
+				position: absolute;
+				content: '';
+				top: 5px; right: -16px;
+				size: 22px;
+				position: absolute;
+				background-image: inline('../../../../static/assets/sidebar/chevron-right.svg');
+				transition: opacity .3s ease-in-out;
+			}
+			&._active {
+				&::after {
+					opacity: 1;
+				}
+				.menu-item__text {
+					color: #009d2f !important;
+					color: var(--irish-green) !important;
+				}
+			}
 			&._exact-active {
 				.menu-item__text {
 					color: #009d2f !important;

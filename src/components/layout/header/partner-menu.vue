@@ -1,16 +1,16 @@
 <template lang="html">
-    <div class="partner-menu">
+    <nav :class="{ '_menu-is-opened' : partnerMenuIsOpened }" class="partner-menu">
 		<p class="partner-menu__title">Выберите:</p>
 		<ul class="partner-menu-list">
 			<li v-for="( linkItem , index ) in Links" :key="index"
 				class="partner-menu-item">
-				<router-link :to="{ name : linkItem.route }" class="partner-menu-item__link">{{ linkItem.text }}</router-link>
+				<router-link :to="{ name : linkItem.route , query: linkItem.query }" class="partner-menu-item__link">{{ linkItem.text }}</router-link>
 			</li>
 		</ul>
 		<a :href="bankLink" class="partner-menu__link">Перейти на сайт банка ></a>
 		<img src="/static/assets/header/bars.png" alt="АКБ Барс официальный партнёр"
                 class="partner-menu__image" />
-    </div>
+    </nav>
 </template>
 
 <script>
@@ -25,17 +25,28 @@
 						text: 'Оплата услуг'
 					},
 					{
+						text: 'Настройки',
 						route: 'settings',
-						text: 'Настройки'
+						query: {
+							section: 'common'
+						}
 					},
 					{
 						route: 'support',
-						text: 'Поддержка'
+						text: 'Поддержка',
+						query: {
+							section: 'opened'
+						}
 					}
 				],
 				bankLink: '//akbars.ru'
             }
-        }
+        },
+		computed: {
+		    partnerMenuIsOpened() {
+		        return this.$store.state.Header.partnerMenuIsOpened
+		    }
+		}
     };
 
 </script>
@@ -45,7 +56,7 @@
 	@import "../../../stylesheets/partials/_mixins";
 
     .partner-menu {
-		position: absolute 70px 37px auto auto;
+		position: absolute 62.5px 37px auto auto;
     	opacity: 0;
 		visibility: hidden;
 		size: 240px 160px;
@@ -58,6 +69,7 @@
 			visibility .2s ease-in-out,
 			transform .2s ease-in-out;
 		@include MDShadow-4;
+		&:hover,
 		&._menu-is-opened {
 			opacity: 1;
 			visibility: visible;

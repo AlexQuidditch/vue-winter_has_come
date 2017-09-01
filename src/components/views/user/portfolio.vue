@@ -1,13 +1,8 @@
 <template lang="html">
     <section class="portfolio">
-		<img src="../../../../static/assets/profile/portfolio/case.svg" alt="Портфолио"
+		<img src="/static/assets/profile/portfolio/case.svg" alt="Портфолио"
 				class="portfolio__icon">
 		<h3 class="portfolio__title">Мои работы</h3>
-		<p class="portfolio__subtitle">
-			<span>Все категории</span>
-			<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-			<span>(Выбрать)</span>
-		</p>
 		<ul class="portfolio-list">
 			<portfolio-item v-for="( portfolioItem , index ) in Portfolio" :key="index"
 				:portfolioItem="portfolioItem">
@@ -25,7 +20,14 @@
 		components: { portfolioItem },
 		computed: {
 		    Portfolio() {
-		        return this.$store.state.User.portfolio
+				const storePortfolio = this.$store.state.User.portfolio;
+				const Portfolio = [];
+				storePortfolio.forEach( item => {
+					this.$store.state.Portfolio.filter( portfolio => {
+						if ( portfolio.id === item ) Portfolio.push( portfolio );
+					})
+				});
+				return Portfolio;
 		    }
 		}
     }

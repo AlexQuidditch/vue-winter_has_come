@@ -35,11 +35,11 @@
 
 	import vRadio from '@custom-elements/vue-radio';
 
-    export default {
-        name: "filter-panel",
+	export default {
+		name: "filter-panel",
 		components: { vRadio },
-        data() {
-            return {
+		data() {
+			return {
 				Filter: {
 					sortByLast: true,
 					gender: '',
@@ -47,9 +47,9 @@
 					education: '',
 					specialization: ''
 				}
-            }
-        }
-    }
+			}
+		}
+	};
 
 </script>
 

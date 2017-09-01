@@ -2,6 +2,7 @@
 
 const state = {
     // Initial state of your store
+	userID: 2,
 	personal: {
 		avatar: 'agent.jpg',
 		name: 'Евгений',
@@ -66,7 +67,7 @@ const state = {
 			achivements: 'в 2015 году доля компании в отраслевом товарообороте в России составила более 20%. $4,5 млрд — оборот компании за рубежом.'
 		}
 	},
-	tasks: [ 0 , 1 ],
+	tasks: [ 1 ],
 	reviews: [ 0 , 1 , 2 ]
 };
 

@@ -2,8 +2,8 @@
 
 const state = {
 	common: {
-		email: 'лолкекчебурек@mail.ru',
-		phone: '+7 (121) 222-39-82',
+		email: '',
+		phone: '',
 		link: '',
 		bornDate: '2017-08-18T18:37:00.000Z',
 		password: '',

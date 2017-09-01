@@ -105,6 +105,10 @@
 				font-weight: 600;
 				color: #4a4a4a;
 				color: var(--charcoal-grey);
+				cursor: pointer;
+				&:hover {
+					text-decoration: underline !important;
+				}
 			}
 			&__company {
 				margin: 5px 0 0 0;

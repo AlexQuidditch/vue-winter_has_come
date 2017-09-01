@@ -3,11 +3,6 @@
 		<img src="/static/assets/profile/portfolio/case.svg" alt="Портфолио"
 				class="tasks__icon">
 		<h3 class="tasks__title">Задания</h3>
-		<p class="tasks__subtitle">
-			<span>Все категории</span>
-			<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-			<span>(Выбрать)</span>
-		</p>
 		<ul class="tasks-list">
 			<tasks-item v-for="( tasksItem , index ) in Tasks" :key="index"
 				:tasksItem="tasksItem">
@@ -25,10 +20,17 @@
 		components: { tasksItem },
 		computed: {
 		    Tasks() {
-		        return this.$store.state.Agent.tasks
+				const storeTasks = this.$store.state.Agent.tasks;
+				const Tasks = [];
+				storeTasks.forEach( item => {
+					this.$store.state.Tasks.filter( task => {
+						if ( task.id === item ) Tasks.push( task );
+					})
+				});
+				return Tasks;
 		    }
 		}
-    }
+    };
 
 </script>
 

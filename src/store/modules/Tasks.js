@@ -1,4 +1,4 @@
-//Imports on top
+import API from '../api/index';
 
 const state = [
     // Initial state of your store
@@ -62,7 +62,8 @@ const actions = {
 		commit( 'UPDATE_STATUS' , payload )
 	},
 	saveComplete( { commit } , payload ) {
-		commit( 'SAVE_COMPLETE' , payload )
+		console.log( payload );
+		return API.post( `/tasks/${ payload[1] }` , state[1] )
 	}
 };
 
@@ -87,9 +88,6 @@ const mutations = {
 				item.completed.status = payload[0];
 			}
 		})
-	},
-	SAVE_COMPLETE( state , payload ) {
-		console.log( payload );
 	}
 };
 

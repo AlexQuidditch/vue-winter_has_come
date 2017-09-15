@@ -109,10 +109,11 @@
 			}
 		},
 		methods: {
-			...mapActions([
-				'updateRate' , 'updateReview',
-				'updateStatus' , 'saveComplete'
-			]),
+			...mapActions([ 'updateRate' , 'updateReview' , 'updateStatus' ]),
+			saveComplete(payload) {
+				this.$store.dispatch( 'saveComplete' , payload )
+					// .then( response => console.log(response) );
+			},
 			getEngageAvatar(ID) {
 				let avatar = '';
 				this.$store.state.Stub.friends.filter( item => {

@@ -40,7 +40,7 @@
 					sename: 'Смирнова',
 					isUnreaded: false,
 					lastMessage: '2017-09-03T18:23:29.078Z',
-					previewMessage: 'Бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла'
+					previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.'
 				},
 				{
 					id: 2,
@@ -51,7 +51,7 @@
 					sename: 'Воронин',
 					isUnreaded: true,
 					lastMessage: '2017-09-01T12:59:29.078Z',
-					previewMessage: 'Бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла'
+					previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.'
 				},
 				{
 					id: 3,
@@ -62,13 +62,13 @@
 					sename: 'Вернер',
 					isUnreaded: true,
 					lastMessage: '2017-07-13T18:00:23.078Z',
-					previewMessage: 'Бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла'
+					previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.'
 				}
 			]
 		}),
 		methods: {
 			spliceText(text) {
-				if( text.length > 20 ) return text.substr( 0 , 20 ) + '...';
+				if( text.length > 20 ) return text.substr( 0 , 60 ) + '...';
 				else return text
 			}
 		}
@@ -93,7 +93,7 @@
 	}
 
 	.contact-list {
-		min-width: 275px;
+		min-width: 350px;
 	}
 	.contact-item {
 		display: flex;
@@ -104,7 +104,13 @@
 		&__container {
 			display: flex;
 			flex-flow: column wrap;
-			max-width: 150px;
+			max-width: 210px;
+			height: 60px;
+			padding-left: 10px;
+			padding-top: 2px;
+			&._flex {
+				
+			}
 		}
 		&__online {
 			position: relative;
@@ -124,18 +130,34 @@
 			}
 		}
 		&__avatar {
-		    size: 50px;
+	    size: 50px;
+			margin-left: 10px;
 			object-fit: cover;
 			border-radius: 50%;
 		}
 		&__fullname {
-			font-size: 14px;
+			font-size: 13px;
+			font-weight: 600;
+			line-height: 1.46;
+			color: #4a4a4a;
+			color: var(--charcoal-grey);
 		}
 		&__preview {
 			margin: 0;
+			size: 210px 38px;
+			font-size: 12px;
+			font-weight: 300;
+			line-height: 1.58;
+			color: #4a4a4a;
+			color: var(--charcoal-grey);
 		}
 		&__date {
 			font-size: 12px;
+			font-weight: 600;
+			line-height: 1.58;
+			text-align: right;
+			color: #9b9b9b;
+			color: var(--purpley-grey);
 		}
 		&__counter {}
 		.divider {
@@ -143,7 +165,6 @@
 		}
 	}
 
-	.contact-dialog {
-	}
+	.contact-dialog {}
 
 </style>

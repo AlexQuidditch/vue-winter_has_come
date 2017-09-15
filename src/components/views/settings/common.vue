@@ -1,21 +1,21 @@
 <template lang="html">
-    <section class="settings _common">
+  <section class="settings _common">
 		<h3 class="settings__title">Настройки конфиденциальности</h3>
 		<div class="settings-container">
 			<div class="settings-column">
 				<label class="settings-column__label">
 					<h6 class="settings-column__title">Электронная почта:</h6>
 					<input :value="Common.email" @input="updateEmail($event.target.value)"
-						:placeholder="Placeholders.email"
-						type="email" class="settings-column__input" />
+						     :placeholder="Placeholders.email"
+						     type="email" class="settings-column__input" />
 				</label>
 				<label class="settings-column__label">
 					<h6 class="settings-column__title">Номер телефона:</h6>
 					<masked-input :value="Common.phone" @input="updatePhone($event)"
-						mask="\+\7 (111) 111-11-11"
-						type="tel"
-						:placeholder="Placeholders.phone"
-						class="settings-column__input">
+						            mask="\+\7 (111) 111-11-11"
+						            type="tel"
+						            :placeholder="Placeholders.phone"
+						            class="settings-column__input">
 					</masked-input>
 				</label>
 			</div>
@@ -23,49 +23,51 @@
 				<label class="settings-column__label">
 					<h6 class="settings-column__title">Ссылка на страницу:</h6>
 					<input :value="Common.link" @input="updateLink($event.target.value)"
-						:placeholder="Placeholders.link"
-						type="email" class="settings-column__input" />
+      					 :placeholder="Placeholders.link"
+      					 type="email" class="settings-column__input" />
 				</label>
 				<label class="settings-column__label">
 					<h6 class="settings-column__title">Дата рождения:</h6>
 					<datepicker :value="Common.bornDate" @selected="updateBornDate($event)"
-						:format="Datepicker.format"
-						:language="Datepicker.language"
-						:inputClass=" 'settings-column__input' ">
+          						:format="Datepicker.format"
+          						:language="Datepicker.language"
+          						:inputClass=" 'settings-column__input' ">
 					</datepicker>
 					<icon-calendar class="settings-column__label-icon"></icon-calendar>
 				</label>
 			</div>
 			<div class="settings-column">
-			<label class="settings-column__label">
-				<h6 class="settings-column__title">Подпись:</h6>
-				<textarea :value="Common.caption" @input="updateCaption($event.target.value)"
-					:placeholder="Placeholders.caption"
-					class="settings-column__input _textarea">
-				</textarea>
-			</label>
+				<label class="settings-column__label">
+					<h6 class="settings-column__title">Подпись:</h6>
+					<textarea :value="Common.caption" @input="updateCaption($event.target.value)"
+	        					:placeholder="Placeholders.caption"
+	        					class="settings-column__input _textarea">
+					</textarea>
+				</label>
 			</div>
 		</div>
 		<div class="settings-bottom">
 			<label class="settings-bottom__label">
 				<h6 class="settings-bottom__title">Пароль:</h6>
 				<input :value="Common.password" @input="updatePassword($event.target.value)"
-				:placeholder="Placeholders.password"
-				type="password" class="settings-bottom__input" />
+      				 :placeholder="Placeholders.password"
+      				 type="password" class="settings-bottom__input" />
 			</label>
 			<label class="settings-bottom__label _checkbox">
 				<checkbox :checked="Common.publishEmail" @change="updateCheck($event)"
-                    :color=" '#009d2f' "
-					class="settings-bottom__checkbox">Не публиковать на сайте</checkbox>
+                  :color=" '#009d2f' "
+									class="settings-bottom__checkbox"
+						>Не публиковать на сайте
+				</checkbox>
 			</label>
-			<button @click="saveChanges()"
-				class="settings-bottom__button waves-effect waves-dark"
-				type="button">
+			<button @click="saveCommon()"
+							class="settings-bottom__button waves-effect waves-dark"
+      				type="button">
 				<icon-check class="settings-bottom__button-icon"></icon-check>
 				Сохранить изменения
 			</button>
 		</div>
-    </section>
+  </section>
 </template>
 
 <script>
@@ -96,6 +98,9 @@
 				}
 			}
 		},
+		created() {
+			this.$store.dispatch( 'getCommon' , this.$store.state.User.id )
+		},
 		computed: {
 			Common() {
 				return this.$store.state.Settings.common
@@ -103,17 +108,20 @@
 		},
 		methods: {
 			...mapActions([
-				'updateEmail',
-				'updatePassword',
-				'updatePhone',
-				'updateLink',
-				'updateBornDate',
-				'updateCaption',
+				'updateEmail', 'updatePassword', 'updatePhone',
+				'updateLink',	'updateBornDate',	'updateCaption',
 				'updateCheck'
 			]),
-			saveChanges() {
-				console.log( this.Common );
-				this.$swal( 'Сохранено!' , `${ this.Common.email }` , 'success' )
+			saveCommon() {
+				this.$store.dispatch( 'saveCommon' , this.$store.state.User.id )
+					.then( response => {
+						console.log(response.data);
+						this.$swal( 'Есть ответ!' , JSON.stringify(response.data) , 'success' )
+					})
+					.catch( err => {
+						console.error(err);
+						this.$swal( 'Ой-йо-ой...' , 'Сервер не ответил!' , 'error' )
+					});
 			}
 		}
 	};

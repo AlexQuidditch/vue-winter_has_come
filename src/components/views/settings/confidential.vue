@@ -3,48 +3,48 @@
 		<h3 class="settings__title">Настройки конфиденциальности</h3>
 		<div class="settings-container">
 			<div class="settings-column">
-				<label for="email" class="settings-column__label">
+				<label class="settings-column__label">
 					<h6 class="settings-column__title">Кто может видеть мои контакты</h6>
 					<select :value="Confidential.contacts" @change="updateContacts($event.target.value)"
 									class="settings-column__select">
 						<option disabled value="">Выберите один из вариантов</option>
 						<option v-for="selectorItem in Selectors" :key="selectorItem.value"
-							:value="selectorItem.value"
+										:value="selectorItem.value"
 							>{{ selectorItem.title }}
 						</option>
 					</select>
 				</label>
-				<label for="phone" class="settings-column__label">
+				<label class="settings-column__label">
 					<h6 class="settings-column__title">Кто может видеть мои команды</h6>
 					<select :value="Confidential.teams" @change="updateTeams($event.target.value)"
 									class="settings-column__select">
 						<option disabled value="">Выберите один из вариантов</option>
 						<option v-for="selectorItem in Selectors" :key="selectorItem.value"
-							:value="selectorItem.value"
+									  :value="selectorItem.value"
 							>{{ selectorItem.title }}
 						</option>
 					</select>
 				</label>
 			</div>
 			<div class="settings-column">
-				<label for="caption" class="settings-column__label">
+				<label class="settings-column__label">
 					<h6 class="settings-column__title">Кто может отправлять мне сообщения</h6>
 					<select :value="Confidential.messages" @change="updateMessages($event.target.value)"
 							 		class="settings-column__select">
 						<option disabled value="">Выберите один из вариантов</option>
 						<option v-for="selectorItem in Selectors" :key="selectorItem.value"
-							:value="selectorItem.value"
+										:value="selectorItem.value"
 							>{{ selectorItem.title }}
 						</option>
 					</select>
 				</label>
-				<label for="link" class="settings-column__label">
+				<label class="settings-column__label">
 					<h6 class="settings-column__title">Кто может видеть отзывы обо мне</h6>
 					<select :value="Confidential.reviews" @change="updateReviews($event.target.value)"
 									class="settings-column__select">
 						<option disabled value="">Выберите один из вариантов</option>
 						<option v-for="selectorItem in Selectors" :key="selectorItem.value"
-							:value="selectorItem.value"
+										:value="selectorItem.value"
 							>{{ selectorItem.title }}
 						</option>
 					</select>
@@ -52,8 +52,8 @@
 			</div>
 			<div class="settings-bottom">
 				<button @click="saveChanges()"
-					class="settings-bottom__button _confidential waves-effect waves-dark"
-					type="button">
+								class="settings-bottom__button _confidential waves-effect waves-dark"
+								type="button">
 					<icon-check class="settings-bottom__button-icon"></icon-check>
 					Сохранить изменения
 				</button>
@@ -94,15 +94,7 @@
 						title: 'Никто',
 						value: 4
 					}
-				],
-				Placeholders: {
-					email: 'elena.ivanova@gmail.com',
-					phone: '+7 *** *** ** 35',
-					link: 'elena.ivanova',
-					bornDate: '22-06-1994',
-					password: 'Обновлен 6 дней назад',
-					caption: 'Здесь находится Ваша подпись.\nНапример, контакты. '
-				}
+				]
 			}
 		},
 		computed: {

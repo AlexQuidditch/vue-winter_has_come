@@ -1,6 +1,7 @@
 //Imports on top
 
 const state = {
+	id: '59b98da198948246804be893',
 	personal: {
 		avatar: 'avatar.jpg',
 		name: 'Елена',

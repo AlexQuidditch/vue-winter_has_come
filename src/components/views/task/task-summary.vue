@@ -1,37 +1,37 @@
 <template lang="html">
-    <aside class="task-summary">
+  <aside class="task-summary">
 		<img :src=" '/static/assets/shared/' + taskItem.picture " alt="" class="task-summary__picture" />
 		<p class="task-summary__item">Город: <span>Москва (РФ)</span></p>
 		<p class="task-summary__item">Необходимые навыки: <span>ответственность, исполнительность и соблюдение сроков.</span></p>
 		<p class="task-summary__item">Специализация:</p>
 		<ul class="task-summary__list specialization-list">
 			<li v-for="( skillItem , index ) in taskItem.specialization" :key="index"
-				:title="skillItem"
-				class="specialization-item"
+					:title="skillItem"
+					class="specialization-item"
 				>{{ skillItem }}
 			</li>
 		</ul>
 		<p class="task-summary__item">Приклепленные файлы:</p>
 		<ul class="attached-list">
 			<li v-for="( attacheItem , index ) in taskItem.attached" :key="index"
-				class="attached-item">
+					class="attached-item">
 				<img :src=" '/static/assets/shared/' + attacheItem "
-					alt="" class="attached-item__picture" />
+						 alt="" class="attached-item__picture" />
 			</li>
 		</ul>
-    </aside>
+  </aside>
 </template>
 
 <script>
 
-    export default {
-        name: "task-summary",
+	export default {
+		name: "task-summary",
 		computed: {
-		    taskItem() {
-		        return this.$store.state.Tasks.find( item => item.id === this.$route.query.id )
-		    }
+			taskItem() {
+				return this.$store.state.Tasks.find( item => item.id === this.$route.query.id || 0 )
+			}
 		}
-    };
+	};
 
 </script>
 

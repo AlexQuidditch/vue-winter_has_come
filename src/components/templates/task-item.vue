@@ -71,24 +71,24 @@
 	import iconEye from '@icons/eye';
 	import iconComments from '@icons/comments';
 
-    export default {
-        name: "task-item",
+	export default {
+		name: "task-item",
 		components: { iconClock , iconDisc , iconEye , iconComments },
 		props: {
-		    'taskItem': {
-		        type: Object,
-		        required: true
-		    }
+			'taskItem': {
+				type: Object,
+				required: true
+			}
 		},
 		methods: {
-		    getAuthorAvatar(ID) {
+			getAuthorAvatar(ID) {
 				let avatar = '';
 				this.$store.state.Stub.friends.filter( item => {
 					if ( item.id === ID ) avatar = item.avatar;
 				});
 				return avatar;
 			},
-		    getAuthorName(ID) {
+			getAuthorName(ID) {
 				let fullName = '';
 				this.$store.state.Stub.friends.filter( item => {
 					if ( item.id === ID ) fullName = item.name + ' ' + item.sename;
@@ -96,7 +96,7 @@
 				return fullName;
 			}
 		}
-    };
+	};
 
 </script>
 
@@ -104,8 +104,8 @@
 
 	@import "../../stylesheets/partials/_mixins";
 
-    .task-item {
-    	margin-top: 20px;
+	.task-item {
+		margin-top: 20px;
 		padding: 15px 20px;
 		background-color: #fff;
 		background-color: var(--whited);
@@ -120,7 +120,7 @@
 			justify-content: space-between;
 			margin-top: 16px;
 		}
-    }
+	}
 
 	.about-picture {
 		size: 256px 151px;
@@ -136,9 +136,9 @@
 		&__text {
 			margin: 0;
 			text-align: center;
-		    font-size: 12px;
+			font-size: 12px;
 			font-weight: 600;
-		    line-height: 150px;
+			line-height: 150px;
 			color: #009d2f;
 			color: var(--irish-green);
 		}
@@ -215,8 +215,8 @@
 		&__value {
 			margin: 0 16px 0 8px;
 			height: 24px;
-		    font-size: 12px;
-		    line-height: 26px;
+			font-size: 12px;
+			line-height: 26px;
 			color: #009d2f;
 			color: var(--irish-green);
 			&._is-engaged {
@@ -272,8 +272,8 @@
 		&__value {
 			margin: 0 0 0 8px;
 			height: 24px;
-		    font-size: 12px;
-		    line-height: 26px;
+			font-size: 12px;
+			line-height: 26px;
 			color: #4b4b4b;
 			color: var(--purpley-grey);
 		}
@@ -291,8 +291,8 @@
 		&__value {
 			margin: 0 0 0 8px;
 			height: 24px;
-		    font-size: 12px;
-		    line-height: 26px;
+			font-size: 12px;
+			line-height: 26px;
 			color: #4b4b4b;
 			color: var(--purpley-grey);
 		}

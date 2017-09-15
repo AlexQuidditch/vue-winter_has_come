@@ -4,7 +4,7 @@
 			<h1 class="complete-task__title">
 				<span>Завершить задание</span> | {{ taskItem.title }}
 			</h1>
-			<form @submit.prevent="saveComplete( $event , $route.query.id )" class="complete-task-container">
+			<form @submit.prevent="saveComplete([ $event , $route.query.id ])" class="complete-task-container">
 
 				<header class="complete-task-header">
 					<div class="complete-task-column">
@@ -81,27 +81,25 @@
 	export default {
 		name: "complete-task",
 		components: { vRadio , StarRating , iconCheck },
-		data() {
-			return {
-				Statuses: [
-					{
-						status: 'completed',
-						text: 'Выполнена'
-					},
-					{
-						status: 'notCompleted',
-						text: 'Не выполнена'
-					},
-					{
-						status: 'cancelled',
-						text: 'Отменена'
-					}
-				],
-				Placeholders: {
-					description: 'Описание задачи ( макс. 200 символов )'
+		data: () => ({
+			Statuses: [
+				{
+					status: 'completed',
+					text: 'Выполнена'
+				},
+				{
+					status: 'notCompleted',
+					text: 'Не выполнена'
+				},
+				{
+					status: 'cancelled',
+					text: 'Отменена'
 				}
+			],
+			Placeholders: {
+				description: 'Описание задачи ( макс. 200 символов )'
 			}
-		},
+		}),
 		computed: {
 			taskItem() {
 				return this.$store.state.Tasks.find( item => item.id === this.$route.query.id );
@@ -112,10 +110,8 @@
 		},
 		methods: {
 			...mapActions([
-				'updateRate',
-				'updateReview',
-				'updateStatus',
-				'saveComplete'
+				'updateRate' , 'updateReview',
+				'updateStatus' , 'saveComplete'
 			]),
 			getEngageAvatar(ID) {
 				let avatar = '';

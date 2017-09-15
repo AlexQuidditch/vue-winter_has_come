@@ -1,7 +1,11 @@
 <template lang="html">
 	<li class="blacklist-item">
 		<div class="information">
-			<img :src=" '/static/assets/shared/' + blacklistItem.avatar" :alt="blacklistItem.name + ' ' + blacklistItem.sename" class="information__avatar">
+			<router-link :to="{ name: 'user', query: { id: blacklistItem.id }}" tag="img"
+									 :src=" '/static/assets/shared/' + blacklistItem.avatar"
+									 :alt="blacklistItem.name + ' ' + blacklistItem.sename"
+									 class="information__avatar">
+			</router-link>
 			<div class="information-detail">
 				<router-link :to="{ name: 'user', query: { id: blacklistItem.id }}" tag="h5"
 					 class="information-detail__name"
@@ -17,15 +21,15 @@
 
 <script>
 
-    export default {
-        name: "blacklist-item",
+	export default {
+		name: "blacklist-item",
 		props: {
-		    'blacklistItem': {
-		        type: Object,
-		        required: true
-		    }
-        }
-    };
+			'blacklistItem': {
+				type: Object,
+				required: true
+			}
+		}
+	};
 
 </script>
 
@@ -33,27 +37,35 @@
 
 	@import "../../stylesheets/partials/_mixins";
 
-    .blacklist-item {
-    	display: flex;
+	.blacklist-item {
+		display: flex;
 		justify-content: space-between;
 		padding-top: 30px;
 		padding-bottom: 20px;
 		border-bottom: solid 1px rgba( #4b4b4b , .4 );
+		&:first-child {
+			padding-top: 10px;
+		}
 		&:last-child {
 			border: none
 		}
-    	.information {
+		.information {
 			display: flex;
-    		&__avatar {
-    			size: 75px;
+			&__avatar {
+				size: 75px;
 				object-fit: cover;
 				object-position: center;
 				border-radius: 50%;
+				cursor: pointer;
 				@include MDShadow-1;
-    		}
-    	}
-    	.information-detail {
-    		min-width: 250px;
+				transition: box-shadow .3s ease-in-out;
+				&:hover {
+					@include MDShadow-2;
+				}
+			}
+		}
+		.information-detail {
+			min-width: 250px;
 			width: 250px;
 			margin-left: 20px;
 			&__name {
@@ -62,6 +74,10 @@
 				font-weight: 600;
 				color: #4a4a4a;
 				color: var(--charcoal-grey);
+				cursor: pointer;
+				&:hover {
+					text-decoration: underline !important;
+				}
 			}
 			&__company {
 				height: 20px;
@@ -80,7 +96,7 @@
 				color: #4a4a4a;
 				color: var(--charcoal-grey);
 			}
-    	}
+		}
 		.information-unblock {
 			size: 90px 15px;
 			margin-top: 14px;
@@ -91,8 +107,6 @@
 			background-color: transparent;
 			border: none
 		}
-    }
-
-
+	}
 
 </style>

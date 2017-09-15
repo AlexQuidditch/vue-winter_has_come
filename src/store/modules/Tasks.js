@@ -83,7 +83,6 @@ const mutations = {
 	},
 	UPDATE_STATUS( state , payload ) {
 		state.find( item => {
-			console.log(payload);
 			if ( item.id === payload[1] ) {
 				item.completed.status = payload[0];
 			}

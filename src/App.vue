@@ -39,11 +39,11 @@
 			}
 		},
 		methods: {
-		    toggleSize() {
+			toggleSize() {
 				this.$store.state.Auth.isLoggedIn == true
 				? this.isExpanded =! this.isExpanded
 				: this.isExpanded = false
-		    }
+			}
 		},
 		mounted() {
 			this.$nextTick( () => Waves.init() );

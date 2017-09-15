@@ -22,23 +22,23 @@
 	import requests from './friends/requests';
 	import blacklist from './friends/blacklist';
 
-    export default {
-        name: "friends",
+	export default {
+		name: "friends",
 		components: {
 			filterPanel , searchFriend , navigationPanel,
 			all , online , requests , blacklist
 		}
-    };
+	};
 
 </script>
 
 <style lang="scss">
 
-    .main._friends {
+	.main._friends {
 		display: flex;
 		flex-flow: row wrap;
 		justify-content: space-between;
-    }
+	}
 
 	.friends {
 		width: 100%;

@@ -8,15 +8,15 @@
 					<label class="create-task-column__label">
 						<h6 class="create-task-column__title">Название задачи:</h6>
 						<input :value="CreateTask.title" @input="updateTitle($event.target.value)"
-							:placeholder="Placeholders.title" required
-							type="text" class="create-task-column__input" />
+									 :placeholder="Placeholders.title" required
+									 type="text" class="create-task-column__input" />
 					</label>
 					<label class="create-task-column__label">
 						<h6 class="create-task-column__title">Описание задачи:</h6>
 						<textarea :value="CreateTask.description" @input="updateDescription($event.target.value)"
-							:placeholder="Placeholders.description" required
-							class="create-task-column__input _textarea"
-							name="description" maxlength="500">
+											:placeholder="Placeholders.description" required
+											class="create-task-column__input _textarea"
+											name="description" maxlength="500">
 						</textarea>
 					</label>
 					<div class="create-task-container">
@@ -31,10 +31,10 @@
 							<label class="create-task-column__label">
 								<h6 class="create-task-column__title">Сроки выполнения задания:</h6>
 								<datepicker :value="CreateTask.deadline" @selected="updateDeadline($event)"
-									:format="Datepicker.format" required
-									:language="Datepicker.language"
-									:inputClass=" 'create-task-column__input' "
-									placeholder="Выберите число">
+														:format="Datepicker.format" required
+														:language="Datepicker.language"
+														:inputClass=" 'create-task-column__input' "
+														placeholder="Выберите число">
 								</datepicker>
 								<icon-calendar class="create-task-column__label-icon"></icon-calendar>
 							</label>
@@ -46,7 +46,7 @@
 									<li v-for="( attachedItem , index ) in CreateTask.attached" :key="index"
 										class="attached-item">
 										<img :src=" '/static/assets/shared/' + attachedItem " alt="Загруженное изображение"
-											class="attached-item__picture" />
+												 class="attached-item__picture" />
 									</li>
                   <label for="attachFile" class="attached-item">
                     <input @change="filler()"
@@ -60,8 +60,8 @@
 							</label>
 							<label class="create-task-bottom__label _checkbox">
 								<checkbox :checked="CreateTask.isRush" @change="updateRush($event)"
-									:color=" '#d0011b' "
-									class="create-task-bottom__checkbox"
+													:color=" '#d0011b' "
+													class="create-task-bottom__checkbox"
 									>{{ Placeholders.isRush }}
 								</checkbox>
 							</label>
@@ -73,33 +73,33 @@
 					<label class="create-task-column__label">
 						<h6 class="create-task-column__title">Город:</h6>
 						<input :value="CreateTask.town" @input="updateTown($event.target.value)"
-							:placeholder="Placeholders.town" required
-							type="text" class="create-task-column__input" />
+									 :placeholder="Placeholders.town" required
+									 type="text" class="create-task-column__input" />
 					</label>
 					<label class="create-task-column__label">
 						<h6 class="create-task-column__title">Необходимые навыки:</h6>
 						<textarea :value="CreateTask.skills" @input="updateSkills($event.target.value)"
-							:placeholder="Placeholders.skills" required
-							class="create-task-column__input _textarea"
-							name="skills" maxlength="140">
+											:placeholder="Placeholders.skills" required
+											class="create-task-column__input _textarea"
+											name="skills" maxlength="140">
 						</textarea>
 					</label>
 					<label class="create-task-column__label specialization-label">
 						<h6 class="create-task-column__title">Специализация:</h6>
 						<input v-model="specKeyword"
-							@keyup.enter="addSpecialization(specKeyword)"
-							type="text" placeholder="Введите..." name="specKeyword"
-							class="specialization-label__input _keyword" />
+									 @keyup.enter="addSpecialization(specKeyword)"
+									 type="text" placeholder="Введите..." name="specKeyword"
+									 class="specialization-label__input _keyword" />
 						<button @click="addSpecialization(specKeyword)"
-							class="specialization-label__label-button"
-							type="button" name="addSpecKeyword"
-                            aria-label="Удалить специализацию">+
+										class="specialization-label__label-button"
+										type="button" name="addSpecKeyword"
+                    aria-label="Удалить специализацию">+
 						</button>
 						<transition-group tag="ul" name="list" class="chips-list">
 							<v-chip v-for="( keywordItem , index ) in CreateTask.specialization" :key="index"
-								:word="keywordItem"
-								@remove="removeSpecialization(index)"
-								class="_create-task">
+											:word="keywordItem"
+											@remove="removeSpecialization(index)"
+											class="_create-task">
 							</v-chip>
 						</transition-group>
 					</label>
@@ -107,7 +107,7 @@
 
 				<div class="create-task-bottom">
 					<button class="create-task-bottom__button waves-effect waves-light"
-						type="submit" name="Publish">
+									type="submit" name="Publish">
 						<icon-check class="create-task-bottom__button-icon"></icon-check>
 						Опубликовать
 					</button>
@@ -130,33 +130,31 @@
 	export default {
 		name: "create-task",
 		components: { Money , iconCheck , iconCalendar , vChip },
-		data() {
-			return {
-				specKeyword: '',
-				moneyOptions: {
-					thousands: ' ',
-					precision: 0,
-					masked: true
-				},
-				Datepicker: {
-					format: 'dd-MM-yyyy',
-					language: 'ru',
-					wrapperClass: 'column-settings__label',
-					calendarButton: true
-				},
-				Placeholders: {
-					title: 'Введите название задачи',
-					town: 'Ваш населённый пункт',
-					skills: 'Навыки, которыми должен обладать исполнитель',
-					specialization: 'Выберите из списка',
-					attached: '*первое изображение будет заглавным',
-					description: 'Описание задачи ( макс 500 символов )',
-					budget: 'Установите бюджет',
-					deadline: 'Сроки выполнения задачи',
-					isRush: 'Срочное задание'
-				}
+		data: () => ({
+			specKeyword: '',
+			moneyOptions: {
+				thousands: ' ',
+				precision: 0,
+				masked: true
+			},
+			Datepicker: {
+				format: 'dd-MM-yyyy',
+				language: 'ru',
+				wrapperClass: 'column-settings__label',
+				calendarButton: true
+			},
+			Placeholders: {
+				title: 'Введите название задачи',
+				town: 'Ваш населённый пункт',
+				skills: 'Навыки, которыми должен обладать исполнитель',
+				specialization: 'Выберите из списка',
+				attached: '*первое изображение будет заглавным',
+				description: 'Описание задачи ( макс 500 символов )',
+				budget: 'Установите бюджет',
+				deadline: 'Сроки выполнения задачи',
+				isRush: 'Срочное задание'
 			}
-		},
+		}),
 		computed: {
 			CreateTask() {
 				return this.$store.state.CreateTask

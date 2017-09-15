@@ -14,10 +14,10 @@
 	import portfolio from '@views/profile/portfolio';
 	import social from '@views/profile/social';
 
-    export default {
-        name: "profile",
+	export default {
+		name: "profile",
 		components: { personal , reviews , portfolio , social }
-    }
+	};
 
 </script>
 

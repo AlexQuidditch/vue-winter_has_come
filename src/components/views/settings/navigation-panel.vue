@@ -1,8 +1,8 @@
 <template lang="html">
 	<nav class="settings-navigation">
 		<router-link v-for="( route , index ) in Routes" :key="index"
-			:to="{ name: route.name || 'settings' , query: route.query }"
-			class="settings-navigation__link waves-effect waves-dark"
+								 :to="{ name: route.name || 'settings' , query: route.query }"
+								 class="settings-navigation__link waves-effect waves-dark"
 			>{{ route.text }}
 		</router-link>
 	</nav>
@@ -10,10 +10,10 @@
 
 <script>
 
-    export default {
-        name: "navigation-panel",
+	export default {
+		name: "navigation-panel",
 		data() {
-		    return {
+			return {
 				Routes: [
 					{
 						text: 'Общие настройки',
@@ -32,18 +32,11 @@
 						query: {
 							section: 'payments'
 						}
-					},
-					{
-						text: 'Чёрный список',
-						name: 'friends',
-						query: {
-							section: 'blacklist'
-						}
 					}
 				]
-		    }
+			}
 		}
-	 };
+	};
 
 </script>
 
@@ -51,16 +44,16 @@
 
 	@import "../../../stylesheets/partials/_mixins";
 
-    .settings-navigation {
-    	position: relative;
-    	display: flex;
+	.settings-navigation {
+		position: relative;
+		display: flex;
 		height: 45px;
 		padding: 0 10px;
 		margin-bottom: 20px;
 		background-color: #fff;
 		background-color: var(--whited);
 		@include MDShadow-1;
-    	&__link {
+		&__link {
 			height: 45px;
 			padding: 0 10px;
 			font-size: 12px;
@@ -69,20 +62,16 @@
 			color: var(--purpley-grey);
 			box-shadow: inset 0 -5px 0 transparent;
 			transition:
-				color .3s ease-in-out,
-				color .3s ease-in-out,
-				box-shadow .3s ease-in-out;
+			color .3s ease-in-out,
+			color .3s ease-in-out,
+			box-shadow .3s ease-in-out;
 			&._exact-active {
 				font-weight: 600;
 				color: #009d2f;
 				color: var(--irish-green);
 				box-shadow: inset 0 -5px 0 var(--irish-green);
 			}
-			&:last-child {
-				position: absolute;
-				right: 10px;
-			}
-    	}
-    }
+		}
+	}
 
 </style>

@@ -1,11 +1,11 @@
 <template lang="html">
-    <div class="recommendations">
+  <div class="recommendations">
 		<h4 class="recommendations__title">Подходит Вам...</h4>
 		<ul class="recommendations-list">
 			<li v-for="( recommsItem , index ) in recommsList" :key="index"
-				class="recommendations-item">
+					class="recommendations-item">
 				<img :src=" '/static/assets/shared/' + recommsItem.picture " :alt="recommsItem.title"
-						class="recommendations-item__picture" />
+						 class="recommendations-item__picture" />
 				<h5 class="recommendations-item__title">{{ recommsItem.title }}</h5>
 				<p class="recommendations-item__annotation">
 					<img src="/static/assets/sidebar/disc.svg" alt="Бюджет" />
@@ -17,30 +17,30 @@
 				</p>
 			</li>
 		</ul>
-    </div>
+  </div>
 </template>
 
 <script>
 
-    export default {
-        name: "recommendations",
-        data() {
-            return {}
+	export default {
+		name: "recommendations",
+		data() {
+			return {}
 		},
 		computed: {
-		    recommsList() {
-		        return this.$store.state.Recommendations.list
-		    }
+			recommsList() {
+				return this.$store.state.Recommendations.list
+			}
 		}
-    }
+	};
 
 </script>
 
 <style lang="scss">
 
-    .recommendations {
-    	padding: 30px 0;
-    }
+	.recommendations {
+		padding: 30px 0;
+	}
 
 	.recommendations-list {}
 

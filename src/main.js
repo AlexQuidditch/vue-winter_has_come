@@ -1,5 +1,3 @@
-import Vue from 'vue';
-
 import App from './App';
 import router from './router';
 import store from './store';
@@ -21,9 +19,10 @@ Vue.use(Checkbox);
 Vue.use(Resource);
 Vue.use(VueSweetAlert);
 
+Vue.http.options.root = 'http://localhost:8080';
 Vue.config.productionTip = false;
 
-Window.application = new Vue({
+const application = new Vue({
 	components: { App },
 	router , store,
 	template: '<App/>'

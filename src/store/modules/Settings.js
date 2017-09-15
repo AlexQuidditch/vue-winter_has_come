@@ -1,4 +1,4 @@
-//Imports on top
+import API from '../api';
 
 const state = {
 	common: {
@@ -41,6 +41,14 @@ const actions = {
 	updateCheck({ commit } , payload ) {
 		commit('UPDATE_CHECK' , payload )
 	},
+	saveCommon( { state } , payload ) {
+		console.log(payload);
+		return API.post( `user/ussser` , state.Common )
+	},
+	getCommon( { commit } , payload ) {
+		API.get(`user/ussser/${ payload }`)
+			.then( response => commit( 'GET_COMMON' , response.body.common ) )
+	},
 	// confidential
 	updateContacts({ commit } , payload ) {
 		commit('UPDATE_CONTACTS' , payload )
@@ -53,6 +61,12 @@ const actions = {
 	},
 	updateReviews({ commit } , payload ) {
 		commit('UPDATE_REVIEWS' , payload )
+	},
+	// saveConfidential({ state }) {
+	// 	return API.post( 'user/ussser', state.confidential )
+	// },
+	saveConfidential({ state }) {
+		return API.post( 'user/ussser/', state.confidential )
 	}
 };
 
@@ -78,14 +92,21 @@ const mutations = {
 	UPDATE_CHECK( state , payload ) {
 		state.common.publishEmail = payload
 	},
+	GET_COMMON( state , payload ) {
+		state.common = payload.common
+	},
+	// confidential
 	UPDATE_CONTACTS( state , payload ) {
-		state.confidential.contacts = payload
+		state.confidential.contacts = Number(payload)
+	},
+	UPDATE_MESSAGES( state , payload ) {
+		state.confidential.messages = Number(payload)
 	},
 	UPDATE_TEAMS( state , payload ) {
-		state.confidential.teams = payload
+		state.confidential.teams = Number(payload)
 	},
 	UPDATE_REVIEWS( state , payload ) {
-		state.confidential.reviews = payload
+		state.confidential.reviews = Number(payload)
 	}
 };
 

@@ -1,34 +1,45 @@
 <template lang="html">
-    <form @submit.prevent="searchByRequest(request)" class="search">
-		<label for="search-field" class="search-field">
+	<form @submit.prevent="searchByRequest()" class="search">
+		<label class="search-field">
 			<img src="/static/assets/header/ic-search-24-px.svg" alt="Поиск..."
-				class="search-field__icon" />
-			<input v-model="request" placeholder="Найдите задание своей мечты..."
-				id="search-field" name="search-field"
-				class="search-field__input" />
+					 class="search-field__icon" />
+			<input v-model="Form.request" placeholder="Найдите задание своей мечты..."
+						 name="search-field" required
+						 class="search-field__input" />
 		</label>
 		<button type="submit" name="Find"
-			class="search-field__button waves-effect waves-light"
-			>Найти
+						class="search-field__button waves-effect waves-light"
+				>Найти
 		</button>
-    </form>
+	</form>
 </template>
 
 <script>
 
-    export default {
-        name: "search",
-        data() {
-            return {
-				request: ''
-            }
-        },
+	export default {
+		name: "search",
+		data() {
+			return {
+				Form: {
+					request: ''
+				}
+			}
+		},
 		methods: {
-		    searchByRequest(q) {
-		        this.$swal( 'Идёт поиск...' , q , 'info' )
-		    }
+			searchByRequest() {
+				this.$http.post( 'http://localhost:8080/', this.Form )
+						.then( response => {
+							console.log(response.data);
+							this.$swal( 'Есть ответ!' , response.data , 'success' )
+						})
+						.catch( err => {
+							console.error(err);
+							this.$swal( 'Ой-йо-ой...' , 'Сервер не ответил!' , 'error' )
+						});
+				// this.$swal( 'Идёт поиск...' , q , 'info' )
+			}
 		}
-    };
+	};
 
 </script>
 

@@ -9,6 +9,7 @@ import settings from '@views/settings';
 import support from '@views/support';
 import createTask from '@views/create-task';
 import completeTask from '@views/complete-task';
+import messages from '@views/messages';
 
 // Auth scripts
 import auth from './auth.js';
@@ -67,6 +68,12 @@ export default [
 		path: '/task/complete',
 		name: 'complete-task',
 		component: completeTask,
+		// beforeEnter: requireAuth
+	},
+	{
+		path: '/messages',
+		name: 'messages',
+		component: messages,
 		// beforeEnter: requireAuth
 	},
 	{

@@ -1,10 +1,10 @@
 <template lang="html">
-    <main class="main _settings">
+	<main class="main _settings">
 		<navigation-panel></navigation-panel>
 		<transition name="fade" mode="out-in">
 			<component :is=" $route.query.section || 'common' "></component>
 		</transition>
-    </main>
+  </main>
 </template>
 
 <script>
@@ -14,19 +14,9 @@
 	import confidential from './settings/confidential.vue';
 	import payments from './settings/payments.vue';
 
-    export default {
-        name: "settings",
+	export default {
+		name: "settings",
 		components: { common , confidential , payments , navigationPanel }
-    };
+	};
 
 </script>
-
-<style lang="scss">
-
-	@import "../../stylesheets/partials/_mixins";
-
-    .main._settings {
-    	padding: 30px;
-    }
-
-</style>

@@ -9,7 +9,7 @@
 			<router-link :to="{ name: Menu.messages.route }" class="menu-item__link">
 				<span class="menu-item__text">{{ Menu.messages.text }}</span>
 				<span v-if="Menu.messages.Counters && Menu.messages.Counters.add > 0"
-					class="menu-item__counter _add">(+{{ Menu.messages.Counters.add }})</span>
+							class="menu-item__counter _add">(+{{ Menu.messages.Counters.add }})</span>
 			</router-link>
 		</li>
 		<li class="menu-item">
@@ -17,7 +17,7 @@
 				<span class="menu-item__text">{{ Menu.friends.text }}</span>
 				<span class="menu-item__counter _state">({{ Menu.friends.Counters.state }})</span>
 				<span v-if="Menu.friends.Counters && Menu.friends.Counters.add > 0"
-					class="menu-item__counter _add">(+{{ Menu.friends.Counters.add }})</span>
+							class="menu-item__counter _add">(+{{ Menu.friends.Counters.add }})</span>
 			</router-link>
 		</li>
 		<li class="menu-item">
@@ -25,7 +25,7 @@
 				<span class="menu-item__text">{{ Menu.teams.text }}</span>
 				<span class="menu-item__counter _state">({{ Menu.teams.Counters.state }})</span>
 				<span v-if="Menu.teams.Counters && Menu.teams.Counters.add > 0"
-					class="menu-item__counter _add">(+{{ Menu.teams.Counters.add }})</span>
+							class="menu-item__counter _add">(+{{ Menu.teams.Counters.add }})</span>
 			</router-link>
 		</li>
 		<li class="menu-item">
@@ -44,13 +44,13 @@
 <script>
 
     export default {
-        name: "user-menu",
-		computed: {
-		    Menu() {
-		        return this.$store.state.Menu.list
-		    }
-		}
-    };
+			name: "user-menu",
+			computed: {
+				Menu() {
+					return this.$store.state.Menu.list
+				}
+			}
+		};
 
 </script>
 

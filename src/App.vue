@@ -165,4 +165,38 @@
 		transition: .3s ease-in-out
 	}
 
+	.vb > .vb-dragger {
+    z-index: 5;
+    width: 8px;
+    right: 0;
+		padding: 10px 0;
+	}
+
+	.vb > .vb-dragger > .vb-dragger-styler {
+		display: block;
+		height: 100%;
+		margin: 0;
+    background-color: rgba( #009d2f , .1);
+    border-radius: 5px;
+		backface-visibility: hidden;
+		transform: rotate3d(0,0,0,0);
+		transition:
+			background-color 100ms ease-out,
+			margin 100ms ease-out,
+			height 100ms ease-out;
+	}
+
+	.vb.vb-scrolling-phantom > .vb-dragger > .vb-dragger-styler {
+    background-color: rgba( #009d2f , .3);
+	}
+
+	.vb > .vb-dragger:hover > .vb-dragger-styler,
+	.vb.vb-dragging > .vb-dragger > .vb-dragger-styler {
+		background-color: rgba( #009d2f , .75);
+	}
+
+	.vb.vb-dragging-phantom > .vb-dragger > .vb-dragger-styler {
+    background-color: rgba( #009d2f , .5);
+	}
+
 </style>

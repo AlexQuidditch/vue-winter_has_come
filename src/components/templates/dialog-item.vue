@@ -1,20 +1,19 @@
 <template lang="html">
-	<router-link :to="{ name: 'dialog', params: { id: contactItem.id }}" tag="li"
-							 class="contact-item waves-effect waves-dark">
+	<router-link :to="{ name: 'dialog', params: { id: DialogItem.id } }" tag="li"
+							 class="dialog-item waves-effect waves-dark">
 		<transition name="heartbeat" mode="out-in">
-			<span v-if="contactItem.isOnline" class="contact-item__online"></span>
+			<span v-if="DialogItem.isOnline" class="dialog-item__online"></span>
 		</transition>
-		<img :src=" '/static/assets/shared/' + contactItem.avatar "
-				 :alt="contactItem.name + ' ' + contactItem.sename" class="contact-item__avatar">
-		<div class="contact-item__container">
-			<h6 class="contact-item__fullname">{{ contactItem.name + ' ' + contactItem.sename }}</h6>
-			<p class="contact-item__preview">{{ spliceText(contactItem.previewMessage) }}</p>
+		<img :src=" '/static/assets/shared/' + Author.avatar" :alt="Author.name + ' ' + Author.sename" class="dialog-item__avatar">
+		<div class="dialog-item__container">
+			<h6 class="dialog-item__fullname">{{ Author.name + ' ' + Author.sename }}</h6>
+			<p class="dialog-item__preview">{{ spliceText(DialogItem.previewMessage) }}</p>
 		</div>
-		<div class="contact-item__container">
-			<span class="contact-item__date">{{ new Date(contactItem.lastMessage).toLocaleString('ru-RU' , { hour: '2-digit' , minute: '2-digit' }) }}</span>
+		<div class="dialog-item__container">
+			<span class="dialog-item__date">{{ lastMessage }}</span>
 			<transition name="ping">
-				<span v-if="contactItem.unreaded" :class="{ '_update' : hasNewMessage }"
-							class="contact-item__counter">{{ contactItem.unreaded }}</span>
+				<span v-if="DialogItem.unreaded" :class="{ '_update' : hasNewMessage }"
+							class="dialog-item__counter">{{ DialogItem.unreaded }}</span>
 			</transition>
 		</div>
 		<div class="divider"></div>
@@ -24,9 +23,9 @@
 <script>
 
   export default {
-    name: "contact-item",
+    name: "dialog-item",
 		props: {
-	    'contactItem': {
+	    'DialogItem': {
         type: Object,
         required: true
 	    }
@@ -35,14 +34,24 @@
 			hasNewMessage: false
 		}),
 		watch: {
-	    'contactItem.unreaded'() {
+	    'DialogItem.unreaded'() {
 				this.hasNewMessage = true;
 				setTimeout( () => this.hasNewMessage = false , 150 )
 			}
 		},
+		computed: {
+			lastMessage() {
+				return new Date(this.DialogItem.lastMessage).toLocaleString('ru-RU' , { hour: '2-digit' , minute: '2-digit' })
+			},
+			Author() {
+				return this.$store.state.Stub.friends.find( item => {
+					if ( item.id === this.DialogItem.authorID ) return item
+				})
+			}
+		},
 		methods: {
 			spliceText (text) {
-				if( text.length > 20 ) return text.substr( 0 , 50 ) + '...';
+				if ( text.length > 20 ) return text.substr( 0 , 50 ) + '...';
 				else return text
 			}
 		}
@@ -50,11 +59,11 @@
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 	@import "../../stylesheets/partials/_mixins.scss";
 
-	.contact-item {
+	.dialog-item {
 		position: relative;
 		display: flex;
 		flex-flow: row wrap;
@@ -62,8 +71,33 @@
 		size: 100% auto;
 		padding: 10px;
 		cursor: pointer;
-		&._selected {
-			background-color: rgba(0, 157, 47, 0.1);
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0; left: 0;
+			size: 3px 100%;
+			background-color: transparent;
+			transition:
+				background-color .35s ease-out;
+		}
+		&:first-child {
+			border-top-left-radius: 3px
+		}
+		&:last-child {
+			border-bottom-left-radius: 3px;
+			.divider {
+				display: none;
+			}
+		}
+		&._exact-active {
+			background-color: rgba( #009d2f , .1);
+			&::before {
+				background-color: #009d2f;
+				background-color: var(--irish-green);
+			}
+			.dialog-item__avatar {
+				@include MDShadow-1;
+			}
 		}
 		&__container {
 			display: flex;
@@ -72,7 +106,6 @@
 			height: 60px;
 			padding-left: 10px;
 			padding-top: 2px;
-			&._flex {}
 		}
 		&__online {
 			position: absolute;
@@ -95,6 +128,7 @@
 			margin-left: 20px;
 			object-fit: cover;
 			border-radius: 50%;
+			transition: box-shadow .3s ease-in-out;
 		}
 		&__fullname {
 			font-size: 13px;
@@ -142,7 +176,7 @@
 		.divider {
 			position: absolute;
 			left: 0; bottom: 0;
-			width: 100%;
+			width: 294.5px;
 		}
 	}
 

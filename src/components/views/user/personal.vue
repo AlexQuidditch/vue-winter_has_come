@@ -1,7 +1,7 @@
 <template lang="html">
-    <section class="personal">
+	<section class="personal">
 		<img :src=" '/static/assets/shared/' + Personal.avatar " :alt="Personal.name + ' ' + Personal.sename"
-				class="personal-avatar" />
+				 class="personal-avatar" />
 		<div class="personal-info">
 			<h3 class="personal-info__name">{{ Personal.name + ' ' + Personal.sename + ' ' + $route.query.id }}</h3>
 			<div class="personal-more">
@@ -16,19 +16,16 @@
 			<p class="personal-info__about">{{ Information.about }}</p>
 		</div>
 		<ratings-block class="ratings-block"></ratings-block>
-    </section>
+	</section>
 </template>
 
 <script>
 
-	import ratingsBlock from './personal/ratings-block';
+	import ratingsBlock from './personal/ratings-block.vue';
 
-    export default {
-        name: "personal",
+	export default {
+		name: "personal",
 		components: { ratingsBlock },
-        data() {
-            return {}
-        },
 		computed: {
 			Personal() {
 				return this.$store.state.User.personal
@@ -37,7 +34,7 @@
 				return this.$store.state.User.information
 			}
 		}
-    }
+	};
 
 </script>
 
@@ -45,13 +42,13 @@
 
 	@import "../../../stylesheets/partials/_mixins";
 
-    .personal {
-    	position: relative;
-    	display: flex;
+	.personal {
+		position: relative;
+		display: flex;
 		align-items: flex-start;
 		height: 250px;
 		padding: 30px;
-    }
+	}
 
 	.personal-avatar {
 		size: 150px 170px;

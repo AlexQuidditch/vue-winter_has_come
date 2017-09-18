@@ -1,166 +1,32 @@
 <template lang="html">
   <main class="main _messages">
     <section class="messages">
-			<transition-group tag="ul" name="list" mode="out-in"
-												class="contact-list">
-				<contact-item v-for="contactItem in Contacts" :key="contactItem.id"
-											:contactItem="contactItem"
-											@click="selectDialog(contactItem.id)">
-				</contact-item>
-			</transition-group>
-			<router-view class="contact-dialog"></router-view>
+			<div class="vue-bar" v-bar>
+				<transition-group tag="ul" name="list" mode="out-in"
+													class="dialog-list">
+					<dialog-item v-for="dialogItem in Dialogs" :key="dialogItem.id"
+											 :DialogItem="dialogItem">
+					</dialog-item>
+				</transition-group>
+			</div>
+			<transition name="fade" mode="out-in" appear>
+				<router-view></router-view>
+			</transition>
     </section>
   </main>
 </template>
 
 <script>
 
-	import contactItem from '../templates/contact-item.vue';
+	import dialogItem from '@templates/dialog-item.vue';
 
 	export default {
 		name: 'messages',
-		components: { contactItem },
-		data: () => ({
-			Contacts: [
-				{
-					id: 1,
-					isAgent: false,
-					isOnline: true,
-					avatar: 'christopher-campbell-40410.jpg',
-					name: 'Ольга',
-					sename: 'Смирнова',
-					isUnreaded: false,
-					lastMessage: '2017-09-03T18:23:29.078Z',
-					previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-					unreaded: 3
-				},
-				{
-					id: 2,
-					isAgent: true,
-					isOnline: true,
-					avatar: 'agent.jpg',
-					name: 'Евгений',
-					sename: 'Воронин',
-					isUnreaded: true,
-					lastMessage: '2017-09-01T12:59:29.078Z',
-					previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-					unreaded: 19
-				},
-				{
-					id: 3,
-					isAgent: true,
-					isOnline: false,
-					avatar: 'agent2.jpg',
-					name: 'Александр',
-					sename: 'Вернер',
-					isUnreaded: true,
-					lastMessage: '2017-07-13T18:00:23.078Z',
-					previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-					unreaded: 0
-				},
-				{
-					id: 4,
-					isAgent: true,
-					isOnline: false,
-					avatar: 'agent2.jpg',
-					name: 'Александр',
-					sename: 'Вернер',
-					isUnreaded: true,
-					lastMessage: '2017-07-13T18:00:23.078Z',
-					previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-					unreaded: 0
-				},
-				{
-					id: 5,
-					isAgent: true,
-					isOnline: false,
-					avatar: 'agent2.jpg',
-					name: 'Александр',
-					sename: 'Вернер',
-					isUnreaded: true,
-					lastMessage: '2017-07-13T18:00:23.078Z',
-					previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-					unreaded: 0
-				},
-				{
-					id: 6,
-					isAgent: false,
-					isOnline: true,
-					avatar: 'christopher-campbell-40410.jpg',
-					name: 'Ольга',
-					sename: 'Смирнова',
-					isUnreaded: false,
-					lastMessage: '2017-09-03T18:23:29.078Z',
-					previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-					unreaded: 3
-				},
-				{
-					id: 7,
-					isAgent: true,
-					isOnline: true,
-					avatar: 'agent.jpg',
-					name: 'Евгений',
-					sename: 'Воронин',
-					isUnreaded: true,
-					lastMessage: '2017-09-01T12:59:29.078Z',
-					previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-					unreaded: 19
-				},
-				{
-					id: 8,
-					isAgent: false,
-					isOnline: true,
-					avatar: 'christopher-campbell-40410.jpg',
-					name: 'Ольга',
-					sename: 'Смирнова',
-					isUnreaded: false,
-					lastMessage: '2017-09-03T18:23:29.078Z',
-					previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-					unreaded: 3
-				},
-				{
-					id: 9,
-					isAgent: true,
-					isOnline: true,
-					avatar: 'agent.jpg',
-					name: 'Евгений',
-					sename: 'Воронин',
-					isUnreaded: true,
-					lastMessage: '2017-09-01T12:59:29.078Z',
-					previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-					unreaded: 19
-				},
-				{
-					id: 10,
-					isAgent: false,
-					isOnline: true,
-					avatar: 'christopher-campbell-40410.jpg',
-					name: 'Ольга',
-					sename: 'Смирнова',
-					isUnreaded: false,
-					lastMessage: '2017-09-03T18:23:29.078Z',
-					previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-					unreaded: 3
-				},
-				{
-					id: 11,
-					isAgent: true,
-					isOnline: true,
-					avatar: 'agent.jpg',
-					name: 'Евгений',
-					sename: 'Воронин',
-					isUnreaded: true,
-					lastMessage: '2017-09-01T12:59:29.078Z',
-					previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-					unreaded: 19
-				}
-			],
-			selected: 0
-		}),
-		methods: {
-			selectDialog(id) {
-				this.selected = id
-			}
+		components: { dialogItem },
+		computed: {
+	    Dialogs() {
+				return this.$store.state.Messages.dialogs
+	    }
 		}
 	};
 
@@ -182,11 +48,9 @@
 		@include MDShadow-1;
 	}
 
-	.contact-list {
-		overflow: scroll;
+	.dialog-list,
+	.vue-bar {
 		min-width: 300px;
 	}
-
-	.contact-dialog {}
 
 </style>

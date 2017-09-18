@@ -10,6 +10,7 @@ import support from '@views/support';
 import createTask from '@views/create-task';
 import completeTask from '@views/complete-task';
 import messages from '@views/messages';
+import dialog from '@views/messages/dialog';
 
 // Auth scripts
 import auth from './auth.js';
@@ -75,6 +76,13 @@ export default [
 		name: 'messages',
 		component: messages,
 		// beforeEnter: requireAuth
+		children: [
+			{
+				path: ':id',
+				name: 'dialog',
+				component: dialog
+			}
+		]
 	},
 	{
 		path: '/settings',

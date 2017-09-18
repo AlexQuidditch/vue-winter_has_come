@@ -1,25 +1,13 @@
 <template lang="html">
-  <main class="main _messages">
-    <section class="messages">
-			<transition-group tag="ul" name="list" mode="out-in"
-												class="contact-list">
-				<contact-item v-for="contactItem in Contacts" :key="contactItem.id"
-											:contactItem="contactItem"
-											@click="selectDialog(contactItem.id)">
-				</contact-item>
-			</transition-group>
-			<router-view class="contact-dialog"></router-view>
-    </section>
-  </main>
+  <div class="dialog">
+		{{ Contacts[$route.params.id] }}
+  </div>
 </template>
 
 <script>
 
-	import contactItem from '../templates/contact-item.vue';
-
-	export default {
-		name: 'messages',
-		components: { contactItem },
+  export default {
+    name: "dialog",
 		data: () => ({
 			Contacts: [
 				{
@@ -154,39 +142,16 @@
 					previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
 					unreaded: 19
 				}
-			],
-			selected: 0
+			]
 		}),
 		methods: {
-			selectDialog(id) {
-				this.selected = id
-			}
 		}
-	};
+  };
 
 </script>
 
 <style lang="scss">
 
-	@import "../../stylesheets/partials/_mixins.scss";
-
-	.messages {
-		position: sticky;
-		top: 130px;
-		display: flex;
-		justify-content: space-between;
-    max-height: calc( 100vh - 160px );
-		background-color: #fff;
-		background-color: var(--whited);
-		border-radius: 3px;
-		@include MDShadow-1;
-	}
-
-	.contact-list {
-		overflow: scroll;
-		min-width: 300px;
-	}
-
-	.contact-dialog {}
+  .dialog {}
 
 </style>

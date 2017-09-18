@@ -141,6 +141,17 @@
 			transform .3s ease-in-out
 	}
 
+	.fade-fast-enter,
+	.fade-fast-leave-to {
+		opacity: 0;
+	}
+	.fade-fast-enter-active,
+	.fade-fast-leave-active {
+		transition:
+			opacity .15s ease-in-out,
+			transform .15s ease-in-out
+	}
+
 	.list-enter,
 	.list-leave-to {
 		opacity: 0;

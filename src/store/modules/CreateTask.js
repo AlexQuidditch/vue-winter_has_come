@@ -1,3 +1,5 @@
+import API from '../api/';
+
 const state = {
 	title: '',
 	town: '',
@@ -41,7 +43,7 @@ const actions = {
 		commit( 'REMOVE_SPECIALIZATION' , payload )
 	},
 	saveTask( { commit } , payload ) {
-		commit( 'SAVE_TASK' , payload )
+		return API.post( 'task/create' , state )
 	}
 };
 

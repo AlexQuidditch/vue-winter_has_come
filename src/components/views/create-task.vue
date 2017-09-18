@@ -128,7 +128,7 @@
 	import vChip from '@custom-elements/vue-chip';
 
 	export default {
-		name: "create-task",
+		name: 'create-task',
 		components: { Money , iconCheck , iconCalendar , vChip },
 		data: () => ({
 			specKeyword: '',

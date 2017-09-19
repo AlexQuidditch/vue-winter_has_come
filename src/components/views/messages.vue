@@ -11,6 +11,7 @@
 			</div>
 			<transition name="fade" mode="out-in" appear>
 				<router-view></router-view>
+				<dialog-clear v-if="!id"></dialog-clear>
 			</transition>
     </section>
   </main>
@@ -19,10 +20,12 @@
 <script>
 
 	import dialogItem from '@templates/dialog-item.vue';
+	import dialogClear from '@views/messages/dialog-clear.vue';
 
 	export default {
 		name: 'messages',
-		components: { dialogItem },
+		components: { dialogItem , dialogClear },
+		props: ['id'],
 		computed: {
 	    Dialogs() {
 				return this.$store.state.Messages.dialogs

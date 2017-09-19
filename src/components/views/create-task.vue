@@ -177,7 +177,11 @@
 				if ( ( 'files' in attachFile ) && attachFile.files.length ) {
 					for ( let file of attachFile.files ) {
 						console.log( file.name );
-					}
+					};
+					// this.$http.post( '/upload' , file. )
+					// 	.then( response => {
+					//
+					// 	})
 				}
 			}
 		}

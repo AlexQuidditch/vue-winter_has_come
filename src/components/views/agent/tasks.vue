@@ -5,7 +5,7 @@
 		<h3 class="tasks__title">Задания</h3>
 		<ul class="tasks-list">
 			<tasks-item v-for="( tasksItem , index ) in Tasks" :key="index"
-				:tasksItem="tasksItem">
+									:tasksItem="tasksItem">
 			</tasks-item>
 		</ul>
     </section>
@@ -15,11 +15,11 @@
 
 	import tasksItem from '@templates/tasks-item';
 
-    export default {
-        name: "tasks",
+	export default {
+		name: "tasks",
 		components: { tasksItem },
 		computed: {
-		    Tasks() {
+			Tasks() {
 				const storeTasks = this.$store.state.Agent.tasks;
 				const Tasks = [];
 				storeTasks.forEach( item => {
@@ -28,19 +28,19 @@
 					})
 				});
 				return Tasks;
-		    }
+			}
 		}
-    };
+	};
 
 </script>
 
 <style lang="scss">
 
-    .tasks {
+	.tasks {
 		display: flex;
 		flex-flow: row wrap;
 		align-items: flex-start;
-    	padding: 30px;
+		padding: 30px;
 		&__icon {
 			width: 28px;
 		}
@@ -59,7 +59,7 @@
 			color: #4a4a4a;
 			color: var(--charcoal-grey);
 		}
-    }
+	}
 
 	.tasks-list {
 		display: flex;

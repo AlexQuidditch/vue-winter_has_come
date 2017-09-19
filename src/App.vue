@@ -5,7 +5,7 @@
 			<layout-sidebar></layout-sidebar>
 			<layout-main></layout-main>
 		</div>
-		<layout-footer></layout-footer>
+		<!-- <layout-footer></layout-footer> -->
 	</wrapper>
 </template>
 

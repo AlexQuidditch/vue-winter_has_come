@@ -26,14 +26,16 @@ export default [
 	{
 		path: '/agent',
 		name: 'agent',
-		component: agent
+		component: agent,
 		// beforeEnter: requireAuth
+		props: true
 	},
 	{
 		path: '/user',
 		name: 'user',
-		component: user
+		component: user,
 		// beforeEnter: requireAuth
+		props: true
 	},
 	{
 		path: '/login',
@@ -52,12 +54,7 @@ export default [
 		name: 'find-job',
 		component: findJob,
 		// beforeEnter: requireAuth
-	},
-	{
-		path: '/task',
-		name: 'task',
-		component: task,
-		// beforeEnter: requireAuth
+		props: true
 	},
 	{
 		path: '/task/create',
@@ -66,35 +63,47 @@ export default [
 		// beforeEnter: requireAuth
 	},
 	{
+		path: '/task',
+		name: 'task',
+		component: task,
+		// beforeEnter: requireAuth
+		props: true
+	},
+	{
 		path: '/task/complete',
 		name: 'complete-task',
 		component: completeTask,
 		// beforeEnter: requireAuth
+		props: true
 	},
 	{
 		path: '/messages',
 		name: 'messages',
 		component: messages,
+		props: true,
 		// beforeEnter: requireAuth
 		children: [
 			{
 				path: ':id',
 				name: 'dialog',
-				component: dialog
+				component: dialog,
+				props: true
 			}
 		]
 	},
 	{
 		path: '/settings',
 		name: 'settings',
-		component: settings
+		component: settings,
 		// beforeEnter: requireAuth
+		props: true
 	},
 	{
 		path: '/support',
 		name: 'support',
-		component: support
+		component: support,
 		// beforeEnter: requireAuth
+		props: true
 	},
 	// {
 	// 	path: '/logout',

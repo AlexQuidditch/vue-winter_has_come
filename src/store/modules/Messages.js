@@ -1,6 +1,17 @@
 const state = {
 	dialogs: [
 		{
+			id: 0,
+			authorID: 2,
+			isOnline: true,
+			isUnreaded: false,
+			lastMessage: '2017-09-03T18:23:29.078Z',
+			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
+			unreaded: 3,
+			threadID: 1,
+			draft: ''
+		},
+		{
 			id: 1,
 			authorID: 3,
 			isOnline: true,
@@ -8,7 +19,8 @@ const state = {
 			lastMessage: '2017-09-03T18:23:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
 			unreaded: 3,
-			threadID: 1
+			threadID: 1,
+			draft: ''
 		},
 		{
 			id: 2,
@@ -17,7 +29,8 @@ const state = {
 			isUnreaded: true,
 			lastMessage: '2017-09-01T12:59:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-			unreaded: 19
+			unreaded: 19,
+			draft: ''
 		},
 		{
 			id: 3,
@@ -26,7 +39,8 @@ const state = {
 			isUnreaded: true,
 			lastMessage: '2017-07-13T18:00:23.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-			unreaded: 0
+			unreaded: 0,
+			draft: ''
 		},
 		{
 			id: 4,
@@ -35,7 +49,8 @@ const state = {
 			isUnreaded: true,
 			lastMessage: '2017-07-13T18:00:23.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-			unreaded: 0
+			unreaded: 0,
+			draft: ''
 		},
 		{
 			id: 5,
@@ -44,7 +59,8 @@ const state = {
 			isUnreaded: true,
 			lastMessage: '2017-07-13T18:00:23.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-			unreaded: 0
+			unreaded: 0,
+			draft: ''
 		},
 		{
 			id: 6,
@@ -53,7 +69,8 @@ const state = {
 			isUnreaded: false,
 			lastMessage: '2017-09-03T18:23:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-			unreaded: 3
+			unreaded: 3,
+			draft: ''
 		},
 		{
 			id: 7,
@@ -62,7 +79,8 @@ const state = {
 			isUnreaded: true,
 			lastMessage: '2017-09-01T12:59:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-			unreaded: 19
+			unreaded: 19,
+			draft: ''
 		},
 		{
 			id: 8,
@@ -71,7 +89,8 @@ const state = {
 			isUnreaded: false,
 			lastMessage: '2017-09-03T18:23:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-			unreaded: 3
+			unreaded: 3,
+			draft: ''
 		},
 		{
 			id: 9,
@@ -80,7 +99,8 @@ const state = {
 			isUnreaded: true,
 			lastMessage: '2017-09-01T12:59:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-			unreaded: 19
+			unreaded: 19,
+			draft: ''
 		},
 		{
 			id: 10,
@@ -89,7 +109,8 @@ const state = {
 			isUnreaded: false,
 			lastMessage: '2017-09-03T18:23:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-			unreaded: 3
+			unreaded: 3,
+			draft: ''
 		},
 		{
 			id: 11,
@@ -98,7 +119,8 @@ const state = {
 			isUnreaded: true,
 			lastMessage: '2017-09-01T12:59:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-			unreaded: 19
+			unreaded: 19,
+			draft: ''
 		},
 		{
 			id: 12,
@@ -107,7 +129,8 @@ const state = {
 			isUnreaded: false,
 			lastMessage: '2017-09-03T18:23:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-			unreaded: 3
+			unreaded: 3,
+			draft: ''
 		},
 		{
 			id: 13,
@@ -116,7 +139,8 @@ const state = {
 			isUnreaded: true,
 			lastMessage: '2017-09-01T12:59:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-			unreaded: 19
+			unreaded: 19,
+			draft: ''
 		},
 		{
 			id: 14,
@@ -125,7 +149,8 @@ const state = {
 			isUnreaded: true,
 			lastMessage: '2017-07-13T18:00:23.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-			unreaded: 0
+			unreaded: 0,
+			draft: ''
 		},
 		{
 			id: 15,
@@ -134,7 +159,8 @@ const state = {
 			isUnreaded: true,
 			lastMessage: '2017-07-13T18:00:23.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-			unreaded: 0
+			unreaded: 0,
+			draft: ''
 		},
 		{
 			id: 16,
@@ -143,7 +169,8 @@ const state = {
 			isUnreaded: true,
 			lastMessage: '2017-07-13T18:00:23.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-			unreaded: 0
+			unreaded: 0,
+			draft: ''
 		},
 		{
 			id: 17,
@@ -152,7 +179,8 @@ const state = {
 			isUnreaded: false,
 			lastMessage: '2017-09-03T18:23:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-			unreaded: 3
+			unreaded: 3,
+			draft: ''
 		},
 		{
 			id: 18,
@@ -161,7 +189,8 @@ const state = {
 			isUnreaded: true,
 			lastMessage: '2017-09-01T12:59:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-			unreaded: 19
+			unreaded: 19,
+			draft: ''
 		},
 		{
 			id: 19,
@@ -170,19 +199,86 @@ const state = {
 			isUnreaded: false,
 			lastMessage: '2017-09-03T18:23:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
-			unreaded: 3
+			unreaded: 3,
+			draft: ''
 		}
 	],
 	threads: [
 		{
-			id: 1
+			id: 0,
+			dialogInstance: []
+		},
+		{
+			id: 1,
+			dialogInstance: []
+		},
+		{
+			id: 2,
+			dialogInstance: []
+		},
+		{
+			id: 3,
+			dialogInstance: []
+		},
+		{
+			id: 4,
+			dialogInstance: []
+		},
+		{
+			id: 5,
+			dialogInstance: []
+		},
+		{
+			id: 6,
+			dialogInstance: []
+		},
+		{
+			id: 7,
+			dialogInstance: []
+		},
+		{
+			id: 8,
+			dialogInstance: []
+		},
+		{
+			id: 9,
+			dialogInstance: []
+		},
+		{
+			id: 10,
+			dialogInstance: []
+		},
+		{
+			id: 11,
+			dialogInstance: []
+		},
+		{
+			id: 12,
+			dialogInstance: []
 		}
 	]
 };
 
-const actions = {};
+const actions = {
+	updateMessage( { commit } , payload ) {
+		commit( 'UPDATE_MESSAGE' , payload )
+	},
+	sendMessage( { commit } , payload ) {
+		commit( 'SEND_MESSAGE' , payload )
+	}
+};
 
-const mutations = {};
+const mutations = {
+	UPDATE_MESSAGE( { dialogs } , payload ) {
+		dialogs[ payload[0] ].draft = payload[1]
+	},
+	SEND_MESSAGE( { dialogs , threads } , payload ) {
+		// TODO: Отправка сообщений
+		const dialog = dialogs.find( dialog => dialog.id == payload );
+		const thread = threads.find( thread => thread.id == payload );
+		thread.dialogInstance.push(dialog.draft);
+	}
+};
 
 const getters = {};
 

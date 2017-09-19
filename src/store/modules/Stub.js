@@ -10,10 +10,19 @@ const state = {
 			avatar: 'christopher-campbell-40410.jpg',
 			name: 'Ольга',
 			sename: 'Смирнова',
-			specialization: 'Реклама, маркетинг',
-			education: 'ТГУ',
+			information: {
+				specialization: 'Веб-дизайн, реклама',
+				lastVisit: '22.07.2017',
+				status: 'свободна',
+				town: 'Санкт-Петербург',
+				country: 'РФ',
+				education: {
+					place: 'СПбГУТД',
+					faculty: 'графический дизайн'
+				},
+				about: 'Привет! Меня зовут Елена, я студентка СПбГУТД на кафедре графического дизайна. Занимаюсь веб-дизайном и очень увлекаюсь всей IT сферой.'
+			},
 			company: null,
-			description: 'Добрый день! Меня зовут Ольга, я только закончила обучение в ТГУ и ищу перспективную команду, куда ...',
 			addedDate: 1,
 			popularity: 11,
 			rating: 4.8,
@@ -40,10 +49,19 @@ const state = {
 			avatar: 'agent.jpg',
 			name: 'Евгений',
 			sename: 'Воронин',
-			specialization: null,
-			education: null,
+			information: {
+				specialization: 'Веб-дизайн, реклама',
+				lastVisit: '22.07.2017',
+				status: 'есть заказ',
+				town: 'Санкт-Петербург',
+				country: 'РФ',
+				education: {
+					place: 'СПбГУТД',
+					faculty: 'графический дизайн'
+				},
+				about: 'Я представляю компанию, которая занимается производством и дестрибуцией бытовых холодильников ...',
+			},
 			company: 'ООО "Haier RU"',
-			description: 'Я представляю компанию, которая занимается производством и дестрибуцией бытовых холодильников ...',
 			addedDate: 3,
 			popularity: 1,
 			rating: 3.8,
@@ -66,10 +84,19 @@ const state = {
 			avatar: 'agent2.jpg',
 			name: 'Александр',
 			sename: 'Вернер',
-			specialization: null,
-			education: null,
+			information: {
+				specialization: 'Веб-дизайн, реклама',
+				lastVisit: '22.07.2017',
+				status: 'нет задач',
+				town: 'Санкт-Петербург',
+				country: 'РФ',
+				education: {
+					place: 'СПбГУТД',
+					faculty: 'графический дизайн'
+				},
+				about: 'Мы молодая и перспективная компания, основной целью которой является дестрибуция товаров народного ...',
+			},
 			company: 'ЗАО "РЕ Трэйдинг"',
-			description: 'Мы молодая и перспективная компания, основной целью которой является дестрибуция товаров народного ...',
 			addedDate: 2,
 			popularity: 4,
 			rating: 4.2,

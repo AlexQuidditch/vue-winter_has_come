@@ -12,12 +12,11 @@
 							<h6 class="complete-task-column__title">Статус задачи:</h6>
 							<div class="statuses-list">
 								<v-radio v-for="( statusItem , index ) in Statuses" :key="index"
-									@input="updateStatus([ $event , $route.query.id ])"
-									:value="taskItem.completed.status"
-									:expected="statusItem.status"
-									name="sorting"
-									class="statuses-item"
-									>{{ statusItem.text }}
+												 @input="updateStatus([ $event , $route.query.id ])"
+												 :value="taskItem.completed.status"
+												 :expected="statusItem.status"
+												 class="statuses-item"
+												 >{{ statusItem.text }}
 								</v-radio>
 							</div>
 						</div>
@@ -102,10 +101,10 @@
 		}),
 		computed: {
 			taskItem() {
-				return this.$store.state.Tasks.find( item => item.id === this.$route.query.id );
+				return this.$store.state.Tasks.find( item => item.id == this.$route.query.id );
 			},
 			Engage() {
-				return this.$store.state.Stub.friends.find( item => item.id === this.taskItem.engagedID );
+				return this.$store.state.Stub.friends.find( item => item.id == this.taskItem.engagedID );
 			}
 		},
 		methods: {

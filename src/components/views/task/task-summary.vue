@@ -28,7 +28,7 @@
 		name: "task-summary",
 		computed: {
 			taskItem() {
-				return this.$store.state.Tasks.find( item => item.id === this.$route.query.id || 0 )
+				return this.$store.state.Tasks.find( item => item.id == this.$route.query.id || 0 )
 			}
 		}
 	};

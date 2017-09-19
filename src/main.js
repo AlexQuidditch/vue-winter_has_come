@@ -2,19 +2,20 @@ import App from './App';
 import router from './router';
 import store from './store';
 
+import Vuebar from 'vuebar';
 import Resource from 'vue-resource';
 import VueSweetAlert from 'vue-sweetalert';
 import Checkbox from 'vue-material-checkbox';
 
 import MaskedInput from 'vue-masked-input';
 import VueDatepicker from 'vuejs-datepicker';
-
 window.Waves = require('node-waves');
 
 // Глобально доступные компоненты
 Vue.component('masked-input' , MaskedInput);
 Vue.component('datepicker' , VueDatepicker);
 
+Vue.use(Vuebar);
 Vue.use(Checkbox);
 Vue.use(Resource);
 Vue.use(VueSweetAlert);

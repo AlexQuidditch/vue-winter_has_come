@@ -1,6 +1,6 @@
 <template lang="html">
-    <div class="social-contacts">
-		<img src=" ../../../../../static/assets/profile/social/contacts.svg " alt="Контакты"
+  <div class="social-contacts">
+		<img src="/static/assets/profile/social/contacts.svg" alt="Контакты"
 				class="social-contacts__icon" />
 		<h4 class="social-contacts__title">Контакты</h4>
 		<p class="social-contacts__text">{{ Contacts.text }}</p>
@@ -45,19 +45,19 @@
 				</a>
 			</li>
 		</ul>
-    </div>
+  </div>
 </template>
 
 <script>
 
-    export default {
-        name: "social-contacts",
+	export default {
+		name: "social-contacts",
 		computed: {
-		    Contacts() {
-		        return this.$store.state.User.social.contacts
-		    }
+			Contacts() {
+				return this.$store.state.User.social.contacts
+			}
 		}
-    }
+	};
 
 </script>
 
@@ -79,7 +79,7 @@
 			color: var(--charcoal-grey);
 		}
 		&__text {
-			margin: 20px 0 0 0;
+			margin: 10px 0 0 0;
 			font-size: 13px;
 			font-weight: 300;
 			line-height: 1.46;

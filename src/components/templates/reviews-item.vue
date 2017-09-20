@@ -1,16 +1,16 @@
 <template lang="html">
 	<router-link to="/" tag="li"
-		class="reviews-item">
+							 class="reviews-item">
 		<div class="reviews-item-header">
 			<img :src=" '/static/assets/shared/' + reviewsItem.avatar " :alt="reviewsItem.name"
-					class="reviews-item__avatar" />
+					 class="reviews-item__avatar" />
 			<h5 class="reviews-item__title">{{ reviewsItem.name }}</h5>
 			<img v-if="reviewsItem.like"
-					src="/static/assets/profile/reviews/thumbs-up.svg" alt="Лайк"
-					class="reviews-item__like" />
+					 src="/static/assets/profile/reviews/thumbs-up.svg" alt="Лайк"
+					 class="reviews-item__like" />
 			<img v-else
-					src="/static/assets/profile/reviews/thumbs-down.svg" alt="Дизлайк"
-					class="reviews-item__deslike" />
+					 src="/static/assets/profile/reviews/thumbs-down.svg" alt="Дизлайк"
+					 class="reviews-item__deslike" />
 		</div>
 		<p class="reviews-item__text">{{ reviewsItem.text }}</p>
 	</router-link>
@@ -18,15 +18,15 @@
 
 <script>
 
-    export default {
-        name: "reviews-item",
+	export default {
+		name: "reviews-item",
 		props: {
-		    'reviewsItem': {
-		        type: Object,
-		        required: true
+			'reviewsItem': {
+				type: Object,
+				required: true
 			}
 		}
-    }
+	};
 
 </script>
 
@@ -37,8 +37,9 @@
 
 	.reviews-item {
 		overflow: hidden;
-		size: 291px 211px;
+		size: 290px 210px;
 		padding: 20px;
+		margin: 0 10px;
 		background-color: #ffffff;
 		background-color: var(--whited);
 		cursor: pointer;
@@ -46,6 +47,9 @@
 		@include MDShadow-1;
 		&:hover {
 			@include MDShadow-2;
+		}
+		&:first-child {
+			margin-left: 3px;
 		}
 		.reviews-item-header {
 			position: relative;
@@ -70,7 +74,7 @@
 		&__like,
 		&__deslike {
 			position: absolute;
-			right: 0;
+			top: 0; right: 0;
 			size: 20px;
 			object-fit: contain;
 		}

@@ -133,7 +133,7 @@
 			display: flex;
 			justify-content: space-between;
 			min-width: 310px;
-			width: 310px;
+			size: 310px 130px;
 			&__item {
 				overflow: hidden;
 				size: 150px 120px;

@@ -177,7 +177,7 @@
 			display: flex;
 			justify-content: space-between;
 			min-width: 300px;
-			width: 300px;
+			size: 300px auto;
 			&__item {
 				overflow: hidden;
 				size: 145px 120px;

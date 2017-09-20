@@ -8,7 +8,6 @@ const state = {
 	specialization: [],
 	attached: [ 'photo.jpg' , 'project3.jpg' , 'C_ovELWXgAE7cDH.jpg' ],
 	description: '',
-	budget: '',
 	deadline: '',
 	isRush: false,
 	published: null

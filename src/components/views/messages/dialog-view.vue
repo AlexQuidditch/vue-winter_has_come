@@ -18,9 +18,16 @@
 				<span v-if="Dialog.isOnline" class="dialog-header__user-online">Онлайн</span>
 			</transition>
 		</header>
-		<section class="dialog-main">
-			{{ dialogInstance }}
-		</section>
+		<div id="v-bar" class="dialog-main vue-bar">
+			<transition-group tag="ul" name="messaging"
+												class="message-list">
+				<li v-for="( instanceItem , index ) in dialogInstance"
+						:key="index"
+						class="message-item _right">
+						<span class="message-item__content">{{ instanceItem.content }}</span>
+				</li>
+			</transition-group>
+		</div>
 		<footer class="dialog-footer">
 			<form @submit.prevent="sentMessage($event)" class="dialog-footer__form">
 				<textarea v-model="newMessage"
@@ -74,8 +81,13 @@
 				this.$store.dispatch( 'sendMessage' , this.id )
 					.then( response => {
 						this.newMessage = '';
+						this.scrollToEnd();
 					})
 					.catch( error => console.error(error) )
+			},
+			scrollToEnd() {
+				const container = document.querySelector("#v-bar");
+				container.scrollTop = container.scrollHeight;
 			}
 		}
   };
@@ -89,13 +101,15 @@
   .dialog-view {
   	position: relative;
 		width: 920px;
-  	padding: 20px 20px 20px 18px;
+  	padding: 0 10px 0 18px;
 		font-size: 12px;
+		border-left: solid 1px rgba( #9b9b9b , .3 );
   }
 
 	.dialog-header {
 		position: relative;
 		display: flex;
+		padding: 20px 0;
 		&__avatar {
 			size: 50px;
 			object-fit: cover;
@@ -127,7 +141,7 @@
 		}
 		&__user-online {
 			position: absolute;
-			top: 0; right: 0;
+			top: 20px; right: 10px;
 			font-size: 12px;
 			font-weight: 600;
 			line-height: 1.58;
@@ -136,11 +150,18 @@
 		}
 	}
 
+	.dialog-main {
+		overflow-y: auto;
+		max-height: calc( 100% - 170px);
+	}
+
 	.dialog-footer {
 		position: absolute;
 		left: 0; bottom: 1px;
 		size: 100% 80px;
 		padding: 10px 20px;
+		background-color: #fff;
+		background-color: var(--whited);
 		border-top: solid 1px rgba( #9b9b9b , .3 );
 		&__form {
 			display: flex;
@@ -177,6 +198,39 @@
 		&__form-icon {
 			size: 24px;
 		}
+	}
+
+	.message-list {
+		display: flex;
+		flex-flow: column nowrap;
+		padding: 0 15px 10px 0;
+	}
+
+	.message-item {
+		&._right {
+			text-align: right;
+		}
+		&__content {
+			display: inline-block;
+			padding: 10px;
+			margin: 5px;
+			text-align: left;
+			white-space: pre-wrap;
+			background-color: #fff;
+			background-color: var(--whited);
+			border-radius: 3px;
+			@include MDShadow-1;
+		}
+	}
+
+	.messaging-enter-active,
+	.messaging-leave-active {
+	  transition: all .25s;
+	}
+	.messaging-enter,
+	.messaging-leave-to {
+	  opacity: 0;
+	  transform: translateY(10px);
 	}
 
 </style>

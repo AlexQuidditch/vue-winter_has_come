@@ -66,7 +66,7 @@ const state = {
 		// TODO each link must be an object
 		teams: [ 1 , 3 ]
 	},
-	portfolio: [ 0 , 1 , 3 ],
+	portfolio: [ 0 , 1 , 3 , 4 ],
 	reviews: [ 3 , 4 , 5 ]
 };
 

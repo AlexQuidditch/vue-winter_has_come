@@ -22,6 +22,22 @@ const state = [
 		picture: 'project8.jpg',
 		likes: 1223,
 		comments: 37
+	},
+	{
+		id: 3,
+		title: 'Расписной топор',
+		description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+		picture: 'project8.jpg',
+		likes: 7278,
+		comments: 37
+	},
+	{
+		id: 4,
+		title: 'Корона Шута',
+		description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+		picture: 'project8.jpg',
+		likes: 9389,
+		comments: 37
 	}
 ];
 

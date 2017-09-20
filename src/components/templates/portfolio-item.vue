@@ -1,10 +1,10 @@
 <template lang="html">
-	<router-link :to="{ name: 'task', query: { id: portfolioItem.id }}" tag="li"
-							 class="portfolio-item">
-		<div class="portfolio-item__overlay">
+	<li class="portfolio-item">
+		<router-link :to="{ name: 'task', query: { id: portfolioItem.id }}" tag="div"
+                 class="portfolio-item__overlay">
 			<h5 class="portfolio-item__title">{{ portfolioItem.title }}</h5>
 			<p class="portfolio-item__description">{{ portfolioItem.description }}</p>
-		</div>
+		</router-link>
 		<img :src=" '/static/assets/shared/' + portfolioItem.picture " :alt="portfolioItem.title"
 				 class="portfolio-item__picture" />
 		<span class="portfolio-item__title _bottom">{{ portfolioItem.title }}</span>
@@ -20,7 +20,7 @@
 				<span class="scores-item__value">{{ portfolioItem.comments }}</span>
 			</li>
 		</ul>
-	</router-link>
+	</li>
 </template>
 
 <script>

@@ -10,7 +10,7 @@
 				<span class="menu-item__text">{{ Menu.messages.text }}</span>
 				<span v-if="newMessagesCounter"
 					class="menu-item__counter _add"
-					>(+{{ newMessagesCounter }})
+					>(+{{ TWEENnewMessagesCounter }})
 				</span>
 			</router-link>
 		</li>
@@ -45,23 +45,48 @@
 
 <script>
 
-    export default {
-			name: "user-menu",
-			computed: {
-				Menu() {
-					return this.$store.state.Menu.list
-				},
-				newMessagesCounter() {
-					const dialogs = this.$store.state.Messages.dialogs;
-					const arr = [];
-					dialogs.forEach( dialog => {
-					 if ( dialog.unreaded ) arr.push(dialog.unreaded);
-					});
-					const counter = arr.reduce( (a, b) => a + b );
-					return counter;
-				}
+	import TWEEN from '@tweenjs/tween.js';
+
+  export default {
+		name: "user-menu",
+		data: () => ({
+			TWEENnewMessagesCounter: 1,
+			messagesCounter: 0
+		}),
+		computed: {
+			Menu() {
+				return this.$store.state.Menu.list
+			},
+			newMessagesCounter() {
+				const dialogs = this.$store.state.Messages.dialogs;
+				const arr = [];
+				dialogs.forEach( dialog => {
+				 if ( dialog.unreaded ) arr.push(dialog.unreaded);
+				});
+				const counter = arr.reduce( (a, b) => a + b );
+				this.messagesCounter = counter;
+				return counter;
 			}
-		};
+		},
+		watch: {
+			messagesCounter(newValue, oldValue) {
+				const vm = this;
+				function animate() {
+					if ( TWEEN.update() ) {
+						requestAnimationFrame(animate)
+					}
+				};
+				new TWEEN.Tween({ tweeningNumber: oldValue })
+					.easing(TWEEN.Easing.Quadratic.Out)
+					.to({ tweeningNumber: newValue }, 1000)
+					.onUpdate(function () {
+						vm.TWEENnewMessagesCounter = this.tweeningNumber.toFixed(0)
+					})
+					.start()
+				animate()
+			}
+		}
+	};
 
 </script>
 

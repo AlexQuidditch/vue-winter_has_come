@@ -3,12 +3,13 @@ import router from './router';
 import store from './store';
 
 import Vuebar from 'vuebar';
+import Checkbox from 'vue-material-checkbox';
 import Resource from 'vue-resource';
 import VueSweetAlert from 'vue-sweetalert';
-import Checkbox from 'vue-material-checkbox';
+import VueChatScroll from 'vue-chat-scroll'
 
-import MaskedInput from 'vue-masked-input';
 import VueDatepicker from 'vuejs-datepicker';
+import MaskedInput from 'vue-masked-input';
 window.Waves = require('node-waves');
 
 // Глобально доступные компоненты
@@ -19,6 +20,7 @@ Vue.use(Vuebar);
 Vue.use(Checkbox);
 Vue.use(Resource);
 Vue.use(VueSweetAlert);
+Vue.use(VueChatScroll)
 
 Vue.http.options.root = 'http://localhost:8080';
 Vue.config.productionTip = false;

@@ -33,26 +33,27 @@
 	import partnerMenu from './header/partner-menu.vue';
 	import iconHome from '@icons/home';
 
-    export default {
-        name: "header",
+	export default {
+		name: "header",
 		components: { search , partner , partnerMenu , iconHome }
-    };
+	};
 
 </script>
 
 <style lang="scss">
 
-    .header {
-    	z-index: 900;
-        position: fixed;
-        top: 0;
+	.header {
+		z-index: 900;
+		position: fixed;
+		top: 0;
 		width: 100%;
 		&__logo {
-            size: 164px 17px;
+			size: 164px 17px;
 			height: 100%;
 			object-fit: contain;
+			cursor: pointer;
 		}
-    }
+	}
 
 	.header-row {
 		&._first {
@@ -60,7 +61,7 @@
 			background-color: #f8f8f8;
 			background-color: var(--white-two);
 			.container {
-			    position: relative;
+				position: relative;
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
@@ -95,8 +96,8 @@
 			line-height: 40px;
 			box-shadow: inset 0 2px 0 transparent;
 			transition:
-				color .3s ease-in-out,
-				box-shadow .3s ease-in-out;
+			color .3s ease-in-out,
+			box-shadow .3s ease-in-out;
 			&._active {
 				box-shadow: inset 0 -2px 0 #fff;
 				box-shadow: inset 0 -2px 0 var(--whited);

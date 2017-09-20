@@ -68,7 +68,7 @@
 		--charcoal-grey: #4a4a4a;
 		--irish-green: #009d2f;
 		--white-two: #f8f8f8;
-  		--purpley-grey: #4b4b4b;
+		--purpley-grey: #4b4b4b;
 		--purpley-grey-20: rgba(75, 75, 75, 0.5);
 		--pale-grey: #f0f4f7;
 		--scarlet: #d0011b;
@@ -137,8 +137,8 @@
 	.fade-enter-active,
 	.fade-leave-active {
 		transition:
-			opacity .3s ease-in-out,
-			transform .3s ease-in-out
+		opacity .3s ease-in-out,
+		transform .3s ease-in-out
 	}
 
 	.fade-fast-enter,
@@ -148,8 +148,8 @@
 	.fade-fast-enter-active,
 	.fade-fast-leave-active {
 		transition:
-			opacity .15s ease-in-out,
-			transform .15s ease-in-out
+		opacity .15s ease-in-out,
+		transform .15s ease-in-out
 	}
 
 	.list-enter,
@@ -166,9 +166,9 @@
 	}
 
 	.vb > .vb-dragger {
-    z-index: 5;
-    width: 8px;
-    right: 0;
+		z-index: 5;
+		width: 8px;
+		right: 0;
 		padding: 10px 0;
 	}
 
@@ -176,16 +176,16 @@
 		display: block;
 		height: 100%;
 		margin: 0;
-    background-color: rgba( #009d2f , 0);
-    border-radius: 5px;
+		background-color: rgba( #009d2f , 0);
+		border-radius: 5px;
 		backface-visibility: hidden;
 		transform: rotate3d(0,0,0,0);
 		transition:
-			background-color 150ms ease-out,
+		background-color 150ms ease-out,
 	}
 
 	.vb.vb-scrolling-phantom > .vb-dragger > .vb-dragger-styler {
-    background-color: rgba( #009d2f , .3);
+		background-color: rgba( #009d2f , .3);
 	}
 
 	.vb > .vb-dragger:hover > .vb-dragger-styler,
@@ -194,7 +194,7 @@
 	}
 
 	.vb.vb-dragging-phantom > .vb-dragger > .vb-dragger-styler {
-    background-color: rgba( #009d2f , .5);
+		background-color: rgba( #009d2f , .5);
 	}
 
 </style>

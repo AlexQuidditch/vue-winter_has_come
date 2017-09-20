@@ -49,48 +49,48 @@
 
 	import iconSend from '@icons/send.vue';
 
-  export default {
-    name: "dialog-view",
+	export default {
+		name: "dialog-view",
 		components: { iconSend },
 		props: ['id'],
 		computed: {
-	    Dialog() {
-        return this.$store.state.Messages.dialogs
-					.find( dialog => dialog.id == this.id )
-	    },
+			Dialog() {
+				return this.$store.state.Messages.dialogs
+				.find( dialog => dialog.id == this.id )
+			},
 			dialogInstance() {
-        const thread = this.$store.state.Messages.threads
-					.find( thread => thread.id == this.id );
-					return thread.dialogInstance
+				const thread = this.$store.state.Messages.threads
+				.find( thread => thread.id == this.id );
+				return thread.dialogInstance
 			},
 			Author() {
 				return this.$store.state.Stub.friends
-					.find( item => item.id === this.Dialog.authorID )
+				.find( item => item.id === this.Dialog.authorID )
 			},
 			newMessage: {
-		    get() {
-		      return this.$store.state.Messages.dialogs[this.id].draft
-		    },
-		    set(payload) {
+				get() {
+					return this.$store.state.Messages.dialogs[this.id].draft
+				},
+				set(payload) {
 					this.$store.dispatch( 'updateMessage' , [ this.id , payload ] )
-		    }
-		  }
+				}
+			}
 		},
 		methods: {
-	    sentMessage() {
+			sentMessage() {
 				this.$store.dispatch( 'sendMessage' , this.id )
-					.then( response => {
-						this.newMessage = '';
-						this.scrollToEnd();
-					})
-					.catch( error => console.error(error) )
+				.then( response => {
+					this.newMessage = '';
+					this.scrollToEnd();
+				})
+				.catch( error => console.error(error) )
 			},
 			scrollToEnd() {
 				const container = document.querySelector("#v-bar");
 				container.scrollTop = container.scrollHeight;
 			}
 		}
-  };
+	};
 
 </script>
 

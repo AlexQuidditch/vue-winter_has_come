@@ -4,20 +4,22 @@
 		<social></social>
 		<portfolio></portfolio>
 		<reviews></reviews>
+    <wall></wall>
 	</main>
 </template>
 
 <script>
 
-	import personal from '@views/profile/personal';
-	import reviews from '@views/profile/reviews';
-	import portfolio from '@views/profile/portfolio';
-	import social from '@views/profile/social';
+  import personal from '@views/profile/personal.vue';
+  import reviews from '@views/profile/reviews.vue';
+  import portfolio from '@views/profile/portfolio.vue';
+  import social from '@views/profile/social.vue';
+  import wall from '@views/profile/wall.vue';
 
-	export default {
-		name: "profile",
-		components: { personal , reviews , portfolio , social }
-	};
+  export default {
+    name: "profile",
+    components: { personal , reviews , portfolio , social , wall }
+  };
 
 </script>
 

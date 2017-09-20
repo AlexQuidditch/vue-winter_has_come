@@ -1,7 +1,7 @@
 <template lang="html">
   <section :class="{ '_folded' : isFolded }" class="portfolio">
     <img src="/static/assets/profile/portfolio/case.svg" alt="Портфолио"
-    class="portfolio__icon">
+         class="portfolio__icon">
     <h3 class="portfolio__title">Мои работы</h3>
     <button @click="foldSection()"
             class="portfolio__fold-button waves-effect waves-dark"

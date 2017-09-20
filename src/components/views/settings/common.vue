@@ -75,7 +75,7 @@
 	import { mapActions } from 'vuex';
 
 	import iconCheck from '@icons/check-square';
-	import iconCalendar from '@icons/calendar';
+	import iconCalendar from '@icons/calendar.js';
 
 	export default {
 		name: "settings_common",

@@ -121,10 +121,10 @@
 <script>
 
 	import { mapActions } from 'vuex';
-
+  
 	import { Money } from 'v-money';
 	import iconCheck from '@icons/check-square';
-	import iconCalendar from '@icons/calendar';
+	import iconCalendar from '@icons/calendar.js';
 	import vChip from '@custom-elements/vue-chip';
 
 	export default {

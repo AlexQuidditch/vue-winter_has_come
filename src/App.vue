@@ -176,14 +176,12 @@
 		display: block;
 		height: 100%;
 		margin: 0;
-    background-color: rgba( #009d2f , .1);
+    background-color: rgba( #009d2f , 0);
     border-radius: 5px;
 		backface-visibility: hidden;
 		transform: rotate3d(0,0,0,0);
 		transition:
-			background-color 100ms ease-out,
-			margin 100ms ease-out,
-			height 100ms ease-out;
+			background-color 150ms ease-out,
 	}
 
 	.vb.vb-scrolling-phantom > .vb-dragger > .vb-dragger-styler {

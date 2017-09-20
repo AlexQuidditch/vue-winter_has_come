@@ -10,8 +10,8 @@
 				</transition-group>
 			</div>
 			<transition name="fade" mode="out-in" appear>
-				<router-view></router-view>
-				<dialog-clear v-if="!id"></dialog-clear>
+				<router-view v-if="id"></router-view>
+				<dialog-clear v-else></dialog-clear>
 			</transition>
     </section>
   </main>

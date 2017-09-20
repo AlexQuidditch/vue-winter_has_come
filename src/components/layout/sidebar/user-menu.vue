@@ -1,5 +1,5 @@
 <template lang="html">
-    <ul class="user-menu">
+	<ul class="user-menu">
 		<li class="menu-item">
 			<router-link :to="{ name: Menu.main.route }" class="menu-item__link">
 				<span class="menu-item__text">{{ Menu.main.text }}</span>
@@ -8,8 +8,10 @@
 		<li class="menu-item">
 			<router-link :to="{ name: Menu.messages.route }" class="menu-item__link">
 				<span class="menu-item__text">{{ Menu.messages.text }}</span>
-				<span v-if="Menu.messages.Counters && Menu.messages.Counters.add > 0"
-							class="menu-item__counter _add">(+{{ Menu.messages.Counters.add }})</span>
+				<span v-if="newMessagesCounter"
+					class="menu-item__counter _add"
+					>(+{{ newMessagesCounter }})
+				</span>
 			</router-link>
 		</li>
 		<li class="menu-item">
@@ -18,27 +20,27 @@
 				<span class="menu-item__counter _state">({{ Menu.friends.Counters.state }})</span>
 				<span v-if="Menu.friends.Counters && Menu.friends.Counters.add > 0"
 							class="menu-item__counter _add">(+{{ Menu.friends.Counters.add }})</span>
-			</router-link>
-		</li>
-		<li class="menu-item">
-			<router-link :to="{ name: Menu.teams.route }" class="menu-item__link">
-				<span class="menu-item__text">{{ Menu.teams.text }}</span>
-				<span class="menu-item__counter _state">({{ Menu.teams.Counters.state }})</span>
-				<span v-if="Menu.teams.Counters && Menu.teams.Counters.add > 0"
-							class="menu-item__counter _add">(+{{ Menu.teams.Counters.add }})</span>
-			</router-link>
-		</li>
-		<li class="menu-item">
-			<router-link :to="{ name: Menu.settings.route , query: Menu.settings.query }" class="menu-item__link">
-				<span class="menu-item__text">{{ Menu.settings.text }}</span>
-			</router-link>
-		</li>
-		<li class="menu-item">
-			<router-link :to="{ name: Menu.support.route , query: Menu.support.query }" class="menu-item__link">
-				<span class="menu-item__text">{{ Menu.support.text }}</span>
-			</router-link>
-		</li>
-    </ul>
+				</router-link>
+			</li>
+			<li class="menu-item">
+				<router-link :to="{ name: Menu.teams.route }" class="menu-item__link">
+					<span class="menu-item__text">{{ Menu.teams.text }}</span>
+					<span class="menu-item__counter _state">({{ Menu.teams.Counters.state }})</span>
+					<span v-if="Menu.teams.Counters && Menu.teams.Counters.add > 0"
+								class="menu-item__counter _add">(+{{ Menu.teams.Counters.add }})</span>
+					</router-link>
+				</li>
+				<li class="menu-item">
+					<router-link :to="{ name: Menu.settings.route , query: Menu.settings.query }" class="menu-item__link">
+						<span class="menu-item__text">{{ Menu.settings.text }}</span>
+					</router-link>
+				</li>
+				<li class="menu-item">
+					<router-link :to="{ name: Menu.support.route , query: Menu.support.query }" class="menu-item__link">
+						<span class="menu-item__text">{{ Menu.support.text }}</span>
+					</router-link>
+				</li>
+			</ul>
 </template>
 
 <script>
@@ -48,6 +50,15 @@
 			computed: {
 				Menu() {
 					return this.$store.state.Menu.list
+				},
+				newMessagesCounter() {
+					const dialogs = this.$store.state.Messages.dialogs;
+					const arr = [];
+					dialogs.forEach( dialog => {
+					 if ( dialog.unreaded ) arr.push(dialog.unreaded);
+					});
+					const counter = arr.reduce( (a, b) => a + b );
+					return counter;
 				}
 			}
 		};
@@ -56,9 +67,9 @@
 
 <style lang="scss">
 
-    .user-menu {
-    	padding: 16px 0;
-    }
+	.user-menu {
+		padding: 16px 0;
+	}
 
 	.menu-item {
 		&:first-child .menu-item__link {

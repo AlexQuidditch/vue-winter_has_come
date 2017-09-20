@@ -5849,6 +5849,12 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
+vue-chat-scroll@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/vue-chat-scroll/-/vue-chat-scroll-1.2.0.tgz#79d807baa22ed5765e56c2d9bafa3615a6792873"
+  dependencies:
+    vue "^2.1.10"
+
 vue-hot-reload-api@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.1.0.tgz#9ca58a6e0df9078554ce1708688b6578754d86de"
@@ -5891,10 +5897,6 @@ vue-material-radio@^1.0.2:
 vue-material-ripple@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/vue-material-ripple/-/vue-material-ripple-1.1.0.tgz#995ff5af228f750f81f8c8b88205ef6ffde5cb4e"
-
-vue-native-scrollbar@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/vue-native-scrollbar/-/vue-native-scrollbar-1.0.2.tgz#1685259b3b490d23d788410b312e8150f7ef6844"
 
 vue-resource@^1.3.4:
   version "1.3.4"
@@ -5947,13 +5949,13 @@ vue2-filters@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/vue2-filters/-/vue2-filters-0.2.1.tgz#f0c79df41a8c396134d1983110879b19fd0e27c8"
 
+vue@^2.1.10, vue@^2.4.0:
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.4.4.tgz#ea9550b96a71465fd2b8b17b61673b3561861789"
+
 vue@^2.2.1, vue@^2.2.6, vue@^2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.4.2.tgz#a9855261f191c978cc0dc1150531b8d08149b58c"
-
-vue@^2.4.0:
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.4.4.tgz#ea9550b96a71465fd2b8b17b61673b3561861789"
 
 vuebar@^0.0.17:
   version "0.0.17"

@@ -23,94 +23,11 @@
   export default {
     name: "wall",
     components: { wallPost , iconWall , iconHeart , wallFilter },
-    data: () => ({
-      wallPosts: [
-        {
-          id: 0,
-          authorID: 3,
-          time: "2017-09-20T20:32:25.884Z",
-          content: 'wdqwd\nqwdqwd\nqwdqwd\n\nwqd',
-          attacments: '',
-          likes: 12,
-          reposts: 1,
-          comments: [
-            {
-              id: 1,
-              authorID: 1,
-              time: "2017-09-20T20:32:25.884Z",
-              content: '',
-              attacments: '',
-              likes: 12
-            }
-          ]
-        },
-        {
-          id: 1,
-          authorID: 1,
-          time: "2017-09-20T20:32:25.884Z",
-          content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates fuga minima sapiente, odio distinctio maiores, illum laboriosam ipsa nisi voluptatibus a porro beatae praesentium ipsam. Quae rem explicabo unde ex!',
-          attacments: '',
-          likes: 12,
-          reposts: 1,
-          comments: [
-            {
-              id: 2,
-              authorID: 1,
-              time: "2017-09-20T20:33:25.884Z",
-              content: '',
-              attacments: '',
-              likes: 12
-            },
-            {
-              id: 5,
-              authorID: 2,
-              time: "2017-09-20T20:39:25.884Z",
-              content: '',
-              attacments: '',
-              likes: 12
-            }
-          ]
-        },
-        {
-          id: 2,
-          authorID: 1,
-          time: "2017-09-20T20:32:25.884Z",
-          content: '',
-          attacments: '',
-          likes: 12,
-          reposts: 1,
-          comments: [
-            {
-              id: 3,
-              authorID: 1,
-              time: "2017-09-20T20:32:25.884Z",
-              content: '',
-              attacments: '',
-              likes: 12
-            }
-          ]
-        },
-        {
-          id: 3,
-          authorID: 1,
-          time: "2017-09-20T20:32:25.884Z",
-          content: '',
-          attacments: '',
-          likes: 12,
-          reposts: 1,
-          comments: [
-            {
-              id: 1,
-              authorID: 1,
-              time: "2017-09-20T20:32:25.884Z",
-              content: '',
-              attacments: '',
-              likes: 12
-            }
-          ]
-        }
-      ]
-    })
+    computed: {
+      wallPosts() {
+        return this.$store.state.Wall
+      }
+    }
   };
 
 </script>

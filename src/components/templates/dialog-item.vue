@@ -2,7 +2,7 @@
 	<router-link :to="{ name: 'dialog', params: { id: DialogItem.id } }" tag="li"
 							 class="dialog-item waves-effect waves-dark">
 		<transition name="heartbeat" mode="out-in">
-			<span v-if="DialogItem.isOnline" class="dialog-item__online"></span>
+			<span v-if="Author.isOnline" class="dialog-item__online"></span>
 		</transition>
 		<img :src=" '/static/assets/shared/' + Author.avatar" :alt="Author.name + ' ' + Author.sename" class="dialog-item__avatar">
 		<div class="dialog-item__container">

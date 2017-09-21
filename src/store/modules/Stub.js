@@ -115,6 +115,45 @@ const state = {
 					preview: 'project5.jpg'
 				}
 			]
+		},
+		{
+			id: '59b98da198948246804be893',
+			isAgent: false,
+			isOnline: true,
+  		avatar: 'avatar.jpg',
+  		name: 'Елена',
+  		sename: 'Иванова',
+    	information: {
+    		specialization: 'Веб-дизайн, реклама',
+    		lastVisit: '22.07.2017',
+    		status: 'свободна',
+    		town: 'Санкт-Петербург',
+    		country: 'РФ',
+    		education: {
+    			place: 'СПбГУТД',
+    			faculty: 'графический дизайн'
+    		},
+    		about: 'Привет! Меня зовут Елена, я студентка СПбГУТД на кафедре графического дизайна. Занимаюсь веб-дизайном и очень увлекаюсь всей IT сферой.'
+    	},
+			company: null,
+			addedDate: 2,
+			popularity: 16,
+			rating: 4.9,
+			responses: {
+				positive: 28,
+				negative: 0
+			},
+			issued: 201,
+			works: [
+				{
+					id: '820',
+					preview: 'project4.jpg'
+				},
+				{
+					id: '822',
+					preview: 'project5.jpg'
+				}
+			]
 		}
 	],
 	blacklist: [

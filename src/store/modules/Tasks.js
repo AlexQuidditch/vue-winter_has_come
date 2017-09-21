@@ -69,6 +69,8 @@ const actions = {
 
 const mutations = {
 	UPDATE_RATE( state , payload ) {
+    // payload[1] = task index
+    // payload[0] = rate of task
 		state.find( item => {
 			if ( item.id === payload[1] ) {
 				item.completed.rate = payload[0];

@@ -3,7 +3,8 @@
 		<div class="information">
 			<div class="information-avatar">
 				<router-link :to="{ name: 'user', query: { id: friendItem.id }}" tag="img"
-					:src=" '/static/assets/shared/' + friendItem.avatar" :alt="friendItem.name + ' ' + friendItem.sename" class="information-avatar__picture">
+										 :src="'/static/assets/shared/' + friendItem.avatar" :alt="friendItem.name + ' ' + friendItem.sename"
+										 class="information-avatar__picture">
 				</router-link>
 				<span v-if="friendItem.isOnline" class="information-avatar__status" title="Пользователь в сети">- Онлайн -</span>
 			</div>
@@ -13,8 +14,10 @@
 					>{{ friendItem.name + ' ' + friendItem.sename }}
 				</router-link>
 				<p v-if="friendItem.isAgent" class="information-detail__company"> Агент {{ friendItem.company }}</p>
-				<p v-else class="information-detail__specialization">{{ friendItem.specialization + ' | ' + friendItem.education }}</p>
-				<p class="information-detail__description"> {{ friendItem.description }} </p>
+				<p v-else class="information-detail__specialization">
+          {{ friendItem.information.specialization + ' | ' + friendItem.information.education.place }}
+        </p>
+				<p class="information-detail__description"> {{ friendItem.information.about }} </p>
 				<div class="information-bottom">
 					<div class="information-bottom__column">
 						<button class="information-bottom__button _contact-me">
@@ -46,15 +49,15 @@
 
 <script>
 
-    export default {
-        name: "friend-item",
+	export default {
+		name: "friend-item",
 		props: {
-		    'friendItem': {
-		        type: Object,
-		        required: true
-		    }
-        }
-    };
+			'friendItem': {
+				type: Object,
+				required: true
+			}
+		}
+	};
 
 </script>
 
@@ -62,19 +65,19 @@
 
 	@import "../../stylesheets/partials/_mixins";
 
-    .friend-item {
-    	display: flex;
+	.friend-item {
+		display: flex;
 		justify-content: space-between;
 		padding-top: 30px;
 		padding-bottom: 20px;
 		border-bottom: solid 1px rgba( #4b4b4b , .4 );
-    	.information {
+		.information {
 			display: flex;
-    	}
+		}
 		.information-avatar {
 			width: 100px;
-    		&__picture {
-    			size: 100px;
+			&__picture {
+				size: 100px;
 				object-fit: cover;
 				object-position: center;
 				cursor: pointer;
@@ -84,7 +87,7 @@
 				&:hover {
 					@include MDShadow-2;
 				}
-    		}
+			}
 			&__status {
 				display: block;
 				margin-top: 15px;
@@ -95,8 +98,8 @@
 				color: var(--irish-green);
 			}
 		}
-    	.information-detail {
-    		min-width: 250px;
+		.information-detail {
+			min-width: 250px;
 			width: 250px;
 			margin-left: 20px;
 			&__name {
@@ -130,7 +133,7 @@
 				color: #4b4b4b;
 				color: var(--purpley-grey);
 			}
-    	}
+		}
 		.information-bottom {
 			display: flex;
 			justify-content: space-between;
@@ -198,7 +201,7 @@
 				object-position: center;
 			}
 		}
-    }
+	}
 
 
 

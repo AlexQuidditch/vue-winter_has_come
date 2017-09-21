@@ -4,7 +4,7 @@
          class="portfolio__icon">
     <h3 class="portfolio__title">Мои работы</h3>
     <button @click="foldSection()"
-            class="portfolio__fold-button"
+            class="portfolio__fold-button waves-effect waves-dark"
             type="button" name="fold-portfolio"
       >{{ isFolded ? 'Развернуть' : 'Свернуть' }}
     </button>
@@ -49,6 +49,8 @@
 
 <style lang="scss">
 
+  @import "../../../stylesheets/partials/_mixins.scss";
+
   .portfolio {
     overflow: hidden;
     position: relative;
@@ -84,6 +86,15 @@
       top: 20px; right: 30px;
       size: 100px 28px;
       margin: 0; padding: 0;
+      font-family: 'Lato', Arial, sans-serif;font-size: 12px;
+      font-weight: 600;
+      line-height: 28px;
+      background-color: #fff;
+      background-color: var(--whited);
+      border-radius: 3px;
+      border: none;
+      transition: box-shadow .3s ease-in-out;
+      @include MDShadow-1;
     }
   }
 

@@ -13,7 +13,7 @@
 		<div class="header-row _second">
 			<nav class="container">
 				<router-link :to="{ name: 'find-job' , query: { section : 'all' } }"
-                    class="header-row__link waves-effect waves-light">
+                     class="header-row__link waves-effect waves-light">
 					<icon-home class="header-row__link-icon"></icon-home>
                     <span>Найти работу</span>
                 </router-link>

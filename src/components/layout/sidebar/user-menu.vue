@@ -17,7 +17,7 @@
 		<li class="menu-item">
 			<router-link :to="{ name: Menu.friends.route, query: { section: 'all' } }" class="menu-item__link">
 				<span class="menu-item__text">{{ Menu.friends.text }}</span>
-				<span class="menu-item__counter _state">({{ Menu.friends.Counters.state }})</span>
+				<span class="menu-item__counter _state">({{ friendsQuantity }})</span>
 				<span v-if="Menu.friends.Counters && Menu.friends.Counters.add > 0"
 							class="menu-item__counter _add">(+{{ Menu.friends.Counters.add }})</span>
 				</router-link>
@@ -66,6 +66,9 @@
 				const counter = arr.reduce( (a, b) => a + b );
 				this.messagesCounter = counter;
 				return counter;
+			},
+			friendsQuantity() {
+				return this.$store.state.Stub.friends.length;
 			}
 		},
 		watch: {

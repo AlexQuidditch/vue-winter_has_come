@@ -22,6 +22,8 @@
 
 <script>
 
+  import { shortDate } from '@helpers/dateFormat';
+
   export default {
     name: "dialog-item",
 		props: {
@@ -41,7 +43,7 @@
 		},
 		computed: {
 			lastMessage() {
-				return new Date(this.DialogItem.lastMessage).toLocaleString('ru-RU' , { hour: '2-digit' , minute: '2-digit' })
+				return new Date(this.DialogItem.lastMessage).toLocaleString('ru-RU' , shortDate );
 			},
 			Author() {
 				return this.$store.state.Stub.friends.find( item => {

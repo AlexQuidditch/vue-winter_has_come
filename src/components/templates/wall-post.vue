@@ -22,7 +22,7 @@
         </icon-comments>
       </span>
     </header>
-    <article class="post-content">{{ wallPost.content }}</article>
+    <article class="post-content">{{ WallPost.content }}</article>
     <footer class="post-footer">
       <button @click="toComment = true"
               class="post-footer__button _comment waves-effect waves-light"
@@ -34,7 +34,7 @@
               :class="{ '_update' : hasLiked }"
               class="post-footer__button waves-effect waves-dark"
               type="button">
-        <span class="post-footer__button-content _likes" aria-label="Количество лайков">{{ wallPost.likes }}</span>
+        <span class="post-footer__button-content _likes" aria-label="Количество лайков">{{ WallPost.likes }}</span>
         <icon-heart :Width="2"
                     :class="{ '_active' : isLiked }"
                     class="post-footer__button-icon _likes"
@@ -42,11 +42,11 @@
         </icon-heart>
       </button>
     </footer>
-    <ul class="comments-list">
-      <comments-item v-for="commentItem in wallPost.comments" :key="commentItem.id"
+    <transition-group name="list" tag="ul" mode="out-in" class="comments-list">
+      <comments-item v-for="commentItem in WallPost.comments" :key="commentItem.id"
                      :CommentItem="commentItem">
       </comments-item>
-    </ul>
+    </transition-group>
     <transition name="fade">
       <form v-if="toComment" @submit.prevent="commentIt()" class="post-form">
         <textarea v-model="postComment"
@@ -65,6 +65,8 @@
 
 <script>
 
+  import { longDate } from '@helpers/dateFormat';
+
   import iconHeart from '@icons/heart.js';
   import iconComments from '@icons/comments';
   import commentsItem from '@templates/comment-item.vue';
@@ -73,7 +75,7 @@
     name: "wall-post",
     components: { iconHeart , iconComments , commentsItem },
     props: {
-      'wallPost': {
+      'WallPost': {
         type: Object,
         required: true
       }
@@ -98,31 +100,32 @@
     computed: {
       Author() {
         return this.$store.state.Stub.friends.find( item => {
-          if ( item.id === this.wallPost.authorID ) return item
+          if ( item.id === this.WallPost.authorID ) return item
         })
       },
       published() {
-        return new Date(this.wallPost.time).toLocaleString('ru-RU' , { hour: '2-digit' , minute: '2-digit' , day: '2-digit' , month: 'long' })
+        return new Date(this.WallPost.time).toLocaleString('ru-RU' , longDate );
       },
       commentsLength() {
-        return this.wallPost.comments.length
+        return this.WallPost.comments.length
       }
     },
     methods: {
       likeIt() {
         this.isLiked =! this.isLiked;
-        this.$store.dispatch( 'likeWallPost' , [ this.wallPost.id , this.isLiked ? 1 : -1 ] );
+        this.$store.dispatch( 'likeWallPost' , [ this.WallPost.id , this.isLiked ? 1 : -1 ] );
       },
       commentIt() {
-        const newComment = {
-          id: 9,
-          authorID: '59b98da198948246804be893',
-          time: new Date(),
-          content: this.postComment,
-          attacments: '',
-          likes: 0
+        const newComment = {                    // подготовка новго объекта комментария
+          id: 9,                                // Number - ID комментария TODO сделать вычисляемым
+          authorID: this.$store.state.User.id,  // String - ID пользователя
+          time: new Date(),                     // Date - время публикации
+          content: this.postComment,            // String - тело комментария
+          attacments: '',                       // Array || Object - приложения
+          likes: 0                              // Number стартовое кол-во лайков
         };
-        this.$store.dispatch( 'addComment' , [ this.wallPost.id , newComment ] );
+        this.$store.dispatch( 'addComment' , [ this.WallPost.id , newComment ] );
+        this.postComment = '';
       }
     }
   };

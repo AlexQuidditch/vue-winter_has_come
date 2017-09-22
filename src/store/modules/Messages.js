@@ -3,7 +3,6 @@ const state = {
 		{
 			id: 0,
 			authorID: 2,
-			isOnline: true,
 			isUnreaded: false,
 			lastMessage: '2017-09-03T18:23:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
@@ -14,7 +13,6 @@ const state = {
 		{
 			id: 1,
 			authorID: 3,
-			isOnline: true,
 			isUnreaded: false,
 			lastMessage: '2017-09-03T18:23:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
@@ -25,7 +23,6 @@ const state = {
 		{
 			id: 2,
 			authorID: 1,
-			isOnline: true,
 			isUnreaded: true,
 			lastMessage: '2017-09-01T12:59:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
@@ -35,7 +32,6 @@ const state = {
 		{
 			id: 3,
 			authorID: 2,
-			isOnline: false,
 			isUnreaded: true,
 			lastMessage: '2017-07-13T18:00:23.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
@@ -45,7 +41,6 @@ const state = {
 		{
 			id: 4,
 			authorID: 3,
-			isOnline: false,
 			isUnreaded: true,
 			lastMessage: '2017-07-13T18:00:23.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
@@ -55,7 +50,6 @@ const state = {
 		{
 			id: 5,
 			authorID: 3,
-			isOnline: false,
 			isUnreaded: true,
 			lastMessage: '2017-07-13T18:00:23.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
@@ -65,7 +59,6 @@ const state = {
 		{
 			id: 6,
 			authorID: 3,
-			isOnline: true,
 			isUnreaded: false,
 			lastMessage: '2017-09-03T18:23:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
@@ -75,7 +68,6 @@ const state = {
 		{
 			id: 7,
 			authorID: 3,
-			isOnline: true,
 			isUnreaded: true,
 			lastMessage: '2017-09-01T12:59:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
@@ -85,7 +77,6 @@ const state = {
 		{
 			id: 8,
 			authorID: 3,
-			isOnline: true,
 			isUnreaded: false,
 			lastMessage: '2017-09-03T18:23:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
@@ -95,7 +86,6 @@ const state = {
 		{
 			id: 9,
 			authorID: 3,
-			isOnline: true,
 			isUnreaded: true,
 			lastMessage: '2017-09-01T12:59:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
@@ -105,7 +95,6 @@ const state = {
 		{
 			id: 10,
 			authorID: 3,
-			isOnline: true,
 			isUnreaded: false,
 			lastMessage: '2017-09-03T18:23:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
@@ -115,7 +104,6 @@ const state = {
 		{
 			id: 11,
 			authorID: 3,
-			isOnline: true,
 			isUnreaded: true,
 			lastMessage: '2017-09-01T12:59:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
@@ -125,7 +113,6 @@ const state = {
 		{
 			id: 12,
 			authorID: 3,
-			isOnline: true,
 			isUnreaded: false,
 			lastMessage: '2017-09-03T18:23:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
@@ -135,7 +122,6 @@ const state = {
 		{
 			id: 13,
 			authorID: 3,
-			isOnline: true,
 			isUnreaded: true,
 			lastMessage: '2017-09-01T12:59:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
@@ -145,7 +131,6 @@ const state = {
 		{
 			id: 14,
 			authorID: 3,
-			isOnline: false,
 			isUnreaded: true,
 			lastMessage: '2017-07-13T18:00:23.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
@@ -155,7 +140,6 @@ const state = {
 		{
 			id: 15,
 			authorID: 3,
-			isOnline: false,
 			isUnreaded: true,
 			lastMessage: '2017-07-13T18:00:23.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
@@ -165,7 +149,6 @@ const state = {
 		{
 			id: 16,
 			authorID: 3,
-			isOnline: false,
 			isUnreaded: true,
 			lastMessage: '2017-07-13T18:00:23.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
@@ -175,7 +158,6 @@ const state = {
 		{
 			id: 17,
 			authorID: 3,
-			isOnline: true,
 			isUnreaded: false,
 			lastMessage: '2017-09-03T18:23:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
@@ -185,7 +167,6 @@ const state = {
 		{
 			id: 18,
 			authorID: 3,
-			isOnline: true,
 			isUnreaded: true,
 			lastMessage: '2017-09-01T12:59:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',
@@ -195,7 +176,6 @@ const state = {
 		{
 			id: 19,
 			authorID: 3,
-			isOnline: true,
 			isUnreaded: false,
 			lastMessage: '2017-09-03T18:23:29.078Z',
 			previewMessage: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, mollitia quisquam officiis voluptatum iure magnam nesciunt, doloremque rem eius placeat, libero vero culpa inventore! Quae neque doloremque, voluptates porro molestiae.',

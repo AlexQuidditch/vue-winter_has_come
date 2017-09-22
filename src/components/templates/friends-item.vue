@@ -26,11 +26,11 @@
 						</button>
 					</div>
 					<div class="information-bottom__column">
-						<button class="information-bottom__button">
-							<img src="/static/assets/agent/personal/minus-circle-bold.svg" alt="" />
+						<button class="information-bottom__button" aria-label="Удалить из друзей">
+							<img src="/static/assets/agent/personal/minus-circle-bold.svg" alt="Удалить из друзей" />
 						</button>
-						<button class="information-bottom__button">
-							<img src="/static/assets/agent/personal/slash-bold.svg" alt="Заблокировать агента" />
+						<button class="information-bottom__button" aria-label="Заблокировать пользователя">
+							<img src="/static/assets/agent/personal/slash-bold.svg" alt="Заблокировать пользователя" />
 						</button>
 					</div>
 				</div>

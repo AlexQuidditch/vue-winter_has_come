@@ -26,7 +26,8 @@ module.exports = {
 			'@layout': resolve('src/components/layout'),
 			'@custom-elements': resolve('src/components/custom-elements'),
 			'@icons': resolve('src/components/icons'),
-			'@templates': resolve('src/components/templates')
+			'@templates': resolve('src/components/templates'),
+			'@helpers': resolve('src/helpers')
 		}
 	},
 	module: {

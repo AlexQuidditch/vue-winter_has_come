@@ -5,7 +5,7 @@
     <form @submit.prevent="" class="wall-form"></form>
     <ul class="wall-posts-list">
       <wall-post v-for="( wallPost , index ) in wallPosts" :key="wallPost.id"
-                 :wallPost="wallPost">
+                 :WallPost="wallPost">
       </wall-post>
     </ul>
     <wall-filter></wall-filter>

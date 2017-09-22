@@ -69,7 +69,7 @@
     methods: {
       likeIt() {
         this.isLiked =! this.isLiked;
-        // this.$store.dispatch( 'likeWallPost' , [ this.wallPost.id , this.isLiked ? 1 : -1 ] );
+        this.$store.dispatch( 'likeComment' , [ this.CommentItem.id , this.isLiked ? 1 : -1 ] );
       }
     }
   };

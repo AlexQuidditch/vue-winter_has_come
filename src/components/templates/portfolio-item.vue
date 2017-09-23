@@ -10,8 +10,10 @@
 		<span class="portfolio-item__title _bottom">{{ portfolioItem.title }}</span>
 		<ul class="scores-list">
 			<li class="scores-item">
-				<img src="/static/assets/profile/portfolio/heart.svg" alt="Лайки"
-						 class="scores-item__icon" />
+        <icon-heart @click.native="likeIt()"
+                    :class="{ '_active' : isLiked }"
+                    class="scores-item__icon">
+        </icon-heart>
 				<span class="scores-item__value">{{ portfolioItem.likes }}</span>
 			</li>
 			<li class="scores-item">
@@ -25,14 +27,33 @@
 
 <script>
 
+  import iconHeart from '@icons/heart';
+
 	export default {
 		name: "portfolio-item",
+    components: { iconHeart },
 		props: {
 			'portfolioItem': {
 				type: Object,
 				required: true
 			}
-		}
+		},
+    data: () => ({
+      isLiked: false,
+      hasLiked: false
+    }),
+    watch: {
+      isLiked() {
+  			this.hasLiked = true;
+  			setTimeout( () => this.hasLiked = false , 250 )
+      }
+    },
+    methods: {
+      likeIt() {
+        this.isLiked =! this.isLiked;
+        this.$store.dispatch( 'likePortfolioItem' , [ this.portfolioItem.id , this.isLiked ? 1 : -1 ] );
+      }
+    }
 	};
 
 </script>
@@ -120,6 +141,18 @@
 			display: inline-block;
 			vertical-align: middle;
 			size: 18px;
+      transform: scale(1);
+      transition:
+        transform .15s ease;
+      &._update {
+				transform: scale(1.15);
+      }
+      &._active {
+        stroke: #009d2f;
+        stroke: var(--irish-green);
+        fill: #009d2f;
+        fill: var(--irish-green);
+      }
 		}
 		&__value {
 			font-size: 12px;

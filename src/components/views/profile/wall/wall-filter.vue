@@ -1,53 +1,49 @@
 <template lang="html">
   <aside class="wall-filter">
-    <h4 class="wall-filter__title">Сортировать:</h4>
-		<v-radio v-model="Filter.sortByLast"
+		<v-radio v-for="filter in filterList" :key="filter.value"
+             v-model="filterBy"
+             :value="filter.value"
              name="sorting"
-             :expected="false"
-			>По популярности
+			       :expected="filter.value"
+             class="wall-filter__radio"
+      >{{ filter.text }}
 		</v-radio>
-		<v-radio v-model="Filter.sortByLast"
-             name="sorting"
-			       :expected="true"
-      >Последние
-		</v-radio>
-		<div class="wall-filter__divider"></div>
-		<h5 class="wall-filter__title">Профиль:</h5>
-		<input v-model="Filter.gender"
-           type="text" placeholder="Введите..." name="gender"
-           class="wall-filter__input" />
-		<h6 class="wall-filter__title">Город:</h6>
-		<input v-model="Filter.town"
-           type="text" placeholder="Введите..." name="town"
-           class="wall-filter__input" />
-		<h6 class="wall-filter__title">Учебное заведение:</h6>
-		<input v-model="Filter.education"
-           type="text" placeholder="Введите..." name="education"
-           class="wall-filter__input" />
-		<h6 class="wall-filter__title">Специальность:</h6>
-		<input v-model="Filter.specialization"
-			type="text" placeholder="Введите..." name="specialization"
-			class="wall-filter__input" />
   </aside>
 </template>
 
 <script>
 
-	import vRadio from '@custom-elements/vue-radio';
+  import vRadio from '@custom-elements/vue-radio';
 
-	export default {
-		name: "wall-filter",
-		components: { vRadio },
-		data: () => ({
-			Filter: {
-				sortByLast: true,
-				gender: '',
-				town: '',
-				education: '',
-				specialization: ''
-			}
-		})
-	};
+  export default {
+    name: "wall-filter",
+    components: { vRadio },
+    data: () => ({
+      filterList: [
+        {
+          value: 'all',
+          text: 'Все посты'
+        },
+        {
+          value: 'interests',
+          text: 'Интересные'
+        },
+        {
+          value: 'photo',
+          text: 'Фотографии'
+        },
+        {
+          value: 'updates',
+          text: 'Обновления'
+        },
+        {
+          value: 'comments',
+          text: 'Комментарии'
+        }
+      ],
+      filterBy: 'all'
+    })
+  };
 
 </script>
 
@@ -65,41 +61,15 @@
     background-color: #fff;
     background-color: var(--whited);
     @include MDShadow-1;
-    &__title {
-      margin: 0 0 10px 10px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #4a4a4a;
-      color: var(--charcoal-grey);
-    }
-    .material-radio__component {
-      margin: 5px 0;
-    }
-    &__divider {
-      margin: 20px 0;
-      border-bottom: solid 1px rgba( #4b4b4b , .4 );
-    }
-    &__input {
-      margin: 5px 0 20px 0;
-      padding: 0 15px;
-      height: 35px;
-      font-family: 'Lato', Arial, sans-serif;
-      font-size: 12px;
-      line-height: 35px;
-      color: #4b4b4b;
-      color: var(--purpley-grey);
-      border-radius: 3px;
-      border: solid 1px rgba(155, 155, 155, 0.2);
-      border: solid 1px var(--purpley-grey-20);
-      &:last-child {
-        margin: 0;
+    &__radio {
+      margin: 7.5px 0;
+      .material-radio-wrapper {
+        size: 18px !important;
       }
-      &::placeholder {
-        font-family: 'Lato', Arial, sans-serif;
-        font-size: 12px;
-        line-height: 35px;
-        color: #4b4b4b;
-        color: var(--purpley-grey);
+      .material-radio-label {
+        height: 18px !important;
+        font-size: 14px !important;
+        line-height: 18px !important;
       }
     }
   }

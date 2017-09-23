@@ -21,6 +21,7 @@
 			<slot></slot>
 		</label>
 	</div>
+
 </template>
 
 <script>

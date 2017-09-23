@@ -43,9 +43,19 @@ const state = [
 
 
 
-const actions = {};
+const actions = {
+	likePortfolioItem( { commit } , payload ) {
+    commit( 'LIKE_PORTFOLIO_ITEM' , payload )
+  }
+};
 
-const mutations = {};
+const mutations = {
+  LIKE_PORTFOLIO_ITEM( state , payload ) {
+    state.forEach( portfolioItem => {
+      if ( portfolioItem.id === payload[0] ) portfolioItem.likes += payload[1];
+    })
+  }
+};
 
 const getters = {};
 

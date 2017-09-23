@@ -12,4 +12,4 @@ const shortDate = {
 };
 // "2017-09-03T18:23:29.078Z" --> 21:23
 
-export default { longDate , shortDate };
+export { longDate , shortDate };

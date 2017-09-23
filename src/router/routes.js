@@ -5,6 +5,7 @@ import user from '@views/user';
 import friends from '@views/friends';
 import findJob from '@views/find-job';
 import task from '@views/task';
+import teams from '@views/teams';
 import settings from '@views/settings';
 import support from '@views/support';
 import createTask from '@views/create-task';
@@ -47,6 +48,12 @@ export default [
 		path: '/friends',
 		name: 'friends',
 		component: friends
+		// beforeEnter: requireAuth
+	},
+	{
+		path: '/teams',
+		name: 'teams',
+		component: teams
 		// beforeEnter: requireAuth
 	},
 	{

@@ -25,7 +25,7 @@
 	export default {
 		name: 'messages',
 		components: { dialogItem , dialogClear },
-		props: ['id'],
+		props: ['id'], //  получаем из роутера
 		computed: {
 	    Dialogs() {
 				return this.$store.state.Messages.dialogs

@@ -51,7 +51,8 @@
       <form v-if="toComment" @submit.prevent="commentIt()" class="post-form">
         <textarea v-model="postComment"
                   placeholder="Ваш комментарий..."
-                  class="post-form__textarea">
+                  class="post-form__textarea"
+                  required >
         </textarea>
         <button class="post-form__submit waves-effect waves-light"
                 type="submit">

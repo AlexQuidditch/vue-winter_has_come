@@ -30,4 +30,4 @@ const scrollBehavior = ( to , from , savedPosition ) => {
   }
 }
 
-export default { scrollBehavior };
+export { scrollBehavior };

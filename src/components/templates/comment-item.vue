@@ -59,8 +59,8 @@
     computed: {
       Author() {
         return this.$store.state.Stub.friends.find( item => {
-            if ( item.id === this.CommentItem.authorID ) return item
-          })
+          if ( item.id === this.CommentItem.authorID ) return item
+        })
       },
       published() {
         return new Date(this.CommentItem.time).toLocaleString('ru-RU' , { hour: '2-digit' , minute: '2-digit' , day: '2-digit' , month: 'long' })

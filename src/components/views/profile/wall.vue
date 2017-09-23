@@ -2,12 +2,15 @@
   <section class="wall">
     <icon-wall class="wall__icon"></icon-wall>
     <h3 class="wall__title">Стена пользователя</h3>
-    <form @submit.prevent="" class="wall-form"></form>
-    <ul class="wall-posts-list">
-      <wall-post v-for="( wallPost , index ) in wallPosts" :key="wallPost.id"
-                 :WallPost="wallPost">
-      </wall-post>
-    </ul>
+    <div class="wall__container">
+      <wall-form></wall-form>
+      <transition-group name="fade" tag="ul" mode="out-in"
+                        class="wall-posts-list">
+        <wall-post v-for="( wallPost , index ) in wallPosts" :key="wallPost.id"
+                   :WallPost="wallPost">
+        </wall-post>
+      </transition-group>
+    </div>
     <wall-filter></wall-filter>
   </section>
 </template>
@@ -17,15 +20,16 @@
   import iconWall from '@icons/wall.js';
   import iconHeart from '@icons/heart.js';
 
+  import wallForm from '@views/profile/wall/wall-form.vue';
   import wallPost from '@templates/wall-post.vue';
   import wallFilter from '@views/profile/wall/wall-filter.vue';
 
   export default {
     name: "wall",
-    components: { wallPost , iconWall , iconHeart , wallFilter },
+    components: { wallForm , wallPost , wallFilter , iconWall , iconHeart },
     computed: {
       wallPosts() {
-        return this.$store.state.Wall
+        return this.$store.state.Wall.posts
       }
     }
   };

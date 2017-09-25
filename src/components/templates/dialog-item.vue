@@ -13,7 +13,9 @@
 			<span class="dialog-item__date">{{ lastMessage }}</span>
 			<transition name="ping">
 				<span v-if="DialogItem.unreaded" :class="{ '_update' : hasNewMessage }"
-							class="dialog-item__counter">{{ DialogItem.unreaded }}</span>
+              class="dialog-item__counter"
+          >{{ DialogItem.unreaded }}
+        </span>
 			</transition>
 		</div>
 		<div class="divider"></div>

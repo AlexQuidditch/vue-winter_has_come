@@ -103,7 +103,7 @@
     overflow-y: visible;
     display: flex;
     justify-content: space-between;
-    height: 225px;
+    height: 235px;
     margin: 20px 0 0 0;
   }
 

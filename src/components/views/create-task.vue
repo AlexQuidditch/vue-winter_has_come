@@ -1,7 +1,7 @@
 <template lang="html">
 	<main class="main">
 		<section class="create-task">
-			<h1 class="create-task__title">Создать задание</h1>
+			<h1 class="create-task__title">{{ isEdit ? 'Редактировать задание' : 'Создать задание' }}</h1>
 			<form @submit.prevent="saveTask()" class="create-task-container">
 
 				<div class="create-task-column _wide">
@@ -161,8 +161,16 @@
 			}
 		}),
 		computed: {
+      isEdit() {
+        return this.$route.name === 'edit-task';
+      },
 			CreateTask() {
-				return this.$store.state.CreateTask
+        if ( this.isEdit ) {
+          return this.$store.state.Tasks
+            .find( task => task.id == this.$route.query.id );
+        } else {
+          return this.$store.state.CreateTask
+        }
 			}
 		},
 		methods: {
@@ -174,7 +182,7 @@
 			]),
       saveTask() {
         this.$store.dispatch('saveTask')
-          .then( response => console.log(response) )
+          .then( response => console.log( 'response -' , response.data.task ) )
           .catch( error => console.error(error) );
       },
       saveDraft() {

@@ -70,6 +70,12 @@ export default [
 		// beforeEnter: requireAuth
 	},
 	{
+		path: '/task/edit',
+		name: 'edit-task',
+		component: createTask,
+		// beforeEnter: requireAuth
+	},
+	{
 		path: '/task',
 		name: 'task',
 		component: task,

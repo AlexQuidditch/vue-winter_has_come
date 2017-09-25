@@ -42,7 +42,10 @@ const actions = {
 		commit( 'REMOVE_SPECIALIZATION' , payload )
 	},
 	saveTask( { commit } , payload ) {
-		return API.post( 'task/create' , state )
+		return API.post( 'task/create-task' , state )
+	},
+	saveDraft( { commit } , payload ) {
+		return API.post( 'task/create-draft' , state )
 	}
 };
 
@@ -73,10 +76,6 @@ const mutations = {
 	},
 	REMOVE_SPECIALIZATION( state , payload ) {
 		state.specialization.splice( payload , 1 )
-	},
-	SAVE_TASK( state , payload ) {
-		console.log( payload );
-		state.published = new Date()
 	}
 };
 

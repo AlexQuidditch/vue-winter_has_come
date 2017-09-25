@@ -105,7 +105,7 @@
       },
       editTask( q ) {
         console.log( q );
-        // this.$router.push({ name: '' , query: { id: q } })
+        this.$router.push({ name: 'edit-task' , query: { id: q } })
       }
     }
   };

@@ -67,6 +67,7 @@
 <script>
 
   import { longDate } from '@helpers/dateFormat';
+  import { getRandomInt } from '@helpers/randomGenerators';
 
   import iconHeart from '@icons/heart.js';
   import iconComments from '@icons/comments';
@@ -118,7 +119,7 @@
       },
       commentIt() {
         const newComment = {                    // подготовка новго объекта комментария
-          id: 9,                                // Number - ID комментария TODO сделать вычисляемым
+          id: getRandomInt(),                                // Number - ID комментария TODO сделать вычисляемым
           authorID: this.$store.state.User.id,  // String - ID пользователя
           time: new Date(),                     // Date - время публикации
           content: this.postComment,            // String - тело комментария

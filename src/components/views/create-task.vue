@@ -2,7 +2,7 @@
 	<main class="main">
 		<section class="create-task">
 			<h1 class="create-task__title">Создать задание</h1>
-			<form @submit.prevent="saveTask($event)" class="create-task-container">
+			<form @submit.prevent="saveTask()" class="create-task-container">
 
 				<div class="create-task-column _wide">
 					<label class="create-task-column__label">
@@ -106,11 +106,16 @@
 				</div>
 
 				<div class="create-task-bottom">
-					<button class="create-task-bottom__button waves-effect waves-light"
+					<button class="create-task-bottom__button _publish waves-effect waves-light"
 									type="submit" name="Publish">
 						<icon-check class="create-task-bottom__button-icon"></icon-check>
 						Опубликовать
 					</button>
+          <button @click.prevent="saveDraft()"
+                  class="create-task-bottom__button _draft waves-effect waves-light"
+                  type="button" name="Draft"
+            >Сохранить как черновик
+          </button>
 				</div>
 
 			</form>
@@ -121,7 +126,7 @@
 <script>
 
 	import { mapActions } from 'vuex';
-  
+
 	import { Money } from 'v-money';
 	import iconCheck from '@icons/check-square';
 	import iconCalendar from '@icons/calendar.js';
@@ -165,9 +170,18 @@
 				'updateTitle','updateDescription',
 				'updateTown','updateBudget',
 				'updateDeadline','updateRush',
-				'updateSkills','removeSpecialization',
-				'saveTask'
+				'updateSkills','removeSpecialization'
 			]),
+      saveTask() {
+        this.$store.dispatch('saveTask')
+          .then( response => console.log(response) )
+          .catch( error => console.error(error) );
+      },
+      saveDraft() {
+        this.$store.dispatch('saveDraft')
+          .then( response => console.log(response) )
+          .catch( error => console.error(error) );
+      },
 			addSpecialization(specKeyword) {
 				this.$store.dispatch( 'addSpecialization' , specKeyword );
 				this.specKeyword = '';
@@ -335,14 +349,15 @@
 			}
 
 			.create-task-bottom {
-				display: block;
+			  display: flex;
+        justify-content: space-between;
 				width: 100%;
 				margin-top: 20px;
 				&__button {
 					display: flex;
 					justify-content: center;
 					align-items: center;
-					size: 100% 35px;
+					size: calc( 100% - 290px ) 35px;
 					padding: 0 10px;
 					font-size: 12px;
 					line-height: 35px;
@@ -359,6 +374,11 @@
 					&:active {
 						@include MDShadow-2;
 					}
+          &._draft {
+            width: 270px;
+            background-color: #4a4a4a;
+            background-color: var(--charcoal-grey);
+          }
 				}
 				&__checkbox {
 					margin: 12px 0 !important;

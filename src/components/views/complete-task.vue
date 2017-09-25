@@ -22,12 +22,13 @@
 						</div>
 						<label class="complete-task-column__label">
 							<h6 class="complete-task-column__title">Оценка исполнителю:</h6>
-							<star-rating @rating-selected="updateRate([ $event , $route.query.id ])" :rating="taskItem.completed.rate"
-								:increment="1"
-								:star-size="18"
-								:show-rating="false"
-								active-color="#009d2f"
-								inactive-color="rgba(0, 157, 47, 0.35)">
+							<star-rating @rating-selected="updateRate([ $event , $route.query.id ])"
+                           :rating="taskItem.completed.rate"
+          								 :increment="1"
+          								 :star-size="18"
+          								 :show-rating="false"
+          								 active-color="#009d2f"
+          								 inactive-color="rgba(0, 157, 47, 0.35)">
 							</star-rating><span :class="taskItem.completed.rate < 3 ? '_red' : ''">{{ taskItem.completed.rate }} из 5</span>
 						</label>
 					</div>

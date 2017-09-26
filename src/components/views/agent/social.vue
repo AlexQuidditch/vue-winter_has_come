@@ -1,8 +1,8 @@
 <template lang="html">
-  <sectionx class="social">
+  <section class="social">
 		<social-contacts></social-contacts>
 		<social-company></social-company>
-  </sectionx>
+  </section>
 </template>
 
 <script>

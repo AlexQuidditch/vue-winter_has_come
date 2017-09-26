@@ -43,7 +43,7 @@
       </button>
     </footer>
     <transition-group name="list" tag="ul" mode="out-in" class="comments-list">
-      <comments-item v-for="commentItem in WallPost.comments" :key="commentItem.id"
+      <comments-item v-for="( commentItem , index ) in WallPost.comments" :key="index"
                      :CommentItem="commentItem">
       </comments-item>
     </transition-group>
@@ -119,7 +119,7 @@
       },
       commentIt() {
         const newComment = {                    // подготовка новго объекта комментария
-          id: getRandomInt(),                                // Number - ID комментария TODO сделать вычисляемым
+          id: getRandomInt( 1 , 100 ),          // Number - ID комментария TODO сделать вычисляемым
           authorID: this.$store.state.User.id,  // String - ID пользователя
           time: new Date(),                     // Date - время публикации
           content: this.postComment,            // String - тело комментария

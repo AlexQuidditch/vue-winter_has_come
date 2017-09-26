@@ -1,4 +1,4 @@
-const state = {
+ const state = {
 	list: {
 		main: {
 			route: 'profile',

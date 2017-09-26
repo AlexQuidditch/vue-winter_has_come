@@ -61,7 +61,7 @@
 				</li>
 			</ul>
 		</div>
-    </li>
+	</li>
 </template>
 
 <script>
@@ -126,6 +126,7 @@
 		size: 256px 151px;
 		min-width: 256px;
 		object-fit: cover;
+		border-radius: 3px
 	}
 	.about-picture-overlay {
 		position: absolute;
@@ -146,6 +147,7 @@
 
 	.about-information {
 		position: relative;
+		min-width: 374px;
 		margin-left: 20px;
 		&__title {
 			width: 75%;
@@ -174,6 +176,7 @@
 			size: 50px;
 			object-fit: cover;
 			cursor: pointer;
+			border-radius: 50%;
 			@include MDShadow-1;
 		}
 		&__published {

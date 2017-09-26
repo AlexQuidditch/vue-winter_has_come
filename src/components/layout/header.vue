@@ -1,9 +1,10 @@
 <template lang="html">
-    <header class="header">
+  <header class="header">
 		<div class="header-row _first">
 			<div class="container">
 				<router-link tag="img" to="/"
-                    src="/static/assets/header/logo.png" class="header__logo">
+                     src="/static/assets/header/logo.png"
+                     class="header__logo">
 				</router-link>
 				<search></search>
 				<partner></partner>
@@ -14,21 +15,21 @@
 			<nav class="container">
 				<router-link :to="{ name: 'find-job' , query: { section : 'all' } }"
                      class="header-row__link waves-effect waves-light">
-					<icon-home class="header-row__link-icon"></icon-home>
-                    <span>Найти работу</span>
-                </router-link>
+           <icon-home class="header-row__link-icon"></icon-home>
+          <span>Найти работу</span>
+        </router-link>
 				<div class="header-row__divider"></div>
 				<router-link to="/" class="header-row__link waves-effect waves-light">Исполнители</router-link>
-				<router-link :to="{ name: 'agent' }" class="header-row__link waves-effect waves-light">Агенты</router-link>
-				<router-link to="/" class="header-row__link waves-effect waves-light">Команды</router-link>
+				<router-link :to="{ name : 'agent' }" class="header-row__link waves-effect waves-light">Агенты</router-link>
+				<router-link :to="{ name : 'teams' }" class="header-row__link waves-effect waves-light">Команды</router-link>
 			</nav>
 		</div>
-    </header>
+  </header>
 </template>
 
 <script>
 
-	import search from './header/search';
+	import search from './header/search.vue';
 	import partner from './header/partner.vue';
 	import partnerMenu from './header/partner-menu.vue';
 	import iconHome from '@icons/home';

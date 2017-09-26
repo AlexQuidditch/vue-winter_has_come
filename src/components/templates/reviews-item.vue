@@ -2,9 +2,9 @@
 	<router-link to="/" tag="li"
 							 class="reviews-item">
 		<div class="reviews-item-header">
-			<img :src=" '/static/assets/shared/' + reviewsItem.avatar " :alt="reviewsItem.name"
+			<img :src=" '/static/assets/shared/' + Author.avatar " :alt="Author.name + ' ' + Author.sename"
 					 class="reviews-item__avatar" />
-			<h5 class="reviews-item__title">{{ reviewsItem.name }}</h5>
+			<h5 class="reviews-item__title">{{ Author.name + ' ' + Author.sename }}</h5>
 			<img v-if="reviewsItem.like"
 					 src="/static/assets/profile/reviews/thumbs-up.svg" alt="Лайк"
 					 class="reviews-item__like" />
@@ -25,7 +25,14 @@
 				type: Object,
 				required: true
 			}
-		}
+		},
+    computed: {
+      Author() {
+				return this.$store.state.Stub.friends.find( item => {
+					if ( item.id === this.reviewsItem.authorID ) return item
+				})
+      }
+    }
 	};
 
 </script>

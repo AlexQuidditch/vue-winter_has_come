@@ -19,19 +19,19 @@
 
 <script>
 
-	import dialogItem from '@templates/dialog-item.vue';
-	import dialogClear from '@views/messages/dialog-clear.vue';
+  import dialogItem from '@templates/dialog-item.vue';
+  import dialogClear from '@views/messages/dialog-clear.vue';
 
-	export default {
-		name: 'messages',
-		components: { dialogItem , dialogClear },
-		props: ['id'], //  получаем из роутера
-		computed: {
-	    Dialogs() {
-				return this.$store.state.Messages.dialogs
-	    }
-		}
-	};
+  export default {
+    name: 'messages',
+    components: { dialogItem , dialogClear },
+    props: ['id'], //  получаем из роутера
+    computed: {
+      Dialogs() {
+        return this.$store.state.Messages.dialogs
+      }
+    }
+  };
 
 </script>
 

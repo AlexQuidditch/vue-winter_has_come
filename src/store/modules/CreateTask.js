@@ -1,16 +1,26 @@
-import API from '../api/';
+import API from '../api';
 
 const state = {
+  authorID: null,
+  engagedID: null,
 	title: '',
 	town: '',
-	budget: 0,
 	skills: '',
 	specialization: [],
 	attached: [ 'photo.jpg' , 'project3.jpg' , 'C_ovELWXgAE7cDH.jpg' ],
 	description: '',
-	deadline: '',
-	isRush: false,
-	published: null
+  budget: 0,
+  isAgreement: false,
+	deadline: null,
+  isRush: false,
+  views: 0,
+  response: 0,
+  isEngaged: null,
+  completed: {
+    rate: 3,
+    status: 'notCompleted',
+    review: ''
+  }
 };
 
 const actions = {

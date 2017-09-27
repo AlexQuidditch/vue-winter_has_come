@@ -52,24 +52,24 @@ const state = [
 ];
 
 const actions = {
-	updateRate( { commit } , payload ) {
-		commit( 'UPDATE_RATE' , payload )
-	},
-	updateReview( { commit } , payload ) {
-		commit( 'UPDATE_REVIEW' , payload )
-	},
-	updateStatus( { commit } , payload ) {
-		commit( 'UPDATE_STATUS' , payload )
-	},
-	saveComplete( { commit } , payload ) {
-		return API.post( `tasks/${ payload[1] }` , state[1] )
-	},
+  updateRate( { commit } , payload ) {
+    commit( 'UPDATE_RATE' , payload )
+  },
+  updateReview( { commit } , payload ) {
+    commit( 'UPDATE_REVIEW' , payload )
+  },
+  updateStatus( { commit } , payload ) {
+    commit( 'UPDATE_STATUS' , payload )
+  },
+  saveComplete( { commit } , payload ) {
+    return API.post( `tasks/${ payload[1] }` , state[1] )
+  },
   getTasks( { commit } , payload ) {
     return API.get('task/get/all')
-      .then( response => {
-        commit( 'GET_TASKS' , response.data );
-        return response.data;
-      })
+    .then( response => {
+      commit( 'GET_TASKS' , response.data );
+      return response.data;
+    })
   },
   clearTasks( { commit } , payload ) {
     commit( 'CLEAR_TASKS' , payload )

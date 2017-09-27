@@ -132,25 +132,25 @@
 
 	@import "../../../stylesheets/partials/_mixins";
 
-    .settings {
-    	padding: 30px;
-		border-radius: 3px;
-		background-color: #fff;
-		background-color: var(--whited);
-		@include MDShadow-1;
-		&__title {
-			margin-bottom: 20px;
-			font-size: 18px;
-			font-weight: 600;
-			color: #009d2f;
-			color: var(--irish-green);
-		}
+  .settings {
+    padding: 30px;
+    border-radius: 3px;
+    background-color: #fff;
+    background-color: var(--whited);
+    @include MDShadow-1;
+    &__title {
+      margin-bottom: 20px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #009d2f;
+      color: var(--irish-green);
     }
+  }
 
-	.settings-container {
-		display: flex;
-		justify-content: space-between;
-	}
+  .settings-container {
+    display: flex;
+    justify-content: space-between;
+  }
 
 	.settings-column {
 		width: 270px;

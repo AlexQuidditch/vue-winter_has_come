@@ -101,11 +101,10 @@
     },
     methods: {
       completeTask( q ) {
-        this.$router.push({ name: 'complete-task' , query: { id: q } })
+        this.$router.push({ name: 'complete-task' , query: { id : q } })
       },
       editTask( q ) {
-        console.log( q );
-        this.$router.push({ name: 'edit-task' , query: { id: q } })
+        this.$router.push({ name: 'edit-task' , query: { id : q } })
       }
     }
   };

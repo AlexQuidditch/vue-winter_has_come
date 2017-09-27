@@ -1,8 +1,15 @@
 <template lang="html">
 	<wrapper>
-		<layout-header></layout-header>
+    <transition name="fade-long">
+      <icon-logo class="background-logo"></icon-logo>
+    </transition>
+    <transition name="fade-long">
+  		<layout-header v-if=" $route.name !== 'login' "></layout-header>
+    </transition>
 		<div class="container _main">
-			<layout-sidebar></layout-sidebar>
+      <transition name="fade-long">
+    			<layout-sidebar v-if=" $route.name !== 'login' "></layout-sidebar>
+      </transition>
 			<layout-main></layout-main>
 		</div>
 		<!-- <layout-footer></layout-footer> -->
@@ -13,6 +20,8 @@
 
 	import auth from '@/router/auth.js';
 
+  import iconLogo from '@icons/logo';
+
 	import wrapper from '@custom-elements/wrapper';
 	import layoutHeader from '@layout/header';
 	import layoutSidebar from '@layout/sidebar';
@@ -21,7 +30,7 @@
 
 	export default {
 		name: 'Winter-has-Come',
-		components: { wrapper , layoutHeader , layoutSidebar , layoutMain ,layoutFooter },
+		components: { iconLogo, wrapper , layoutHeader , layoutSidebar , layoutMain ,layoutFooter },
 		beforeCreate() {
 			// firebase.auth().onAuthStateChanged( user => {
 			// 	if ( user ) {
@@ -104,6 +113,14 @@
 		@include font-smoothing;
 	}
 
+  .background-logo {
+    z-index: -1;
+    opacity: 0.25;
+    position: absolute;
+    top: -25%; left: -25%;
+    size: 150%;
+  }
+
 	.container {
 		size: 100% auto;
 		min-height: 100%;
@@ -150,6 +167,17 @@
 		transition:
 		opacity .15s ease-in-out,
 		transform .15s ease-in-out
+	}
+
+	.fade-long-enter,
+	.fade-long-leave-to {
+		opacity: 0;
+	}
+	.fade-long-enter-active,
+	.fade-long-leave-active {
+		transition:
+		opacity .75s ease-in-out,
+		transform .75s ease-in-out
 	}
 
 	.list-enter,

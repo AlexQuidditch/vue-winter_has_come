@@ -141,8 +141,8 @@
 		cursor: pointer;
 	}
 
-	@include waves-light( #fff , $ripple-opacity);
-	@include waves-dark( #009d2f , $ripple-opacity);
+	@include waves-light( #fff , $ripple-opacity );
+	@include waves-dark( #009d2f , $ripple-opacity );
 
 	.fade-enter,
 	.fade-leave-to {
@@ -209,7 +209,7 @@
 		backface-visibility: hidden;
 		transform: rotate3d(0,0,0,0);
 		transition:
-		background-color 150ms ease-out,
+  		background-color 150ms ease-out,
 	}
 
 	.vb.vb-scrolling-phantom > .vb-dragger > .vb-dragger-styler {

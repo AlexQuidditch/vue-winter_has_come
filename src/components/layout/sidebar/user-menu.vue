@@ -48,7 +48,7 @@
 <script>
 
   import TWEEN from '@tweenjs/tween.js';
-  
+
   export default {
     name: "user-menu",
     data: () => ({
@@ -82,12 +82,12 @@
           }
         };
         new TWEEN.Tween({ tweeningNumber: oldValue })
-        .easing(TWEEN.Easing.Quadratic.Out)
-        .to({ tweeningNumber: newValue }, 1000)
-        .onUpdate(function () {
-          vm.TWEENnewMessagesCounter = this.tweeningNumber.toFixed(0)
-        })
-        .start()
+          .easing(TWEEN.Easing.Quadratic.Out)
+          .to({ tweeningNumber: newValue }, 1000)
+          .onUpdate(function () {
+            vm.TWEENnewMessagesCounter = this.tweeningNumber.toFixed(0)
+          })
+          .start()
         animate()
       }
     }

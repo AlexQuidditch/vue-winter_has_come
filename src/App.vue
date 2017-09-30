@@ -1,7 +1,8 @@
 <template lang="html">
 	<wrapper>
     <transition name="fade-long">
-      <icon-logo class="background-logo"></icon-logo>
+      <icon-logo v-if=" $route.name === 'login' "
+								 class="background-logo"></icon-logo>
     </transition>
     <transition name="fade-long">
   		<layout-header v-if=" $route.name !== 'login' "></layout-header>
@@ -116,9 +117,9 @@
   .background-logo {
     z-index: -1;
     opacity: 0.25;
-    position: absolute;
-    top: -25%; left: -25%;
-    size: 150%;
+		position: absolute;
+		@include center(xy);
+    size: 100%;
   }
 
 	.container {

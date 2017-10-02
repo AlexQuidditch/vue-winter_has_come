@@ -7,6 +7,29 @@ const taskTemplate = {
   town: '',
   skills: '',
   specialization: [],
+  attached: [],
+  description: '',
+  budget: 0,
+  isAgreement: false,
+  deadline: null,
+  isRush: false,
+  views: 0,
+  response: 0,
+  isEngaged: null,
+  completed: {
+    rate: 3,
+    status: 'notCompleted',
+    review: ''
+  }
+};
+
+const state = {
+  authorID: null,
+  engagedID: null,
+  title: '',
+  town: '',
+  skills: '',
+  specialization: [],
   attached: [ 'photo.jpg' , 'project3.jpg' , 'C_ovELWXgAE7cDH.jpg' ],
   description: '',
   budget: 0,
@@ -23,12 +46,7 @@ const taskTemplate = {
   }
 };
 
-const state = taskTemplate;
-
 const actions = {
-  initializeTask( { commit } , payload ) {
-    commit( 'INITIALIZE_TASK' , payload )
-  },
   updateBudget( { commit } , payload ) {
     commit( 'UPDATE_BUDGET' , payload )
   },
@@ -56,10 +74,10 @@ const actions = {
   removeSpecialization( { commit } , payload ) {
     commit( 'REMOVE_SPECIALIZATION' , payload )
   },
-  saveTask( { commit } , payload ) {
+  saveTask( { commit , state } , payload ) {
     return API.post( 'task/create-task' , state )
   },
-  saveDraft( { commit } , payload ) {
+  saveDraft( { commit , state } , payload ) {
     return API.post( 'task/save-draft' , state )
   },
   clearDraft( { commit } , payload ) {
@@ -95,12 +113,9 @@ const mutations = {
   REMOVE_SPECIALIZATION( state , payload ) {
     state.specialization.splice( payload , 1 )
   },
-  INITIALIZE_TASK( state , payload ) {
-    state = Object.assign( state , taskTemplate );
-    state.specialization = [];
-  },
   CLEAR_DRAFT( state , payload ) {
     state = Object.assign( state , taskTemplate )
+    state.specialization = [];
   }
 };
 

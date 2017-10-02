@@ -1,10 +1,10 @@
 <template lang="html">
 	<main class="main _task">
 		<section class="task">
-			<task-detail></task-detail>
-			<task-response></task-response>
+			<task-detail :taskItem="taskItem"></task-detail>
+			<task-response :taskItem="taskItem"></task-response>
 		</section>
-		<task-summary></task-summary>
+		<task-summary :taskItem="taskItem"></task-summary>
 	</main>
 </template>
 
@@ -15,8 +15,39 @@
 	import taskResponse from './task/task-response.vue';
 
 	export default {
-		name: "task",
-		components: { taskSummary , taskDetail , taskResponse }
+		name: "Task",
+		components: { taskSummary , taskDetail , taskResponse },
+    data: () => ({
+      taskItem: {
+    		id: 0,
+    		authorID: 1,
+    		engagedID: 0,
+    		title: '',
+    		picture: '',
+    		published: '',
+    		description: '',
+    		budget: null,
+    		isAgreement: false,
+    		deadline: '',
+    		isRush: false,
+    		views: 0,
+    		response: 0,
+    		isEngaged: false,
+    		completed: {
+    			rate: 0,
+    			status: 'notCompleted',
+    			review: ''
+    		}
+    	}
+    }),
+    created() {
+      this.$store.dispatch( 'getTaskByID' , this.$route.query.id )
+        .then( response  => {
+          console.log({ body });
+          Object.assign( this.taskItem , response );
+          this.taskItem.authorID = 1;
+        })
+    }
 	};
 
 </script>

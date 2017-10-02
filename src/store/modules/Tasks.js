@@ -62,14 +62,20 @@ const actions = {
     commit( 'UPDATE_STATUS' , payload )
   },
   saveComplete( { commit } , payload ) {
-    return API.post( `tasks/${ payload[1] }` , state[1] )
+    return API.put( `task/edit/${ payload[0] }` , payload[1] )
   },
   getTasks( { commit } , payload ) {
     return API.get('task/get/all')
-    .then( ({ data }) => {
-      commit( 'GET_TASKS' , data );
-      return data;
-    })
+      .then( ({ data }) => {
+        commit( 'GET_TASKS' , data );
+        return data;
+      })
+  },
+  getTaskByID( { commit } , payload ) {
+    return API.get(`task/get/${ payload }`)
+      .then( ({ data }) => {
+        return data;
+      })
   },
   clearTasks( { commit } , payload ) {
     commit( 'CLEAR_TASKS' , payload )

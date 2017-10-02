@@ -1,51 +1,51 @@
 <template lang="html">
 	<li class="task-item">
 		<div class="task-item__about">
-			<router-link :to="{ name: 'task', query: { id: taskItem.id }}" tag="img"
-				:src=" '/static/assets/shared/' + taskItem.picture" :alt="taskItem.title" class="about-picture">
+			<router-link :to="{ name: 'task', query: { id: taskItem._id }}" tag="img"
+									 :src=" '/static/assets/shared/' + taskItem.picture" :alt="taskItem.title" class="about-picture">
 			</router-link>
 			<div class="about-picture-overlay" v-if="taskItem.isEngaged">
 				<p class="about-picture-overlay__text">Исполнитель найден!</p>
 			</div>
 			<div class="about-information">
-				<router-link :to="{ name: 'task', query: { id: taskItem.id }}" tag="h6"
-					:class="{ '_is-rush' : taskItem.isRush , '_is-engaged' : taskItem.isEngaged }"
-					class="about-information__title">{{ taskItem.title }}
+				<router-link :to="{ name: 'task', query: { id: taskItem._id }}" tag="h6"
+										 :class="{ '_is-rush' : taskItem.isRush , '_is-engaged' : taskItem.isEngaged }"
+										 class="about-information__title">{{ taskItem.title }}
 				</router-link>
 				<router-link :to="{ name: 'user', query: { id: taskItem.authorID }}" tag="img"
-					:src=" '/static/assets/shared/' + getAuthorAvatar(taskItem.authorID)" :alt="getAuthorName(taskItem.authorID)"
-					class="about-information__author-avatar"
-					title="Открыть профиль автора">
+					           class="about-information__author-avatar"
+					           :src=" '/static/assets/shared/' + getAuthorAvatar(taskItem.authorID)" :alt="getAuthorName(taskItem.authorID)"
+					           title="Открыть профиль автора">
 				</router-link>
-				<p class="about-information__published">{{ taskItem.published }}</p>
-				<p class="about-information__description">{{ taskItem.description.substr( 0 , 160 ) }}...</p>
+				<p class="about-information__published">{{ new Date(taskItem.published).toLocaleString() }}</p>
+				<p class="about-information__description">{{ taskItem.description.substr( 0 , 160 ) }}</p>
 			</div>
 		</div>
 		<div class="task-item__summary">
 			<ul class="summary-task">
 				<li class="summary-budget">
 					<icon-disc :class="{ '_is-engaged' : taskItem.isEngaged }"
-						class="summary-budget__icon">
+						         class="summary-budget__icon">
 					</icon-disc>
 					<span v-if="taskItem.isAgreement" :class="{ '_is-engaged' : taskItem.isEngaged }"
-						class="summary-budget__value"
+                class="summary-budget__value"
 						>По договорённсти
 					</span>
 					<span v-else :class="{ '_is-engaged' : taskItem.isEngaged }"
-						class="summary-budget__value"
+						    class="summary-budget__value"
 						>{{ taskItem.budget }} баллов
 					</span>
 				</li>
 				<li class="summary-deadline">
 					<icon-clock :class="{ '_is-rush' : taskItem.isRush , '_is-engaged' : taskItem.isEngaged }"
-						class="summary-deadline__icon">
+						          class="summary-deadline__icon">
 					</icon-clock>
 					<span v-if="taskItem.isRush" :class="{ '_is-engaged' : taskItem.isEngaged }"
-						class="summary-deadline__value _is-rush"
+						    class="summary-deadline__value _is-rush"
 						>СРОЧНО!
 					</span>
 					<span :class="{ '_is-engaged' : taskItem.isEngaged }"
-						class="summary-deadline__value"
+						    class="summary-deadline__value"
 						>{{ taskItem.deadline }}
 					</span>
 				</li>
@@ -70,6 +70,8 @@
 	import iconClock from '@icons/clock';
 	import iconEye from '@icons/eye';
 	import iconComments from '@icons/comments';
+
+  import { longDate } from '@helpers/dateFormat.js';
 
 	export default {
 		name: "task-item",

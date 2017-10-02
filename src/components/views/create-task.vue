@@ -160,9 +160,6 @@
 				isRush: 'Срочное задание'
 			}
 		}),
-    created() {
-      this.$store.dispatch('initializeTask')
-    },
 		computed: {
       isEdit() {
         return this.$route.name === 'edit-task';
@@ -178,14 +175,44 @@
 		},
 		methods: {
 			...mapActions([
-				'updateTitle','updateDescription',
-				'updateTown','updateBudget',
-				'updateDeadline','updateRush',
-				'updateSkills','removeSpecialization'
+				'updateTitle' , 'updateDescription',
+				'updateTown' , 'updateBudget',
+				'updateDeadline' , 'updateRush',
+				'updateSkills' , 'removeSpecialization'
 			]),
-      saveTask() {
-        this.$store.dispatch('saveTask')
-          .then( response => console.log( 'response -' , response.data.task ) )
+			saveTask() {
+				this.$store.dispatch('saveTask')
+					.then( ({ data }) => {
+						this.$swal({
+							title: 'Вы уверены?',
+							text: "Можете вернуться и отредактировать.",
+							type: 'info',
+							showCancelButton: true,
+							confirmButtonColor: '#009d2f',
+							cancelButtonColor: '#4a4a4a',
+							confirmButtonText: 'Опубликовать!',
+							cancelButtonText: 'Нет, ещё не всё.',
+							confirmButtonClass: 'create-task-sweet__button waves-effect waves-light',
+							cancelButtonClass: 'create-task-sweet__button _cancel waves-effect waves-light',
+							buttonsStyling: false
+						})
+						.then( () => {
+							this.$swal(
+								'Сохранено!',
+								'Задача опубликована.',
+								'success'
+							);
+							this.$store.dispatch('clearDraft');
+						}, dismiss => {
+							if ( dismiss === 'cancel' ) {
+								this.$swal(
+									'Отменено!',
+									'Отредактируйте, или сохраните черновик',
+									'info'
+								)
+							}
+						});
+					})
           .catch( error => console.error(error) );
       },
       saveDraft() {
@@ -193,7 +220,7 @@
           .then( ({ data }) => {
             console.log(data);
             this.$swal( 'Ура!' , `ID задачи: ${ data._id }` , 'success' );
-            this.$store.dispatch('initializeTask')
+            this.$store.dispatch('clearDraft')
           })
           .catch( error => console.error(error) );
       },
@@ -237,185 +264,221 @@
 				color: #009d2f;
 				color: var(--irish-green);
 			}
-			.specialization-label {
-				position: relative;
-				&__label-button {
-					position: absolute;
-					top: 30px; right: 0;
-					padding: 0;
-					size: 35px 33px;
-					font-size: 26px;
-					color: rgba(155, 155, 155, 0.2);
-					color: var(--purpley-grey-20);
-					background-color: transparent;
-					border: none;
+		}
+
+		.specialization-label {
+			position: relative;
+			&__label-button {
+				position: absolute;
+				top: 30px; right: 0;
+				padding: 0;
+				size: 35px 33px;
+				font-size: 26px;
+				color: rgba(155, 155, 155, 0.2);
+				color: var(--purpley-grey-20);
+				background-color: transparent;
+				border: none;
+			}
+			&__input {
+				padding: 0 10px;
+				margin: 10px 0;
+				size: 100% 35px;
+				font-family: 'Lato', Arial, sans-serif;
+				font-size: 12px;
+				line-height: 35px;
+				color: #4b4b4b;
+				color: var(--purpley-grey);
+				border-radius: 3px;
+				border: solid 1px rgba(155, 155, 155, 0.2);
+				border: solid 1px var(--purpley-grey-20);
+				&:last-child {
+					margin: 0;
 				}
-				&__input {
-					padding: 0 10px;
-					margin: 10px 0;
-					size: 100% 35px;
+				&::placeholder {
 					font-family: 'Lato', Arial, sans-serif;
 					font-size: 12px;
 					line-height: 35px;
 					color: #4b4b4b;
 					color: var(--purpley-grey);
-					border-radius: 3px;
+				}
+				&._keyword {
+					padding-right: 40px;
+				}
+			}
+		}
+		.chips-list {
+			display: flex;
+			flex-flow: row wrap;
+		}
+		.create-task-container {
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: space-between;
+		}
+
+		.create-task-column {
+			width: 270px;
+			&._wide {
+				width: 565px;
+			}
+			&__title {
+				width: 100%;
+				font-size: 13px;
+				font-weight: 600;
+				line-height: 1.46;
+				color: #4a4a4a;
+				color: var(--charcoal-grey);
+			}
+			&__label {
+				position: relative;
+				display: block;
+				width: 100%;
+			}
+			&__label-icon {
+				position: absolute;
+				top: 34px; right: 10px;
+				width: 22px;
+			}
+			&__input {
+				display: block;
+				size: 100% 35px;
+				margin: 10px 0;
+				padding: 10px;
+				font-size: 12px;
+				line-height: 1.5;
+				color: #9b9b9b;
+				color: var(--purpley-grey);
+				border-radius: 3px;
+				border: solid 1px rgba(155, 155, 155, 0.2);
+				border: solid 1px var(--purpley-grey-20);
+				&._textarea {
+					height: 115px;
+					resize: none;
+				}
+			}
+			.attached-list {
+				display: flex;
+				flex-flow: row wrap;
+				margin-top: 10px;
+			}
+			.attached-item {
+				size: 62px;
+				margin: 0 7px 7px 0;
+				&:last-child {
+					size: 62px;
+					margin: 0;
+					text-align: center;
+					font-size: 40px;
+					line-height: 62px;
+					color: rgba(155, 155, 155, 0.2);
+					color: var(--purpley-grey-20);
+					background-color: transparent;
+					cursor: pointer;
 					border: solid 1px rgba(155, 155, 155, 0.2);
 					border: solid 1px var(--purpley-grey-20);
-					&:last-child {
-						margin: 0;
-					}
-					&::placeholder {
-						font-family: 'Lato', Arial, sans-serif;
-						font-size: 12px;
-						line-height: 35px;
-						color: #4b4b4b;
-						color: var(--purpley-grey);
-					}
-					&._keyword {
-						padding-right: 40px;
+					border-radius: 3px;
+					transition: box-shadow .3s ease-in-out;
+					&:hover {
+						@include MDShadow-1;
 					}
 				}
-			}
-			.chips-list {
-				display: flex;
-				flex-flow: row wrap;
-			}
-			.create-task-container {
-				display: flex;
-				flex-flow: row wrap;
-				justify-content: space-between;
-			}
-
-			.create-task-column {
-				width: 270px;
-				&._wide {
-					width: 565px;
-				}
-				&__title {
-					width: 100%;
-					font-size: 13px;
-					font-weight: 600;
-					line-height: 1.46;
-					color: #4a4a4a;
-					color: var(--charcoal-grey);
-				}
-				&__label {
-					position: relative;
-					display: block;
-					width: 100%;
-				}
-				&__label-icon {
-					position: absolute;
-					top: 34px; right: 10px;
-					width: 22px;
+				&__picture {
+					size: 62px;
+					object-fit: cover;
+					border-radius: 3px;
+					@include MDShadow-1;
 				}
 				&__input {
-					display: block;
-					size: 100% 35px;
-					margin: 10px 0;
-					padding: 10px;
+					display: none;
+				}
+			}
+		}
+
+		.create-task-bottom {
+			display: flex;
+			justify-content: space-between;
+			width: 100%;
+			margin-top: 20px;
+			&__button {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				size: calc( 100% - 290px ) 35px;
+				padding: 0 10px;
+				font-size: 12px;
+				line-height: 35px;
+				color: #fff;
+				color: var(--whited);
+				background-color: #009d2f;
+				background-color: var(--irish-green);
+				border: none;
+				border-radius: 3px;
+				transition: box-shadow .35s ease-in-out;
+				&:focus, &:hover {
+					@include MDShadow-1;
+				}
+				&:active {
+					@include MDShadow-2;
+				}
+				&._draft {
+					width: 270px;
+					background-color: #4a4a4a;
+					background-color: var(--charcoal-grey);
+				}
+			}
+			&__checkbox {
+				margin: 12px 0 !important;
+				.checkbox_label {
 					font-size: 12px;
 					line-height: 1.5;
 					color: #9b9b9b;
 					color: var(--purpley-grey);
-					border-radius: 3px;
-					border: solid 1px rgba(155, 155, 155, 0.2);
-					border: solid 1px var(--purpley-grey-20);
-					&._textarea {
-						height: 115px;
-						resize: none;
-					}
 				}
-				.attached-list {
-					display: flex;
-					flex-flow: row wrap;
-					margin-top: 10px;
-				}
-				.attached-item {
-					size: 62px;
-					margin: 0 7px 7px 0;
-					&:last-child {
-						size: 62px;
-						margin: 0;
-						text-align: center;
-						font-size: 40px;
-						line-height: 62px;
-						color: rgba(155, 155, 155, 0.2);
-						color: var(--purpley-grey-20);
-						background-color: transparent;
-						cursor: pointer;
-						border: solid 1px rgba(155, 155, 155, 0.2);
-						border: solid 1px var(--purpley-grey-20);
-						border-radius: 3px;
-						transition: box-shadow .3s ease-in-out;
-						&:hover {
-							@include MDShadow-1;
-						}
-					}
-					&__picture {
-						size: 62px;
-						object-fit: cover;
-						border-radius: 3px;
-						@include MDShadow-1;
-					}
-					&__input {
-						display: none;
-					}
+				input:focus {
+					@include MDShadow-3;
 				}
 			}
+			&__button-icon {
+				width: 20px;
+				margin-right: 10px;
+				stroke-width: 2;
+				stroke: #fff;
+				stroke: var(--whited);
+			}
+		}
 
-			.create-task-bottom {
-			  display: flex;
-        justify-content: space-between;
-				width: 100%;
-				margin-top: 20px;
-				&__button {
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					size: calc( 100% - 290px ) 35px;
-					padding: 0 10px;
-					font-size: 12px;
-					line-height: 35px;
-					color: #fff;
-					color: var(--whited);
-					background-color: #009d2f;
-					background-color: var(--irish-green);
-					border: none;
-					border-radius: 3px;
-					transition: box-shadow .35s ease-in-out;
-					&:focus, &:hover {
-						@include MDShadow-1;
-					}
-					&:active {
-						@include MDShadow-2;
-					}
-          &._draft {
-            width: 270px;
-            background-color: #4a4a4a;
-            background-color: var(--charcoal-grey);
-          }
-				}
-				&__checkbox {
-					margin: 12px 0 !important;
-					.checkbox_label {
-						font-size: 12px;
-						line-height: 1.5;
-						color: #9b9b9b;
-						color: var(--purpley-grey);
-					}
-					input:focus {
-						@include MDShadow-3;
-					}
-				}
-				&__button-icon {
-					width: 20px;
-					margin-right: 10px;
-					stroke-width: 2;
-					stroke: #fff;
-					stroke: var(--whited);
-				}
+		.swal2-modal {
+			.swal2-content {
+				margin: 10px 0 30px 0;
+			}
+			.swal2-buttonswrapper {
+				display: flex !important;
+				justify-content: space-between;
+			}
+		}
+
+		.create-task-sweet__button {
+			size: 48.5% 35px;
+			padding: 0 10px;
+			font-size: 14px;
+			line-height: 35px;
+			color: #fff;
+			color: var(--whited);
+			background-color: #009d2f;
+			background-color: var(--irish-green);
+			border: none;
+			border-radius: 3px;
+			transition: box-shadow .35s ease-in-out;
+			&:focus, &:hover {
+				@include MDShadow-1;
+			}
+			&:active {
+				@include MDShadow-2;
+			}
+			&._cancel {
+				width: 48.5%;
+				background-color: #4a4a4a;
+				background-color: var(--charcoal-grey);
 			}
 		}
 

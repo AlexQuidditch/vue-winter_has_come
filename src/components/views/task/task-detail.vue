@@ -3,12 +3,12 @@
 		<div class="detail-header">
 			<div class="header-agent">
 				<router-link :to="{ name: 'user', query: { id: Author.id }}" tag="img"
-					:src=" '/static/assets/shared/' + Author.avatar" :alt="Author.name + ' ' + Author.sename"
-					class="header-agent__avatar"
-					title="Открыть профиль">
+                     :src=" '/static/assets/shared/' + Author.avatar" :alt="Author.name + ' ' + Author.sename"
+					           class="header-agent__avatar"
+					           title="Открыть профиль">
 				</router-link>
 				<router-link :to="{ name: 'user', query: { id: Author.id }}" tag="p"
-					class="header-agent__name">
+					           class="header-agent__name">
 					{{ Author.name }}<br />
 					{{ Author.sename }}
 				</router-link>
@@ -31,7 +31,7 @@
 		</div>
 		<div class="detail-main">
 			<h3 :class="{ '_is-rush' : taskItem.isRush , '_is-engaged' : taskItem.isEngaged }"
-				class="detail-main__title">{{ taskItem.title }}</h3>
+				  class="detail-main__title">{{ taskItem.title }}</h3>
 			<p class="detail-main__published">{{ taskItem.published }}</p>
 			<p class="detail-main__description">{{ taskItem.description }}</p>
 		</div>
@@ -39,26 +39,26 @@
 			<ul class="summary-task">
 				<li class="summary-budget">
 					<icon-disc :class="{ '_is-engaged' : taskItem.isEngaged }"
-						class="summary-budget__icon"></icon-disc>
+						         class="summary-budget__icon"></icon-disc>
 					<span v-if="taskItem.isAgreement" :class="{ '_is-engaged' : taskItem.isEngaged }"
-						class="summary-budget__value"
+						    class="summary-budget__value"
 						>По договорённсти
 					</span>
 					<span v-else :class="{ '_is-engaged' : taskItem.isEngaged }"
-						class="summary-budget__value"
+						    class="summary-budget__value"
 						>{{ taskItem.budget }} баллов
 					</span>
 				</li>
 				<li class="summary-deadline">
 					<icon-clock :class="{ '_is-rush' : taskItem.isRush , '_is-engaged' : taskItem.isEngaged }"
-						class="summary-deadline__icon">
+						          class="summary-deadline__icon">
 					</icon-clock>
 					<span v-if="taskItem.isRush" :class="{ '_is-engaged' : taskItem.isEngaged }"
-						class="summary-deadline__value _is-rush"
+						    class="summary-deadline__value _is-rush"
 						>СРОЧНО!
 					</span>
 					<span :class="{ '_is-engaged' : taskItem.isEngaged }"
-						class="summary-deadline__value"
+						    class="summary-deadline__value"
 						>{{ taskItem.deadline }}
 					</span>
 				</li>
@@ -89,14 +89,18 @@
 	import iconComments from '@icons/comments';
 
   export default {
-    name: "task-detail",
+    name: "Task-Detail",
     components: { iconClock , iconDisc , iconEye , iconComments },
+		props: {
+			'taskItem': {
+				type: Object,
+				required: true
+			}
+		},
     computed: {
-      taskItem() {
-        return this.$store.state.Tasks.find( item => item.id == this.$route.query.id );
-      },
       Author() {
-        return this.$store.state.Stub.friends.find( item => item.id === this.taskItem.authorID );
+        return this.$store.state.Stub.friends
+          .find( item => item.id === this.taskItem.authorID );
       }
     },
     methods: {

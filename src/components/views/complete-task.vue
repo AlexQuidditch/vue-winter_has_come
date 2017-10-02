@@ -4,7 +4,8 @@
 			<h1 class="complete-task__title">
 				<span>Завершить задание</span> | {{ taskItem.title }}
 			</h1>
-			<form @submit.prevent="saveComplete([ $event , $route.query.id ])" class="complete-task-container">
+			<form @submit.prevent="saveComplete()"
+						class="complete-task-container">
 
 				<header class="complete-task-header">
 					<div class="complete-task-column">
@@ -12,8 +13,7 @@
 							<h6 class="complete-task-column__title">Статус задачи:</h6>
 							<div class="statuses-list">
 								<v-radio v-for="( statusItem , index ) in Statuses" :key="index"
-												 @input="updateStatus([ $event , $route.query.id ])"
-												 :value="taskItem.completed.status"
+												 v-model="taskItem.completed.status"
 												 :expected="statusItem.status"
 												 class="statuses-item"
 												 >{{ statusItem.text }}
@@ -50,10 +50,10 @@
 
 				<label class="complete-task-column__label">
 					<h6 class="complete-task-column__title">Отзыв об исполнителе:</h6>
-					<textarea :value="taskItem.completed.review" @input="updateReview([ $event.target.value , $route.query.id ])"
-						:placeholder="Placeholders.description" required
-						class="complete-task-column__input _textarea"
-						name="description" maxlength="200">
+					<textarea v-model="taskItem.completed.review"
+      						  :placeholder="Placeholders.description" required
+      				  		class="complete-task-column__input _textarea"
+      		  				name="description" maxlength="200">
 					</textarea>
 				</label>
 
@@ -98,21 +98,47 @@
 			],
 			Placeholders: {
 				description: 'Описание задачи ( макс. 200 символов )'
-			}
-		}),
-		computed: {
-			taskItem() {
-				return this.$store.state.Tasks.find( item => item.id == this.$route.query.id );
 			},
+      taskItem: {
+    		id: 0,
+    		authorID: null,
+    		engagedID: null,
+    		title: '',
+    		picture: '',
+    		published: '',
+    		description: '',
+    		budget: null,
+    		isAgreement: false,
+    		deadline: '',
+    		isRush: false,
+    		views: 0,
+    		response: 0,
+    		isEngaged: false,
+    		completed: {
+    			rate: 0,
+    			status: 'notCompleted',
+    			review: ''
+    		}
+    	}
+		}),
+    created() {
+      this.$store.dispatch( 'getTaskByID' , this.$route.query.id )
+        .then( ({ body })  => {
+          console.log(body);
+          Object.assign( this.taskItem , body );
+        })
+    },
+		computed: {
 			Engage() {
-				return this.$store.state.Stub.friends.find( item => item.id == this.taskItem.engagedID );
+				return this.$store.state.Stub.friends
+					.find( item => item.id == this.taskItem.engagedID || 2 );
 			}
 		},
 		methods: {
 			...mapActions([ 'updateRate' , 'updateReview' , 'updateStatus' ]),
-			saveComplete(payload) {
-				this.$store.dispatch( 'saveComplete' , payload )
-					// .then( response => console.log(response) );
+			saveComplete() {
+				this.$store.dispatch( 'saveComplete' , [ this.$route.query.id , this.taskItem.completed ] )
+					.then( response => console.log(response) );
 			},
 			getEngageAvatar(ID) {
 				let avatar = '';

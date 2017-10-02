@@ -1,9 +1,9 @@
 <template lang="html">
-  <ul class="find-job _all">
-    <task-item v-for="taskItem in Tasks" :key="taskItem.id"
-              :taskItem = "taskItem">
+  <transition-group name="list" mode="out-in" class="find-job _all">
+    <task-item v-for="( taskItem , index ) in Tasks" :key="index"
+               :taskItem = "taskItem">
     </task-item>
-  </ul>
+  </transition-group>
 </template>
 
 <script>

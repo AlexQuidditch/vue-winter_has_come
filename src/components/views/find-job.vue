@@ -13,14 +13,14 @@
 
 <script>
 
-  import filterPanel from './find-job/filter-panel';
-  import searchTask from './find-job/search-task';
-  import navigationPanel from './find-job/navigation-panel';
+  import filterPanel from './find-job/filter-panel.vue';
+  import searchTask from './find-job/search-task.vue';
+  import navigationPanel from './find-job/navigation-panel.vue';
 
   import all from './find-job/all.vue';
-  import rush from './find-job/rush';
-  import active from './find-job/active';
-  import completed from './find-job/completed';
+  import rush from './find-job/rush.vue';
+  import active from './find-job/active.vue';
+  import completed from './find-job/completed.vue';
 
   export default {
     name: "find-job",

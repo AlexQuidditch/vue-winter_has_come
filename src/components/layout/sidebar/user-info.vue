@@ -1,28 +1,25 @@
 <template lang="html">
-    <div class="user">
+  <div class="user">
 		<router-link :to="{ name: 'profile' }" tag="div" class="user-avatar">
 			<img :src=" '/static/assets/shared/' + Personal.avatar " :alt="Personal.name + ' ' + Personal.sename"
-				class="user-avatar__image"/><h3 class="user-avatar__name">{{ Personal.name + ' ' + Personal.sename }}</h3>
+				   class="user-avatar__image"/><h3 class="user-avatar__name">{{ Personal.name + ' ' + Personal.sename }}</h3>
 		</router-link>
 		<nav class="user-controls">
 			<router-link to="/" v-for="control in Controls" :key="control.name"
-				class="user-control">
+				           class="user-control">
 				<img :src=" '/static/assets/sidebar/' + control.icon " :alt="control.name"
-						class="user-control__icon" />
+					   class="user-control__icon" />
 				<span v-if="control.counter !== 0 "
-					class="user-control__counter">{{ control.counter }}</span>
+					    class="user-control__counter">{{ control.counter }}</span>
 			</router-link>
 		</nav>
-    </div>
+  </div>
 </template>
 
 <script>
 
   export default {
     name: "user-info",
-    data() {
-      return {}
-    },
     computed: {
       Personal() {
         return this.$store.state.User.personal
@@ -48,9 +45,9 @@
 			size: 50px;
 			object-fit: cover;
 			object-position: top;
-			border-radius: 3px;
+			border-radius: 50%;
 			cursor: pointer;
-			@include MDShadow-1( #4a4a4a );
+			@include MDShadow-1;
 		}
 		&__name {
 			display: inline-block;

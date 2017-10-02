@@ -24,8 +24,8 @@
 							<label class="create-task-column__label">
 								<h6 class="create-task-column__title">Бюджет, в баллах:</h6>
 								<money :value="CreateTask.budget" @input="updateBudget($event)"
-									v-bind="moneyOptions" required
-									class="create-task-column__input">
+											 v-bind="moneyOptions" required
+											 class="create-task-column__input">
 								</money>
 							</label>
 							<label class="create-task-column__label">
@@ -160,6 +160,9 @@
 				isRush: 'Срочное задание'
 			}
 		}),
+    created() {
+      this.$store.dispatch('initializeTask')
+    },
 		computed: {
       isEdit() {
         return this.$route.name === 'edit-task';
@@ -187,12 +190,18 @@
       },
       saveDraft() {
         this.$store.dispatch('saveDraft')
-          .then( response => console.log(response) )
+          .then( ({ data }) => {
+            console.log(data);
+            this.$swal( 'Ура!' , `ID задачи: ${ data._id }` , 'success' );
+            this.$store.dispatch('initializeTask')
+          })
           .catch( error => console.error(error) );
       },
 			addSpecialization(specKeyword) {
-				this.$store.dispatch( 'addSpecialization' , specKeyword );
-				this.specKeyword = '';
+        if (specKeyword) {
+          this.$store.dispatch( 'addSpecialization' , specKeyword );
+          this.specKeyword = '';
+        }
 			},
 			filler() {
 				const attachFile = document.getElementById('attachFile');

@@ -13,12 +13,12 @@
           <!-- <img src="" alt="" class="login-form__avatar" /> -->
           <avatar-placeholder class="login-form__avatar"></avatar-placeholder>
           <transition name="fade" mode="out-in" appear>
-    				<label v-if="!isSingIn" class="login-form__label">
+            <label v-if="!isSingIn" class="login-form__label">
               <h6 class="login-form__title">Ваше имя:</h6>
               <input placeholder="Введите имя"
                      type="text" required
                      class="login-form__input" />
-    				</label>
+            </label>
           </transition>
   				<label class="login-form__label">
   					<h6 class="login-form__title">Электронная почта:</h6>

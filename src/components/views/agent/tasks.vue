@@ -1,14 +1,14 @@
 <template lang="html">
     <section class="tasks">
 		<img src="/static/assets/profile/portfolio/case.svg" alt="Портфолио"
-				class="tasks__icon">
+				 class="tasks__icon">
 		<h3 class="tasks__title">Задания</h3>
-		<ul class="tasks-list">
+		<transition-group name="list" mode="out-in" class="tasks-list">
 			<tasks-item v-for="( tasksItem , index ) in Tasks" :key="index"
 									:tasksItem="tasksItem">
 			</tasks-item>
-		</ul>
-    </section>
+		</transition-group>
+  </section>
 </template>
 
 <script>

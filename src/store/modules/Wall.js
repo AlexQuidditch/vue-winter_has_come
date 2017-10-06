@@ -114,18 +114,18 @@ const actions = {
 const mutations = {
   LIKE_WALL_POST( { posts } , payload ) {
     posts.find( item => {
-			if ( item.id === payload[0] ) item.likes += payload[1];
+			if ( item._id === payload[0] ) item.likes += payload[1];
 		})
   },
   ADD_COMMENT( { posts } , payload ) {
     posts.find( item => {
-			if ( item.id === payload[0] ) item.comments.push(payload[1]);
+			if ( item._id === payload[0] ) item.comments.push(payload[1]);
 		})
   },
   LIKE_COMMENT( { posts } , payload ) {
     posts.forEach( wallPost => {
       wallPost.comments.find( commentItem => {
-        if ( commentItem.id === payload[0] ) commentItem.likes += payload[1];
+        if ( commentItem._id === payload[0] ) commentItem.likes += payload[1];
       })
     })
   },

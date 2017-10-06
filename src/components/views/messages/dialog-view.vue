@@ -19,7 +19,7 @@
 			</transition>
 		</header>
 		<div id="v-bar" class="dialog-main vue-bar">
-			<transition-group tag="ul" name="messaging"
+			<transition-group  tag="ul" name="messaging"
 												class="message-list">
 				<li v-for="( instanceItem , index ) in dialogInstance"
 						:key="index"
@@ -65,7 +65,7 @@
 			},
 			Author() {
 				return this.$store.state.Stub.friends
-				.find( item => item.id === this.Dialog.authorID )
+				.find( item => item._id === this.Dialog.authorID )
 			},
 			newMessage: {
 				get() {

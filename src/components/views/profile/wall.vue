@@ -6,7 +6,7 @@
       <wall-form></wall-form>
       <transition-group name="fade" tag="ul" mode="out-in"
                         class="wall-posts-list">
-        <wall-post v-for="( wallPost , index ) in wallPosts" :key="wallPost.id"
+        <wall-post v-for="( wallPost , index ) in wallPosts" :key="wallPost._id"
                    :WallPost="wallPost">
         </wall-post>
       </transition-group>

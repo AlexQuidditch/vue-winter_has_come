@@ -160,6 +160,9 @@
 				isRush: 'Срочное задание'
 			}
 		}),
+    created() {
+      this.$store.dispatch( 'setAuthorID' , this.$store.state.User._id )
+    },
 		computed: {
       isEdit() {
         return this.$route.name === 'edit-task';
@@ -167,7 +170,7 @@
 			CreateTask() {
         if ( this.isEdit ) {
           return this.$store.state.Tasks
-            .find( task => task.id == this.$route.query.id );
+            .find( task => task._id == this.$route.query.id );
         } else {
           return this.$store.state.CreateTask
         }
@@ -213,7 +216,10 @@
 							}
 						});
 					})
-          .catch( error => console.error(error) );
+          .catch( error => {
+            console.error(error);
+            this.$swal( 'Упс!' , 'Что-то пошло не так...' , 'error' )
+          });
       },
       saveDraft() {
         this.$store.dispatch('saveDraft')

@@ -2,7 +2,7 @@
     <transition-group tag="ul" name="friend-list" mode="out-in"
 		class="friend-list _blacklist">
 		<h4 class="friend-list__title">Заблокированные ({{ Blacklist.length }})</h4>
-		<blacklist-item v-for="( blacklistItem , index ) in Blacklist" :key="blacklistItem.id"
+		<blacklist-item v-for="( blacklistItem , index ) in Blacklist" :key="blacklistItem._id"
 			:blacklistItem = "blacklistItem">
 		</blacklist-item>
     </transition-group>

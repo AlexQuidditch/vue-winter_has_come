@@ -1,7 +1,7 @@
 <template lang="html">
   <transition-group tag="ul" name="friend-list" mode="out-in"
                     class="friend-list _all">
-      <friends-item v-for="( friendItem , index ) in Friends" :key="friendItem.id"
+      <friends-item v-for="( friendItem , index ) in Friends" :key="friendItem._id"
                     :friendItem = "friendItem">
     </friends-item>
   </transition-group>

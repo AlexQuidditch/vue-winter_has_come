@@ -1,6 +1,6 @@
 <template lang="html">
 	<li class="portfolio-item">
-		<router-link :to="{ name: 'task', query: { id: portfolioItem.id }}" tag="div"
+		<router-link :to="{ name: 'task', query: { id: portfolioItem._id }}" tag="div"
                  class="portfolio-item__overlay">
 			<h5 class="portfolio-item__title">{{ portfolioItem.title }}</h5>
 			<p class="portfolio-item__description">{{ portfolioItem.description }}</p>
@@ -51,7 +51,7 @@
     methods: {
       likeIt() {
         this.isLiked =! this.isLiked;
-        this.$store.dispatch( 'likePortfolioItem' , [ this.portfolioItem.id , this.isLiked ? 1 : -1 ] );
+        this.$store.dispatch( 'likePortfolioItem' , [ this.portfolioItem._id , this.isLiked ? 1 : -1 ] );
       }
     }
 	};

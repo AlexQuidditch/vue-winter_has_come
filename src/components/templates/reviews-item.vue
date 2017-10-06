@@ -29,7 +29,7 @@
     computed: {
       Author() {
 				return this.$store.state.Stub.friends.find( item => {
-					if ( item.id === this.reviewsItem.authorID ) return item
+					if ( item._id === this.reviewsItem.authorID ) return item
 				})
       }
     }

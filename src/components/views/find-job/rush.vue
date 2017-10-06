@@ -1,6 +1,6 @@
 <template lang="html">
     <ul class="find-job _rush">
-		<task-item v-for="taskItem in Tasks" :key="taskItem.id"
+		<task-item v-for="taskItem in Tasks" :key="taskItem._id"
 			:taskItem = "taskItem">
 		</task-item>
     </ul>

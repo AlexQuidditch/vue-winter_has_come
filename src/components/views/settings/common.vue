@@ -99,7 +99,7 @@
 			}
 		},
 		created() {
-			this.$store.dispatch( 'getCommon' , this.$store.state.User.id )
+			this.$store.dispatch( 'getCommon' , this.$store.state.User._id )
 		},
 		computed: {
 			Common() {
@@ -113,7 +113,7 @@
 				'updateCheck'
 			]),
 			saveCommon() {
-				this.$store.dispatch( 'saveCommon' , this.$store.state.User.id )
+				this.$store.dispatch( 'saveCommon' , this.$store.state.User._id )
 					.then( response => {
 						console.log(response.data);
 						this.$swal( 'Есть ответ!' , JSON.stringify(response.data) , 'success' )

@@ -49,7 +49,7 @@
 			},
 			Author() {
 				return this.$store.state.Stub.friends.find( item => {
-					if ( item.id === this.DialogItem.authorID ) return item
+					if ( item._id === this.DialogItem.authorID ) return item
 				})
 			}
 		},

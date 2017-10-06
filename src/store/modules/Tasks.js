@@ -73,9 +73,6 @@ const actions = {
   },
   getTaskByID( { commit } , payload ) {
     return API.get(`task/get/${ payload }`)
-      .then( ({ data }) => {
-        return data;
-      })
   },
   clearTasks( { commit } , payload ) {
     commit( 'CLEAR_TASKS' , payload )
@@ -87,21 +84,21 @@ const mutations = {
   // payload[0] = rate of task
 	UPDATE_RATE( state , payload ) {
 		state.find( item => {
-			if ( item.id === payload[1] ) {
+			if ( item._id === payload[1] ) {
 				item.completed.rate = payload[0];
 			}
 		})
 	},
 	UPDATE_REVIEW( state , payload ) {
 		state.find( item => {
-			if ( item.id === payload[1] ) {
+			if ( item._id === payload[1] ) {
 				item.completed.review = payload[0];
 			}
 		})
 	},
 	UPDATE_STATUS( state , payload ) {
 		state.find( item => {
-			if ( item.id === payload[1] ) {
+			if ( item._id === payload[1] ) {
 				item.completed.status = payload[0];
 			}
 		})

@@ -52,7 +52,7 @@ const actions = {
 const mutations = {
   LIKE_PORTFOLIO_ITEM( state , payload ) {
     state.forEach( portfolioItem => {
-      if ( portfolioItem.id === payload[0] ) portfolioItem.likes += payload[1];
+      if ( portfolioItem._id === payload[0] ) portfolioItem.likes += payload[1];
     })
   }
 };

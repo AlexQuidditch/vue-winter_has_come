@@ -1,12 +1,12 @@
 <template lang="html">
   <li class="wall-post">
     <header class="post-header">
-      <router-link :to="{ name: 'user', query: { id: Author.id }}" tag="img"
+      <router-link :to="{ name: 'user', query: { id: Author._id }}" tag="img"
                    :src="'/static/assets/shared/' + Author.avatar" :alt="Author.name + ' ' + Author.sename"
                    class="post-header__avatar">
       </router-link>
       <div class="post-header__container">
-        <router-link :to="{ name: 'user', query: { id: Author.id }}" tag="h6"
+        <router-link :to="{ name: 'user', query: { id: Author._id }}" tag="h6"
                      class="post-header__name"
           >{{ Author.name + ' ' + Author.sename }}
           <transition name="heartbeat" mode="out-in">
@@ -102,7 +102,7 @@
     computed: {
       Author() {
         return this.$store.state.Stub.friends.find( item => {
-          if ( item.id === this.WallPost.authorID ) return item
+          if ( item._id === this.WallPost.authorID ) return item
         })
       },
       published() {
@@ -115,18 +115,18 @@
     methods: {
       likeIt() {
         this.isLiked =! this.isLiked;
-        this.$store.dispatch( 'likeWallPost' , [ this.WallPost.id , this.isLiked ? 1 : -1 ] );
+        this.$store.dispatch( 'likeWallPost' , [ this.WallPost._id , this.isLiked ? 1 : -1 ] );
       },
       commentIt() {
         const newComment = {                    // подготовка новго объекта комментария
           id: getRandomInt( 1 , 100 ),          // Number - ID комментария TODO сделать вычисляемым
-          authorID: this.$store.state.User.id,  // String - ID пользователя
+          authorID: this.$store.state.User._id,  // String - ID пользователя
           time: new Date(),                     // Date - время публикации
           content: this.postComment,            // String - тело комментария
           attacments: '',                       // Array || Object - приложения
           likes: 0                              // Number стартовое кол-во лайков
         };
-        this.$store.dispatch( 'addComment' , [ this.WallPost.id , newComment ] );
+        this.$store.dispatch( 'addComment' , [ this.WallPost._id , newComment ] );
         this.postComment = '';
       }
     }

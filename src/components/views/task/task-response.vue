@@ -46,7 +46,7 @@
         },
 		computed: {
 		    taskItem() {
-		        return this.$store.state.Tasks.find( item => item.id === this.$route.query.id )
+		        return this.$store.state.Tasks.find( item => item._id === this.$route.query.id )
 		    }
 		}
     };

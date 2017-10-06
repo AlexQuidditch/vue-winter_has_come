@@ -2,12 +2,12 @@
   <div class="task-detail">
 		<div class="detail-header">
 			<div class="header-agent">
-				<router-link :to="{ name: 'user', query: { id: Author.id }}" tag="img"
+				<router-link :to="{ name: 'user', query: { id: Author._id }}" tag="img"
                      :src=" '/static/assets/shared/' + Author.avatar" :alt="Author.name + ' ' + Author.sename"
 					           class="header-agent__avatar"
 					           title="Открыть профиль">
 				</router-link>
-				<router-link :to="{ name: 'user', query: { id: Author.id }}" tag="p"
+				<router-link :to="{ name: 'user', query: { id: Author._id }}" tag="p"
 					           class="header-agent__name">
 					{{ Author.name }}<br />
 					{{ Author.sename }}
@@ -100,7 +100,7 @@
     computed: {
       Author() {
         return this.$store.state.Stub.friends
-          .find( item => item.id === this.taskItem.authorID );
+          .find( item => item._id === this.taskItem.authorID );
       }
     },
     methods: {

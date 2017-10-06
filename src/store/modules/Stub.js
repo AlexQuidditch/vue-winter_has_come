@@ -4,7 +4,7 @@ const state = {
     // Initial state of your store
 	friends: [
 		{
-			id: 1,
+			_id: 1,
 			isAgent: false,
 			isOnline: true,
 			avatar: 'christopher-campbell-40410.jpg',
@@ -33,17 +33,17 @@ const state = {
 			issued: 201,
 			works: [
 				{
-					id: '241',
+					_id: '241',
 					preview: 'project2.jpg'
 				},
 				{
-					id: '129',
+					_id: '129',
 					preview: 'project.jpg'
 				}
 			]
 		},
 		{
-			id: 2,
+			_id: 2,
 			isAgent: true,
 			isOnline: true,
 			avatar: 'agent.jpg',
@@ -72,13 +72,13 @@ const state = {
 			issued: 201,
 			works: [
 				{
-					id: '220',
+					_id: '220',
 					preview: 'project3.jpg'
 				}
 			]
 		},
 		{
-			id: 3,
+			_id: 3,
 			isAgent: true,
 			isOnline: false,
 			avatar: 'agent2.jpg',
@@ -107,17 +107,17 @@ const state = {
 			issued: 201,
 			works: [
 				{
-					id: '820',
+					_id: '820',
 					preview: 'project4.jpg'
 				},
 				{
-					id: '822',
+					_id: '822',
 					preview: 'project5.jpg'
 				}
 			]
 		},
 		{
-			id: '59b98da198948246804be893',
+			_id: '59b98da198948246804be893',
 			isAgent: false,
 			isOnline: true,
   		avatar: 'avatar.jpg',
@@ -146,11 +146,11 @@ const state = {
 			issued: 201,
 			works: [
 				{
-					id: '820',
+					_id: '820',
 					preview: 'project4.jpg'
 				},
 				{
-					id: '822',
+					_id: '822',
 					preview: 'project5.jpg'
 				}
 			]
@@ -158,7 +158,7 @@ const state = {
 	],
 	blacklist: [
 		{
-			id: 16,
+			_id: 16,
 			isAgent: false,
 			isOnline: true,
 			avatar: '',

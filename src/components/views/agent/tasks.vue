@@ -24,7 +24,7 @@
 				const Tasks = [];
 				storeTasks.forEach( item => {
 					this.$store.state.Tasks.filter( task => {
-						if ( task.id === item ) Tasks.push( task );
+						if ( task._id === item ) Tasks.push( task );
 					})
 				});
 				return Tasks;

@@ -22,8 +22,7 @@
 						</div>
 						<label class="complete-task-column__label">
 							<h6 class="complete-task-column__title">Оценка исполнителю:</h6>
-							<star-rating @rating-selected="updateRate([ $event , $route.query.id ])"
-                           :rating="taskItem.completed.rate"
+							<star-rating v-model="taskItem.completed.rate"
           								 :increment="1"
           								 :star-size="18"
           								 :show-rating="false"
@@ -35,7 +34,7 @@
 					<div class="complete-task-column _user">
 						<h6 class="complete-task-column__title">Исполнитель:</h6>
 						<div class="user">
-							<router-link :to="{ name: 'user', query: { id: Engage.id } }"
+							<router-link :to="{ name: 'user', query: { id: Engage._id } }"
 								tag="div" class="user-avatar">
 								<img :src=" '/static/assets/shared/' + Engage.avatar " :alt="Engage.name + ' ' + Engage.sename"
 										 class="user-avatar__image"/><h3 class="user-avatar__name">
@@ -100,7 +99,7 @@
 				description: 'Описание задачи ( макс. 200 символов )'
 			},
       taskItem: {
-    		id: 0,
+    		_id: 0,
     		authorID: null,
     		engagedID: null,
     		title: '',
@@ -121,7 +120,7 @@
     		}
     	}
 		}),
-    created() {
+    beforeCreate() {
       this.$store.dispatch( 'getTaskByID' , this.$route.query.id )
         .then( ({ body })  => {
           console.log(body);
@@ -131,26 +130,29 @@
 		computed: {
 			Engage() {
 				return this.$store.state.Stub.friends
-					.find( item => item.id == this.taskItem.engagedID || 2 );
+					.find( item => item._id == this.taskItem.engagedID || 2 );
 			}
 		},
 		methods: {
 			...mapActions([ 'updateRate' , 'updateReview' , 'updateStatus' ]),
 			saveComplete() {
 				this.$store.dispatch( 'saveComplete' , [ this.$route.query.id , this.taskItem.completed ] )
-					.then( response => console.log(response) );
+					.then( response => {
+            console.log(response);
+            this.$router.push({ name: 'task' , query : { id : this.$route.query.id } })
+          });
 			},
 			getEngageAvatar(ID) {
 				let avatar = '';
 				this.$store.state.Stub.friends.filter( item => {
-					if ( item.id === ID ) avatar = item.avatar;
+					if ( item._id === ID ) avatar = item.avatar;
 				});
 				return avatar;
 			},
 			getEngageName(ID) {
 				let fullName = '';
 				this.$store.state.Stub.friends.filter( item => {
-					if ( item.id === ID ) fullName = item.name + ' ' + item.sename;
+					if ( item._id === ID ) fullName = item.name + ' ' + item.sename;
 				});
 				return fullName;
 			}

@@ -47,6 +47,9 @@ const state = {
 };
 
 const actions = {
+  setAuthorID( { commit } , payload ) {
+    commit( 'SET_AUTHOR_ID' , payload )
+  },
   updateBudget( { commit } , payload ) {
     commit( 'UPDATE_BUDGET' , payload )
   },
@@ -86,6 +89,10 @@ const actions = {
 };
 
 const mutations = {
+  SET_AUTHOR_ID( state , payload ) {
+    console.log(payload);
+    state.authorID = payload
+  },
   UPDATE_TITLE( state , payload ) {
     state.title = payload
   },

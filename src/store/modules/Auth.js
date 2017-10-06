@@ -1,24 +1,42 @@
 const state = {
-    // Initial state of your store
-	isLoggedIn: !!window.localStorage.token
+  username: '',
+  avatar: '',
+  email: '',
+  isLoggedIn: !!window.localStorage.token
 };
 
 const getters = {
-    // Getters to access your store values
+  // Getters to access your store values
 };
 
 const actions = {
-    // Asynchronous mutations commits to modify your store
-	changeAuth({ commit } , payload ) {
-		commit('CHANGE_AUTH' , payload )
-	}
+  // Asynchronous mutations commits to modify your store
+  changeAuth( { commit } , payload ) {
+    commit( 'CHANGE_AUTH' , payload )
+  },
+  createAuthData( { commit } , payload ) {
+    commit( 'CREATE_AUTH_DATA' , payload )
+  },
+  destroyAuthData({ commit }) {
+    commit( 'DESTROY_AUTH_DATA' )
+  }
 };
 
 const mutations = {
-    // Synchronous modifications of  your store
-	CHANGE_AUTH( state , payload ) {
-		state.isLoggedIn = payload
-	}
+  // Synchronous modifications of  your store
+  CHANGE_AUTH( state , payload ) {
+    state.isLoggedIn = payload
+  },
+  CREATE_AUTH_DATA( state , { username , avatar , email } ) {
+    state.username = username;
+    state.avatar = avatar;
+    state.email = email;
+  },
+  DESTROY_AUTH_DATA( state ) {
+    state.username = '';
+    state.avatar = '';
+    state.email = '';
+  }
 };
 
 export default { state , getters , actions , mutations };

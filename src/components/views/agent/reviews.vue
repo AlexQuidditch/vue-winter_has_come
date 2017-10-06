@@ -24,7 +24,7 @@
 				const Reviews = [];
 				storeReviews.forEach( item => {
 					this.$store.state.Reviews.filter( review => {
-						if ( review.id === item ) Reviews.push( review );
+						if ( review._id === item ) Reviews.push( review );
 					})
 				});
 				return Reviews;

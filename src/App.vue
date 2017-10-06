@@ -1,15 +1,15 @@
 <template lang="html">
 	<wrapper>
     <transition name="fade-long">
-      <icon-logo v-if=" $route.name === 'login' "
+      <icon-logo v-if=" $route.path === '/login' "
 								 class="background-logo"></icon-logo>
     </transition>
     <transition name="fade-long">
-  		<layout-header v-if=" $route.name !== 'login' "></layout-header>
+  		<layout-header v-if=" $route.path !== '/login' "></layout-header>
     </transition>
 		<div class="container _main">
       <transition name="fade-long">
-    			<layout-sidebar v-if=" $route.name !== 'login' "></layout-sidebar>
+    			<layout-sidebar v-if=" $route.path !== '/login' "></layout-sidebar>
       </transition>
 			<layout-main></layout-main>
 		</div>
@@ -118,11 +118,12 @@
     z-index: -1;
     opacity: 0.25;
 		position: absolute;
-		@include center(xy);
-    size: 100%;
+    width: 100%;
+		height: 100vh;
   }
 
 	.container {
+	  position: relative;
 		size: 100% auto;
 		min-height: 100%;
 		max-width: 1180px;

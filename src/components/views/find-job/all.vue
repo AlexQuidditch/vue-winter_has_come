@@ -24,6 +24,6 @@
 
 <style lang="scss">
 
-.find-job._all {}
+  .find-job._all {}
 
 </style>

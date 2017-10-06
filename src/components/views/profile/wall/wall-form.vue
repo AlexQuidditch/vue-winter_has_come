@@ -1,7 +1,7 @@
 <template lang="html">
   <form @submit.prevent="addNewPost()" class="wall-form">
     <header class="wall-form-header">
-      <router-link :to="{ name: 'user', query: { id: Author.id }}" tag="img"
+      <router-link :to="{ name: 'user', query: { id: Author._id }}" tag="img"
                    :src="'/static/assets/shared/' + Author.avatar" :alt="Author.name + ' ' + Author.sename"
                    class="wall-form-header__avatar">
       </router-link>
@@ -54,7 +54,7 @@
     },
     methods: {
       addNewPost() {
-        const authorID = this.$store.state.User.id;  // String - ID пользователя
+        const authorID = this.$store.state.User._id;  // String - ID пользователя
         this.$store.dispatch( 'addNewPost' , authorID );
       },
       addAttach() {

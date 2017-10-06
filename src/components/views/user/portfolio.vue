@@ -32,7 +32,7 @@
         const Portfolio = [];
         storePortfolio.forEach( item => {
           this.$store.state.Portfolio.filter( portfolio => {
-            if ( portfolio.id === item ) Portfolio.push( portfolio );
+            if ( portfolio._id === item ) Portfolio.push( portfolio );
           })
         });
         return Portfolio;

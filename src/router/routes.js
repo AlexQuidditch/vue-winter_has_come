@@ -51,6 +51,15 @@ export default [
 		// beforeEnter: requireAuth
 	},
 	{
+		path: '/login',
+		name: 'logout',
+		component: login,
+    beforeEnter: ( to , from , next ) => {
+      console.log( this , to , from );
+      next()
+    }
+	},
+	{
 		path: '/friends',
 		name: 'friends',
 		component: friends
@@ -70,6 +79,13 @@ export default [
 		props: true
 	},
 	{
+		path: '/task',
+		name: 'task',
+		component: task,
+		// beforeEnter: requireAuth
+		props: true
+	},
+	{
 		path: '/task/create',
 		name: 'create-task',
 		component: createTask,
@@ -80,13 +96,6 @@ export default [
 		name: 'edit-task',
 		component: createTask,
 		// beforeEnter: requireAuth
-	},
-	{
-		path: '/task',
-		name: 'task',
-		component: task,
-		// beforeEnter: requireAuth
-		props: true
 	},
 	{
 		path: '/task/complete',

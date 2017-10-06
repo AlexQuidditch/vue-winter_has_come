@@ -22,6 +22,7 @@
 				<router-link to="/" class="header-row__link waves-effect waves-light">Исполнители</router-link>
 				<router-link :to="{ name : 'agent' }" class="header-row__link waves-effect waves-light">Агенты</router-link>
 				<router-link :to="{ name : 'teams' }" class="header-row__link waves-effect waves-light">Команды</router-link>
+				<router-link :to="{ name : 'logout' }" class="header-row__link _logout waves-effect waves-light">Выйти</router-link>
 			</nav>
 		</div>
   </header>
@@ -97,12 +98,16 @@
 			line-height: 40px;
 			box-shadow: inset 0 2px 0 transparent;
 			transition:
-			color .3s ease-in-out,
-			box-shadow .3s ease-in-out;
+  			color .3s ease-in-out,
+  			box-shadow .3s ease-in-out;
 			&._active {
 				box-shadow: inset 0 -2px 0 #fff;
 				box-shadow: inset 0 -2px 0 var(--whited);
 			}
+      &._logout {
+        position: absolute;
+        right: 30px;
+      }
 			&:first-child {
 				padding-left: 12px;
 			}

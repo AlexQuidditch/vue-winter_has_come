@@ -1,7 +1,7 @@
 const state = {
 	dialogs: [
 		{
-			id: 0,
+			_id: 0,
 			authorID: 2,
 			isUnreaded: false,
 			lastMessage: '2017-09-03T18:23:29.078Z',
@@ -11,7 +11,7 @@ const state = {
 			draft: ''
 		},
 		{
-			id: 1,
+			_id: 1,
 			authorID: 3,
 			isUnreaded: false,
 			lastMessage: '2017-09-03T18:23:29.078Z',
@@ -21,7 +21,7 @@ const state = {
 			draft: ''
 		},
 		{
-			id: 2,
+			_id: 2,
 			authorID: 1,
 			isUnreaded: true,
 			lastMessage: '2017-09-01T12:59:29.078Z',
@@ -30,7 +30,7 @@ const state = {
 			draft: ''
 		},
 		{
-			id: 3,
+			_id: 3,
 			authorID: 2,
 			isUnreaded: true,
 			lastMessage: '2017-07-13T18:00:23.078Z',
@@ -39,7 +39,7 @@ const state = {
 			draft: ''
 		},
 		{
-			id: 4,
+			_id: 4,
 			authorID: 3,
 			isUnreaded: true,
 			lastMessage: '2017-07-13T18:00:23.078Z',
@@ -48,7 +48,7 @@ const state = {
 			draft: ''
 		},
 		{
-			id: 5,
+			_id: 5,
 			authorID: 3,
 			isUnreaded: true,
 			lastMessage: '2017-07-13T18:00:23.078Z',
@@ -57,7 +57,7 @@ const state = {
 			draft: ''
 		},
 		{
-			id: 6,
+			_id: 6,
 			authorID: 3,
 			isUnreaded: false,
 			lastMessage: '2017-09-03T18:23:29.078Z',
@@ -66,7 +66,7 @@ const state = {
 			draft: ''
 		},
 		{
-			id: 7,
+			_id: 7,
 			authorID: 3,
 			isUnreaded: true,
 			lastMessage: '2017-09-01T12:59:29.078Z',
@@ -75,7 +75,7 @@ const state = {
 			draft: ''
 		},
 		{
-			id: 8,
+			_id: 8,
 			authorID: 3,
 			isUnreaded: false,
 			lastMessage: '2017-09-03T18:23:29.078Z',
@@ -84,7 +84,7 @@ const state = {
 			draft: ''
 		},
 		{
-			id: 9,
+			_id: 9,
 			authorID: 3,
 			isUnreaded: true,
 			lastMessage: '2017-09-01T12:59:29.078Z',
@@ -93,7 +93,7 @@ const state = {
 			draft: ''
 		},
 		{
-			id: 10,
+			_id: 10,
 			authorID: 3,
 			isUnreaded: false,
 			lastMessage: '2017-09-03T18:23:29.078Z',
@@ -102,7 +102,7 @@ const state = {
 			draft: ''
 		},
 		{
-			id: 11,
+			_id: 11,
 			authorID: 3,
 			isUnreaded: true,
 			lastMessage: '2017-09-01T12:59:29.078Z',
@@ -111,7 +111,7 @@ const state = {
 			draft: ''
 		},
 		{
-			id: 12,
+			_id: 12,
 			authorID: 3,
 			isUnreaded: false,
 			lastMessage: '2017-09-03T18:23:29.078Z',
@@ -120,7 +120,7 @@ const state = {
 			draft: ''
 		},
 		{
-			id: 13,
+			_id: 13,
 			authorID: 3,
 			isUnreaded: true,
 			lastMessage: '2017-09-01T12:59:29.078Z',
@@ -129,7 +129,7 @@ const state = {
 			draft: ''
 		},
 		{
-			id: 14,
+			_id: 14,
 			authorID: 3,
 			isUnreaded: true,
 			lastMessage: '2017-07-13T18:00:23.078Z',
@@ -138,7 +138,7 @@ const state = {
 			draft: ''
 		},
 		{
-			id: 15,
+			_id: 15,
 			authorID: 3,
 			isUnreaded: true,
 			lastMessage: '2017-07-13T18:00:23.078Z',
@@ -147,7 +147,7 @@ const state = {
 			draft: ''
 		},
 		{
-			id: 16,
+			_id: 16,
 			authorID: 3,
 			isUnreaded: true,
 			lastMessage: '2017-07-13T18:00:23.078Z',
@@ -156,7 +156,7 @@ const state = {
 			draft: ''
 		},
 		{
-			id: 17,
+			_id: 17,
 			authorID: 3,
 			isUnreaded: false,
 			lastMessage: '2017-09-03T18:23:29.078Z',
@@ -165,7 +165,7 @@ const state = {
 			draft: ''
 		},
 		{
-			id: 18,
+			_id: 18,
 			authorID: 3,
 			isUnreaded: true,
 			lastMessage: '2017-09-01T12:59:29.078Z',
@@ -174,7 +174,7 @@ const state = {
 			draft: ''
 		},
 		{
-			id: 19,
+			_id: 19,
 			authorID: 3,
 			isUnreaded: false,
 			lastMessage: '2017-09-03T18:23:29.078Z',
@@ -185,55 +185,55 @@ const state = {
 	],
 	threads: [
 		{
-			id: 0,
+			_id: 0,
 			dialogInstance: []
 		},
 		{
-			id: 1,
+			_id: 1,
 			dialogInstance: []
 		},
 		{
-			id: 2,
+			_id: 2,
 			dialogInstance: []
 		},
 		{
-			id: 3,
+			_id: 3,
 			dialogInstance: []
 		},
 		{
-			id: 4,
+			_id: 4,
 			dialogInstance: []
 		},
 		{
-			id: 5,
+			_id: 5,
 			dialogInstance: []
 		},
 		{
-			id: 6,
+			_id: 6,
 			dialogInstance: []
 		},
 		{
-			id: 7,
+			_id: 7,
 			dialogInstance: []
 		},
 		{
-			id: 8,
+			_id: 8,
 			dialogInstance: []
 		},
 		{
-			id: 9,
+			_id: 9,
 			dialogInstance: []
 		},
 		{
-			id: 10,
+			_id: 10,
 			dialogInstance: []
 		},
 		{
-			id: 11,
+			_id: 11,
 			dialogInstance: []
 		},
 		{
-			id: 12,
+			_id: 12,
 			dialogInstance: []
 		}
 	]
@@ -254,8 +254,8 @@ const mutations = {
 	},
 	SEND_MESSAGE( { dialogs , threads } , payload ) {
 		// TODO: Отправка сообщений
-		const dialog = dialogs.find( dialog => dialog.id == payload );
-		const thread = threads.find( thread => thread.id == payload );
+		const dialog = dialogs.find( dialog => dialog._id == payload );
+		const thread = threads.find( thread => thread._id == payload );
 		thread.dialogInstance.push({ time: new Date() , content: dialog.draft });
 	}
 };

@@ -22,7 +22,7 @@
         const Teams = [];
         storeTeams.forEach( item => {
           this.$store.state.Teams.filter( team => {
-            if ( team.id === item ) Teams.push( team );
+            if ( team._id === item ) Teams.push( team );
           })
         });
         return Teams;

@@ -19,7 +19,7 @@
 		components: { taskSummary , taskDetail , taskResponse },
     data: () => ({
       taskItem: {
-    		id: 0,
+    		_id: 0,
     		authorID: 1,
     		engagedID: 0,
     		title: '',
@@ -42,9 +42,9 @@
     }),
     created() {
       this.$store.dispatch( 'getTaskByID' , this.$route.query.id )
-        .then( response  => {
-          console.log({ body });
-          Object.assign( this.taskItem , response );
+        .then( ({ body })  => {
+          console.log(body);
+          Object.assign( this.taskItem , body );
           this.taskItem.authorID = 1;
         })
     }

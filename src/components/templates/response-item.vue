@@ -1,13 +1,13 @@
 <template lang="html">
   <li class="response-item">
     <div class="response-header">
-      <router-link :to="{ name: 'user', query: { id: Author.id }}" tag="img"
+      <router-link :to="{ name: 'user', query: { id: Author._id }}" tag="img"
                    :src=" '/static/assets/shared/' + Author.avatar" :alt="Author.name + ' ' + Author.sename"
                    class="response-header__avatar"
                    title="Открыть профиль">
       </router-link>
       <div class="response-header__container">
-        <router-link :to="{ name: 'user', query: { id: Author.id }}" tag="p"
+        <router-link :to="{ name: 'user', query: { id: Author._id }}" tag="p"
                      class="response-header__name">
           {{ Author.name }} {{ Author.sename }}
           <span>({{ Author.rating }})</span>
@@ -22,10 +22,10 @@
         <p class="response-main__caption">{{ responseItem.caption }}</p>
       </div>
       <ul class="response-main__column portfolio-list">
-        <router-link v-for="work in Author.works" :key="work.id"
-                     :to="{ name: 'task', query: { id: work.id }}" tag="li"
+        <router-link v-for="work in Author.works" :key="work._id"
+                     :to="{ name: 'task', query: { id: work._id }}" tag="li"
                      class="portfolio-list__item">
-        <img :src=" '/static/assets/shared/' + work.preview " :alt="work.id"
+        <img :src=" '/static/assets/shared/' + work.preview " :alt="work._id"
              class="portfolio-list__item-preview" />
       </router-link>
     </ul>
@@ -52,7 +52,7 @@
     },
     computed: {
       Author() {
-        return this.$store.state.Stub.friends.find( item => item.id === this.responseItem.authorID );
+        return this.$store.state.Stub.friends.find( item => item._id === this.responseItem.authorID );
       }
     }
   };

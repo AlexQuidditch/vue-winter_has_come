@@ -101,9 +101,10 @@
     },
     computed: {
       Author() {
-        return this.$store.state.Stub.friends.find( item => {
-          if ( item._id === this.WallPost.authorID ) return item
-        })
+        return this.$store.state.Stub.friends
+          .find( item => {
+            if ( item._id === this.WallPost.authorID ) return item
+          })
       },
       published() {
         return new Date(this.WallPost.time).toLocaleString('ru-RU' , longDate );

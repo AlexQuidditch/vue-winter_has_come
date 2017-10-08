@@ -1,10 +1,12 @@
 <template lang="html">
   <section class="wall">
+    <button @click="walll()"></button>
     <icon-wall class="wall__icon"></icon-wall>
     <h3 class="wall__title">Стена пользователя</h3>
     <div class="wall__container">
       <wall-form></wall-form>
       <transition-group name="fade" tag="ul" mode="out-in"
+                        v-if="wallPosts.length"
                         class="wall-posts-list">
         <wall-post v-for="( wallPost , index ) in wallPosts" :key="wallPost._id"
                    :WallPost="wallPost">
@@ -30,6 +32,14 @@
     computed: {
       wallPosts() {
         return this.$store.state.Wall.posts
+      }
+    },
+    methods: {
+      walll() {
+        this.$store.dispatch( 'getPostByUserID' , this.$store.state.User._id )
+          .then( response => {
+            this.$swal( 'Ура!' , `${ response }` , 'success' )
+          })
       }
     }
   };

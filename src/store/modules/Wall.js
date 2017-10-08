@@ -1,5 +1,7 @@
 import { getRandomInt } from '@helpers/randomGenerators';
 
+import API from '../api';
+
 const state = {
   posts: [
     {
@@ -108,6 +110,13 @@ const actions = {
   },
   addNewPost( { commit } , payload ) {
     commit( 'ADD_NEW_POST' , payload )
+  },
+  getPostByUserID( { commit } , payload ) {
+    return API.get(`wall/get/${ payload }`)
+      .then( response => {
+        console.log(response);
+        return response.body;
+      })
   }
 };
 

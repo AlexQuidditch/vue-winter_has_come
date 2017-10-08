@@ -65,5 +65,6 @@ export default {
 		teams: [ 1 , 3 ]
 	},
 	portfolio: [ 0 , 1 , 3 , 4 ],
-	reviews: [ 3 , 4 , 5 ]
+	reviews: [ 3 , 4 , 5 ],
+  wall: []
 };

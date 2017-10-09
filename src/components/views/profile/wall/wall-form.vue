@@ -54,8 +54,11 @@
     },
     methods: {
       addNewPost() {
-        const authorID = this.$store.state.User._id;  // String - ID пользователя
-        this.$store.dispatch( 'addNewPost' , authorID );
+        const IDs = {
+          authorID: this.$store.state.User._id,
+          wallID: this.$store.state.User.wallID
+        };
+        this.$store.dispatch( 'addNewPost' , IDs );
       },
       addAttach() {
         console.log('Attach It!');

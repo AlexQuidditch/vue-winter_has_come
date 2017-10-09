@@ -8,7 +8,7 @@
       <transition-group name="fade" tag="ul" mode="out-in"
                         v-if="wallPosts.length"
                         class="wall-posts-list">
-        <wall-post v-for="( wallPost , index ) in wallPosts" :key="wallPost._id"
+        <wall-post v-for="wallPost in wallPosts" :key="wallPost._id"
                    :WallPost="wallPost">
         </wall-post>
       </transition-group>
@@ -34,13 +34,8 @@
         return this.$store.state.Wall.posts
       }
     },
-    methods: {
-      walll() {
-        this.$store.dispatch( 'getPostByUserID' , this.$store.state.User._id )
-          .then( response => {
-            this.$swal( 'Ура!' , `${ response }` , 'success' )
-          })
-      }
+    created() {
+      this.$store.dispatch( 'getPostByWallID' , this.$store.state.User.wallID );
     }
   };
 

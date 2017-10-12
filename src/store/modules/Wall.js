@@ -11,8 +11,12 @@ const state = {
 };
 
 const actions = {
-  likeWallPost( { commit } , payload ) {
-		commit( 'LIKE_WALL_POST' , payload )
+  likeWallPost( { commit } , { wallID , postID , value } ) {
+    API.post( `wall/${ wallID }/edit-post/${ postID }` , { like : value } )
+      .then( ({ body }) => {
+        let data = { postID , likes : body };
+    		commit( 'LIKE_WALL_POST' , data )
+      })
   },
   addComment( { commit } , payload ) {
 		commit( 'ADD_COMMENT' , payload )
@@ -24,13 +28,12 @@ const actions = {
     commit( 'UPDATE_DRAFT' , payload )
   },
   addNewPost( { commit , state } , { authorID , wallID } ) {
-    console.log(authorID , wallID);
     const newPost = {
       authorID: 1,
       time: new Date(),
       content: state.postDraft.content,
       attacments: state.postDraft.attacments,
-      likes: 0,
+      likes: [],
       reposts: 0,
       comments: []
     };
@@ -39,7 +42,6 @@ const actions = {
         console.log(body);
         commit( 'SET_POSTS' , body.posts )
       })
-    // commit( 'ADD_NEW_POST' , payload )
   },
   getPostByWallID( { commit } , payload ) {
     return API.get(`wall/get/${ payload }`)
@@ -50,9 +52,9 @@ const actions = {
 };
 
 const mutations = {
-  LIKE_WALL_POST( { posts } , payload ) {
-    posts.find( item => {
-			if ( item._id === payload[0] ) item.likes += payload[1];
+  LIKE_WALL_POST( { posts } , { postID , likes } ) {
+    posts.find( post => {
+			if ( post._id == postID ) post.likes = likes;
 		})
   },
   ADD_COMMENT( { posts } , payload ) {
@@ -77,7 +79,7 @@ const mutations = {
   },
   SET_POSTS( { posts } , payload ) {
     posts.splice( 0 , posts.length );
-    posts.unshift(...payload);
+    posts.push(...payload);
   }
 };
 

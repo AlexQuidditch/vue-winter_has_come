@@ -34,7 +34,7 @@
               :class="{ '_update' : hasLiked }"
               class="post-footer__button waves-effect waves-dark"
               type="button">
-        <span class="post-footer__button-content _likes" aria-label="Количество лайков">{{ WallPost.likes }}</span>
+        <span class="post-footer__button-content _likes" aria-label="Количество лайков">{{ WallPost.likes.length }}</span>
         <icon-heart :Width="2"
                     :class="{ '_active' : isLiked }"
                     class="post-footer__button-icon _likes"
@@ -109,12 +109,21 @@
       },
       commentsLength() {
         return this.WallPost.comments.length
+      },
+      isLiked() {
+        return this.WallPost.likes
+          .some( ID => ID == this.$store.state.User._id )
       }
     },
     methods: {
       likeIt() {
         this.isLiked =! this.isLiked;
-        this.$store.dispatch( 'likeWallPost' , [ this.WallPost._id , this.isLiked ? 1 : -1 ] );
+        const payload = {
+          wallID: this.$store.state.User.wallID,
+          postID: this.WallPost._id,
+          value: this.$store.state.User._id
+        };
+        this.$store.dispatch( 'likeWallPost' , payload );
       },
       commentIt() {
         const newComment = {                    // подготовка новго объекта комментария

@@ -83,7 +83,6 @@
       }
     },
     data: () => ({
-      isLiked: false,
       hasLiked: false,
       hasComment: false,
       toComment: false,
@@ -117,7 +116,6 @@
     },
     methods: {
       likeIt() {
-        this.isLiked =! this.isLiked;
         const payload = {
           wallID: this.$store.state.User.wallID,
           postID: this.WallPost._id,
@@ -127,12 +125,11 @@
       },
       commentIt() {
         const newComment = {                    // подготовка новго объекта комментария
-          id: getRandomInt( 1 , 100 ),          // Number - ID комментария TODO сделать вычисляемым
-          authorID: this.$store.state.User._id,  // String - ID пользователя
+          authorID: this.$store.state.User._id, // String - ID пользователя
           time: new Date(),                     // Date - время публикации
           content: this.postComment,            // String - тело комментария
           attacments: '',                       // Array || Object - приложения
-          likes: 0                              // Number стартовое кол-во лайков
+          likes: []                             // Array массив лайкнувших
         };
         this.$store.dispatch( 'addComment' , [ this.WallPost._id , newComment ] );
         this.postComment = '';

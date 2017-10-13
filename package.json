@@ -13,6 +13,7 @@
     "@tweenjs/tween.js": "16.6.0",
     "node-waves": "^0.7.5",
     "normalize-css": "^2.3.1",
+    "v-file-upload": "^3.1.0",
     "v-money": "^0.8.0",
     "vue": "^2.4.4",
     "vue-chat-scroll": "^1.2.1",

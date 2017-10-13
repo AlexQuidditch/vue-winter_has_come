@@ -1,6 +1,5 @@
 <template lang="html">
   <section class="wall">
-    <button @click="walll()"></button>
     <icon-wall class="wall__icon"></icon-wall>
     <h3 class="wall__title">Стена пользователя</h3>
     <div class="wall__container">

@@ -78,6 +78,7 @@ const mutations = {
     postDraft.attacments = [];
   },
   SET_POSTS( { posts } , payload ) {
+    console.log( posts );
     posts.splice( 0 , posts.length );
     posts.push(...payload);
   }

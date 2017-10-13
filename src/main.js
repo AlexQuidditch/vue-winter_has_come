@@ -16,6 +16,11 @@ window.Waves = require('node-waves');
 Vue.component('masked-input' , MaskedInput);
 Vue.component('datepicker' , VueDatepicker);
 
+import { FileUpload } from 'v-file-upload'
+import 'v-file-upload/dist/v-file-upload.css'
+
+Vue.use(FileUpload)
+
 Vue.use(Vuebar);
 Vue.use(Checkbox);
 Vue.use(Resource);

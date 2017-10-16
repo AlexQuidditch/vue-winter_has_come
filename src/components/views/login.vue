@@ -11,8 +11,8 @@
          class="login-container">
       <button @click="isSingIn = true"
               :class="{ '_active' : isSingIn }"
-
               class="login-container__button">Вход</button>
+
       <button @click="isSingIn = false"
               :class="{ '_active' : !isSingIn }"
               class="login-container__button">Регистрация</button>
@@ -22,7 +22,7 @@
             class="login-form _sign-in">
         <transition name="fade" mode="out-in">
           <img v-if="Avatar"
-               :src=" '/static/assets/shared/' + Avatar " alt="Аватар пользователя"
+               :src=" 'http://localhost:8080/upload/' + Avatar " alt="Аватар пользователя"
                class="login-form__avatar" />
           <avatar-placeholder v-else
                               class="login-form__avatar">
@@ -51,13 +51,16 @@
       <form @submit.prevent="registration()"
             :class="{ '_opened' : !isSingIn }"
             class="login-form _registration">
-        <!-- <img src="" alt="" class="login-form__avatar" /> -->
-        <label class="login-form__avatar-label">
-          <avatar-placeholder class="login-form__avatar"></avatar-placeholder>
-          <input @change="createAvatar($event)"
-                 type="file"
-                 class="login-form__input _avatar" />
-        </label>
+        <transition name="fade" mode="out-in">
+          <img v-if="registrationData.avatar"
+               :src=" 'http://localhost:8080/upload/' + registrationData.avatar " alt="" class="login-form__avatar" />
+          <label v-else class="login-form__avatar-label">
+            <avatar-placeholder class="login-form__avatar"></avatar-placeholder>
+            <input @change="createAvatar($event)"
+                   type="file"
+                   class="login-form__input _avatar" />
+          </label>
+        </transition>
         <label class="login-form__label">
           <h6 class="login-form__title">Ваше имя:</h6>
           <input v-model="registrationData.username"
@@ -103,7 +106,7 @@
         password: ''
       },
       registrationData: {
-        avatar: 'avatar-me.jpg',
+        avatar: '',
         username: '',
         email: '',
         password: ''
@@ -151,8 +154,13 @@
             }
           })
       },
-      createAvatar(e) {
-        console.log(e.target.files[0].name);
+      createAvatar({ target }) {
+        const files = target.files
+        const formData = new FormData()
+        formData.append('image', files[0])
+        this.$http.post( 'upload' , formData )
+          .then( ({ body }) => this.registrationData.avatar = body[0]._id )
+          .catch( err => console.error(err) )
       },
       logOut() {
         this.$store.dispatch( 'destroyInstance' );

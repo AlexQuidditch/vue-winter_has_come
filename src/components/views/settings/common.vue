@@ -1,6 +1,6 @@
 <template lang="html">
   <section class="settings _common">
-		<h3 class="settings__title">Настройки конфиденциальности</h3>
+		<h3 class="settings__title">Общие настройки</h3>
 		<div class="settings-container">
 			<div class="settings-column">
 				<label class="settings-column__label">
@@ -78,26 +78,24 @@
 	import iconCalendar from '@icons/calendar.js';
 
 	export default {
-		name: "settings_common",
+		name: "Settings_Common",
 		components: { iconCheck , iconCalendar },
-		data() {
-			return {
-				Datepicker: {
-					format: 'dd-MM-yyyy',
-					language: 'ru',
-					wrapperClass: 'column-settings__label',
-					calendarButton: true
-				},
-				Placeholders: {
-					email: 'elena.ivanova@gmail.com',
-					phone: '+7 *** *** ** 35',
-					link: 'elena.ivanova',
-					bornDate: '22-06-1994',
-					password: 'Обновлен 6 дней назад',
-					caption: 'Здесь находится Ваша подпись.\nНапример, контакты. '
-				}
-			}
-		},
+		data: () => ({
+      Datepicker: {
+        format: 'dd-MM-yyyy',
+        language: 'ru',
+        wrapperClass: 'column-settings__label',
+        calendarButton: true
+      },
+      Placeholders: {
+        email: 'elena.ivanova@gmail.com',
+        phone: '+7 *** *** ** 35',
+        link: 'elena.ivanova',
+        bornDate: '22-06-1994',
+        password: 'Обновлен 6 дней назад',
+        caption: 'Здесь находится Ваша подпись.\nНапример, контакты. '
+      }
+    }),
 		created() {
 			this.$store.dispatch( 'getCommon' , this.$store.state.User._id )
 		},
@@ -114,9 +112,9 @@
 			]),
 			saveCommon() {
 				this.$store.dispatch( 'saveCommon' , this.$store.state.User._id )
-					.then( response => {
-						console.log(response.data);
-						this.$swal( 'Есть ответ!' , JSON.stringify(response.data) , 'success' )
+					.then( ({ date }) => {
+						console.log( data );
+						this.$swal( 'Есть ответ!' , JSON.stringify( data ) , 'success' )
 					})
 					.catch( err => {
 						console.error(err);

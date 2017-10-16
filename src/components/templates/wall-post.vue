@@ -67,7 +67,6 @@
 <script>
 
   import { longDate } from '@helpers/dateFormat';
-  import { getRandomInt } from '@helpers/randomGenerators';
 
   import iconHeart from '@icons/heart.js';
   import iconComments from '@icons/comments';

@@ -11,31 +11,35 @@
 <script>
 
 	export default {
-		name: "navigation-panel",
-		data() {
-			return {
-				Routes: [
-					{
-						text: 'Общие настройки',
-						query: {
-							section: 'common'
-						}
-					},
-					{
-						text: 'Настройки конфиденциальности',
-						query: {
-							section: 'confidential'
-						}
-					},
-					{
-						text: 'Настройки оплаты',
-						query: {
-							section: 'payments'
-						}
-					}
-				]
-			}
-		}
+		name: "Navigation-Panel",
+		data: () => ({
+      Routes: [
+        {
+          text: 'Общие настройки',
+          query: {
+            section: 'common'
+          }
+        },
+        {
+          text: 'Настройки конфиденциальности',
+          query: {
+            section: 'confidential'
+          }
+        },
+        {
+          text: 'Настройки оплаты',
+          query: {
+            section: 'payments'
+          }
+        },
+        {
+          text: 'Обо мне',
+          query: {
+            section: 'about'
+          }
+        }
+      ]
+    })
 	};
 
 </script>
@@ -62,9 +66,9 @@
 			color: var(--purpley-grey);
 			box-shadow: inset 0 -5px 0 transparent;
 			transition:
-			color .3s ease-in-out,
-			color .3s ease-in-out,
-			box-shadow .3s ease-in-out;
+  			color .3s ease-in-out,
+  			color .3s ease-in-out,
+  			box-shadow .3s ease-in-out;
 			&._exact-active {
 				font-weight: 600;
 				color: #009d2f;

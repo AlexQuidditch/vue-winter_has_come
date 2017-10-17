@@ -32,7 +32,7 @@
 		<div class="detail-main">
 			<h3 :class="{ '_is-rush' : taskItem.isRush , '_is-engaged' : taskItem.isEngaged }"
 				  class="detail-main__title">{{ taskItem.title }}</h3>
-			<p class="detail-main__published">{{ taskItem.published }}</p>
+			<p class="detail-main__published">{{ published }}</p>
 			<p class="detail-main__description">{{ taskItem.description }}</p>
 		</div>
 		<div class="detail-footer">
@@ -83,6 +83,8 @@
 
 <script>
 
+  import { longDate } from '../../../helpers/dateFormat.js';
+
 	import iconDisc from '@icons/disc';
 	import iconClock from '@icons/clock';
 	import iconEye from '@icons/eye';
@@ -101,6 +103,9 @@
       Author() {
         return this.$store.state.Stub.friends
           .find( item => item._id === this.taskItem.authorID );
+      },
+      published() {
+        return new Date(this.taskItem.published).toLocaleString('ru-RU' , longDate );
       }
     },
     methods: {

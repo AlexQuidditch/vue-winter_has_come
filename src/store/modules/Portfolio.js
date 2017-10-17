@@ -41,8 +41,6 @@ const state = [
 	}
 ];
 
-
-
 const actions = {
 	likePortfolioItem( { commit } , payload ) {
     commit( 'LIKE_PORTFOLIO_ITEM' , payload )

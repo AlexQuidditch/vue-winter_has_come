@@ -28,7 +28,10 @@ const actions = {
     commit( 'UPDATE_DRAFT' , payload )
   },
   addNewPost( { commit , state } , { authorID , wallID } ) {
+    const Store = this;
+    console.log(Store);
     const newPost = {
+      // authorID: Store.state.User._id,
       authorID: 1,
       time: new Date(),
       content: state.postDraft.content,

@@ -1,93 +1,105 @@
 <template lang="html">
   <main class="main _login">
     <transition name="fade" appear>
-      <button v-if="!isLoggedIn"
+      <!-- <button v-if="!isLoggedIn"
               @click="logOut()"
+              class="logout-button waves-effect waves-light"
+              >Это не я
+      </button> -->
+      <button v-if="!isLoggedIn"
+              @click="registred =! registred"
               class="logout-button waves-effect waves-light"
               >Это не я
       </button>
     </transition>
-    <div :class="{ '_registration' : !isSingIn }"
-         class="login-container">
-      <button @click="isSingIn = true"
-              :class="{ '_active' : isSingIn }"
-              class="login-container__button">Вход</button>
+    <transition name="fade" mode="out-in">
 
-      <button @click="isSingIn = false"
-              :class="{ '_active' : !isSingIn }"
-              class="login-container__button">Регистрация</button>
+      <div v-if="!registred" key="notRegistred"
+           :class="{ '_registration' : !isSingIn }"
+           class="login-container">
+        <button @click="isSingIn = true"
+                :class="{ '_active' : isSingIn }"
+                class="login-container__button">Вход</button>
 
-      <form @submit.prevent="signIn()"
-            :class="{ '_opened' : isSingIn }"
-            class="login-form _sign-in">
-        <transition name="fade" mode="out-in">
-          <img v-if="Avatar"
-               :src=" 'http://localhost:8080/upload/' + Avatar " alt="Аватар пользователя"
-               class="login-form__avatar" />
-          <avatar-placeholder v-else
-                              class="login-form__avatar">
-          </avatar-placeholder>
-        </transition>
-				<label class="login-form__label">
-					<h6 class="login-form__title">Электронная почта:</h6>
-					<input v-model="signInData.email"
-                 placeholder="Электронная почта"
-						     type="email" required
-                 class="login-form__input" />
-				</label>
-				<label class="login-form__label">
-					<h6 class="login-form__title">Пароль:</h6>
-					<input v-model="signInData.password"
-                 placeholder="Введите пароль"
-						     type="password" required
-                 class="login-form__input" />
-				</label>
-        <button type="submit" name="button"
-                class="login-form__button waves-effect waves-light"
-                >Войти
-        </button>
-      </form>
+        <button @click="isSingIn = false"
+                :class="{ '_active' : !isSingIn }"
+                class="login-container__button">Регистрация</button>
 
-      <form @submit.prevent="registration()"
-            :class="{ '_opened' : !isSingIn }"
-            class="login-form _registration">
-        <transition name="fade" mode="out-in">
-          <img v-if="registrationData.avatar"
-               :src=" 'http://localhost:8080/upload/' + registrationData.avatar " alt="" class="login-form__avatar" />
-          <label v-else class="login-form__avatar-label">
-            <avatar-placeholder class="login-form__avatar"></avatar-placeholder>
-            <input @change="createAvatar($event)"
-                   type="file"
-                   class="login-form__input _avatar" />
+        <form @submit.prevent="signIn()"
+              :class="{ '_opened' : isSingIn }"
+              class="login-form _sign-in">
+          <transition name="fade" mode="out-in">
+            <img v-if="Avatar"
+                 :src=" backendLocation + '/upload/' + Avatar " alt="Аватар пользователя"
+                 class="login-form__avatar" />
+            <avatar-placeholder v-else
+                                class="login-form__avatar">
+            </avatar-placeholder>
+          </transition>
+  				<label class="login-form__label">
+  					<h6 class="login-form__title">Электронная почта:</h6>
+  					<input v-model="signInData.email"
+                   placeholder="Электронная почта"
+  						     type="email" required
+                   class="login-form__input" />
+  				</label>
+  				<label class="login-form__label">
+  					<h6 class="login-form__title">Пароль:</h6>
+  					<input v-model="signInData.password"
+                   placeholder="Введите пароль"
+  						     type="password" required
+                   class="login-form__input" />
+  				</label>
+          <button type="submit" name="button"
+                  class="login-form__button waves-effect waves-light"
+                  >Войти
+          </button>
+        </form>
+
+        <form @submit.prevent="registration()"
+              :class="{ '_opened' : !isSingIn }"
+              class="login-form _registration">
+          <transition name="fade" mode="out-in">
+            <img v-if="registrationData.avatar"
+                 :src=" backendLocation + '/upload/' + registrationData.avatar " alt="" class="login-form__avatar" />
+            <label v-else class="login-form__avatar-label">
+              <avatar-placeholder class="login-form__avatar"></avatar-placeholder>
+              <input @change="createAvatar($event)"
+                     type="file"
+                     class="login-form__input _avatar" />
+            </label>
+          </transition>
+          <label class="login-form__label">
+            <h6 class="login-form__title">Ваше имя:</h6>
+            <input v-model="registrationData.username"
+                   placeholder="Введите имя"
+                   type="text" required
+                   class="login-form__input" />
           </label>
-        </transition>
-        <label class="login-form__label">
-          <h6 class="login-form__title">Ваше имя:</h6>
-          <input v-model="registrationData.username"
-                 placeholder="Введите имя"
-                 type="text" required
-                 class="login-form__input" />
-        </label>
-				<label class="login-form__label">
-					<h6 class="login-form__title">Электронная почта:</h6>
-					<input v-model="registrationData.email"
-                 placeholder="Электронная почта"
-						     type="email" required
-                 class="login-form__input" />
-				</label>
-				<label class="login-form__label">
-					<h6 class="login-form__title">Пароль:</h6>
-					<input v-model="registrationData.password"
-                 placeholder="Введите пароль"
-						     type="password" required
-                 class="login-form__input" />
-				</label>
-        <button type="submit" name="button"
-                class="login-form__button waves-effect waves-light"
-                >Зарегистрироваться
-        </button>
-      </form>
-    </div>
+  				<label class="login-form__label">
+  					<h6 class="login-form__title">Электронная почта:</h6>
+  					<input v-model="registrationData.email"
+                   placeholder="Электронная почта"
+  						     type="email" required
+                   class="login-form__input" />
+  				</label>
+  				<label class="login-form__label">
+  					<h6 class="login-form__title">Пароль:</h6>
+  					<input v-model="registrationData.password"
+                   placeholder="Введите пароль"
+  						     type="password" required
+                   class="login-form__input" />
+  				</label>
+          <button type="submit" name="button"
+                  class="login-form__button waves-effect waves-light"
+                  >Зарегистрироваться
+          </button>
+        </form>
+      </div>
+
+      <post-registration v-else="" key="registred"></post-registration>
+
+    </transition>
   </main>
 </template>
 
@@ -95,11 +107,14 @@
 
   import avatarPlaceholder from '@icons/avatar.js';
 
+  import PostRegistration from './login/post-registration.vue';
+
   export default {
     name: "Login-Page",
-    components: { avatarPlaceholder },
+    components: { avatarPlaceholder , PostRegistration },
     data: () => ({
       isSingIn: true,
+      registred: true,
       signInData: {
         email: 'AlexQuidditch@yandex.ru',
         // email: '',
@@ -121,6 +136,9 @@
       },
       savedUsername() {
         return this.$store.state.Auth.username;
+      },
+      backendLocation() {
+        return this.$store.state.General.host;
       }
     },
     methods: {
@@ -146,7 +164,14 @@
       },
       registration() {
         this.$http.post( 'auth' , this.registrationData )
-          .then( response => console.log(response) )
+          .then( ({ body }) => {
+            this.$store.dispatch( 'createInstance' , body );
+            this.$store.dispatch( 'createAuthData' , body );
+            this.registrationData.password = '';
+          })
+          .then( () => {
+            setTimeout( () => this.$router.push( 'profile' ) , 1000 );
+          })
           .catch( error => {
             console.error(error);
             if ( error.status === 401 ) {
@@ -157,7 +182,7 @@
       createAvatar({ target }) {
         const files = target.files
         const formData = new FormData()
-        formData.append('image', files[0])
+        formData.append('image', files[0] )
         this.$http.post( 'upload' , formData )
           .then( ({ body }) => this.registrationData.avatar = body[0]._id )
           .catch( err => console.error(err) )

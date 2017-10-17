@@ -30,7 +30,7 @@ const state = {
   town: '',
   skills: '',
   specialization: [],
-  attached: [ 'photo.jpg' , 'project3.jpg' , 'C_ovELWXgAE7cDH.jpg' ],
+  attached: [],
   description: '',
   budget: 0,
   isAgreement: false,
@@ -70,6 +70,9 @@ const actions = {
   },
   updateSkills( { commit } , payload ) {
     commit('UPDATE_SKILLS' , payload )
+  },
+  addAttached( { commit } , payload ) {
+    commit( 'UPDATE_ATTACHED' , payload )
   },
   addSpecialization( { commit } , payload ) {
     commit( 'ADD_SPECIALIZATION' , payload )
@@ -119,6 +122,9 @@ const mutations = {
   },
   REMOVE_SPECIALIZATION( state , payload ) {
     state.specialization.splice( payload , 1 )
+  },
+  UPDATE_ATTACHED( state , payload ) {
+    state.attached.push( payload )
   },
   CLEAR_DRAFT( state , payload ) {
     state = Object.assign( state , taskTemplate )

@@ -1,6 +1,6 @@
 <template lang="html">
 	<section class="personal">
-		<img :src=" '/static/assets/shared/' + Personal.avatar " :alt="Personal.name + ' ' + Personal.sename"
+		<img :src=" backendLocation + '/upload/' + Personal.avatar " :alt="Personal.name + ' ' + Personal.sename"
 				 class="personal-avatar" />
 		<div class="personal-info">
 			<h3 class="personal-info__name">{{ Personal.name + ' ' + Personal.sename + ' ' + $route.query.id }}</h3>
@@ -32,7 +32,10 @@
 			},
 			Information() {
 				return this.$store.state.User.information
-			}
+			},
+      backendLocation() {
+        return this.$store.state.General.host;
+      }
 		}
 	};
 

@@ -29,12 +29,12 @@
 					>&nbsp;{{ linkItem.value }}
 				</a>
 				<a v-else-if="linkItem.type == 'vk' && linkItem.value.length"
-					:href=" '//' + linkItem.value"
+					:href=" '//vk.com/' + linkItem.value"
 					class="contacts-item__link"
 					>&nbsp;{{ linkItem.value }}
 				</a>
 				<a v-else-if="linkItem.type == 'fb' && linkItem.value.length "
-					:href=" '//' + linkItem.value"
+					:href=" '//facebook.com/' + linkItem.value"
 					class="contacts-item__link"
 					>&nbsp;{{ linkItem.value }}
 				</a>

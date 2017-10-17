@@ -45,11 +45,11 @@
 								<ul class="attached-list">
 									<li v-for="( attachedItem , index ) in CreateTask.attached" :key="index"
 										class="attached-item">
-										<img :src=" '/static/assets/shared/' + attachedItem " alt="Загруженное изображение"
+										<img :src=" backendLocation + '/upload/' + attachedItem " alt="Загруженное изображение"
 												 class="attached-item__picture" />
 									</li>
                   <label for="attachFile" class="attached-item">
-                    <input @change="filler()"
+                    <input @change="filler($event.target)"
                            id="attachFile" type="file"
                            multiple accept="image"
                            name="attachFile"
@@ -174,7 +174,10 @@
         } else {
           return this.$store.state.CreateTask
         }
-			}
+			},
+      backendLocation() {
+        return this.$store.state.General.host;
+      }
 		},
 		methods: {
 			...mapActions([
@@ -236,17 +239,13 @@
           this.specKeyword = '';
         }
 			},
-			filler() {
-				const attachFile = document.getElementById('attachFile');
-				if ( ( 'files' in attachFile ) && attachFile.files.length ) {
-					for ( let file of attachFile.files ) {
-						console.log( file.name );
-					};
-					// this.$http.post( '/upload' , file. )
-					// 	.then( response => {
-					//
-					// 	})
-				}
+			filler(target) {
+        const files = target.files;
+        const formData = new FormData();
+        formData.append('image', files[0] );
+        this.$http.post( 'upload' , formData )
+          .then( ({ body }) => this.$store.dispatch( 'addAttached' , body[0]._id ) )
+          .catch( err => console.error(err) )
 			}
 		}
 	};

@@ -70,7 +70,7 @@
   }
 
   .wall-posts-list {
-    width: 710px;
+    width: 600px;
     margin-top: 20px;
     padding: 0 20px 0 0;
   }

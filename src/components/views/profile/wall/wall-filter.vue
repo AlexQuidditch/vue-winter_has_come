@@ -8,16 +8,23 @@
              class="wall-filter__radio"
       >{{ filter.text }}
 		</v-radio>
+    <ul class="portfolio-list">
+      <portfolio-item v-for="( portfolioItem , index ) in Portfolio" :key="index"
+                      :portfolioItem="portfolioItem">
+      </portfolio-item>
+    </ul>
   </aside>
 </template>
 
 <script>
 
+  import portfolioItem from '@templates/portfolio-item';
+
   import vRadio from '@custom-elements/vue-radio';
 
   export default {
     name: "wall-filter",
-    components: { vRadio },
+    components: { vRadio , portfolioItem },
     data: () => ({
       filterList: [
         {
@@ -42,7 +49,19 @@
         }
       ],
       filterBy: 'all'
-    })
+    }),
+    computed: {
+      Portfolio() {
+        const storePortfolio = this.$store.state.Portfolio;
+        // const Portfolio = [];
+        // storePortfolio.forEach( item => {
+        //   this.$store.state.Portfolio.filter( portfolio => {
+        //     if ( portfolio._id === item ) Portfolio.push( portfolio );
+        //   })
+        // });
+        return storePortfolio;
+      }
+    },
   };
 
 </script>

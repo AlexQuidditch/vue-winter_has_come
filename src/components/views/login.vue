@@ -22,7 +22,7 @@
             class="login-form _sign-in">
         <transition name="fade" mode="out-in">
           <img v-if="Avatar"
-               :src=" 'http://localhost:8080/upload/' + Avatar " alt="Аватар пользователя"
+               :src=" backendLocation + '/upload/' + Avatar " alt="Аватар пользователя"
                class="login-form__avatar" />
           <avatar-placeholder v-else
                               class="login-form__avatar">
@@ -53,7 +53,7 @@
             class="login-form _registration">
         <transition name="fade" mode="out-in">
           <img v-if="registrationData.avatar"
-               :src=" 'http://localhost:8080/upload/' + registrationData.avatar " alt="" class="login-form__avatar" />
+               :src=" backendLocation + '/upload/' + registrationData.avatar " alt="" class="login-form__avatar" />
           <label v-else class="login-form__avatar-label">
             <avatar-placeholder class="login-form__avatar"></avatar-placeholder>
             <input @change="createAvatar($event)"
@@ -121,6 +121,9 @@
       },
       savedUsername() {
         return this.$store.state.Auth.username;
+      },
+      backendLocation() {
+        return this.$store.state.General.host;
       }
     },
     methods: {
@@ -146,7 +149,16 @@
       },
       registration() {
         this.$http.post( 'auth' , this.registrationData )
-          .then( response => console.log(response) )
+          .then( ({ body }) => {
+            this.$store.dispatch( 'createInstance' , body );
+            this.$store.dispatch( 'createAuthData' , body );
+            this.registrationData = {
+              password: ''
+            };
+          })
+          .then( () => {
+            setTimeout( () => this.$router.push( 'profile' ) , 1000 );
+          })
           .catch( error => {
             console.error(error);
             if ( error.status === 401 ) {
@@ -157,7 +169,7 @@
       createAvatar({ target }) {
         const files = target.files
         const formData = new FormData()
-        formData.append('image', files[0])
+        formData.append('image', files[0] )
         this.$http.post( 'upload' , formData )
           .then( ({ body }) => this.registrationData.avatar = body[0]._id )
           .catch( err => console.error(err) )

@@ -2,7 +2,7 @@
   <form @submit.prevent="addNewPost()" class="wall-form">
     <header class="wall-form-header">
       <router-link :to="{ name: 'user', query: { id: Author._id }}" tag="img"
-                   :src="'/static/assets/shared/' + Author.avatar" :alt="Author.name + ' ' + Author.sename"
+                   :src=" backendLocation + '/upload/' + Author.avatar" :alt="Author.name + ' ' + Author.sename"
                    class="wall-form-header__avatar">
       </router-link>
       <div class="wall-form-header__container">
@@ -38,7 +38,6 @@
   export default {
     name: "wall-form",
     components: { iconComments },
-    data: () => ({}),
     computed: {
       Author() {
         return this.$store.state.User.personal
@@ -50,6 +49,9 @@
         set(payload) {
           this.$store.dispatch( 'updateDraft' , payload )
         }
+      },
+      backendLocation() {
+        return this.$store.state.General.host;
       }
     },
     methods: {

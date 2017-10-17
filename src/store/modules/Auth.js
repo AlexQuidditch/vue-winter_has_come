@@ -33,4 +33,4 @@ const mutations = {
   }
 };
 
-export default { state , getters , actions , mutations };
+export default { state , actions , mutations };

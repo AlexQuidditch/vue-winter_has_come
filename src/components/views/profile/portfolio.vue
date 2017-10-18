@@ -1,5 +1,6 @@
 <template lang="html">
-  <section :class="{ '_folded' : isFolded }" class="portfolio">
+  <section v-if="Portfolio.length"
+           :class="{ '_folded' : isFolded }" class="portfolio">
     <img src="/static/assets/profile/portfolio/case.svg" alt="Портфолио"
          class="portfolio__icon">
     <h3 class="portfolio__title">Мои работы</h3>

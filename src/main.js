@@ -31,8 +31,6 @@ Vue.http.options.root = 'http://localhost:8080';
 Vue.config.productionTip = false;
 Vue.config.performance = true;
 
-console.log( Vue.config );
-
 const application = new Vue({
 	components: { App },
 	router , store,

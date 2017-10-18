@@ -1,24 +1,32 @@
 <template lang="html">
-  <section class="post-registration">
+  <form @submit.prevent="submitForm(isAgent)"
+        class="post-registration">
+    {{ User }}
     <h3 class="post-registration__title">Заполните анкету</h3>
     <div class="post-registration-container">
       <div class="post-registration-column">
 
         <label class="post-registration-column__label">
-          <h6 class="post-registration-column__title">Специализация:</h6>
-          <input placeholder="Что Вы умеете лучше всего?"
+          <h6 class="post-registration-column__title">Имя</h6>
+          <input v-model="name" placeholder="Ваше имя"
                  type="text" class="post-registration-column__input" />
         </label>
 
         <label class="post-registration-column__label">
-          <h6 class="post-registration-column__title">Ваш город:</h6>
-          <input placeholder="Доступен для поиска"
+          <h6 class="post-registration-column__title">Фамилия</h6>
+          <input v-model="sename" placeholder="Ваша фамилия" required
+                 type="text" class="post-registration-column__input" />
+        </label>
+
+        <label class="post-registration-column__label">
+          <h6 class="post-registration-column__title">Дата рождения</h6>
+          <input v-model="born" placeholder="Ваша дата рождения"
                  type="text" class="post-registration-column__input" />
         </label>
 
         <label class="post-registration-column__label">
 					<h6 class="post-registration-column__title">Подпись:</h6>
-					<textarea placeholder="Будет отображаться в откликах на задания"
+					<textarea v-model="caption" placeholder="Будет отображаться в откликах на задания"
                     class="post-registration-column__input _textarea">
 					</textarea>
 				</label>
@@ -26,6 +34,13 @@
       </div>
 
       <div class="post-registration-column">
+
+        <label class="post-registration-column__label">
+          <h6 class="post-registration-column__title">Специализация:</h6>
+          <input v-model="specialization"
+                 placeholder="Что Вы умеете лучше всего?"
+                 type="text" class="post-registration-column__input" />
+        </label>
 
         <label class="post-registration-column__label">
           <h6 class="post-registration-column__title">ВУЗ</h6>
@@ -55,6 +70,12 @@
       <div class="post-registration-column">
 
         <label class="post-registration-column__label">
+          <h6 class="post-registration-column__title">Ваш город:</h6>
+          <input placeholder="Доступен для поиска"
+                 type="text" class="post-registration-column__input" />
+        </label>
+
+        <label class="post-registration-column__label">
           <h6 class="post-registration-column__title">Профиль Вконтакте</h6>
           <input placeholder="Ссылка вида zabaykalsky"
                  type="text" class="post-registration-column__input" />
@@ -81,18 +102,73 @@
       </div>
     </div>
     <div class="post-registration-bottom">
-      <button class="post-registration-bottom__button">Сохранить анкету</button>
+      <button @click="setRole(1)" type="submit"
+              class="post-registration-bottom__button _partner"
+              >Зарегистрироваться как Агент
+      </button>
+      <button @click="setRole(0)" type="submit"
+              class="post-registration-bottom__button _client"
+              >Зарегистрироваться как Пользователь
+      </button>
     </div>
-  </section>
+  </form>
 </template>
 
 <script>
 
+  import { mapActions } from 'vuex';
+
   export default {
     name: "Post-Registration",
     data: () => ({
-
-    })
+      isAgent: false
+    }),
+    computed: {
+      User() {
+        return this.$store.state.User;
+      },
+      name: {
+        get () { return this.$store.state.User.personal.name },
+        set (value) { this.$store.commit( 'UPDATE_NAME' , value ) }
+      },
+      sename: {
+        get () { return this.$store.state.User.personal.sename },
+        set (value) { this.$store.commit( 'UPDATE_SENAME' , value ) }
+      },
+      born: {
+        get () { return this.$store.state.User.personal.born },
+        set (value) { this.$store.commit( 'UPDATE_BORN' , value ) }
+      },
+      caption: {
+        get () { return this.$store.state.User.personal.caption },
+        set (value) { this.$store.commit( 'UPDATE_CAPTION' , value ) }
+      },
+      // INFORMATION
+      specialization: {
+        get () { return this.$store.state.User.information.specialization },
+        set (value) { this.$store.commit( 'UPDATE_SPECIALIZATION', value ) }
+      },
+      town: {
+        get () { return this.$store.state.User.information.town },
+        set (value) { this.$store.commit( 'UPDATE_TOWN' , value ) }
+      },
+      EDUPlace: {
+        get () { return this.$store.state.User.information.education.place },
+        set (value) { this.$store.commit( 'UPDATE_EDUPLACE', value ) }
+      },
+      faculty: {
+        get () { return this.$store.state.User.information.education.faculty },
+        set (value) { this.$store.commit( 'UPDATE_FACULTY' , value ) }
+      },
+    },
+    methods: {
+      setRole(choice) {
+        this.isAgent = choice;
+      },
+      submitForm(choice) {
+        console.log(this.isAgent);
+      }
+    }
   };
 
 </script>
@@ -163,6 +239,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: flex-end;
+    margin: 20px 0 0;
 		&__title {
 			width: 100%;
 			font-size: 13px;
@@ -207,15 +284,12 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			size: 270px 35px;
+			size: 48.5% 35px;
 			padding: 0 10px;
-			margin: 30px auto 0 auto;
 			font-size: 12px;
 			line-height: 35px;
 			color: #fff;
 			color: var(--whited);
-      background-color: #009d2f;
-      background-color: var(--irish-green);
       border: none;
       border-radius: 3px;
 			transition: box-shadow .35s ease-in-out;
@@ -226,6 +300,14 @@
 			&:active {
 				@include MDShadow-2;
 			}
+      &._partner {
+        background-color: #4a4a4a;
+        background-color: var(--charcoal-grey);
+      }
+      &._client {
+        background-color: #009d2f;
+        background-color: var(--irish-green);
+      }
 		}
 		&__button-icon {
 			width: 20px;

@@ -1,15 +1,11 @@
 <template lang="html">
 	<wrapper>
     <transition name="fade-long">
-      <icon-logo v-if=" $route.path === '/login' "
-								 class="background-logo"></icon-logo>
-    </transition>
-    <transition name="fade-long">
   		<layout-header v-if=" $route.path !== '/login' "></layout-header>
     </transition>
 		<div class="container _main">
       <transition name="fade-long">
-    			<layout-sidebar v-if=" $route.path !== '/login' "></layout-sidebar>
+    		<layout-sidebar v-if=" $route.path !== '/login' "></layout-sidebar>
       </transition>
 			<layout-main></layout-main>
 		</div>
@@ -21,8 +17,6 @@
 
 	import auth from '@/router/auth.js';
 
-  import iconLogo from '@icons/logo';
-
 	import wrapper from '@custom-elements/wrapper';
 	import layoutHeader from '@layout/header';
 	import layoutSidebar from '@layout/sidebar';
@@ -31,8 +25,9 @@
 
 	export default {
 		name: 'Winter-has-Come',
-		components: { iconLogo, wrapper , layoutHeader , layoutSidebar , layoutMain ,layoutFooter },
+		components: { wrapper , layoutHeader , layoutSidebar , layoutMain ,layoutFooter },
 		beforeCreate() {
+		  this.$store.dispatch('cleanInstance')
 			// firebase.auth().onAuthStateChanged( user => {
 			// 	if ( user ) {
 			// 		this.user = user;
@@ -44,8 +39,8 @@
 			auth.onChange = loggedIn => {
 				this.$store.dispatch( 'changeAuth' , !!window.localStorage.token );
 				loggedIn === false
-				? this.isExpanded = false
-				: this.isExpanded = true
+  				? this.isExpanded = false
+  				: this.isExpanded = true
 			}
 		},
 		methods: {
@@ -109,6 +104,7 @@
 	.wrapper {
 		position: relative;
 		width: 100%;
+		min-height: 100vh;
 		color: #4a4a4a;
 		color: var(--charcoal-grey);
 		@include font-smoothing;

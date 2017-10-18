@@ -53,11 +53,7 @@ export default [
 	{
 		path: '/login',
 		name: 'logout',
-		component: login,
-    beforeEnter: ( to , from , next ) => {
-      console.log( this , to , from );
-      next()
-    }
+		component: login
 	},
 	{
 		path: '/friends',

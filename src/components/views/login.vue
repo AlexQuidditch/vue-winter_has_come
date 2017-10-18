@@ -1,17 +1,18 @@
 <template lang="html">
   <main class="main _login">
-    <transition name="fade" appear>
-      <!-- <button v-if="!isLoggedIn"
+    <!-- <transition name="fade" appear> -->
+      <button v-if="!isLoggedIn"
               @click="logOut()"
               class="logout-button waves-effect waves-light"
               >Это не я
-      </button> -->
+      </button>
       <button v-if="!isLoggedIn"
               @click="registred =! registred"
               class="logout-button waves-effect waves-light"
               >Это не я
       </button>
-    </transition>
+    <!-- </transition> -->
+    <h4>С возвращением, {{ savedUsername }}!</h4>
     <transition name="fade" mode="out-in">
 
       <div v-if="!registred" key="notRegistred"
@@ -25,79 +26,13 @@
                 :class="{ '_active' : !isSingIn }"
                 class="login-container__button">Регистрация</button>
 
-        <form @submit.prevent="signIn()"
-              :class="{ '_opened' : isSingIn }"
-              class="login-form _sign-in">
-          <transition name="fade" mode="out-in">
-            <img v-if="Avatar"
-                 :src=" backendLocation + '/upload/' + Avatar " alt="Аватар пользователя"
-                 class="login-form__avatar" />
-            <avatar-placeholder v-else
-                                class="login-form__avatar">
-            </avatar-placeholder>
-          </transition>
-  				<label class="login-form__label">
-  					<h6 class="login-form__title">Электронная почта:</h6>
-  					<input v-model="signInData.email"
-                   placeholder="Электронная почта"
-  						     type="email" required
-                   class="login-form__input" />
-  				</label>
-  				<label class="login-form__label">
-  					<h6 class="login-form__title">Пароль:</h6>
-  					<input v-model="signInData.password"
-                   placeholder="Введите пароль"
-  						     type="password" required
-                   class="login-form__input" />
-  				</label>
-          <button type="submit" name="button"
-                  class="login-form__button waves-effect waves-light"
-                  >Войти
-          </button>
-        </form>
+        <login-sign-in :class="{ '_opened' : isSingIn }"></login-sign-in>
 
-        <form @submit.prevent="registration()"
-              :class="{ '_opened' : !isSingIn }"
-              class="login-form _registration">
-          <transition name="fade" mode="out-in">
-            <img v-if="registrationData.avatar"
-                 :src=" backendLocation + '/upload/' + registrationData.avatar " alt="" class="login-form__avatar" />
-            <label v-else class="login-form__avatar-label">
-              <avatar-placeholder class="login-form__avatar"></avatar-placeholder>
-              <input @change="createAvatar($event)"
-                     type="file"
-                     class="login-form__input _avatar" />
-            </label>
-          </transition>
-          <label class="login-form__label">
-            <h6 class="login-form__title">Ваше имя:</h6>
-            <input v-model="registrationData.username"
-                   placeholder="Введите имя"
-                   type="text" required
-                   class="login-form__input" />
-          </label>
-  				<label class="login-form__label">
-  					<h6 class="login-form__title">Электронная почта:</h6>
-  					<input v-model="registrationData.email"
-                   placeholder="Электронная почта"
-  						     type="email" required
-                   class="login-form__input" />
-  				</label>
-  				<label class="login-form__label">
-  					<h6 class="login-form__title">Пароль:</h6>
-  					<input v-model="registrationData.password"
-                   placeholder="Введите пароль"
-  						     type="password" required
-                   class="login-form__input" />
-  				</label>
-          <button type="submit" name="button"
-                  class="login-form__button waves-effect waves-light"
-                  >Зарегистрироваться
-          </button>
-        </form>
+        <login-registration @Registered="setRegistered()" :class="{ '_opened' : !isSingIn }"></login-registration>
+
       </div>
 
-      <post-registration v-else="" key="registred"></post-registration>
+      <post-registration v-else key="registred"></post-registration>
 
     </transition>
   </main>
@@ -105,87 +40,28 @@
 
 <script>
 
-  import avatarPlaceholder from '@icons/avatar.js';
-
+  import LoginSignIn from './login/sign-in.vue';
+  import LoginRegistration from './login/registration.vue';
   import PostRegistration from './login/post-registration.vue';
 
   export default {
     name: "Login-Page",
-    components: { avatarPlaceholder , PostRegistration },
+    components: { PostRegistration , LoginSignIn , LoginRegistration },
     data: () => ({
       isSingIn: true,
-      registred: true,
-      signInData: {
-        email: 'AlexQuidditch@yandex.ru',
-        // email: '',
-        password: ''
-      },
-      registrationData: {
-        avatar: '',
-        username: '',
-        email: '',
-        password: ''
-      }
+      registred: false,
     }),
     computed: {
       isLoggedIn() {
         return this.$store.state.Auth.isLoggedIn;
       },
-      Avatar() {
-        return this.$store.state.Auth.avatar;
-      },
       savedUsername() {
         return this.$store.state.Auth.username;
-      },
-      backendLocation() {
-        return this.$store.state.General.host;
       }
     },
     methods: {
-      signIn() {
-        this.$http.post( 'auth' , this.signInData )
-          .then( ({ body }) => {
-            this.$store.dispatch( 'createInstance' , body );
-            this.$store.dispatch( 'createAuthData' , body );
-            this.signInData = {
-              email: '',
-              password: ''
-            };
-          })
-          .then( () => {
-            setTimeout( () => this.$router.push( 'profile' ) , 1000 );
-          })
-          .catch( error => {
-            console.error(error);
-            if ( error.status === 401 ) {
-              this.$swal( 'Ошибка!' , ' Пользователь не найден!' , 'error' )
-            }
-          })
-      },
-      registration() {
-        this.$http.post( 'auth' , this.registrationData )
-          .then( ({ body }) => {
-            this.$store.dispatch( 'createInstance' , body );
-            this.$store.dispatch( 'createAuthData' , body );
-            this.registrationData.password = '';
-          })
-          .then( () => {
-            setTimeout( () => this.$router.push( 'profile' ) , 1000 );
-          })
-          .catch( error => {
-            console.error(error);
-            if ( error.status === 401 ) {
-              this.$swal( 'Ошибка!' , ' Пользователь не найден!' , 'error' )
-            }
-          })
-      },
-      createAvatar({ target }) {
-        const files = target.files
-        const formData = new FormData()
-        formData.append('image', files[0] )
-        this.$http.post( 'upload' , formData )
-          .then( ({ body }) => this.registrationData.avatar = body[0]._id )
-          .catch( err => console.error(err) )
+      setRegistered() {
+        this.registred = true;
       },
       logOut() {
         this.$store.dispatch( 'destroyInstance' );
@@ -210,7 +86,7 @@
   }
 
   .logout-button {
-    position: absolute;
+    // position: absolute;
     top: 5vmin; right: 5vmin;
     size: 100px 30px;
     font-size: 12px;
@@ -232,14 +108,14 @@
     overflow: hidden;
     display: flex;
     flex-flow: row wrap;
-    size: 300px 395px;
+    size: 300px 420px;
 		background-color: #fff;
 		background-color: var(--whited);
     @include MDShadow-5;
     border-radius: 3px;
     transition: .3s ease;
     &._registration {
-      height: 463px;
+      height: 496px;
     }
     &__button {
       size: 50% 45px;
@@ -273,6 +149,7 @@
     align-items: center;
     width: 100%;
     padding: 20px;
+    padding-top: 30px;
     transition: transform .3s ease;
     &._sign-in {
       transform: translateX(-100%)
@@ -286,10 +163,55 @@
     &._registration._opened {
       transform: translateX(0)
     }
+    &__title {
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.46;
+      color: #4a4a4a;
+      color: var(--charcoal-grey);
+    }
+    &__gender {
+    }
+    &__gender-title {
+      @extend .login-form__title;
+      text-align: center;
+    }
+    &__gender-label {
+      position: relative;
+      display: block;
+      size: 100px 30px;
+      margin: 5px 0;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 30px;
+      color: #009d2f;
+      color: var(--irish-green);
+      background-color: #fff;
+      background-color: var(--whited);
+      border: none;
+      cursor: pointer;
+      @include MDShadow-1;
+      transition:
+        color .3s ease-in-out,
+        background-color .3s ease-in-out,
+        box-shadow .3s ease-in-out;
+      &._selected {
+        color: #fff;
+        color: var(--whited);
+        background-color: #009d2f;
+        background-color: var(--irish-green);
+      }
+    }
+    &__gender-input {
+      position: absolute;
+      left: -999em;
+      z-index: -10;
+    }
     &__avatar {
       size: 100px;
       padding: 5px;
-      margin-bottom: 7px;
+      margin-bottom: 14px;
       background-color: #fff;
       background-color: var(--whited);
       border-radius: 50%;
@@ -346,6 +268,12 @@
         color .3s ease-in-out,
         background-color .3s ease-in-out,
         box-shadow .3s ease-in-out;
+    }
+    .login-form-container {
+      position: relative;
+      display: flex;
+      justify-content: space-around;
+      size: 100% 117px;
     }
   }
 

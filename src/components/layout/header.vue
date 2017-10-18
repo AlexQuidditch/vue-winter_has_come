@@ -22,7 +22,7 @@
 				<router-link to="/" class="header-row__link waves-effect waves-light">Исполнители</router-link>
 				<router-link :to="{ name : 'agent' }" class="header-row__link waves-effect waves-light">Агенты</router-link>
 				<router-link :to="{ name : 'teams' }" class="header-row__link waves-effect waves-light">Команды</router-link>
-				<router-link :to="{ name : 'logout' }" class="header-row__link _logout waves-effect waves-light">Выйти</router-link>
+				<router-link :to="{ name : 'logout' }" @click.native="logout()" class="header-row__link _logout waves-effect waves-light">Выйти</router-link>
 			</nav>
 		</div>
   </header>
@@ -37,7 +37,12 @@
 
 	export default {
 		name: "header",
-		components: { search , partner , partnerMenu , iconHome }
+		components: { search , partner , partnerMenu , iconHome },
+    methods: {
+      logout() {
+        this.$store.dispatch('cleanInstance')
+      }
+    }
 	};
 
 </script>
@@ -50,8 +55,7 @@
 		top: 0;
 		width: 100%;
 		&__logo {
-			size: 164px 17px;
-			height: 100%;
+			height: 40px;
 			object-fit: contain;
 			cursor: pointer;
 		}

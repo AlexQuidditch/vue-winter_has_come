@@ -6,11 +6,11 @@ const state = {
 };
 
 const actions = {
-  changeAuth( { commit } , payload ) {
-    commit( 'CHANGE_AUTH' , payload )
+  changeAuth({ commit }) {
+    commit( 'CHANGE_AUTH' )
   },
-  createAuthData( { commit } , payload ) {
-    commit( 'CREATE_AUTH_DATA' , payload )
+  createAuthData( { commit } , { personal } ) {
+    commit( 'CREATE_AUTH_DATA' , personal )
   },
   destroyAuthData({ commit }) {
     commit( 'DESTROY_AUTH_DATA' )
@@ -18,18 +18,20 @@ const actions = {
 };
 
 const mutations = {
-  CHANGE_AUTH( state , payload ) {
-    state.isLoggedIn = payload
+  CHANGE_AUTH( state ) {
+    window.localStorage.token = '';
   },
-  CREATE_AUTH_DATA( state , { username , avatar , email } ) {
-    state.username = username;
+  CREATE_AUTH_DATA( state , { name , avatar , email , password } ) {
+    state.username = name;
     state.avatar = avatar;
     state.email = email;
+    window.localStorage.token = password;
   },
   DESTROY_AUTH_DATA( state ) {
     state.username = '';
     state.avatar = '';
     state.email = '';
+    window.localStorage.token = '';
   }
 };
 

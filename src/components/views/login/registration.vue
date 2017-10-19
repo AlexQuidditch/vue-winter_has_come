@@ -35,7 +35,7 @@
 
     <label class="login-form__label">
       <h6 class="login-form__title">Ваше имя:</h6>
-      <input v-model="registrationData.username"
+      <input v-model="registrationData.name"
              placeholder="Введите имя"
              type="text" required
              class="login-form__input" />
@@ -71,10 +71,12 @@
     data: () => ({
       registrationData: {
         avatar: '',
-        username: '',
-        email: '',
+        name: '',
         password: '',
-        gender: ''
+        sename: '',
+        born: '',
+        gender: '',
+        caption: ''
       }
     }),
     computed: {

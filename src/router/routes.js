@@ -22,33 +22,26 @@ export default [
 		path: '/',
 		name: 'profile',
 		component: profile,
-		// beforeEnter: requireAuth
-	},
-	{
-		path: '/login',
-		name: 'login',
-		component: login,
-		// beforeEnter: requireAuth
+		beforeEnter: requireAuth
 	},
 	{
 		path: '/agent',
 		name: 'agent',
 		component: agent,
-		// beforeEnter: requireAuth
+		beforeEnter: requireAuth,
 		props: true
 	},
 	{
 		path: '/user',
 		name: 'user',
 		component: user,
-		// beforeEnter: requireAuth
+		beforeEnter: requireAuth,
 		props: true
 	},
 	{
 		path: '/login',
 		name: 'login-page',
 		component: login
-		// beforeEnter: requireAuth
 	},
 	{
 		path: '/login',
@@ -58,46 +51,46 @@ export default [
 	{
 		path: '/friends',
 		name: 'friends',
-		component: friends
-		// beforeEnter: requireAuth
+		component: friends,
+		beforeEnter: requireAuth
 	},
 	{
 		path: '/teams',
 		name: 'teams',
-		component: teams
-		// beforeEnter: requireAuth
+		component: teams,
+		beforeEnter: requireAuth
 	},
 	{
 		path: '/find-job',
 		name: 'find-job',
 		component: findJob,
-		// beforeEnter: requireAuth
+		beforeEnter: requireAuth,
 		props: true
 	},
 	{
 		path: '/task',
 		name: 'task',
 		component: task,
-		// beforeEnter: requireAuth
+		beforeEnter: requireAuth,
 		props: true
 	},
 	{
 		path: '/task/create',
 		name: 'create-task',
 		component: createTask,
-		// beforeEnter: requireAuth
+		beforeEnter: requireAuth
 	},
 	{
 		path: '/task/edit',
 		name: 'edit-task',
 		component: createTask,
-		// beforeEnter: requireAuth
+		beforeEnter: requireAuth
 	},
 	{
 		path: '/task/complete',
 		name: 'complete-task',
 		component: completeTask,
-		// beforeEnter: requireAuth
+		beforeEnter: requireAuth,
 		props: true
 	},
 	{
@@ -105,7 +98,7 @@ export default [
 		name: 'messages',
 		component: messages,
 		props: true,
-		// beforeEnter: requireAuth
+		beforeEnter: requireAuth,
 		children: [
 			{
 				path: ':id',
@@ -119,23 +112,16 @@ export default [
 		path: '/settings',
 		name: 'settings',
 		component: settings,
-		// beforeEnter: requireAuth
+		beforeEnter: requireAuth,
 		props: true
 	},
 	{
 		path: '/support',
 		name: 'support',
 		component: support,
-		// beforeEnter: requireAuth
+		beforeEnter: requireAuth,
 		props: true
 	},
-	// {
-	// 	path: '/logout',
-	// 	beforeEnter ( to , from , next ) {
-	// 		auth.logout();
-	// 		next('/');
-	// 	}
-    // },
 	{
 		path: '*',
 		redirect: '/'

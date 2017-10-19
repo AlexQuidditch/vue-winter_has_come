@@ -40,7 +40,8 @@
 		components: { search , partner , partnerMenu , iconHome },
     methods: {
       logout() {
-        this.$store.dispatch('cleanInstance')
+        this.$store.dispatch('cleanInstance');
+        this.$store.dispatch('changeAuth');
       }
     }
 	};

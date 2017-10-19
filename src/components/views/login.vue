@@ -1,18 +1,18 @@
 <template lang="html">
   <main class="main _login">
-    <!-- <transition name="fade" appear> -->
-      <button v-if="!isLoggedIn"
+    <transition name="fade" appear>
+      <button v-if="isLoggedIn"
               @click="logOut()"
               class="logout-button waves-effect waves-light"
               >Это не я
       </button>
+    </transition>
+    {{ isLoggedIn }}
       <button v-if="!isLoggedIn"
               @click="registred =! registred"
-              class="logout-button waves-effect waves-light"
-              >Это не я
+              class="logout-button _second waves-effect waves-light"
+              >Это не sqdя
       </button>
-    <!-- </transition> -->
-    <h4>С возвращением, {{ savedUsername }}!</h4>
     <transition name="fade" mode="out-in">
 
       <div v-if="!registred" key="notRegistred"
@@ -20,11 +20,15 @@
            class="login-container">
         <button @click="isSingIn = true"
                 :class="{ '_active' : isSingIn }"
-                class="login-container__button">Вход</button>
+                class="login-container__button"
+                >Вход
+        </button>
 
         <button @click="isSingIn = false"
                 :class="{ '_active' : !isSingIn }"
-                class="login-container__button">Регистрация</button>
+                class="login-container__button"
+                >Регистрация
+        </button>
 
         <login-sign-in :class="{ '_opened' : isSingIn }"></login-sign-in>
 
@@ -51,12 +55,16 @@
       isSingIn: true,
       registred: false,
     }),
+    watch: {
+      isSingIn() {
+        if ( !this.isSingIn ) {
+          this.$store.dispatch( 'destroyInstance' );
+        }
+      }
+    },
     computed: {
       isLoggedIn() {
-        return this.$store.state.Auth.isLoggedIn;
-      },
-      savedUsername() {
-        return this.$store.state.Auth.username;
+        return !!this.$store.state.Auth.email;
       }
     },
     methods: {
@@ -86,7 +94,7 @@
   }
 
   .logout-button {
-    // position: absolute;
+    position: absolute;
     top: 5vmin; right: 5vmin;
     size: 100px 30px;
     font-size: 12px;
@@ -101,6 +109,9 @@
       color .3s ease-in-out,
       background-color .3s ease-in-out,
       box-shadow .3s ease-in-out;
+    &._second {
+      top: 5vmin; left: 5vmin;
+    }
   }
 
   .login-container {
@@ -170,8 +181,7 @@
       color: #4a4a4a;
       color: var(--charcoal-grey);
     }
-    &__gender {
-    }
+    &__gender {}
     &__gender-title {
       @extend .login-form__title;
       text-align: center;
@@ -221,6 +231,11 @@
       position: relative;
       background-color: #fff;
       background-color: var(--whited);
+    }
+    &__saved-username {
+      size: 100% 73px;
+      text-align: center;
+      line-height: 73px;
     }
 		&__label {
 		  overflow: hidden;

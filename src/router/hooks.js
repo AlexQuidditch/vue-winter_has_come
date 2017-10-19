@@ -1,9 +1,7 @@
-import auth from './auth.js';
-
 export const requireAuth  = ( to, from, next ) => {
-	if ( !auth.loggedIn() ) {
+	if ( !localStorage.token ) {
 		next({
-			path: '/',
+			path: '/login',
 			query: {
 				redirect: to.fullPath
 			}

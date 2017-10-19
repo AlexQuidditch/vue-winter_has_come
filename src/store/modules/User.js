@@ -4,12 +4,12 @@ const state = {};
 
 const template = {
   _id: '',
-  wallID: '',
-  email: '',
   isAgent: null,
   personal: {
     avatar: '',
     name: '',
+    email: '',
+    password: '',
     sename: '',
     born: '',
     gender: '',
@@ -44,7 +44,8 @@ const template = {
     teams: []
   },
   portfolio: [],
-  reviews: []
+  reviews: [],
+  wallID: '',
 };
 
 const actions = {
@@ -53,6 +54,9 @@ const actions = {
   },
 
   // Auth methods
+  createInstance( { commit } , payload ) {
+    commit( 'CREATE_INSTANCE' , payload )
+  },
   cleanInstance({ commit }) {
     commit( 'CLEAN_INSTANCE' )
   },
@@ -96,15 +100,16 @@ const mutations = {
   // Auth methods
   CREATE_INSTANCE( state , payload ) {
     state = Object.assign( state , payload );
-    state.password = '';
   },
   CLEAN_INSTANCE( state ) {
     state = Object.assign( state , template );
+    state.username = '';
+    state.password = '';
   },
   DESTROY_INSTANCE( state ) {
     state = Object.assign( state , template );
     state.username = '';
-    state.avatar = '';
+    state.password = '';
   }
 };
 

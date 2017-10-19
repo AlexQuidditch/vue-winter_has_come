@@ -5,12 +5,13 @@ const state = {};
 const template = {
   _id: '',
   isAgent: null,
+  wallID: '',
   personal: {
     avatar: '',
     name: '',
+    sename: '',
     email: '',
     password: '',
-    sename: '',
     born: '',
     gender: '',
     caption: ''
@@ -38,14 +39,15 @@ const template = {
   },
   social: {
     contacts: {
-      text: '',
-      links: [],
+      vk: '',
+      fb: '',
+      skype: '',
+      telegram: ''
     },
     teams: []
   },
   portfolio: [],
-  reviews: [],
-  wallID: '',
+  reviews: []
 };
 
 const actions = {
@@ -62,7 +64,12 @@ const actions = {
   },
   destroyInstance({ commit }) {
     commit( 'DESTROY_INSTANCE' )
-  }
+  },
+  // Post-Registration methods
+  setRole( { commit } , payload ) {
+    commit( 'SET_ROLE' , payload )
+  },
+
 };
 
 const mutations = {
@@ -93,23 +100,36 @@ const mutations = {
   UPDATE_FACULTY( { information } , payload ) {
     information.education.faculty = payload;
   },
-  UPDATE_TOWN( { information } , payload ) {
-    information.town = payload;
+  // SOCIAL
+  UPDATE_VK( { social } , payload ) {
+    social.contacts.vk = payload;
   },
-
+  UPDATE_FB( { social } , payload ) {
+    social.contacts.fb = payload;
+  },
+  UPDATE_SKYPE( { social } , payload ) {
+    social.contacts.skype = payload;
+  },
+  UPDATE_TELEGRAM( { social } , payload ) {
+    social.contacts.telegram = payload;
+  },
   // Auth methods
   CREATE_INSTANCE( state , payload ) {
     state = Object.assign( state , payload );
   },
   CLEAN_INSTANCE( state ) {
     state = Object.assign( state , template );
-    state.username = '';
-    state.password = '';
+    state.personal.username = '';
+    state.personal.password = '';
   },
   DESTROY_INSTANCE( state ) {
     state = Object.assign( state , template );
-    state.username = '';
-    state.password = '';
+    state.personal.username = '';
+    state.personal.password = '';
+  },
+  // Post-Registration methods
+  SET_ROLE( state , payload ) {
+    state.isAgent = payload;
   }
 };
 

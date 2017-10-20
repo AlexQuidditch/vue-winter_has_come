@@ -7,32 +7,38 @@
               >Это не я
       </button>
     </transition>
-    {{ isLoggedIn }}
-      <button v-if="!isLoggedIn"
-              @click="registred =! registred"
-              class="logout-button _second waves-effect waves-light"
-              >Это не sqdя
-      </button>
+    <!-- <button @click="registred =! registred"
+            class="logout-button _second waves-effect waves-light"
+            >Это не sqdя
+    </button> -->
     <transition name="fade" mode="out-in">
 
-      <div v-if="!registred" key="notRegistred"
-           :class="{ '_registration' : !isSingIn }"
-           class="login-container">
-        <button @click="isSingIn = true"
-                :class="{ '_active' : isSingIn }"
-                class="login-container__button"
-                >Вход
-        </button>
+      <div v-if="!registred" class="login-hello-container">
 
-        <button @click="isSingIn = false"
-                :class="{ '_active' : !isSingIn }"
-                class="login-container__button"
-                >Регистрация
-        </button>
+        <div class="hello-message">
+          <h1 class="hello-message__title">Добро пожаловать!</h1>
+          <p class="hello-message__content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam eius nisi ratione eveniet, quidem sequi molestiae! Ducimus ea, omnis, error culpa amet ab reprehenderit et neque atque soluta consectetur, quos.</p>
+        </div>
 
-        <login-sign-in :class="{ '_opened' : isSingIn }"></login-sign-in>
+        <div :class="{ '_registration' : !isSingIn }"
+             class="login-container">
+          <button @click="isSingIn = true"
+                  :class="{ '_active' : isSingIn }"
+                  class="login-container__button"
+                  >Вход
+          </button>
 
-        <login-registration @Registered="setRegistered()" :class="{ '_opened' : !isSingIn }"></login-registration>
+          <button @click="isSingIn = false"
+                  :class="{ '_active' : !isSingIn }"
+                  class="login-container__button"
+                  >Регистрация
+          </button>
+
+          <login-sign-in :class="{ '_opened' : isSingIn }"></login-sign-in>
+
+          <login-registration @Registered="setRegistered()" :class="{ '_opened' : !isSingIn }"></login-registration>
+
+        </div>
 
       </div>
 
@@ -111,6 +117,30 @@
       box-shadow .3s ease-in-out;
     &._second {
       top: 5vmin; left: 5vmin;
+    }
+  }
+
+  .login-hello-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+  }
+
+  .hello-message {
+    flex: 1 1 300px;
+    max-width: 500px;
+    padding: 30px;
+		background-color: #fff;
+		background-color: var(--whited);
+    @include MDShadow-2;
+    border-radius: 3px;
+    &__title {
+      margin: 0;
+      margin-bottom: 16px;
+    }
+    &__content {
+      margin: 0;
     }
   }
 

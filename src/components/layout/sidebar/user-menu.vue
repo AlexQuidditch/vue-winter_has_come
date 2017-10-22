@@ -132,7 +132,7 @@
         opacity: 0;
         position: absolute;
         content: '';
-        top: 5px; right: -16px;
+        top: 5px; right: -6px;
         size: 22px;
         position: absolute;
         background-image: inline('../../../../static/assets/sidebar/chevron-right.svg');

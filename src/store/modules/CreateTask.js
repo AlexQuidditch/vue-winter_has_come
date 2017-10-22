@@ -50,6 +50,9 @@ const actions = {
   setAuthorID( { commit } , payload ) {
     commit( 'SET_AUTHOR_ID' , payload )
   },
+  setTaskToEdit( { commit } , payload ) {
+    commit( 'SET_TASK_TO_EDIT' , payload )
+  },
   updateBudget( { commit } , payload ) {
     commit( 'UPDATE_BUDGET' , payload )
   },
@@ -74,16 +77,22 @@ const actions = {
   addAttached( { commit } , payload ) {
     commit( 'UPDATE_ATTACHED' , payload )
   },
+  deleteAttached( { commit } , payload ) {
+    commit( 'DELETE_ATTACHED' , payload )
+  },
   addSpecialization( { commit } , payload ) {
     commit( 'ADD_SPECIALIZATION' , payload )
   },
   removeSpecialization( { commit } , payload ) {
     commit( 'REMOVE_SPECIALIZATION' , payload )
   },
-  saveTask( { commit , state } , payload ) {
-    return API.post( 'task/create-task' , state )
+  saveTask({ commit , state }) {
+    return API.post( 'task/create' , state )
   },
-  saveDraft( { commit , state } , payload ) {
+  updateTask({ commit , state }) {
+    return API.post( `task/edit/${ state._id }` , state )
+  },
+  saveDraft({ commit , state }) {
     return API.post( 'task/save-draft' , state )
   },
   clearDraft( { commit } , payload ) {
@@ -93,8 +102,10 @@ const actions = {
 
 const mutations = {
   SET_AUTHOR_ID( state , payload ) {
-    console.log(payload);
     state.authorID = payload
+  },
+  SET_TASK_TO_EDIT( state , payload ) {
+    state = Object.assign( state , payload )
   },
   UPDATE_TITLE( state , payload ) {
     state.title = payload
@@ -125,6 +136,9 @@ const mutations = {
   },
   UPDATE_ATTACHED( state , payload ) {
     state.attached.push( payload )
+  },
+  DELETE_ATTACHED( state , payload ) {
+    state.attached.splice( payload , 1 )
   },
   CLEAR_DRAFT( state , payload ) {
     state = Object.assign( state , taskTemplate )

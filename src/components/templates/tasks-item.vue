@@ -1,6 +1,6 @@
 <template lang="html">
 	<router-link :to="{ name: 'task' , query: { id: tasksItem._id } }" tag="li"
-		class="tasks-item">
+							 class="tasks-item">
 		<div class="tasks-item__overlay">
 			<h5 class="tasks-item__title">{{ tasksItem.title }}</h5>
 			<p class="tasks-item__description">{{ tasksItem.description }}</p>
@@ -27,16 +27,16 @@
 
 	import iconClock from '@icons/clock';
 
-    export default {
-        name: "tasks-item",
+	export default {
+		name: "tasks-item",
 		components: { iconClock },
 		props: {
-		    'tasksItem': {
-		        type: Object,
-		        required: true
+			'tasksItem': {
+				type: Object,
+				required: true
 			}
 		}
-    };
+	};
 
 </script>
 

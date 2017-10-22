@@ -42,13 +42,17 @@
 						<div class="create-task-column">
 							<label class="create-task-column__label">
 								<h6 class="create-task-column__title">Прикрепить файлы:</h6>
-								<ul class="attached-list">
+								<transition-group name="list" mode="out-in" class="attached-list">
 									<li v-for="( attachedItem , index ) in CreateTask.attached" :key="index"
-										class="attached-item">
+										  class="attached-item">
 										<img :src=" backendLocation + '/upload/' + attachedItem " alt="Загруженное изображение"
 												 class="attached-item__picture" />
+                    <button @click="deleteAttached(index)" class="attached-item__remove"
+                            type="button" aria-label="Удалить специализацию">
+                      <icon-close class="attached-item__remove-icon"></icon-close>
+                    </button>
 									</li>
-                  <label for="attachFile" class="attached-item">
+                  <label key="label" for="attachFile" class="attached-item">
                     <input @change="filler($event.target)"
                            id="attachFile" type="file"
                            multiple accept="image"
@@ -56,7 +60,7 @@
                            class="attached-item__input" />
                            +
                   </label>
-								</ul>
+								</transition-group>
 							</label>
 							<label class="create-task-bottom__label _checkbox">
 								<checkbox :checked="CreateTask.isRush" @change="updateRush($event)"
@@ -93,7 +97,7 @@
 						<button @click="addSpecialization(specKeyword)"
 										class="specialization-label__label-button"
 										type="button" name="addSpecKeyword"
-                    aria-label="Удалить специализацию">+
+                    aria-label="Добавить специализацию">+
 						</button>
 						<transition-group tag="ul" name="list" class="chips-list">
 							<v-chip v-for="( keywordItem , index ) in CreateTask.specialization" :key="index"
@@ -125,130 +129,139 @@
 
 <script>
 
-	import { mapActions } from 'vuex';
+  import { mapActions } from 'vuex';
 
-	import { Money } from 'v-money';
-	import iconCheck from '@icons/check-square';
-	import iconCalendar from '@icons/calendar.js';
-	import vChip from '@custom-elements/vue-chip';
+  import { Money } from 'v-money';
+  import iconCheck from '@icons/check-square';
+  import iconCalendar from '@icons/calendar.js';
+  import IconClose from '@icons/close.js';
+  import vChip from '@custom-elements/vue-chip';
 
-	export default {
-		name: 'create-task',
-		components: { Money , iconCheck , iconCalendar , vChip },
-		data: () => ({
-			specKeyword: '',
-			moneyOptions: {
-				thousands: ' ',
-				precision: 0,
-				masked: true
-			},
-			Datepicker: {
-				format: 'dd-MM-yyyy',
-				language: 'ru',
-				wrapperClass: 'column-settings__label',
-				calendarButton: true
-			},
-			Placeholders: {
-				title: 'Введите название задачи',
-				town: 'Ваш населённый пункт',
-				skills: 'Навыки, которыми должен обладать исполнитель',
-				specialization: 'Выберите из списка',
-				attached: '*первое изображение будет заглавным',
-				description: 'Описание задачи ( макс 500 символов )',
-				budget: 'Установите бюджет',
-				deadline: 'Сроки выполнения задачи',
-				isRush: 'Срочное задание'
-			}
-		}),
+  export default {
+    name: 'create-task',
+    components: { Money , iconCheck , iconCalendar , vChip , IconClose },
+    data: () => ({
+      specKeyword: '',
+      moneyOptions: {
+        thousands: ' ',
+        precision: 0,
+        masked: true
+      },
+      Datepicker: {
+        format: 'dd-MM-yyyy',
+        language: 'ru',
+        wrapperClass: 'column-settings__label',
+        calendarButton: true
+      },
+      Placeholders: {
+        title: 'Введите название задачи',
+        town: 'Ваш населённый пункт',
+        skills: 'Навыки, которыми должен обладать исполнитель',
+        specialization: 'Выберите из списка',
+        attached: '*первое изображение будет заглавным',
+        description: 'Описание задачи ( макс 500 символов )',
+        budget: 'Установите бюджет',
+        deadline: 'Сроки выполнения задачи',
+        isRush: 'Срочное задание'
+      }
+    }),
     created() {
-      this.$store.dispatch( 'setAuthorID' , this.$store.state.User._id )
+      this.$store.dispatch( 'setAuthorID' , this.$store.state.User._id );
+      if ( this.isEdit ) {
+        let taskToEdit = this.$store.state.Tasks
+          .find( task => task._id == this.$route.query.id );
+        this.$store.dispatch( 'setTaskToEdit' , taskToEdit );
+      }
     },
-		computed: {
+    computed: {
       isEdit() {
         return this.$route.name === 'edit-task';
       },
-			CreateTask() {
-        if ( this.isEdit ) {
-          return this.$store.state.Tasks
-            .find( task => task._id == this.$route.query.id );
-        } else {
-          return this.$store.state.CreateTask
-        }
-			},
+      CreateTask() {
+        return this.$store.state.CreateTask;
+      },
       backendLocation() {
         return this.$store.state.General.host;
       }
-		},
-		methods: {
-			...mapActions([
-				'updateTitle' , 'updateDescription',
-				'updateTown' , 'updateBudget',
-				'updateDeadline' , 'updateRush',
-				'updateSkills' , 'removeSpecialization'
-			]),
-			saveTask() {
-				this.$store.dispatch('saveTask')
-					.then( ({ data }) => {
-						this.$swal({
-							title: 'Вы уверены?',
-							text: "Можете вернуться и отредактировать.",
-							type: 'info',
-							showCancelButton: true,
-							confirmButtonColor: '#009d2f',
-							cancelButtonColor: '#4a4a4a',
-							confirmButtonText: 'Опубликовать!',
-							cancelButtonText: 'Нет, ещё не всё.',
-							confirmButtonClass: 'create-task-sweet__button waves-effect waves-light',
-							cancelButtonClass: 'create-task-sweet__button _cancel waves-effect waves-light',
-							buttonsStyling: false
-						})
-						.then( () => {
-							this.$swal(
-								'Сохранено!',
-								'Задача опубликована.',
-								'success'
-							);
-							this.$store.dispatch('clearDraft');
-						}, dismiss => {
-							if ( dismiss === 'cancel' ) {
-								this.$swal(
-									'Отменено!',
-									'Отредактируйте, или сохраните черновик',
-									'info'
-								)
-							}
-						});
-					})
-          .catch( error => {
-            console.error(error);
-            this.$swal( 'Упс!' , 'Что-то пошло не так...' , 'error' )
-          });
+    },
+    methods: {
+      ...mapActions([
+        'updateTitle' , 'updateDescription',
+        'updateTown' , 'updateBudget',
+        'updateDeadline' , 'updateRush',
+        'updateSkills' , 'removeSpecialization'
+      ]),
+      saveTask() {
+        if ( !this.isEdit ) {
+          this.$store.dispatch('saveTask')
+            .then( ({ data }) => {
+              this.$swal({
+                title: 'Вы уверены?',
+                text: "Можете вернуться и отредактировать.",
+                type: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#009d2f',
+                cancelButtonColor: '#4a4a4a',
+                confirmButtonText: 'Опубликовать!',
+                cancelButtonText: 'Нет, ещё не всё.',
+                confirmButtonClass: 'create-task-sweet__button waves-effect waves-light',
+                cancelButtonClass: 'create-task-sweet__button _cancel waves-effect waves-light',
+                buttonsStyling: false
+              })
+              .then( () => {
+                this.$swal(
+                  'Сохранено!',
+                  'Задача опубликована.',
+                  'success'
+                );
+                this.$store.dispatch('clearDraft');
+              }, dismiss => {
+                if ( dismiss === 'cancel' ) {
+                  this.$swal(
+                    'Отменено!',
+                    'Отредактируйте, или сохраните черновик',
+                    'info'
+                  )
+                }
+              });
+            })
+            .catch( error => {
+              console.error(error);
+              this.$swal( 'Упс!' , 'Что-то пошло не так...' , 'error' )
+            });
+        } else {
+          this.$store.dispatch('updateTask')
+        }
       },
       saveDraft() {
         this.$store.dispatch('saveDraft')
           .then( ({ data }) => {
-            console.log(data);
             this.$swal( 'Ура!' , `ID задачи: ${ data._id }` , 'success' );
             this.$store.dispatch('clearDraft')
           })
           .catch( error => console.error(error) );
       },
-			addSpecialization(specKeyword) {
+      addSpecialization(specKeyword) {
         if (specKeyword) {
           this.$store.dispatch( 'addSpecialization' , specKeyword );
           this.specKeyword = '';
         }
-			},
-			filler(target) {
+      },
+      filler(target) {
         const files = target.files;
         const formData = new FormData();
-        formData.append('image', files[0] );
+        formData.append( 'image' , files[0] );
         this.$http.post( 'upload' , formData )
-          .then( ({ body }) => this.$store.dispatch( 'addAttached' , body[0]._id ) )
-          .catch( err => console.error(err) )
-			}
-		}
-	};
+        .then( ({ body }) => {
+          this.$store.dispatch( 'addAttached' , body[0]._id );
+        })
+        .catch( err => console.error(err) )
+      },
+      deleteAttached(i) {
+        this.$store.dispatch( 'deleteAttached' , i );
+      }
+    }
+  };
 
 </script>
 
@@ -367,6 +380,7 @@
 				margin-top: 10px;
 			}
 			.attached-item {
+			  position: relative;
 				size: 62px;
 				margin: 0 7px 7px 0;
 				&:last-child {
@@ -396,6 +410,25 @@
 				&__input {
 					display: none;
 				}
+        &__remove {
+          position: absolute;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          top: -4px; right: -4px;
+          padding: 0; margin: 0;
+					background-color: transparent;
+          border: none;
+        }
+        &__remove-icon {
+          size: 20px;
+    			border-radius: 3px;
+    			fill: #fff;
+    			fill: var(--whited);
+          background-color: #d0011b;
+          background-color: var(--scarlet);
+    			@include MDShadow-1;
+        }
 			}
 		}
 

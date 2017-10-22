@@ -3,7 +3,7 @@
 		<div class="detail-header">
 			<div class="header-agent">
 				<router-link :to="{ name: 'user', query: { id: Author._id }}" tag="img"
-                     :src=" '/static/assets/shared/' + Author.avatar" :alt="Author.name + ' ' + Author.sename"
+                     :src=" backendLocation + '/upload/' + Author.avatar" :alt="Author.name + ' ' + Author.sename"
 					           class="header-agent__avatar"
 					           title="Открыть профиль">
 				</router-link>
@@ -99,13 +99,23 @@
 				required: true
 			}
 		},
+    data: () => ({
+      Author: {}
+    }),
+    created() {
+      this.$http.get( `user/${ this.taskItem.authorID }` )
+        .then( ({ body }) => {
+          console.log(body);
+          this.Author = body;
+        })
+        .catch( error => console.error(error) )
+    },
     computed: {
-      Author() {
-        return this.$store.state.Stub.friends
-          .find( item => item._id === this.taskItem.authorID );
-      },
       published() {
         return new Date(this.taskItem.published).toLocaleString('ru-RU' , longDate );
+      },
+      backendLocation() {
+        return this.$store.state.General.host
       }
     },
     methods: {

@@ -1,5 +1,5 @@
 <template lang="html">
-  <transition-group name="list" mode="out-in" class="find-job _all">
+  <transition-group name="fade" mode="out-in" class="find-job _all">
     <task-item v-for="( taskItem , index ) in Tasks" :key="index"
                :taskItem = "taskItem">
     </task-item>
@@ -8,7 +8,7 @@
 
 <script>
 
-  import taskItem from '@templates/task-item';
+  import taskItem from '@templates/task-item.vue';
 
   export default {
     name: "find-job_all",

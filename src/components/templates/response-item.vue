@@ -2,9 +2,10 @@
   <li class="response-item">
     <div class="response-header">
       <router-link :to="{ name: 'user', query: { id: Author._id }}" tag="img"
-                   :src=" '/static/assets/shared/' + Author.avatar" :alt="Author.name + ' ' + Author.sename"
+                   :src=" backendLocation + '/upload/' + Author.avatar"
+                   :title="Author.name + ' ' + Author.sename"
                    class="response-header__avatar"
-                   title="Открыть профиль">
+                   alt="Открыть профиль">
       </router-link>
       <div class="response-header__container">
         <router-link :to="{ name: 'user', query: { id: Author._id }}" tag="p"
@@ -50,9 +51,20 @@
         required: true
       }
     },
+    data: () => ({
+      Author: {}
+    }),
+    created() {
+      this.$http.get( `user/${ this.responseItem.authorID }` )
+        .then( ({ body }) => {
+          console.log(body);
+          this.Author = body;
+        })
+        .catch( error => console.error(error) )
+    },
     computed: {
-      Author() {
-        return this.$store.state.Stub.friends.find( item => item._id === this.responseItem.authorID );
+      backendLocation() {
+        return this.$store.state.General.host
       }
     }
   };
@@ -90,6 +102,7 @@
       color: #4a4a4a;
       color: var(--charcoal-grey);
       &:hover  {
+        cursor: pointer;
         text-decoration: underline !important;
       }
       span {
@@ -162,7 +175,7 @@
       padding: 0 10px;
       margin-right: 14px;
       font-size: 12px;
-      line-height: 35px;
+      line-height: 33px;
       color: #4a4a4a;
       color: var(--charcoal-grey);
       background-color: #fff;

@@ -2,7 +2,7 @@
 	<li class="task-item">
 		<div class="task-item__about">
 			<router-link :to="{ name: 'task', query: { id: taskItem._id }}" tag="img"
-									 :src=" '/static/assets/shared/' + taskItem.picture" :alt="taskItem.title" class="about-picture">
+									 :src=" backendLocation + '/upload/' + taskItem.attached[0]" :alt="taskItem.title" class="about-picture">
 			</router-link>
 			<div class="about-picture-overlay" v-if="taskItem.isEngaged">
 				<p class="about-picture-overlay__text">Исполнитель найден!</p>
@@ -14,8 +14,8 @@
 				</router-link>
 				<router-link :to="{ name: 'user', query: { id: taskItem.authorID }}" tag="img"
 					           class="about-information__author-avatar"
-					           :src=" '/static/assets/shared/' + getAuthorAvatar(taskItem.authorID)" :alt="getAuthorName(taskItem.authorID)"
-					           title="Открыть профиль автора">
+					           :src=" backendLocation + '/upload/' + Author.avatar" :title="Author.name + ' ' + Author.sename"
+					           alt="Открыть профиль автора">
 				</router-link>
 				<p class="about-information__published">{{ new Date(taskItem.published).toLocaleString() }}</p>
 				<p class="about-information__description">{{ taskItem.description.substr( 0 , 160 ) }}</p>
@@ -46,7 +46,7 @@
 					</span>
 					<span :class="{ '_is-engaged' : taskItem.isEngaged }"
 						    class="summary-deadline__value"
-						>{{ taskItem.deadline }}
+						>{{ new Date(taskItem.deadline).toLocaleString() }}
 					</span>
 				</li>
 			</ul>
@@ -82,22 +82,22 @@
 				required: true
 			}
 		},
-		methods: {
-			getAuthorAvatar(ID) {
-				let avatar = '';
-				this.$store.state.Stub.friends.find( item => {
-					if ( item._id === ID ) avatar = item.avatar;
-				});
-				return avatar;
-			},
-			getAuthorName(ID) {
-				let fullName = '';
-				this.$store.state.Stub.friends.find( item => {
-					if ( item._id === ID ) fullName = item.name + ' ' + item.sename;
-				});
-				return fullName;
-			}
-		}
+    data: () => ({
+      Author: {}
+    }),
+    computed: {
+      backendLocation() {
+        return this.$store.state.General.host
+      }
+    },
+    created() {
+      this.$http.get( `user/${ this.taskItem.authorID }` )
+        .then( ({ body }) => {
+          console.log(body);
+          this.Author = body;
+        })
+        .catch( error => console.error(error) )
+    }
 	};
 
 </script>

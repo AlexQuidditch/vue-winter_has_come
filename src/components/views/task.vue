@@ -10,45 +10,43 @@
 
 <script>
 
-	import taskSummary from './task/task-summary.vue';
-	import taskDetail from './task/task-detail.vue';
-	import taskResponse from './task/task-response.vue';
+  import taskSummary from './task/task-summary.vue';
+  import taskDetail from './task/task-detail.vue';
+  import taskResponse from './task/task-response.vue';
 
-	export default {
-		name: "Task",
-		components: { taskSummary , taskDetail , taskResponse },
+  export default {
+    name: "Task",
+    components: { taskSummary , taskDetail , taskResponse },
     data: () => ({
       taskItem: {
-    		_id: 0,
-    		authorID: 1,
-    		engagedID: 0,
-    		title: '',
-    		picture: '',
-    		published: '',
-    		description: '',
-    		budget: null,
-    		isAgreement: false,
-    		deadline: '',
-    		isRush: false,
-    		views: 0,
-    		response: 0,
-    		isEngaged: false,
-    		completed: {
-    			rate: 0,
-    			status: 'notCompleted',
-    			review: ''
-    		}
-    	}
+        _id: 0,
+        authorID: 1,
+        engagedID: 0,
+        title: '',
+        picture: '',
+        published: '',
+        description: '',
+        budget: null,
+        isAgreement: false,
+        deadline: '',
+        isRush: false,
+        views: 0,
+        response: 0,
+        isEngaged: false,
+        completed: {
+          rate: 0,
+          status: 'notCompleted',
+          review: ''
+        }
+      }
     }),
     created() {
       this.$store.dispatch( 'getTaskByID' , this.$route.query.id )
         .then( ({ body })  => {
-          console.log(body);
           Object.assign( this.taskItem , body );
-          this.taskItem.authorID = 1;
         })
     }
-	};
+  };
 
 </script>
 

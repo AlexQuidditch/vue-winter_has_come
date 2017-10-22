@@ -11,9 +11,9 @@
 
 <script>
 
-	import userInfo from '@layout/sidebar/user-info';
-	import userMenu from '@layout/sidebar/user-menu';
-	import recommendations from '@layout/sidebar/recommendations';
+	import userInfo from './sidebar/user-info.vue';
+	import userMenu from './sidebar/user-menu.vue';
+	import recommendations from './sidebar/recommendations.vue';
 
 	export default {
 		name: "aside",
@@ -27,8 +27,8 @@
 	.aside {
 		margin-top: 100px;
 		width: 205px;
-		padding: 30px;
-		background-color: #ffffff;
+		padding: 30px 20px;
+		background-color: #fff;
 		background-color: var(--whited);
 		border: solid 1px rgba(151, 151, 151, 0.2);
 	}

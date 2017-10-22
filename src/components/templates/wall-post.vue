@@ -2,7 +2,7 @@
   <li class="wall-post">
     <header class="post-header">
       <router-link :to="{ name: 'user', query: { id: Author._id }}" tag="img"
-                   :src=" backendLocation + '/upload/' + Author.avatar" :alt="Author.name + ' ' + Author.sename"
+                   :src=" backendLocation + '/upload/' + Author.avatar" :title="Author.name + ' ' + Author.sename"
                    class="post-header__avatar">
       </router-link>
       <div class="post-header__container">

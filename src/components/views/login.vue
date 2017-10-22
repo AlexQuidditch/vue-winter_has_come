@@ -1,19 +1,17 @@
 <template lang="html">
   <main class="main _login">
-    <transition name="fade" appear>
-      <button v-if="isLoggedIn"
-              @click="logOut()"
-              class="logout-button waves-effect waves-light"
-              >Это не я
-      </button>
-    </transition>
+    <button @click="logOut()" key="wqdkq"
+            :class="{ '_visible' : isLoggedIn.length }"
+            class="logout-button waves-effect waves-light"
+            >Это не я
+    </button>
     <!-- <button @click="registred =! registred"
             class="logout-button _second waves-effect waves-light"
             >Это не sqdя
     </button> -->
     <transition name="fade" mode="out-in">
 
-      <div v-if="!registred" class="login-hello-container">
+      <div v-if="!registred" key="notRegistred" class="login-hello-container">
 
         <div class="hello-message">
           <h1 class="hello-message__title">Добро пожаловать!</h1>
@@ -70,7 +68,7 @@
     },
     computed: {
       isLoggedIn() {
-        return !!this.$store.state.Auth.email;
+        return this.$store.state.Auth.email;
       }
     },
     methods: {
@@ -100,6 +98,8 @@
   }
 
   .logout-button {
+    opacity: 0;
+    visibility: hidden;
     position: absolute;
     top: 5vmin; right: 5vmin;
     size: 100px 30px;
@@ -111,12 +111,10 @@
     background-color: var(--irish-green);
     @include MDShadow-1;
     border: none;
-    transition:
-      color .3s ease-in-out,
-      background-color .3s ease-in-out,
-      box-shadow .3s ease-in-out;
-    &._second {
-      top: 5vmin; left: 5vmin;
+    transition: .3s ease-in-out;
+    &._visible {
+      opacity: 1;
+      visibility: visible;
     }
   }
 

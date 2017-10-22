@@ -1,7 +1,6 @@
 <template lang="html">
   <form @submit.prevent="submitForm()"
         class="post-registration">
-    {{ User }}
     <h3 class="post-registration__title">Заполните анкету</h3>
     <div class="post-registration-container">
       <div class="post-registration-column">

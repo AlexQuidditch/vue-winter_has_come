@@ -29,12 +29,12 @@
     computed: {
       Portfolio() {
         const storePortfolio = this.$store.state.User.portfolio;
-        const Portfolio = [];
-        storePortfolio.forEach( item => {
-          this.$store.state.Portfolio.filter( portfolio => {
-            if ( portfolio._id === item ) Portfolio.push( portfolio );
-          })
-        });
+        // const Portfolio = [];
+        // storePortfolio.forEach( item => {
+        //   this.$store.state.Portfolio.filter( portfolio => {
+        //     if ( portfolio._id === item ) Portfolio.push( portfolio );
+        //   })
+        // });
         return Portfolio;
       }
     },

@@ -28,10 +28,10 @@
 		components: { ratingsBlock },
 		computed: {
 			Personal() {
-				return this.$store.state.User.personal
+				return this.$store.state.SelectedUser.personal
 			},
 			Information() {
-				return this.$store.state.User.information
+				return this.$store.state.SelectedUser.information
 			},
       backendLocation() {
         return this.$store.state.General.host;

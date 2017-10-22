@@ -5,43 +5,52 @@
 		<h4 class="social-contacts__title">Контакты</h4>
 		<p class="social-contacts__text">{{ Contacts.text }}</p>
 		<ul class="social-contacts contacts-list">
-			<li v-for="( linkItem , index ) in Contacts.links" :key="index"
+			<li v-for="( contactItem , key , index ) in Contacts" :key="index"
 				class="social-contacts contacts-item">
-				<span v-if="linkItem.type == 'mail' && linkItem.value.length "
+				<span v-if="key == 'mail' && contactItem.length "
 					class="contacts-item__notation"
 					>Электронная почта:
 				</span>
-				<span v-else-if="linkItem.type == 'vk' && linkItem.value.length"
+				<span v-else-if="key == 'vk' && contactItem.length"
 					 class="contacts-item__notation"
 					 >Вконтакте:
 				</span>
-				<span v-else-if="linkItem.type == 'fb' && linkItem.value.length "
+				<span v-else-if="key == 'fb' && contactItem.length "
 					 class="contacts-item__notation"
 					 >Facebook:
 				</span>
-				<span v-if="linkItem.type == 'phone' && linkItem.value.length"
+				<span v-if="key == 'phone' && contactItem.length"
 					class="contacts-item__notation"
 					>Телефон:
 				</span>
-				<a v-if="linkItem.type == 'mail' && linkItem.value.length "
-					:href=" 'mailto:' + linkItem.value"
+				<span v-if="key == 'skype' && contactItem.length"
+					class="contacts-item__notation"
+					>Skype:
+				</span>
+				<a v-if="key == 'mail' && contactItem.length "
+					:href=" 'mailto:' + contactItem" target="_blank"
 					class="contacts-item__link"
-					>&nbsp;{{ linkItem.value }}
+					>&nbsp;{{ contactItem }}
 				</a>
-				<a v-else-if="linkItem.type == 'vk' && linkItem.value.length"
-					:href=" '//vk.com/' + linkItem.value"
+				<a v-else-if="key == 'vk' && contactItem.length"
+					:href=" '//vk.com/' + contactItem" target="_blank"
 					class="contacts-item__link"
-					>&nbsp;{{ linkItem.value }}
+					>&nbsp;{{ contactItem }}
 				</a>
-				<a v-else-if="linkItem.type == 'fb' && linkItem.value.length "
-					:href=" '//facebook.com/' + linkItem.value"
+				<a v-else-if="key == 'fb' && contactItem.length "
+					:href=" '//facebook.com/' + contactItem" target="_blank"
 					class="contacts-item__link"
-					>&nbsp;{{ linkItem.value }}
+					>&nbsp;{{ contactItem }}
 				</a>
-				<a v-if="linkItem.type == 'phone' && linkItem.value.length"
-					:href=" 'tel:' + linkItem.value"
+				<a v-if="key == 'phone' && contactItem.length"
+					:href=" 'tel:' + contactItem"
 					class="contacts-item__link"
-					>&nbsp;{{ linkItem.value }}
+					>&nbsp;{{ contactItem }}
+				</a>
+				<a v-if="key == 'skype' && contactItem.length"
+					:href=" 'skype:' + contactItem + '?call' "
+					class="contacts-item__link"
+					>&nbsp;{{ contactItem }}
 				</a>
 			</li>
 		</ul>

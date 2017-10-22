@@ -3,20 +3,18 @@
 		<personal></personal>
 		<social></social>
 		<portfolio></portfolio>
-		<reviews></reviews>
 	</main>
 </template>
 
 <script>
 
-	import personal from '@views/user/personal';
-	import reviews from '@views/user/reviews';
-	import portfolio from '@views/user/portfolio';
-	import social from '@views/user/social';
+	import personal from './user/personal.vue';
+	import portfolio from './user/portfolio.vue';
+	import social from './user/social.vue';
 
 	export default {
 		name: "user",
-		components: { personal , reviews , portfolio , social }
+		components: { personal , portfolio , social }
 	};
 
 </script>

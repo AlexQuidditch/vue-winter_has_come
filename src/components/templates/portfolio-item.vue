@@ -65,9 +65,9 @@
 
 	.portfolio-item {
 		position: relative;
-		size: 290px 210px;
+		size: 100% 210px;
 		min-width: 290px;
-		margin: 0 10px;
+		margin-bottom: 20px;
 		background-color: #fff;
 		background-color: var(--whited);
 		cursor: pointer;
@@ -79,9 +79,6 @@
 				opacity: 1;
 				visibility: visible;
 			}
-		}
-		&:first-child {
-			margin-left: 3px;
 		}
 		&__overlay {
 			overflow: hidden;

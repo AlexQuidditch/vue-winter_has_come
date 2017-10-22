@@ -43,13 +43,12 @@
   @import "../../../stylesheets/partials/mixins.scss";
 
   .wall {
-    overflow: hidden;
     position: relative;
     display: flex;
     flex-flow: row wrap;
     align-items: flex-start;
-    size: 100% auto;
-    padding: 20px 30px;
+    size: 640px auto;
+    padding: 20px 10px 20px 30px;
     transition: height .4s ease;
     &._folded {
       height: 68px;
@@ -64,6 +63,9 @@
       line-height: 28px;
       color: #4a4a4a;
       color: var(--charcoal-grey);
+    }
+    &__container {
+      width: 100%;
     }
   }
 

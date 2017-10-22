@@ -49,7 +49,7 @@
     position: relative;
     display: flex;
     align-items: flex-start;
-    height: 250px;
+    size: 100% 250px;
     padding: 30px;
   }
 

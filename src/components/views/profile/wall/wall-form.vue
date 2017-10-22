@@ -75,6 +75,7 @@
   @import "../../../../stylesheets/partials/_mixins.scss";
 
   .wall-form {
+    width: 100%;
     margin-top: 20px;
     margin-right: 20px;
     padding: 20px;

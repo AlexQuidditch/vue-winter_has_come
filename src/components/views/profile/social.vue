@@ -7,8 +7,8 @@
 
 <script>
 
-  import socialContacts from './social/social-contacts';
-  import socialTeams from './social/social-teams';
+  import socialContacts from './social/social-contacts.vue';
+  import socialTeams from './social/social-teams.vue';
 
   export default {
     name: "social",
@@ -23,6 +23,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    width: 100%;
     padding: 20px 30px;
     background-color: #fff;
     background-color: var(--whited);

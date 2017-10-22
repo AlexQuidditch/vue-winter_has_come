@@ -25,14 +25,14 @@ export default [
 		beforeEnter: requireAuth
 	},
 	{
-		path: '/agent',
+		path: '/agent/:id',
 		name: 'agent',
 		component: agent,
 		beforeEnter: requireAuth,
 		props: true
 	},
 	{
-		path: '/user',
+		path: '/user/:id',
 		name: 'user',
 		component: user,
 		beforeEnter: requireAuth,
@@ -52,13 +52,15 @@ export default [
 		path: '/friends',
 		name: 'friends',
 		component: friends,
-		beforeEnter: requireAuth
+		beforeEnter: requireAuth,
+		props: true
 	},
 	{
 		path: '/teams',
 		name: 'teams',
 		component: teams,
-		beforeEnter: requireAuth
+		beforeEnter: requireAuth,
+		props: true
 	},
 	{
 		path: '/find-job',
@@ -68,7 +70,7 @@ export default [
 		props: true
 	},
 	{
-		path: '/task',
+		path: '/task/:id',
 		name: 'task',
 		component: task,
 		beforeEnter: requireAuth,
@@ -78,16 +80,18 @@ export default [
 		path: '/task/create',
 		name: 'create-task',
 		component: createTask,
-		beforeEnter: requireAuth
+		beforeEnter: requireAuth,
+		props: true
 	},
 	{
-		path: '/task/edit',
+		path: '/task/edit/:id',
 		name: 'edit-task',
 		component: createTask,
-		beforeEnter: requireAuth
+		beforeEnter: requireAuth,
+		props: true
 	},
 	{
-		path: '/task/complete',
+		path: '/task/complete/:id',
 		name: 'complete-task',
 		component: completeTask,
 		beforeEnter: requireAuth,
@@ -97,7 +101,6 @@ export default [
 		path: '/messages',
 		name: 'messages',
 		component: messages,
-		props: true,
 		beforeEnter: requireAuth,
 		children: [
 			{
@@ -109,7 +112,7 @@ export default [
 		]
 	},
 	{
-		path: '/settings',
+		path: '/settings/:id',
 		name: 'settings',
 		component: settings,
 		beforeEnter: requireAuth,
@@ -119,8 +122,7 @@ export default [
 		path: '/support',
 		name: 'support',
 		component: support,
-		beforeEnter: requireAuth,
-		props: true
+		beforeEnter: requireAuth
 	},
 	{
 		path: '*',

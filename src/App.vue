@@ -151,8 +151,8 @@
 	.fade-enter-active,
 	.fade-leave-active {
 		transition:
-		opacity .3s ease-in-out,
-		transform .3s ease-in-out
+			opacity .3s ease-in-out,
+			transform .3s ease-in-out
 	}
 
 	.fade-fast-enter,
@@ -162,8 +162,8 @@
 	.fade-fast-enter-active,
 	.fade-fast-leave-active {
 		transition:
-		opacity .15s ease-in-out,
-		transform .15s ease-in-out
+			opacity .15s ease-in-out,
+			transform .15s ease-in-out
 	}
 
 	.fade-long-enter,
@@ -173,8 +173,8 @@
 	.fade-long-enter-active,
 	.fade-long-leave-active {
 		transition:
-		opacity .75s ease-in-out,
-		transform .75s ease-in-out
+			opacity .75s ease-in-out,
+			transform .75s ease-in-out
 	}
 
 	.list-enter,

@@ -3,18 +3,18 @@
 		<personal></personal>
 		<social></social>
 		<portfolio></portfolio>
-		<reviews></reviews>
+		<!-- <reviews></reviews> -->
     <wall></wall>
 	</main>
 </template>
 
 <script>
 
-  import personal from '@views/profile/personal.vue';
+  import personal from './profile/personal.vue';
   import reviews from '@views/profile/reviews.vue';
   import portfolio from '@views/profile/portfolio.vue';
   import social from '@views/profile/social.vue';
-  import wall from '@views/profile/wall.vue';
+  import wall from './profile/wall.vue';
 
   export default {
     name: "profile",

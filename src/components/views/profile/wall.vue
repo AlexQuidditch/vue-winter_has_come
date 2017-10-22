@@ -12,7 +12,6 @@
         </wall-post>
       </transition-group>
     </div>
-    <wall-filter></wall-filter>
   </section>
 </template>
 
@@ -21,13 +20,12 @@
   import iconWall from '@icons/wall.js';
   import iconHeart from '@icons/heart.js';
 
-  import wallForm from '@views/profile/wall/wall-form.vue';
+  import wallForm from './wall/wall-form.vue';
   import wallPost from '@templates/wall-post.vue';
-  import wallFilter from '@views/profile/wall/wall-filter.vue';
 
   export default {
     name: "wall",
-    components: { wallForm , wallPost , wallFilter , iconWall , iconHeart },
+    components: { wallForm , wallPost , iconWall , iconHeart },
     computed: {
       wallPosts() {
         return this.$store.state.Wall.posts

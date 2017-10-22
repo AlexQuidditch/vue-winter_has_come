@@ -10,7 +10,7 @@
         <p class="personal-more__item">Статус: <span>{{ Information.status }}</span></p>
       </div>
       <div class="personal-more">
-        <p class="personal-more__item">{{ Information.town }} ({{ Information.country }})</p>
+        <p class="personal-more__item">{{ Information.town }}</p>
         <p class="personal-more__item">{{ Information.education.place }}, {{ Information.education.faculty }}</p>
       </div>
       <p class="personal-info__about">{{ Information.about }}</p>

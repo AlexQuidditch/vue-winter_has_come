@@ -25,31 +25,6 @@
   export default {
     name: "wall-filter",
     components: { vRadio , portfolioItem },
-    data: () => ({
-      filterList: [
-        {
-          value: 'all',
-          text: 'Все посты'
-        },
-        {
-          value: 'interests',
-          text: 'Интересные'
-        },
-        {
-          value: 'photo',
-          text: 'Фотографии'
-        },
-        {
-          value: 'updates',
-          text: 'Обновления'
-        },
-        {
-          value: 'comments',
-          text: 'Комментарии'
-        }
-      ],
-      filterBy: 'all'
-    }),
     computed: {
       Portfolio() {
         const storePortfolio = this.$store.state.Portfolio;

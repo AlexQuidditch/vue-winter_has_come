@@ -27,7 +27,6 @@
 		name: 'Winter-has-Come',
 		components: { wrapper , layoutHeader , layoutSidebar , layoutMain ,layoutFooter },
 		beforeCreate() {
-		  this.$store.dispatch('cleanInstance')
 			// firebase.auth().onAuthStateChanged( user => {
 			// 	if ( user ) {
 			// 		this.user = user;

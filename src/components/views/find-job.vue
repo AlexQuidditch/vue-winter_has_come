@@ -28,10 +28,8 @@
       filterPanel , searchTask , navigationPanel,
       all , rush , active , completed
     },
-    beforeCreate() {
-      this.$store.dispatch('getTasks')
-        .then( response => console.log(response) )
-        .catch( error => console.error(error) )
+    beforeRouteEnter ( to , from , next ) {
+      next( vm => vm.$store.dispatch('getTasks') )
     }
   };
 

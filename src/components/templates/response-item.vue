@@ -1,14 +1,14 @@
 <template lang="html">
   <li class="response-item">
     <div class="response-header">
-      <router-link :to="{ name: 'user', query: { id: Author._id }}" tag="img"
+      <router-link :to="{ name: 'user', params: { id : Author._id }}" tag="img"
                    :src=" backendLocation + '/upload/' + Author.avatar"
                    :title="Author.name + ' ' + Author.sename"
                    class="response-header__avatar"
                    alt="Открыть профиль">
       </router-link>
       <div class="response-header__container">
-        <router-link :to="{ name: 'user', query: { id: Author._id }}" tag="p"
+        <router-link :to="{ name: 'user', params: { id : Author._id }}" tag="p"
                      class="response-header__name">
           {{ Author.name }} {{ Author.sename }}
           <span>({{ Author.rating }})</span>
@@ -24,12 +24,12 @@
       </div>
       <ul class="response-main__column portfolio-list">
         <router-link v-for="work in Author.works" :key="work._id"
-                     :to="{ name: 'task', query: { id: work._id }}" tag="li"
+                     :to="{ name: 'task', params: { id : work._id }}" tag="li"
                      class="portfolio-list__item">
-        <img :src=" '/static/assets/shared/' + work.preview " :alt="work._id"
-             class="portfolio-list__item-preview" />
-      </router-link>
-    </ul>
+          <img :src=" backendLocation + '/upload/' + work.preview " :alt="work._id"
+               class="portfolio-list__item-preview" />
+        </router-link>
+      </ul>
     </div>
     <div class="response-footer">
       <button v-if="responseItem.isEngage" class="response-footer__button">Назначен исполнителем</button>
@@ -56,10 +56,7 @@
     }),
     created() {
       this.$http.get( `user/${ this.responseItem.authorID }` )
-        .then( ({ body }) => {
-          console.log(body);
-          this.Author = body;
-        })
+        .then( ({ body }) => this.Author = body )
         .catch( error => console.error(error) )
     },
     computed: {
@@ -91,7 +88,7 @@
       size: 50px;
       object-fit: cover;
       cursor: pointer;
-      border-radius: 3px;
+      border-radius: 50%;
       @include MDShadow-1;
     }
     &__name {

@@ -140,6 +140,12 @@
   export default {
     name: 'create-task',
     components: { Money , iconCheck , iconCalendar , vChip , IconClose },
+		props: {
+		  'id': {
+		    type: String,
+		    required: true
+		  }
+		},
     data: () => ({
       specKeyword: '',
       moneyOptions: {
@@ -169,7 +175,7 @@
       this.$store.dispatch( 'setAuthorID' , this.$store.state.User._id );
       if ( this.isEdit ) {
         let taskToEdit = this.$store.state.Tasks
-          .find( task => task._id == this.$route.query.id );
+          .find( task => task._id == this.id );
         this.$store.dispatch( 'setTaskToEdit' , taskToEdit );
       }
     },
@@ -193,44 +199,57 @@
       ]),
       saveTask() {
         if ( !this.isEdit ) {
-          this.$store.dispatch('saveTask')
-            .then( ({ data }) => {
-              this.$swal({
-                title: 'Вы уверены?',
-                text: "Можете вернуться и отредактировать.",
-                type: 'info',
-                showCancelButton: true,
-                confirmButtonColor: '#009d2f',
-                cancelButtonColor: '#4a4a4a',
-                confirmButtonText: 'Опубликовать!',
-                cancelButtonText: 'Нет, ещё не всё.',
-                confirmButtonClass: 'create-task-sweet__button waves-effect waves-light',
-                cancelButtonClass: 'create-task-sweet__button _cancel waves-effect waves-light',
-                buttonsStyling: false
-              })
-              .then( () => {
+          this.$swal({
+            title: 'Вы уверены?',
+            text: "Можете вернуться и отредактировать.",
+            type: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#009d2f',
+            cancelButtonColor: '#4a4a4a',
+            confirmButtonText: 'Опубликовать!',
+            cancelButtonText: 'Нет, ещё не всё.',
+            confirmButtonClass: 'create-task-sweet__button waves-effect waves-light',
+            cancelButtonClass: 'create-task-sweet__button _cancel waves-effect waves-light',
+            buttonsStyling: false
+          })
+          .then( () => {
+            this.$store.dispatch('saveTask')
+              .then( ({ data }) => {
                 this.$swal(
                   'Сохранено!',
                   'Задача опубликована.',
                   'success'
                 );
                 this.$store.dispatch('clearDraft');
-              }, dismiss => {
-                if ( dismiss === 'cancel' ) {
-                  this.$swal(
-                    'Отменено!',
-                    'Отредактируйте, или сохраните черновик',
-                    'info'
-                  )
-                }
+              })
+              .catch( error => {
+                console.error(error);
+                this.$swal( 'Упс!' , 'Что-то пошло не так...' , 'error' )
               });
+          }, dismiss => {
+            if ( dismiss === 'cancel' ) {
+              this.$swal(
+                'Отменено!',
+                'Отредактируйте, или сохраните черновик',
+                'info'
+              )
+            }
+          });
+        } else {
+          this.$store.dispatch('updateTask')
+            .then( ({ data }) => {
+              this.$swal(
+                'Сохранено!',
+                'Задача отредактирована.',
+                'success'
+              );
+              this.$store.dispatch('clearDraft')
+              this.$router.push({ name : 'find-job' })
             })
             .catch( error => {
               console.error(error);
               this.$swal( 'Упс!' , 'Что-то пошло не так...' , 'error' )
             });
-        } else {
-          this.$store.dispatch('updateTask')
         }
       },
       saveDraft() {

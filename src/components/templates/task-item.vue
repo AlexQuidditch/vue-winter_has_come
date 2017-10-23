@@ -1,20 +1,22 @@
 <template lang="html">
 	<li class="task-item">
 		<div class="task-item__about">
-			<router-link :to="{ name: 'task', query: { id: taskItem._id }}" tag="img"
-									 :src=" backendLocation + '/upload/' + taskItem.attached[0]" :alt="taskItem.title" class="about-picture">
+			<router-link :to="{ name: 'task', params: { id: taskItem._id }}" tag="img"
+									 :src=" backendLocation + '/upload/' + taskItem.attached[0]"
+                   :alt="taskItem.title" class="about-picture">
 			</router-link>
 			<div class="about-picture-overlay" v-if="taskItem.isEngaged">
 				<p class="about-picture-overlay__text">Исполнитель найден!</p>
 			</div>
 			<div class="about-information">
-				<router-link :to="{ name: 'task', query: { id: taskItem._id }}" tag="h6"
+				<router-link :to="{ name: 'task', params: { id: taskItem._id }}" tag="h6"
 										 :class="{ '_is-rush' : taskItem.isRush , '_is-engaged' : taskItem.isEngaged }"
 										 class="about-information__title">{{ taskItem.title }}
 				</router-link>
-				<router-link :to="{ name: 'user', query: { id: taskItem.authorID }}" tag="img"
+				<router-link :to="{ name: 'user', params: { id: Author._id }}" tag="img"
 					           class="about-information__author-avatar"
-					           :src=" backendLocation + '/upload/' + Author.avatar" :title="Author.name + ' ' + Author.sename"
+					           :src=" backendLocation + '/upload/' + Author.personal.avatar"
+                     :title="Author.personal.name + ' ' + Author.personal.sename"
 					           alt="Открыть профиль автора">
 				</router-link>
 				<p class="about-information__published">{{ new Date(taskItem.published).toLocaleString() }}</p>
@@ -44,9 +46,9 @@
 						    class="summary-deadline__value _is-rush"
 						>СРОЧНО!
 					</span>
-					<span :class="{ '_is-engaged' : taskItem.isEngaged }"
+					<span v-if="!taskItem.isRush" :class="{ '_is-engaged' : taskItem.isEngaged }"
 						    class="summary-deadline__value"
-						>{{ new Date(taskItem.deadline).toLocaleString() }}
+						>{{ deadline }}
 					</span>
 				</li>
 			</ul>
@@ -66,26 +68,29 @@
 
 <script>
 
-	import iconDisc from '@icons/disc';
-	import iconClock from '@icons/clock';
-	import iconEye from '@icons/eye';
-	import iconComments from '@icons/comments';
+  import iconDisc from '@icons/disc';
+  import iconClock from '@icons/clock';
+  import iconEye from '@icons/eye';
+  import iconComments from '@icons/comments';
 
   import { longDate } from '@helpers/dateFormat.js';
 
-	export default {
-		name: "task-item",
-		components: { iconClock , iconDisc , iconEye , iconComments },
-		props: {
-			'taskItem': {
-				type: Object,
-				required: true
-			}
-		},
+  export default {
+    name: "task-item",
+    components: { iconClock , iconDisc , iconEye , iconComments },
+    props: {
+      'taskItem': {
+        type: Object,
+        required: true
+      }
+    },
     data: () => ({
       Author: {}
     }),
     computed: {
+      deadline() {
+        return new Date( this.taskItem.deadline ).toLocaleString( 'ru-RU' , longDate );
+      },
       backendLocation() {
         return this.$store.state.General.host
       }
@@ -93,12 +98,11 @@
     created() {
       this.$http.get( `user/${ this.taskItem.authorID }` )
         .then( ({ body }) => {
-          console.log(body);
           this.Author = body;
         })
         .catch( error => console.error(error) )
     }
-	};
+  };
 
 </script>
 

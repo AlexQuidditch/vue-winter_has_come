@@ -2,15 +2,16 @@
   <div class="task-detail">
 		<div class="detail-header">
 			<div class="header-agent">
-				<router-link :to="{ name: 'user', query: { id: Author._id }}" tag="img"
-                     :src=" backendLocation + '/upload/' + Author.avatar" :alt="Author.name + ' ' + Author.sename"
+				<router-link :to="{ name: 'user', params: { id: Author._id }}" tag="img"
+                     :src=" backendLocation + '/upload/' + Author.personal.avatar"
+                     :alt="Author.personal.name + ' ' + Author.personal.sename"
 					           class="header-agent__avatar"
 					           title="Открыть профиль">
 				</router-link>
-				<router-link :to="{ name: 'user', query: { id: Author._id }}" tag="p"
+				<router-link :to="{ name: 'user', params: { id: Author._id }}" tag="p"
 					           class="header-agent__name">
-					{{ Author.name }}<br />
-					{{ Author.sename }}
+					{{ Author.personal.name }}<br />
+					{{ Author.personal.sename }}
 				</router-link>
 			</div>
 			<div class="header-statistics">
@@ -25,7 +26,7 @@
 					</span>
 				</p>
 				<p class="header-statistics__issued">Заданий выдано:
-					<span class="header-statistics__issued-counter">{{ Author.issued }}</span>
+					<span class="header-statistics__issued-counter">{{ Author.responses.issued }}</span>
 				</p>
 			</div>
 		</div>
@@ -53,13 +54,13 @@
 					<icon-clock :class="{ '_is-rush' : taskItem.isRush , '_is-engaged' : taskItem.isEngaged }"
 						          class="summary-deadline__icon">
 					</icon-clock>
-					<span v-if="taskItem.isRush" :class="{ '_is-engaged' : taskItem.isEngaged }"
+					<span v-if="taskItem.isRush" :class="{ '_is-engaged' : taskItem.isRush }"
 						    class="summary-deadline__value _is-rush"
 						>СРОЧНО!
 					</span>
-					<span :class="{ '_is-engaged' : taskItem.isEngaged }"
+					<span v-if="!taskItem.isRush" :class="{ '_is-rush' : taskItem.isRush }"
 						    class="summary-deadline__value"
-						>{{ taskItem.deadline }}
+						>{{ deadline }}
 					</span>
 				</li>
 			</ul>
@@ -73,9 +74,9 @@
           <span class="summary-response__value">{{ taskItem.response }} ответов</span>
         </li>
       </ul>
-      <div class="detail-footer__row">
-        <button @click="completeTask( $route.query.id )" class="detail-footer__row-button _complete waves-effect waves-light">Завершить</button>
-        <button @click="editTask( $route.query.id )" class="detail-footer__row-button _edit waves-effect waves-light">Редактировать</button>
+      <div v-if="taskItem.authorID === currentUserID" class="detail-footer__row">
+        <button @click="completeTask()" class="detail-footer__row-button _complete waves-effect waves-light">Завершить</button>
+        <button @click="editTask()" class="detail-footer__row-button _edit waves-effect waves-light">Редактировать</button>
       </div>
     </div>
   </div>
@@ -94,36 +95,39 @@
     name: "Task-Detail",
     components: { iconClock , iconDisc , iconEye , iconComments },
 		props: {
+      'id': {
+        type: String,
+        required: true
+      },
 			'taskItem': {
 				type: Object,
 				required: true
-			}
+			},
+      'Author': {
+        type: Object,
+        required: true
+      }
 		},
-    data: () => ({
-      Author: {}
-    }),
-    created() {
-      this.$http.get( `user/${ this.taskItem.authorID }` )
-        .then( ({ body }) => {
-          console.log(body);
-          this.Author = body;
-        })
-        .catch( error => console.error(error) )
-    },
     computed: {
+      deadline() {
+        return new Date( this.taskItem.deadline ).toLocaleString( 'ru-RU' , longDate );
+      },
       published() {
-        return new Date(this.taskItem.published).toLocaleString('ru-RU' , longDate );
+        return new Date( this.taskItem.published ).toLocaleString( 'ru-RU' , longDate );
+      },
+      currentUserID() {
+        return this.$store.state.User._id;
       },
       backendLocation() {
         return this.$store.state.General.host
       }
     },
     methods: {
-      completeTask( q ) {
-        this.$router.push({ name: 'complete-task' , query: { id : q } })
+      completeTask() {
+        this.$router.push({ name: 'complete-task' , params: { id : this.id } })
       },
-      editTask( q ) {
-        this.$router.push({ name: 'edit-task' , query: { id : q } })
+      editTask() {
+        this.$router.push({ name: 'edit-task' , params: { id : this.id } })
       }
     }
   };
@@ -154,6 +158,7 @@
         size: 50px;
         object-fit: cover;
         cursor: pointer;
+        border-radius: 50%;
         @include MDShadow-1;
       }
       &__name {

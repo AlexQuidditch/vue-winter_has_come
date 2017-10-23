@@ -1,10 +1,10 @@
 <template lang="html">
 	<main class="main _task">
 		<section class="task">
-			<task-detail :taskItem="taskItem"></task-detail>
-			<task-response :taskItem="taskItem"></task-response>
+			<task-detail :taskItem="taskItem" :Author="Author" :id="id"></task-detail>
+			<task-response :taskItem="taskItem" :id="id"></task-response>
 		</section>
-		<task-summary :taskItem="taskItem"></task-summary>
+		<task-summary :taskItem="taskItem" :id="id"></task-summary>
 	</main>
 </template>
 
@@ -17,34 +17,99 @@
   export default {
     name: "Task",
     components: { taskSummary , taskDetail , taskResponse },
+    props: {
+      'id': {
+        type: String,
+        required: true
+      }
+    },
     data: () => ({
       taskItem: {
-        _id: 0,
-        authorID: 1,
-        engagedID: 0,
+        _id: '',
+        authorID: '',
+        attached: [],
+        engagedID: '',
         title: '',
         picture: '',
         published: '',
         description: '',
-        budget: null,
-        isAgreement: false,
+        budget: '',
+        isAgreement: '',
         deadline: '',
-        isRush: false,
-        views: 0,
-        response: 0,
-        isEngaged: false,
+        isRush: '',
+        views: '',
+        response: '',
+        isEngaged: '',
         completed: {
-          rate: 0,
-          status: 'notCompleted',
+          rate: '',
+          status: '',
           review: ''
         }
+      },
+      Author: {
+        _id: '',
+        isAgent: null,
+        wallID: '',
+        personal: {
+          avatar: '',
+          name: '',
+          sename: '',
+          email: '',
+          password: '',
+          born: '',
+          gender: '',
+          caption: ''
+        },
+        information: {
+          specialization: '',
+          lastVisit: '',
+          status: '',
+          town: '',
+          country: '',
+          education: {
+            place: '',
+            faculty: ''
+          }
+        },
+      	registrationDate: '',
+      	popularity: '',
+      	responses: {
+      		issued: '',
+      		positive: '',
+      		negative: ''
+      	},
+        ratings: {
+          mainRate: '',
+          average: '',
+          completed: '',
+          tests: {
+            value: '',
+            total: '',
+            rate: '',
+          }
+        },
+        social: {
+          contacts: {
+            vk: '',
+            fb: '',
+            skype: '',
+            telegram: ''
+          },
+          teams: []
+        },
+        portfolio: [],
+        reviews: []
       }
     }),
     created() {
-      this.$store.dispatch( 'getTaskByID' , this.$route.query.id )
-        .then( ({ body })  => {
+      this.$store.dispatch( 'getTaskByID' , this.id )
+        .then( ({ body }) => {
           Object.assign( this.taskItem , body );
+          this.$http.get( `user/${ this.taskItem.authorID }` )
+            .then( ({ body }) => Object.assign( this.Author , body ) )
+            .catch( error => console.error(error) )
         })
+        .catch( error => console.error(error) );
     }
   };
 

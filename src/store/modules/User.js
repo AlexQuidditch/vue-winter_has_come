@@ -27,6 +27,13 @@ const template = {
       faculty: ''
     }
   },
+	registrationDate: '',
+	popularity: '',
+	responses: {
+		issued: '',
+		positive: '',
+		negative: ''
+	},
   ratings: {
     mainRate: '',
     average: '',

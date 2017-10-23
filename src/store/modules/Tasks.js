@@ -75,7 +75,7 @@ const actions = {
     return API.get(`task/get/${ payload }`)
   },
   clearTasks( { commit } , payload ) {
-    commit( 'CLEAR_TASKS' , payload )
+    commit( 'CLEAR_TASKS' , payload );
   }
 };
 

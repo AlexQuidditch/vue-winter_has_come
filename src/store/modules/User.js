@@ -1,61 +1,8 @@
-//Imports on top
+import API from '../api';
+
+import template from '../collections/userTemplate.json';
 
 const state = {};
-
-const template = {
-  _id: '',
-  isAgent: null,
-  wallID: '',
-  personal: {
-    avatar: '',
-    name: '',
-    sename: '',
-    email: '',
-    password: '',
-    born: '',
-    gender: '',
-    caption: ''
-  },
-  information: {
-    specialization: '',
-    lastVisit: '',
-    status: '',
-    town: '',
-    country: '',
-    education: {
-      place: '',
-      faculty: ''
-    }
-  },
-	registrationDate: '',
-	popularity: '',
-	responses: {
-		issued: '',
-		positive: '',
-		negative: ''
-	},
-  ratings: {
-    mainRate: '',
-    average: '',
-    completed: '',
-    tests: {
-      value: '',
-      total: '',
-      rate: '',
-    }
-  },
-  social: {
-    contacts: {
-      vk: '',
-      fb: '',
-      skype: '',
-      telegram: ''
-    },
-    teams: []
-  },
-  portfolio: [],
-  reviews: []
-};
 
 const actions = {
   startApplication({ commit }) {
@@ -76,6 +23,11 @@ const actions = {
   setRole( { commit } , payload ) {
     commit( 'SET_ROLE' , payload )
   },
+  updateAbout( { commit } , { id , user } ) {
+    return API.post( `user/edit/${ id }` , user )
+      .then( ({ body }) => console.log(body) )
+      .catch( error => console.error(error) )
+  }
 
 };
 
@@ -106,6 +58,9 @@ const mutations = {
   },
   UPDATE_FACULTY( { information } , payload ) {
     information.education.faculty = payload;
+  },
+  UPDATE_ABOUT( { personal } , payload ) {
+    personal.about = payload;
   },
   // SOCIAL
   UPDATE_VK( { social } , payload ) {

@@ -1,0 +1,55 @@
+{
+	"_id": "",
+	"isAgent": null,
+	"wallID": "",
+	"personal": {
+		"avatar": "",
+		"name": "",
+		"sename": "",
+		"email": "",
+		"password": "",
+		"born": "",
+		"gender": "",
+		"caption": "",
+    "about": ""
+	},
+	"information": {
+		"specialization": "",
+		"lastVisit": "",
+		"status": "",
+		"town": "",
+		"country": "",
+		"education": {
+			"place": "",
+			"faculty": ""
+		}
+	},
+	"registrationDate": "",
+	"popularity": "",
+	"responses": {
+		"issued": "",
+		"positive": "",
+		"negative": ""
+	},
+	"ratings": {
+		"mainRate": "",
+		"average": "",
+		"completed": "",
+		"tests": {
+			"value": "",
+			"total": "",
+			"rate": ""
+		}
+	},
+	"social": {
+		"contacts": {
+			"vk": "",
+			"fb": "",
+			"skype": "",
+			"telegram": ""
+		},
+		"teams": []
+	},
+	"portfolio": [],
+	"reviews": []
+}

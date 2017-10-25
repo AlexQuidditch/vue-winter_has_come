@@ -30,10 +30,12 @@
 		},
 		settings: {
 			text: 'Настройки',
-			route: 'settings',
-			query: {
-				section: 'common'
-			}
+			route: {
+        name : 'settings',
+  			query: {
+  				section : 'common'
+  			}
+      }
 		},
 		support: {
 			text: 'Поддержка',

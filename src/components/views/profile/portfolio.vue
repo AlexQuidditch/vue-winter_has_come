@@ -1,11 +1,10 @@
 <template lang="html">
   <section v-if="Portfolio.length" class="portfolio">
-    <img src="/static/assets/profile/portfolio/case.svg" alt="Портфолио"
-         class="portfolio__icon">
+    <icon-case :Width="1" class="portfolio__icon"></icon-case>
     <h3 class="portfolio__title">Мои работы</h3>
     <ul class="portfolio-list">
-      <portfolio-item v-for="( portfolioItem , index ) in Portfolio" :key="index"
-                      :portfolioItem="portfolioItem">
+      <portfolio-item v-for="( portfolioItem , index ) in limitBy( Portfolio , 2 ) " :key="index"
+                      :PortfolioItem="portfolioItem">
       </portfolio-item>
     </ul>
   </section>
@@ -13,11 +12,13 @@
 
 <script>
 
-  import portfolioItem from '@templates/portfolio-item';
+  import IconCase from '@icons/case.js';
+
+  import portfolioItem from '@templates/portfolio-item.vue';
 
   export default {
     name: "portfolio",
-    components: { portfolioItem },
+    components: { portfolioItem , IconCase },
     computed: {
       Portfolio() {
         // const storePortfolio = this.$store.state.User.portfolio;
@@ -48,9 +49,7 @@
     display: flex;
     flex-flow: row wrap;
     align-items: flex-start;
-    width: 330px;
-    padding: 20px 30px 30px 10px;
-    transition: height .4s ease;
+    padding: 20px 30px 0 30px;
     &__icon {
       width: 28px;
     }
@@ -72,7 +71,10 @@
   }
 
   .portfolio-list {
-    overflow-y: visible;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    width: 100%;
     margin-top: 20px;
   }
 

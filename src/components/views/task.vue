@@ -1,6 +1,6 @@
 <template lang="html">
 	<main class="main _task">
-		<section class="task">
+		<section class="task" v-cloak>
 			<task-detail :taskItem="taskItem" :Author="Author" :id="id"></task-detail>
 			<task-response :taskItem="taskItem" :id="id"></task-response>
 		</section>
@@ -9,6 +9,9 @@
 </template>
 
 <script>
+
+  import userTemplate from '@collections/userTemplate.json';
+  import taskTemplate from '@collections/taskTemplate.json';
 
   import taskSummary from './task/task-summary.vue';
   import taskDetail from './task/task-detail.vue';
@@ -24,89 +27,20 @@
       }
     },
     data: () => ({
-      taskItem: {
-        _id: '',
-        authorID: '',
-        attached: [],
-        engagedID: '',
-        title: '',
-        picture: '',
-        published: '',
-        description: '',
-        budget: '',
-        isAgreement: '',
-        deadline: '',
-        isRush: '',
-        views: '',
-        response: '',
-        isEngaged: '',
-        completed: {
-          rate: '',
-          status: '',
-          review: ''
-        }
-      },
-      Author: {
-        _id: '',
-        isAgent: null,
-        wallID: '',
-        personal: {
-          avatar: '',
-          name: '',
-          sename: '',
-          email: '',
-          password: '',
-          born: '',
-          gender: '',
-          caption: ''
-        },
-        information: {
-          specialization: '',
-          lastVisit: '',
-          status: '',
-          town: '',
-          country: '',
-          education: {
-            place: '',
-            faculty: ''
-          }
-        },
-      	registrationDate: '',
-      	popularity: '',
-      	responses: {
-      		issued: '',
-      		positive: '',
-      		negative: ''
-      	},
-        ratings: {
-          mainRate: '',
-          average: '',
-          completed: '',
-          tests: {
-            value: '',
-            total: '',
-            rate: '',
-          }
-        },
-        social: {
-          contacts: {
-            vk: '',
-            fb: '',
-            skype: '',
-            telegram: ''
-          },
-          teams: []
-        },
-        portfolio: [],
-        reviews: []
-      }
+      taskItem: taskTemplate,
+      Author: userTemplate
     }),
     created() {
       this.$store.dispatch( 'getTaskByID' , this.id )
         .then( ({ body }) => {
           Object.assign( this.taskItem , body );
+          this.taskItem.views += 1;
           this.$http.get( `user/${ this.taskItem.authorID }` )
-            .then( ({ body }) => Object.assign( this.Author , body ) )
+            .then( ({ body }) => {
+							Object.assign( this.Author , body );
+							this.$store.dispatch( 'hasViewed' , [ this.id , this.taskItem ] )
+                .then( ({ body }) => console.log( 'Task viewed -' , body.views ))
+						})
             .catch( error => console.error(error) )
         })
         .catch( error => console.error(error) );

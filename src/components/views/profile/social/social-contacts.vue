@@ -4,9 +4,9 @@
 				class="social-contacts__icon" />
 		<h4 class="social-contacts__title">Контакты</h4>
 		<p class="social-contacts__text">{{ Contacts.text }}</p>
-		<ul class="social-contacts contacts-list">
+		<ul class="contacts-list">
 			<li v-for="( contactItem , key , index ) in Contacts" :key="index"
-				class="social-contacts contacts-item">
+				class="contacts-item">
 				<span v-if="key == 'mail' && contactItem.length "
 					class="contacts-item__notation"
 					>Электронная почта:
@@ -72,11 +72,18 @@
 
 <style lang="scss">
 
+  @import "../../../../stylesheets/partials/mixins.scss";
+
 	.social-contacts {
-		display: flex;
-		flex-flow: row wrap;
-		align-items: flex-start;
-		width: 410px;
+	  display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    width: 291px;
+    padding: 20px 30px;
+    border-radius: 3px;
+		background-color: #fff;
+		background-color: var(--whited);
+		@include MDShadow-1;
 		&__icon {
 			width: 28px;
 		}
@@ -95,13 +102,14 @@
 			color: #4a4a4a;
 			color: var(--charcoal-grey);
 		}
-		&.contacts-list {
+		.contacts-list {
 			margin-top: 20px;
 		}
 		.contacts-item {
+		  display: block;
 			font-size: 13px;
 			font-weight: 300;
-			line-height: 1.46;
+			line-height: 2;
 			color: #4a4a4a;
 			color: var(--charcoal-grey);
 			&__link {

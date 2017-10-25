@@ -1,5 +1,5 @@
 <template lang="html">
-	<li class="task-item">
+	<li class="task-item" v-if="">
 		<div class="task-item__about">
 			<router-link :to="{ name: 'task', params: { id: taskItem._id }}" tag="img"
 									 :src=" backendLocation + '/upload/' + taskItem.attached[0]"
@@ -68,6 +68,8 @@
 
 <script>
 
+  import userTemplate from '@collections/userTemplate.json';
+
   import iconDisc from '@icons/disc';
   import iconClock from '@icons/clock';
   import iconEye from '@icons/eye';
@@ -85,14 +87,14 @@
       }
     },
     data: () => ({
-      Author: {}
+      Author: userTemplate
     }),
     computed: {
       deadline() {
         return new Date( this.taskItem.deadline ).toLocaleString( 'ru-RU' , longDate );
       },
       backendLocation() {
-        return this.$store.state.General.host
+        return this.$store.state.General
       }
     },
     created() {

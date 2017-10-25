@@ -1,6 +1,5 @@
 <template lang="html">
   <div class="ratings">
-    <h4 class="ratings__main-rate">{{ Ratings.mainRate }}</h4>
     <star-rating v-model="Ratings.mainRate"
       :increment="0.1"
       :star-size="18"

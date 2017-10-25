@@ -1,9 +1,11 @@
 <template lang="html">
 	<main class="main _profile">
 		<personal></personal>
-		<social></social>
-    <wall></wall>
-		<portfolio></portfolio>
+    <div class="profile-container">
+      <portfolio></portfolio>
+      <wall></wall>
+    </div>
+    <social></social>
 	</main>
 </template>
 
@@ -27,8 +29,12 @@
 		display: flex;
 		flex-flow: row wrap;
 		justify-content: space-between;
-		align-items: flex-start;
+    align-content: flex-start;
 		padding: 0;
 	}
-  
+
+  .profile-container {
+    width: 640px;
+  }
+
 </style>

@@ -187,7 +187,7 @@
         return this.$store.state.CreateTask;
       },
       backendLocation() {
-        return this.$store.state.General.host;
+        return this.$store.state.General;
       }
     },
     methods: {

@@ -33,7 +33,7 @@
       </router-link>
     </li>
     <li class="menu-item">
-      <router-link :to="{ name: Menu.settings.route , query: Menu.settings.query }" class="menu-item__link">
+      <router-link :to="Menu.settings.route" class="menu-item__link">
         <span class="menu-item__text">{{ Menu.settings.text }}</span>
       </router-link>
     </li>
@@ -65,7 +65,7 @@
         dialogs.forEach( dialog => {
           if ( dialog.unreaded ) arr.push(dialog.unreaded);
         });
-        const counter = arr.reduce( (a, b) => a + b );
+        const counter = arr.reduce( ( a , b ) => a + b );
         this.messagesCounter = counter;
         return counter;
       },
@@ -74,7 +74,7 @@
       }
     },
     watch: {
-      messagesCounter(newValue, oldValue) {
+      messagesCounter( newValue , oldValue ) {
         const vm = this;
         function animate() {
           if ( TWEEN.update() ) {

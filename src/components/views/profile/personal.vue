@@ -1,7 +1,8 @@
 <template lang="html">
   <section class="personal">
-    <img :src=" backendLocation + '/upload/' + Personal.avatar " :alt="Personal.name + ' ' + Personal.sename"
-    class="personal-avatar" />
+    <img :src=" backendLocation + '/upload/' + Personal.avatar "
+         :alt="Personal.name + ' ' + Personal.sename"
+         class="personal-avatar" />
     <div class="personal-info">
       <h3 class="personal-info__name">{{ Personal.name + ' ' + Personal.sename }}</h3>
       <div class="personal-more">
@@ -11,9 +12,12 @@
       </div>
       <div class="personal-more">
         <p class="personal-more__item">{{ Information.town }}</p>
-        <p class="personal-more__item">{{ Information.education.place }}, {{ Information.education.faculty }}</p>
+        <p class="personal-more__item _education">{{ Information.education.place }}, {{ Information.education.faculty }}</p>
       </div>
-      <p class="personal-info__about">{{ Information.about }}</p>
+      <transition name="fade" mode="out-in">
+        <p v-if="Information.about.length" class="personal-info__about">{{ Information.about }}</p>
+        <button v-else @click="setInformationAbout()" class="personal-info__about-button">Добавить информацию о себе</button>
+      </transition>
     </div>
     <ratings-block class="ratings-block"></ratings-block>
   </section>
@@ -27,6 +31,9 @@
     name: "personal",
     components: { ratingsBlock },
     computed: {
+      User() {
+        return this.$store.state.User;
+      },
       Personal() {
         return this.$store.state.User.personal
       },
@@ -34,7 +41,41 @@
         return this.$store.state.User.information
       },
       backendLocation() {
-        return this.$store.state.General.host;
+        return this.$store.state.General;
+      }
+    },
+    methods: {
+      setInformationAbout() {
+        this.$swal({
+          title: 'Расскажите о себе.\nУ вас 150 символов.',
+          input: 'textarea',
+          showCancelButton: true,
+          confirmButtonText: 'Сохранить',
+          showLoaderOnConfirm: true,
+          preConfirm: textarea => {
+            const payload = {
+              user: this.User,
+              id: this.User._id
+            };
+            // return new Promise( ( resolve , reject ) => {
+            //   setTimeout( () => {
+            //     if ( textarea === 'taken@example.com') {
+            //       reject('This textarea is already taken.')
+            //     } else {
+            //       resolve()
+            //     }
+            //   }, 2000)
+            // })
+            return this.$store.dispatch( 'updateAbout' , payload )
+          },
+          allowOutsideClick: false
+        }).then( textarea => {
+          this.$swal({
+            type: 'success',
+            title: 'Ajax request finished!',
+            html: 'Submitted textarea: ' + textarea
+          })
+        })
       }
     }
   };
@@ -49,7 +90,7 @@
     position: relative;
     display: flex;
     align-items: flex-start;
-    size: 100% 250px;
+    size: 100% 230px;
     padding: 30px;
   }
 
@@ -85,6 +126,21 @@
       color: #4a4a4a;
       color: var(--charcoal-grey);
     }
+    &__about-button {
+      position: absolute;
+      bottom: 35px; left: 200px;
+      height: 35px;
+      padding: 0 10px;
+      font-size: 12px;
+      line-height: 33px;
+      color: #4a4a4a;
+      color: var(--charcoal-grey);
+      background-color: #fff;
+      background-color: var(--whited);
+      border: solid 1px rgba(155, 155, 155, 0.2);
+      border: solid 1px var(--purpley-grey-20);
+      border-radius: 3px;
+    }
   }
 
   .personal-more {
@@ -94,6 +150,7 @@
       width: 45%;
     }
     &:nth-child(3) {
+      width: 235px;
       padding-left: 20px;
       &::before {
         position: absolute 0 auto auto 0;

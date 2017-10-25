@@ -3,10 +3,11 @@
 		<img src=" /static/assets/profile/social/users.svg " alt="Команды"
 				class="social-teams__icon" />
 		<h4 class="social-teams__title">Мои команды</h4>
-		<p class="social-teams__text">
+		<p v-if="!Teams.length" class="social-teams__text">Вы не состоите в командах</p>
+    <p class="social-teams__text">
 			<span v-for="( teamItem , index ) in Teams" :key="index">
 				{{ teamItem.title }}
-				<span>{{ Teams.indexOf( teamItem ) == Teams.length - 1 ? '' : ' | ' }}</span>
+				<span>{{ Teams.indexOf( teamItem ) === Teams.length - 1 ? '' : ' | ' }}</span>
 			</span>
 		</p>
   </div>
@@ -15,7 +16,7 @@
 <script>
 
   export default {
-    name: "social-teams",
+    name: "Social-Teams",
     computed: {
       Teams() {
         const storeTeams = this.$store.state.User.social.teams;
@@ -34,11 +35,19 @@
 
 <style lang="scss">
 
+  @import "../../../../stylesheets/partials/mixins.scss";
+
   .social-teams {
     display: flex;
     flex-flow: row wrap;
     align-items: flex-start;
-    width: 410px;
+    width: 291px;
+    padding: 20px 30px;
+    margin-top: 20px;
+    border-radius: 3px;
+		background-color: #fff;
+		background-color: var(--whited);
+		@include MDShadow-1;
     &__icon {
       width: 28px;
     }

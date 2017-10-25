@@ -112,11 +112,10 @@ export default [
 		]
 	},
 	{
-		path: '/settings/:id',
+		path: '/settings',
 		name: 'settings',
 		component: settings,
-		beforeEnter: requireAuth,
-		props: true
+		beforeEnter: requireAuth
 	},
 	{
 		path: '/support',

@@ -20,13 +20,7 @@
 <style lang="scss">
 
   .social {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 100%;
-    padding: 20px 30px;
-    background-color: #fff;
-    background-color: var(--whited);
+    width: 321px;
   }
 
 </style>

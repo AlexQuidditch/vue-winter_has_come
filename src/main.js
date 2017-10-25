@@ -6,7 +6,8 @@ import Vuebar from 'vuebar';
 import Checkbox from 'vue-material-checkbox';
 import Resource from 'vue-resource';
 import VueSweetAlert from 'vue-sweetalert';
-import VueChatScroll from 'vue-chat-scroll'
+import VueChatScroll from 'vue-chat-scroll';
+import Vue2Filters from 'vue2-filters';
 
 import VueDatepicker from 'vuejs-datepicker';
 import MaskedInput from 'vue-masked-input';
@@ -25,11 +26,12 @@ Vue.use(Vuebar);
 Vue.use(Checkbox);
 Vue.use(Resource);
 Vue.use(VueSweetAlert);
-Vue.use(VueChatScroll)
+Vue.use(VueChatScroll);
+Vue.use(Vue2Filters);
 
 import state from './store/modules/General.js';
 
-Vue.http.options.root = 'http://185.185.69.137:8080';
+Vue.http.options.root = state.state;
 Vue.config.productionTip = false;
 Vue.config.performance = true;
 

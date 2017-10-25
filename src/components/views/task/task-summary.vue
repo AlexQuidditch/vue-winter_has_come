@@ -35,7 +35,7 @@
     },
     computed: {
       backendLocation() {
-        return this.$store.state.General.host
+        return this.$store.state.General
       }
     }
   };

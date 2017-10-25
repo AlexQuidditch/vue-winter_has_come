@@ -2,17 +2,15 @@
   <div class="task-detail">
 		<div class="detail-header">
 			<div class="header-agent">
-				<router-link :to="{ name: 'user', params: { id: Author._id }}" tag="img"
-                     :src=" backendLocation + '/upload/' + Author.personal.avatar"
-                     :alt="Author.personal.name + ' ' + Author.personal.sename"
-					           class="header-agent__avatar"
-					           title="Открыть профиль">
-				</router-link>
-				<router-link :to="{ name: 'user', params: { id: Author._id }}" tag="p"
-					           class="header-agent__name">
+				<img @click="openAuthorProfile()"
+             :src=" backendLocation + '/upload/' + Author.personal.avatar"
+             :alt="Author.personal.name + ' ' + Author.personal.sename"
+					   class="header-agent__avatar"
+					   title="Открыть профиль" />
+				<p @click="openAuthorProfile()" class="header-agent__name">
 					{{ Author.personal.name }}<br />
 					{{ Author.personal.sename }}
-				</router-link>
+				</p>
 			</div>
 			<div class="header-statistics">
 				<p class="header-statistics__responses">
@@ -119,10 +117,17 @@
         return this.$store.state.User._id;
       },
       backendLocation() {
-        return this.$store.state.General.host
+        return this.$store.state.General
       }
     },
     methods: {
+      openAuthorProfile() {
+        if ( this.taskItem.authorID === this.currentUserID ) {
+          this.$router.push({ name : 'profile' })
+        } else {
+          this.$router.push({ name: 'user', params: { id : this.Author._id }})
+        }
+      },
       completeTask() {
         this.$router.push({ name: 'complete-task' , params: { id : this.id } })
       },
@@ -168,7 +173,8 @@
         line-height: 1.46;
         color: #4a4a4a;
         color: var(--charcoal-grey);
-        &:hover  {
+        cursor: pointer;
+        &:hover {
           text-decoration: underline !important;
         }
       }

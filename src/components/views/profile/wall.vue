@@ -47,8 +47,9 @@
     display: flex;
     flex-flow: row wrap;
     align-items: flex-start;
+    width: 100%;
     size: 640px auto;
-    padding: 20px 10px 20px 30px;
+    padding: 20px 30px;
     transition: height .4s ease;
     &._folded {
       height: 68px;

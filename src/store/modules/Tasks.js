@@ -62,7 +62,10 @@ const actions = {
     commit( 'UPDATE_STATUS' , payload )
   },
   saveComplete( { commit } , payload ) {
-    return API.put( `task/edit/${ payload[0] }` , payload[1] )
+    return API.post( `task/edit/${ payload[0] }` , payload[1] )
+  },
+  hasViewed( { commit } , payload ) {
+    return API.post( `task/edit/${ payload[0] }` , payload[1] )
   },
   getTasks( { commit } , payload ) {
     return API.get('task/get/all')

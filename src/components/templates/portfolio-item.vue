@@ -1,25 +1,25 @@
 <template lang="html">
 	<li class="portfolio-item">
-		<router-link :to="{ name: 'task', query: { id: portfolioItem._id }}" tag="div"
+		<router-link :to="{ name: 'task', params: { id: PortfolioItem._id }}" tag="div"
                  class="portfolio-item__overlay">
-			<h5 class="portfolio-item__title">{{ portfolioItem.title }}</h5>
-			<p class="portfolio-item__description">{{ portfolioItem.description }}</p>
+			<h5 class="portfolio-item__title">{{ PortfolioItem.title }}</h5>
+			<p class="portfolio-item__description">{{ PortfolioItem.description }}</p>
 		</router-link>
-		<img :src=" '/static/assets/shared/' + portfolioItem.picture " :alt="portfolioItem.title"
+		<img :src=" '/static/assets/shared/' + PortfolioItem.picture " :alt="PortfolioItem.title"
 				 class="portfolio-item__picture" />
-		<span class="portfolio-item__title _bottom">{{ portfolioItem.title }}</span>
+		<span class="portfolio-item__title _bottom">{{ PortfolioItem.title }}</span>
 		<ul class="scores-list">
 			<li class="scores-item">
         <icon-heart @click.native="likeIt()"
-                    :class="{ '_active' : isLiked }"
+                    :class="{ '_active' : isLiked , '_update' : hasLiked }"
                     class="scores-item__icon">
         </icon-heart>
-				<span class="scores-item__value">{{ portfolioItem.likes }}</span>
+				<span class="scores-item__value">{{ PortfolioItem.likes }}</span>
 			</li>
 			<li class="scores-item">
 				<img src="/static/assets/profile/portfolio/comments.svg" alt="Комментарии"
 						 class="scores-item__icon" />
-				<span class="scores-item__value">{{ portfolioItem.comments }}</span>
+				<span class="scores-item__value">{{ PortfolioItem.comments }}</span>
 			</li>
 		</ul>
 	</li>
@@ -27,13 +27,13 @@
 
 <script>
 
-  import iconHeart from '@icons/heart';
+  import iconHeart from '@icons/heart.js';
 
 	export default {
-		name: "portfolio-item",
+		name: "Portfolio-Item",
     components: { iconHeart },
 		props: {
-			'portfolioItem': {
+			'PortfolioItem': {
 				type: Object,
 				required: true
 			}
@@ -42,6 +42,11 @@
       isLiked: false,
       hasLiked: false
     }),
+    computed: {
+      backendLocation() {
+        return this.$store.state.General;
+      }
+    },
     watch: {
       isLiked() {
   			this.hasLiked = true;
@@ -51,7 +56,7 @@
     methods: {
       likeIt() {
         this.isLiked =! this.isLiked;
-        this.$store.dispatch( 'likePortfolioItem' , [ this.portfolioItem._id , this.isLiked ? 1 : -1 ] );
+        this.$store.dispatch( 'likePortfolioItem' , [ this.PortfolioItem._id , this.isLiked ? 1 : -1 ] );
       }
     }
 	};
@@ -65,8 +70,7 @@
 
 	.portfolio-item {
 		position: relative;
-		size: 100% 210px;
-		min-width: 290px;
+		size: 280px 210px;
 		margin-bottom: 20px;
 		background-color: #fff;
 		background-color: var(--whited);
@@ -89,8 +93,8 @@
 			padding: 20px;
 			background-color: rgba( #fff , .85 );
 			transition:
-			opacity .3s ease-in-out,
-			visibility .3s ease-in-out;
+				opacity .3s ease-in-out,
+				visibility .3s ease-in-out;
 		}
 		&__title {
 			font-size: 13px;

@@ -27,7 +27,9 @@ Vue.use(Resource);
 Vue.use(VueSweetAlert);
 Vue.use(VueChatScroll)
 
-Vue.http.options.root = 'http://localhost:8080';
+import state from './store/modules/General.js';
+
+Vue.http.options.root = 'http://185.185.69.137:8080';
 Vue.config.productionTip = false;
 Vue.config.performance = true;
 

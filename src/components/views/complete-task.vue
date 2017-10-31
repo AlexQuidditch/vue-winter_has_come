@@ -73,6 +73,8 @@
 
 	import { mapActions } from 'vuex';
 
+  import taskTemplate from '@collections/taskTemplate.json';
+
 	import StarRating from 'vue-star-rating';
 	import vRadio from '@custom-elements/vue-radio';
 	import iconCheck from '@icons/check-square';
@@ -80,6 +82,12 @@
 	export default {
 		name: "complete-task",
 		components: { vRadio , StarRating , iconCheck },
+    props: {
+      'id': {
+        type: String,
+        required: true
+      }
+    },
 		data: () => ({
 			Statuses: [
 				{
@@ -98,30 +106,10 @@
 			Placeholders: {
 				description: 'Описание задачи ( макс. 200 символов )'
 			},
-      taskItem: {
-    		_id: 0,
-    		authorID: null,
-    		engagedID: null,
-    		title: '',
-    		picture: '',
-    		published: '',
-    		description: '',
-    		budget: null,
-    		isAgreement: false,
-    		deadline: '',
-    		isRush: false,
-    		views: 0,
-    		response: 0,
-    		isEngaged: false,
-    		completed: {
-    			rate: 0,
-    			status: 'notCompleted',
-    			review: ''
-    		}
-    	}
+      taskItem: taskTemplate
 		}),
     beforeCreate() {
-      this.$store.dispatch( 'getTaskByID' , this.$route.query.id )
+      this.$store.dispatch( 'getTaskByID' , this.id )
         .then( ({ body })  => {
           console.log(body);
           Object.assign( this.taskItem , body );
@@ -136,10 +124,10 @@
 		methods: {
 			...mapActions([ 'updateRate' , 'updateReview' , 'updateStatus' ]),
 			saveComplete() {
-				this.$store.dispatch( 'saveComplete' , [ this.$route.query.id , this.taskItem.completed ] )
+				this.$store.dispatch( 'saveComplete' , [ this.id , this.taskItem.completed ] )
 					.then( response => {
             console.log(response);
-            this.$router.push({ name: 'task' , query : { id : this.$route.query.id } })
+            this.$router.push({ name: 'task' , query : { id : this.id } })
           });
 			},
 			getEngageAvatar(ID) {

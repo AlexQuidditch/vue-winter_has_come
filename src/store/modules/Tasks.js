@@ -108,7 +108,7 @@ const mutations = {
 	},
   GET_TASKS( state , payload ) {
     state.splice( 0 , state.length );
-    payload.forEach( task => state.push(task) );
+    payload.forEach( task => state.unshift(task) );
   },
   CLEAR_TASKS( state , payload ) {
     state.splice( 0 , state.length );

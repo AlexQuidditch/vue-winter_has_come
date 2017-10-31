@@ -1,23 +1,21 @@
 <template lang="html">
-	<li class="friend-item">
+	<li class="agent-item">
 		<div class="information">
 			<div class="information-avatar">
-				<router-link :to="{ name: 'user', params: { id: friendItem._id }}" tag="img"
-										 :src=" backendLocation + '/upload/' + friendItem.avatar" :alt="friendItem.name + ' ' + friendItem.sename"
+				<router-link :to="{ name: 'agent', params: { id: agentItem._id }}" tag="img"
+										 :src=" backendLocation + '/upload/' + agentItem.avatar"
+										 :alt="agentItem.name + ' ' + agentItem.sename"
 										 class="information-avatar__picture">
 				</router-link>
-				<span v-if="friendItem.isOnline" class="information-avatar__status" title="Пользователь в сети">- Онлайн -</span>
+				<span v-if="agentItem.isOnline" class="information-avatar__status" title="Пользователь в сети">- Онлайн -</span>
 			</div>
 			<div class="information-detail">
-				<router-link :to="{ name: 'user', params: { id: friendItem._id }}" tag="h5"
-					 class="information-detail__name"
-					>{{ friendItem.name + ' ' + friendItem.sename }}
+				<router-link :to="{ name: 'agent', params: { id: agentItem._id }}" tag="h5"
+					 					 class="information-detail__name"
+					>{{ agentItem.name + ' ' + agentItem.sename }}
 				</router-link>
-				<p v-if="friendItem.isAgent" class="information-detail__company"> Агент {{ friendItem.company }}</p>
-				<p v-else class="information-detail__specialization">
-          {{ friendItem.information.specialization + ' | ' + friendItem.information.education.place }}
-        </p>
-				<p class="information-detail__description"> {{ friendItem.information.about }} </p>
+				<p class="information-detail__company"> Агент {{ agentItem.company }}</p>
+				<p class="information-detail__description"> {{ agentItem.information.about }} </p>
 				<div class="information-bottom">
 					<div class="information-bottom__column">
 						<button class="information-bottom__button _contact-me">
@@ -37,7 +35,7 @@
 			</div>
 		</div>
 		<ul class="portfolio-list">
-			<router-link v-for="work in friendItem.works" :key="work._id"
+			<router-link v-for="work in agentItem.works" :key="work._id"
           				 :to="{ name: 'task', params: { id: work._id }}" tag="li"
           				 class="portfolio-list__item">
 				<img :src=" backendLocation + '/upload/' + work.preview " :alt="work._id"
@@ -50,9 +48,9 @@
 <script>
 
 	export default {
-		name: "friend-item",
+		name: "agent-item",
 		props: {
-			'friendItem': {
+			'agentItem': {
 				type: Object,
 				required: true
 			}
@@ -70,7 +68,7 @@
 
 	@import "../../stylesheets/partials/_mixins";
 
-	.friend-item {
+	.agent-item {
 		display: flex;
 		justify-content: space-between;
 		padding-top: 30px;

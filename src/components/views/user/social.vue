@@ -1,7 +1,7 @@
 <template lang="html">
   <section class="social">
-    <social-contacts></social-contacts>
-    <social-teams></social-teams>
+    <social-contacts :Contacts="User.social.contacts"></social-contacts>
+    <social-teams :Teams="User.social.teams"></social-teams>
   </section>
 </template>
 
@@ -12,7 +12,13 @@
 
   export default {
     name: "social",
-    components: { socialContacts , socialTeams }
+    components: { socialContacts , socialTeams },
+    props: {
+      'User': {
+        type: Object,
+        required: true
+      }
+    }
   };
 
 </script>
@@ -20,12 +26,7 @@
 <style lang="scss">
 
   .social {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 20px 30px;
-    background-color: #fff;
-    background-color: var(--whited);
+    width: 321px;
   }
 
 </style>

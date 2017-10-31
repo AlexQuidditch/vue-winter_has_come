@@ -1,6 +1,8 @@
 import login from '@views/login';
 import profile from '@views/profile';
+import agents from '@views/agents';
 import agent from '@views/agent';
+import users from '@views/users';
 import user from '@views/user';
 import friends from '@views/friends';
 import findJob from '@views/find-job';
@@ -25,11 +27,23 @@ export default [
 		beforeEnter: requireAuth
 	},
 	{
-		path: '/agent',
+		path: '/agents',
+		name: 'agents',
+		component: agents,
+		beforeEnter: requireAuth
+	},
+	{
+		path: '/agent/:id',
 		name: 'agent',
 		component: agent,
 		beforeEnter: requireAuth,
 		props: true
+	},
+	{
+		path: '/users',
+		name: 'users',
+		component: users,
+		beforeEnter: requireAuth
 	},
 	{
 		path: '/user/:id',

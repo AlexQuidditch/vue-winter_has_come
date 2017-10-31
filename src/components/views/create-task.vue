@@ -221,6 +221,7 @@
                   'success'
                 );
                 this.$store.dispatch('clearDraft');
+                this.$router.push({ name : 'find-job' });
               })
               .catch( error => {
                 console.error(error);
@@ -243,8 +244,8 @@
                 'Задача отредактирована.',
                 'success'
               );
-              this.$store.dispatch('clearDraft')
-              this.$router.push({ name : 'find-job' })
+              this.$store.dispatch('clearDraft');
+              this.$router.push({ name : 'find-job' });
             })
             .catch( error => {
               console.error(error);

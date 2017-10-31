@@ -6,7 +6,7 @@ const state = {
 		{
 			_id: 1,
 			isAgent: false,
-			isOnline: true,
+			isOnline: false,
 			avatar: 'christopher-campbell-40410.jpg',
 			name: 'Ольга',
 			sename: 'Смирнова',
@@ -45,7 +45,7 @@ const state = {
 		{
 			_id: 2,
 			isAgent: true,
-			isOnline: true,
+			isOnline: false,
 			avatar: 'agent.jpg',
 			name: 'Евгений',
 			sename: 'Воронин',

@@ -1,4 +1,4 @@
-  <template lang="html">
+<template lang="html">
   <div class="ratings">
     <star-rating v-model="Ratings.mainRate"
                  :increment="0.1"

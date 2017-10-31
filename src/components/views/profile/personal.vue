@@ -69,7 +69,8 @@
             return this.$store.dispatch( 'updateAbout' , payload )
           },
           allowOutsideClick: false
-        }).then( textarea => {
+        })
+        .then( textarea => {
           this.$swal({
             type: 'success',
             title: 'Ajax request finished!',

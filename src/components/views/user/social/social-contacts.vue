@@ -4,44 +4,53 @@
 				class="social-contacts__icon" />
 		<h4 class="social-contacts__title">Контакты</h4>
 		<p class="social-contacts__text">{{ Contacts.text }}</p>
-		<ul class="social-contacts contacts-list">
-			<li v-for="( linkItem , index ) in Contacts.links" :key="index"
-				class="social-contacts contacts-item">
-				<span v-if="linkItem.type == 'mail' && linkItem.value.length "
+		<ul class="contacts-list">
+			<li v-for="( contactItem , key , index ) in Contacts" :key="index"
+				class="contacts-item">
+				<span v-if="key == 'mail' && contactItem.length "
 					class="contacts-item__notation"
 					>Электронная почта:
 				</span>
-				<span v-else-if="linkItem.type == 'vk' && linkItem.value.length"
+				<span v-else-if="key == 'vk' && contactItem.length"
 					 class="contacts-item__notation"
 					 >Вконтакте:
 				</span>
-				<span v-else-if="linkItem.type == 'fb' && linkItem.value.length "
+				<span v-else-if="key == 'fb' && contactItem.length "
 					 class="contacts-item__notation"
 					 >Facebook:
 				</span>
-				<span v-if="linkItem.type == 'phone' && linkItem.value.length"
+				<span v-if="key == 'phone' && contactItem.length"
 					class="contacts-item__notation"
 					>Телефон:
 				</span>
-				<a v-if="linkItem.type == 'mail' && linkItem.value.length "
-					:href=" 'mailto:' + linkItem.value"
+				<span v-if="key == 'skype' && contactItem.length"
+					class="contacts-item__notation"
+					>Skype:
+				</span>
+				<a v-if="key == 'mail' && contactItem.length "
+					:href=" 'mailto:' + contactItem" target="_blank"
 					class="contacts-item__link"
-					>&nbsp;{{ linkItem.value }}
+					>&nbsp;{{ contactItem }}
 				</a>
-				<a v-else-if="linkItem.type == 'vk' && linkItem.value.length"
-					:href=" '//' + linkItem.value"
+				<a v-else-if="key == 'vk' && contactItem.length"
+					:href=" '//vk.com/' + contactItem" target="_blank"
 					class="contacts-item__link"
-					>&nbsp;{{ linkItem.value }}
+					>&nbsp;{{ contactItem }}
 				</a>
-				<a v-else-if="linkItem.type == 'fb' && linkItem.value.length "
-					:href=" '//' + linkItem.value"
+				<a v-else-if="key == 'fb' && contactItem.length "
+					:href=" '//facebook.com/' + contactItem" target="_blank"
 					class="contacts-item__link"
-					>&nbsp;{{ linkItem.value }}
+					>&nbsp;{{ contactItem }}
 				</a>
-				<a v-if="linkItem.type == 'phone' && linkItem.value.length"
-					:href=" 'tel:' + linkItem.value"
+				<a v-if="key == 'phone' && contactItem.length"
+					:href=" 'tel:' + contactItem"
 					class="contacts-item__link"
-					>&nbsp;{{ linkItem.value }}
+					>&nbsp;{{ contactItem }}
+				</a>
+				<a v-if="key == 'skype' && contactItem.length"
+					:href=" 'skype:' + contactItem + '?call' "
+					class="contacts-item__link"
+					>&nbsp;{{ contactItem }}
 				</a>
 			</li>
 		</ul>
@@ -52,22 +61,35 @@
 
 	export default {
 		name: "social-contacts",
-		computed: {
-			Contacts() {
-				return this.$store.state.User.social.contacts
-			}
-		}
+    props: {
+      'Contacts': {
+        type: Object,
+        required: true
+      }
+    }
+		// computed: {
+		// 	Contacts() {
+		// 		return this.$store.state.User.social.contacts
+		// 	}
+		// }
 	};
 
 </script>
 
 <style lang="scss">
 
+  @import "../../../../stylesheets/partials/mixins.scss";
+
 	.social-contacts {
-		display: flex;
-		flex-flow: row wrap;
-		align-items: flex-start;
-		width: 410px;
+	  display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    width: 291px;
+    padding: 20px;
+    border-radius: 3px;
+		background-color: #fff;
+		background-color: var(--whited);
+		@include MDShadow-1;
 		&__icon {
 			width: 28px;
 		}
@@ -86,13 +108,14 @@
 			color: #4a4a4a;
 			color: var(--charcoal-grey);
 		}
-		&.contacts-list {
+		.contacts-list {
 			margin-top: 20px;
 		}
 		.contacts-item {
+		  display: block;
 			font-size: 13px;
 			font-weight: 300;
-			line-height: 1.46;
+			line-height: 2;
 			color: #4a4a4a;
 			color: var(--charcoal-grey);
 			&__link {

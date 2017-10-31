@@ -32,7 +32,7 @@
       </ul>
     </div>
     <div class="response-footer">
-      <template v-if="taskItem.authorID === currentUserID && !responseItem.isEngage">
+      <template v-if="responseItem.authorID === currentUserID && !responseItem.isEngage">
         <button class="response-footer__button">Назначить</button>
         <button class="response-footer__button">Отклонить</button>
       </template>
@@ -43,6 +43,8 @@
 
 <script>
 
+  import userTemplate from '@collections/userTemplate.json';
+
   export default {
     name: "response-item",
     props: {
@@ -52,7 +54,7 @@
       }
     },
     data: () => ({
-      Author: {}
+      Author: userTemplate
     }),
     created() {
       this.$http.get( `user/${ this.responseItem.authorID }` )

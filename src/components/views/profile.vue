@@ -13,7 +13,7 @@
 
   import personal from './profile/personal.vue';
   import social from './profile/social.vue';
-  import portfolio from './/profile/portfolio.vue';
+  import portfolio from './profile/portfolio.vue';
   import wall from './profile/wall.vue';
 
   export default {

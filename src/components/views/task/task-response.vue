@@ -10,7 +10,7 @@
       </transition-group>
     </section>
     <section v-else class="task-response">
-      <h4 class="task-response__title">Оставить отклик:</h4>
+      <h4 class="task-response__title">Откликнуться:</h4>
       <response-form></response-form>
     </section>
   </transition>

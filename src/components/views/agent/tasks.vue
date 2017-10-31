@@ -38,9 +38,9 @@
 
 	.tasks {
 		display: flex;
-		flex-flow: row wrap;
-		align-items: flex-start;
-		padding: 30px;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    padding: 20px 30px 0 30px;
 		&__icon {
 			width: 28px;
 		}

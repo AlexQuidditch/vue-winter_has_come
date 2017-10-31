@@ -32,11 +32,11 @@
       </ul>
     </div>
     <div class="response-footer">
-      <button v-if="responseItem.isEngage" class="response-footer__button">Назначен исполнителем</button>
-      <template v-else>
+      <template v-if="taskItem.authorID === currentUserID && !responseItem.isEngage">
         <button class="response-footer__button">Назначить</button>
         <button class="response-footer__button">Отклонить</button>
       </template>
+      <button v-else-if="responseItem.isEngage" class="response-footer__button">Назначен исполнителем</button>
     </div>
   </li>
 </template>
@@ -60,6 +60,9 @@
         .catch( error => console.error(error) )
     },
     computed: {
+      currentUserID() {
+        return this.$store.state.User._id;
+      },
       backendLocation() {
         return this.$store.state.General
       }
@@ -119,6 +122,7 @@
   .response-main {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     &__column {
       width: 310px;
     }

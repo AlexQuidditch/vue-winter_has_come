@@ -71,11 +71,10 @@
   }
 
   .portfolio-list {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 20px;
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		margin: 20px 0 0 0;
   }
 
 </style>

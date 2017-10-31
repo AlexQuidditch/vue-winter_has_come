@@ -1,12 +1,12 @@
 <template lang="html">
-    <div class="social-contacts">
+  <div class="social-contacts">
 		<img src="/static/assets/profile/social/contacts.svg" alt="Контакты"
 				class="social-contacts__icon" />
 		<h4 class="social-contacts__title">Контакты</h4>
 		<p class="social-contacts__text">{{ Contacts.text }}</p>
-		<ul class="social-contacts contacts-list">
+		<ul class="contacts-list">
 			<li v-for="( linkItem , index ) in Contacts.links" :key="index"
-				class="social-contacts contacts-item">
+				class="contacts-item">
 				<span v-if="linkItem.type == 'mail' && linkItem.value.length "
 					class="contacts-item__notation"
 					>Электронная почта:
@@ -50,24 +50,31 @@
 
 <script>
 
-    export default {
-        name: "social-contacts",
-		computed: {
-		    Contacts() {
-		        return this.$store.state.Agent.social.contacts
-		    }
-		}
+  export default {
+    name: "social-contacts",
+    computed: {
+      Contacts() {
+        return this.$store.state.Agent.social.contacts
+      }
     }
+  };
 
 </script>
 
 <style lang="scss">
 
+  @import "../../../../stylesheets/partials/mixins.scss";
+
 	.social-contacts {
-		display: flex;
-		flex-flow: row wrap;
-		align-items: flex-start;
-		width: 410px;
+	  display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    width: 291px;
+    padding: 20px;
+    border-radius: 3px;
+		background-color: #fff;
+		background-color: var(--whited);
+		@include MDShadow-1;
 		&__icon {
 			width: 28px;
 		}
@@ -79,20 +86,21 @@
 			color: var(--charcoal-grey);
 		}
 		&__text {
-			margin: 20px 0 0 0;
+			margin: 10px 0 0 0;
 			font-size: 13px;
 			font-weight: 300;
 			line-height: 1.46;
 			color: #4a4a4a;
 			color: var(--charcoal-grey);
 		}
-		&.contacts-list {
+		.contacts-list {
 			margin-top: 20px;
 		}
 		.contacts-item {
+		  display: block;
 			font-size: 13px;
 			font-weight: 300;
-			line-height: 1.46;
+			line-height: 2;
 			color: #4a4a4a;
 			color: var(--charcoal-grey);
 			&__link {

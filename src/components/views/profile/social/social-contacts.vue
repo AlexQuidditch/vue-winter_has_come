@@ -79,7 +79,7 @@
     flex-flow: row wrap;
     align-items: flex-start;
     width: 291px;
-    padding: 20px 30px;
+    padding: 20px;
     border-radius: 3px;
 		background-color: #fff;
 		background-color: var(--whited);

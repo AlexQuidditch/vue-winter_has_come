@@ -24,11 +24,19 @@
 
 <style lang="scss">
 
+  @import "../../../../stylesheets/partials/mixins.scss";
+
   .social-company {
     display: flex;
     flex-flow: row wrap;
     align-items: flex-start;
-    width: 410px;
+    width: 291px;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 3px;
+    background-color: #fff;
+    background-color: var(--whited);
+    @include MDShadow-1;
     &__icon {
       width: 28px;
     }

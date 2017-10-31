@@ -7,7 +7,7 @@
     <p class="social-teams__text">
 			<span v-for="( teamItem , index ) in Teams" :key="index">
 				{{ teamItem.title }}
-				<span>{{ Teams.indexOf( teamItem ) === Teams.length - 1 ? '' : ' | ' }}</span>
+				<span>{{ index === Teams.length - 1 ? '' : ' | ' }}</span>
 			</span>
 		</p>
   </div>
@@ -42,7 +42,7 @@
     flex-flow: row wrap;
     align-items: flex-start;
     width: 291px;
-    padding: 20px 30px;
+    padding: 20px;
     margin-top: 20px;
     border-radius: 3px;
 		background-color: #fff;

@@ -179,7 +179,7 @@
       telegram: {
         get () { return this.User.social.contacts.telegram },
         set (value) { this.$store.commit( 'UPDATE_TELEGRAM' , value ) }
-      },
+      }
     },
     methods: {
       setRole(choice) { this.$store.dispatch( 'setRole' ,  choice ) },
@@ -187,7 +187,7 @@
         this.$http.post( `auth/post-registration/${ this.User._id }` , this.User )
           .then( ({ body }) => {
             console.log(body);
-            this.$router.push( 'profile' )
+            this.User.isAgent ? this.$router.push({ name : 'agent' , params : { id : 'this.User._id' } }) : this.$router.push( 'profile' )
           })
       }
     }

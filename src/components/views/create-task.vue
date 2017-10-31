@@ -52,7 +52,7 @@
                       <icon-close class="attached-item__remove-icon"></icon-close>
                     </button>
 									</li>
-                  <label key="label" for="attachFile" class="attached-item">
+                  <label key="label" for="attachFile" class="attached-item _label">
                     <input @change="filler($event.target)"
                            id="attachFile" type="file"
                            multiple accept="image"
@@ -261,7 +261,7 @@
           .catch( error => console.error(error) );
       },
       addSpecialization(specKeyword) {
-        if (specKeyword) {
+        if ( specKeyword ) {
           this.$store.dispatch( 'addSpecialization' , specKeyword );
           this.specKeyword = '';
         }
@@ -271,10 +271,10 @@
         const formData = new FormData();
         formData.append( 'image' , files[0] );
         this.$http.post( 'upload' , formData )
-        .then( ({ body }) => {
-          this.$store.dispatch( 'addAttached' , body[0]._id );
-        })
-        .catch( err => console.error(err) )
+          .then( ({ body }) => {
+            this.$store.dispatch( 'addAttached' , body[0]._id );
+          })
+          .catch( err => console.error(err) )
       },
       deleteAttached(i) {
         this.$store.dispatch( 'deleteAttached' , i );
@@ -402,7 +402,7 @@
 			  position: relative;
 				size: 62px;
 				margin: 0 7px 7px 0;
-				&:last-child {
+				&._label {
 					size: 62px;
 					margin: 0;
 					text-align: center;

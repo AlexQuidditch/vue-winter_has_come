@@ -1,8 +1,9 @@
 <template lang="html">
   <form @submit.prevent="addNewPost()" class="wall-form">
     <header class="wall-form-header">
-      <router-link :to="{ name: 'user', query: { id: Author._id }}" tag="img"
-                   :src=" backendLocation + '/upload/' + Author.avatar" :alt="Author.name + ' ' + Author.sename"
+      <router-link :to="{ name: 'user', query : { id : Author._id }}" tag="img"
+                   :src=" backendLocation + '/upload/' + Author.avatar"
+                   :alt="Author.name + ' ' + Author.sename"
                    class="wall-form-header__avatar">
       </router-link>
       <div class="wall-form-header__container">
@@ -43,12 +44,8 @@
         return this.$store.state.User.personal
       },
       draftContent: {
-        get() {
-          return this.$store.state.Wall.postDraft.content
-        },
-        set(payload) {
-          this.$store.dispatch( 'updateDraft' , payload )
-        }
+        get () { return this.$store.state.Wall.postDraft.content },
+        set (payload) { this.$store.dispatch( 'updateDraft' , payload ) }
       },
       backendLocation() {
         return this.$store.state.General;

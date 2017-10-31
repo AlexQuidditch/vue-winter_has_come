@@ -25,7 +25,7 @@ export default [
 		beforeEnter: requireAuth
 	},
 	{
-		path: '/agent/:id',
+		path: '/agent',
 		name: 'agent',
 		component: agent,
 		beforeEnter: requireAuth,

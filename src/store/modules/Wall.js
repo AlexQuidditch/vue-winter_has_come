@@ -28,11 +28,8 @@ const actions = {
     commit( 'UPDATE_DRAFT' , payload )
   },
   addNewPost( { commit , state } , { authorID , wallID } ) {
-    const Store = this;
-    console.log(Store);
     const newPost = {
-      // authorID: Store.state.User._id,
-      authorID: 1,
+      authorID: authorID,
       time: new Date(),
       content: state.postDraft.content,
       attacments: state.postDraft.attacments,
@@ -40,7 +37,7 @@ const actions = {
       reposts: 0,
       comments: []
     };
-    API.post( `wall/${ wallID }/create-post/` , newPost )
+    return API.post( `wall/${ wallID }/create-post/` , newPost )
       .then( ({ body }) => {
         console.log(body);
         commit( 'SET_POSTS' , body.posts )

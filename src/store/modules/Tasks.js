@@ -61,10 +61,7 @@ const actions = {
   updateStatus( { commit } , payload ) {
     commit( 'UPDATE_STATUS' , payload )
   },
-  saveComplete( { commit } , payload ) {
-    return API.post( `task/edit/${ payload[0] }` , payload[1] )
-  },
-  hasViewed( { commit } , payload ) {
+  changeTask( { commit } , payload ) {
     return API.post( `task/edit/${ payload[0] }` , payload[1] )
   },
   getTasks( { commit } , payload ) {
@@ -77,8 +74,8 @@ const actions = {
   getTaskByID( { commit } , payload ) {
     return API.get(`task/get/${ payload }`)
   },
-  clearTasks( { commit } , payload ) {
-    commit( 'CLEAR_TASKS' , payload );
+  clearTasks({ commit }) {
+    commit( 'CLEAR_TASKS' );
   }
 };
 
@@ -110,7 +107,7 @@ const mutations = {
     state.splice( 0 , state.length );
     payload.forEach( task => state.unshift(task) );
   },
-  CLEAR_TASKS( state , payload ) {
+  CLEAR_TASKS( state ) {
     state.splice( 0 , state.length );
   }
 };

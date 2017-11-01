@@ -28,7 +28,8 @@ module.exports = {
 			'@icons': resolve('src/components/icons'),
 			'@templates': resolve('src/components/templates'),
 			'@helpers': resolve('src/helpers'),
-			'@collections': resolve('src/store/collections')
+			'@collections': resolve('src/store/collections'),
+			'@api': resolve('src/store/api/')
 		}
 	},
 	module: {

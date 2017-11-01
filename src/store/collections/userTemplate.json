@@ -22,23 +22,27 @@
 		"education": {
 			"place": "",
 			"faculty": ""
+		},
+		"company": {
+			"title": "",
+			"link": ""
 		}
 	},
 	"registrationDate": "",
 	"popularity": "",
 	"responses": {
-		"issued": "",
-		"positive": "",
-		"negative": ""
+		"issued": 0,
+		"positive": 0,
+		"negative": 0
 	},
 	"ratings": {
-		"mainRate": "",
-		"average": "",
-		"completed": "",
+		"mainRate": 0,
+		"average": 0,
+		"completed": 0,
 		"tests": {
-			"value": "",
-			"total": "",
-			"rate": ""
+			"value": 0,
+			"total": 0,
+			"rate": 0
 		}
 	},
 	"social": {
@@ -48,8 +52,14 @@
 			"skype": "",
 			"telegram": ""
 		},
-		"teams": []
+		"teams": [],
+		"company": {
+			"activities": "",
+			"starts": "",
+			"achivements": ""
+		}
 	},
 	"portfolio": [],
-	"reviews": []
+  "reviews": [],
+	"tasks": []
 }

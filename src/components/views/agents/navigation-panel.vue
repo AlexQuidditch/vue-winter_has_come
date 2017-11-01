@@ -17,13 +17,11 @@
     name: "navigation-panel",
     computed: {
       agentQuantity() {
-        const quantity = this.$store.state.Stub.friends
-          .filter( agent => agent.isAgent );
-        return quantity.length;
+        return this.$store.state.Agent.length;
       },
       agentOnline() {
-        const online = this.$store.state.Stub.friends
-          .filter( user => user.isAgent && user.isOnline );
+        const online = this.$store.state.Agent
+          .filter( user => user.isOnline );
         return online.length;
       }
     }

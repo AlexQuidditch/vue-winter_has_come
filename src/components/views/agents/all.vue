@@ -1,23 +1,22 @@
 <template lang="html">
   <transition-group tag="ul" name="friend-list" mode="out-in"
                     class="friend-list _all">
-    <agent-item v-for="( agentItem , index ) in Agents" :key="agentItem._id"
-                  :agentItem = "agentItem">
-    </agent-item>
+    <friends-item v-for="( agentItem , index ) in Agents" :key="agentItem._id"
+                :friendItem = "agentItem">
+    </friends-item>
   </transition-group>
 </template>
 
 <script>
 
-  import agentItem from '@templates/agent-item.vue';
+  import friendsItem from '@templates/friends-item.vue';
 
   export default {
     name: "agent-list_all",
-    components: { agentItem },
+    components: { friendsItem },
     computed: {
       Agents() {
-        return this.$store.state.Stub.friends
-          .filter( agent => agent.isAgent )
+        return this.$store.state.Agent
       }
     }
   };

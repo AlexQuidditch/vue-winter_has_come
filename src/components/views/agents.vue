@@ -25,7 +25,10 @@
 		components: {
 			filterPanel , searchAgent , navigationPanel,
 			all , online
-		}
+		},
+    beforeRouteEnter ( to , from , next ) {
+      next( vm => vm.$store.dispatch('getAgents') )
+    }
 	};
 
 </script>

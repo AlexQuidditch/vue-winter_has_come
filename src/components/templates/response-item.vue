@@ -1,14 +1,14 @@
 <template lang="html">
   <li class="response-item">
     <div class="response-header">
-      <router-link :to="{ name: 'user', params: { id : Author._id }}" tag="img"
+      <router-link :to="Author._id === currentUserID ? { name: 'profile' } : { name: 'user', params: { id : Author._id }}" tag="img"
                    :src=" backendLocation + '/upload/' + Author.avatar"
                    :title="Author.name + ' ' + Author.sename"
                    class="response-header__avatar"
                    alt="Открыть профиль">
       </router-link>
       <div class="response-header__container">
-        <router-link :to="{ name: 'user', params: { id : Author._id }}" tag="p"
+        <router-link :to="Author._id === currentUserID ? { name: 'profile' } : { name: 'user', params: { id : Author._id }}" tag="p"
                      class="response-header__name">
           {{ Author.name }} {{ Author.sename }}
           <span>({{ Author.rating }})</span>
@@ -43,22 +43,35 @@
 
 <script>
 
+  import API from '@api';
+
   import userTemplate from '@collections/userTemplate.json';
 
   export default {
     name: "response-item",
     props: {
-      'responseItem': {
-        type: Object,
+      'responseID': {
+        type: String,
         required: true
       }
     },
     data: () => ({
+      responseItem: {
+        authorID: '',
+        postedAgo: '',
+        feedBack: '',
+        caption: '',
+        isEngage: ''
+      },
       Author: userTemplate
     }),
     created() {
-      this.$http.get( `user/${ this.responseItem.authorID }` )
+      API.get( `user/${ this.responseItem.authorID }` )
         .then( ({ body }) => this.Author = body )
+        .catch( error => console.error(error) )
+
+      API.get( `response/get/${ this.responseID }` )
+        .then( ({ body }) => Object.assign( this.responseItem , body ) )
         .catch( error => console.error(error) )
     },
     computed: {

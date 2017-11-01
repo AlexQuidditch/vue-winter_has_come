@@ -1,5 +1,5 @@
 <template lang="html">
-	<li class="task-item" v-if="">
+	<li class="task-item">
 		<div class="task-item__about">
 			<router-link :to="{ name: 'task', params: { id: taskItem._id }}" tag="img"
 									 :src=" backendLocation + '/upload/' + taskItem.attached[0]"
@@ -13,10 +13,10 @@
 										 :class="{ '_is-rush' : taskItem.isRush , '_is-engaged' : taskItem.isEngaged }"
 										 class="about-information__title">{{ taskItem.title }}
 				</router-link>
-				<router-link :to="{ name: 'user', params: { id: Author._id }}" tag="img"
-					           class="about-information__author-avatar"
-					           :src=" backendLocation + '/upload/' + Author.personal.avatar"
+				<router-link :to=" Author._id === currentUserID ? { name: 'profile' } : { name: 'agent', params: { id: Author._id } }"
+                     tag="img" :src=" backendLocation + '/upload/' + Author.personal.avatar"
                      :title="Author.personal.name + ' ' + Author.personal.sename"
+					           class="about-information__author-avatar"
 					           alt="Открыть профиль автора">
 				</router-link>
 				<p class="about-information__published">{{ new Date(taskItem.published).toLocaleString() }}</p>
@@ -59,7 +59,7 @@
 				</li>
 				<li class="summary-response">
 					<icon-comments class="summary-response__icon"></icon-comments>
-					<span class="summary-response__value">{{ taskItem.response }} ответов</span>
+					<span class="summary-response__value">{{ taskItem.responses.length }} ответов</span>
 				</li>
 			</ul>
 		</div>
@@ -90,6 +90,9 @@
       Author: userTemplate
     }),
     computed: {
+      currentUserID() {
+        return this.$store.state.User._id;
+      },
       deadline() {
         return new Date( this.taskItem.deadline ).toLocaleString( 'ru-RU' , longDate );
       },
@@ -99,9 +102,7 @@
     },
     created() {
       this.$http.get( `user/${ this.taskItem.authorID }` )
-        .then( ({ body }) => {
-          this.Author = body;
-        })
+        .then( ({ body }) => this.Author = body )
         .catch( error => console.error(error) )
     }
   };

@@ -2,18 +2,19 @@
 	<li class="friend-item">
 		<div class="information">
 			<div class="information-avatar">
-				<router-link :to="{ name: 'user', params: { id: friendItem._id }}" tag="img"
-										 :src=" backendLocation + '/upload/' + friendItem.avatar" :alt="friendItem.name + ' ' + friendItem.sename"
+				<router-link :to=" currentUserID === friendItem._id ? { name: 'profile' } : { name: 'user', params: { id: friendItem._id }}" tag="img"
+										 :src=" backendLocation + '/upload/' + friendItem.personal.avatar"
+                     :alt="friendItem.personal.name + ' ' + friendItem.personal.sename"
 										 class="information-avatar__picture">
 				</router-link>
 				<span v-if="friendItem.isOnline" class="information-avatar__status" title="Пользователь в сети">- Онлайн -</span>
 			</div>
 			<div class="information-detail">
-				<router-link :to="{ name: 'user', params: { id: friendItem._id }}" tag="h5"
+				<router-link :to=" currentUserID === friendItem._id ? { name: 'profile' } : { name: 'user', params: { id: friendItem._id }}" tag="h5"
 					 class="information-detail__name"
-					>{{ friendItem.name + ' ' + friendItem.sename }}
+					>{{ friendItem.personal.name + ' ' + friendItem.personal.sename }}
 				</router-link>
-				<p v-if="friendItem.isAgent" class="information-detail__company"> Агент {{ friendItem.company }}</p>
+				<p v-if="friendItem.isAgent" class="information-detail__company"> Агент {{ friendItem.information.company.name }}</p>
 				<p v-else class="information-detail__specialization">
           {{ friendItem.information.specialization + ' | ' + friendItem.information.education.place }}
         </p>
@@ -38,7 +39,7 @@
 		</div>
 		<ul class="portfolio-list">
 			<router-link v-for="work in friendItem.works" :key="work._id"
-          				 :to="{ name: 'task', params: { id: work._id }}" tag="li"
+          				 :to="{ name: 'task' , params: { id : work._id }}" tag="li"
           				 class="portfolio-list__item">
 				<img :src=" backendLocation + '/upload/' + work.preview " :alt="work._id"
 						 class="portfolio-list__item-preview" />
@@ -58,6 +59,9 @@
 			}
 		},
     computed: {
+      currentUserID() {
+        return this.$store.state.User._id;
+      },
       backendLocation() {
         return this.$store.state.General;
       }

@@ -52,13 +52,13 @@
                       <icon-close class="attached-item__remove-icon"></icon-close>
                     </button>
 									</li>
-                  <label key="label" for="attachFile" class="attached-item _label">
-                    <input @change="filler($event.target)"
+                  <label v-if="CreateTask.attached.length < 4" key="label" for="attachFile" class="attached-item _label">
+                    <input @change="filler($event.target.files)"
                            id="attachFile" type="file"
                            multiple accept="image"
                            name="attachFile"
                            class="attached-item__input" />
-                           +
+                    <span>+</span>
                   </label>
 								</transition-group>
 							</label>
@@ -142,8 +142,7 @@
     components: { Money , iconCheck , iconCalendar , vChip , IconClose },
 		props: {
 		  'id': {
-		    type: String,
-		    required: true
+		    type: String
 		  }
 		},
     data: () => ({
@@ -180,6 +179,9 @@
       }
     },
     computed: {
+      User() {
+        return this.$store.state.User;
+      },
       isEdit() {
         return this.$route.name === 'edit-task';
       },
@@ -214,12 +216,13 @@
           })
           .then( () => {
             this.$store.dispatch('saveTask')
-              .then( ({ data }) => {
-                this.$swal(
-                  'Сохранено!',
-                  'Задача опубликована.',
-                  'success'
-                );
+              .then( ({ body }) => {
+                this.$store.dispatch( 'updateTasks' , body._id );
+                this.$store.dispatch( 'changeUser' , [ this.User._id , this.User ] )
+                  .then( ({ body }) => console.log( 'Response saved' ))
+              })
+              .then( () => {
+                this.$swal( 'Сохранено!' , 'Задача опубликована.' , 'success' );
                 this.$store.dispatch('clearDraft');
                 this.$router.push({ name : 'find-job' });
               })
@@ -229,21 +232,13 @@
               });
           }, dismiss => {
             if ( dismiss === 'cancel' ) {
-              this.$swal(
-                'Отменено!',
-                'Отредактируйте, или сохраните черновик',
-                'info'
-              )
+              this.$swal( 'Отменено!' , 'Отредактируйте, или сохраните черновик' , 'info' )
             }
           });
         } else {
           this.$store.dispatch('updateTask')
-            .then( ({ data }) => {
-              this.$swal(
-                'Сохранено!',
-                'Задача отредактирована.',
-                'success'
-              );
+            .then( () => {
+              this.$swal( 'Сохранено!' , 'Задача отредактирована.' , 'success' );
               this.$store.dispatch('clearDraft');
               this.$router.push({ name : 'find-job' });
             })
@@ -267,13 +262,14 @@
           this.specKeyword = '';
         }
       },
-      filler(target) {
-        const files = target.files;
+      filler(files) {
         const formData = new FormData();
-        formData.append( 'image' , files[0] );
+				for ( let file of files ) {
+					formData.append( 'image' , file )
+				}
         this.$http.post( 'upload' , formData )
           .then( ({ body }) => {
-            this.$store.dispatch( 'addAttached' , body[0]._id );
+						body.forEach( picture => this.$store.dispatch( 'addAttached' , picture._id ) )
           })
           .catch( err => console.error(err) )
       },
@@ -402,20 +398,20 @@
 			.attached-item {
 			  position: relative;
 				size: 62px;
-				margin: 0 7px 7px 0;
+				// margin: 0 7px 7px 0;
+        border-radius: 3px;
 				&._label {
 					size: 62px;
-					margin: 0;
+  				// margin: 0 7px 7px 0;
 					text-align: center;
 					font-size: 40px;
-					line-height: 62px;
+					line-height: 58px;
 					color: rgba(155, 155, 155, 0.2);
 					color: var(--purpley-grey-20);
 					background-color: transparent;
 					cursor: pointer;
 					border: solid 1px rgba(155, 155, 155, 0.2);
 					border: solid 1px var(--purpley-grey-20);
-					border-radius: 3px;
 					transition: box-shadow .3s ease-in-out;
 					&:hover {
 						@include MDShadow-1;
@@ -423,8 +419,8 @@
 				}
 				&__picture {
 					size: 62px;
-					object-fit: cover;
-					border-radius: 3px;
+					object-fit: contain;
+          border-radius: 3px;
 					@include MDShadow-1;
 				}
 				&__input {

@@ -23,6 +23,12 @@
   export default {
     name: "reviews",
     components: { reviewsItem },
+    props: {
+      'User': {
+        type: Object,
+        required: true
+      }
+    },
     data: () => ({
       isFolded: false
     }),

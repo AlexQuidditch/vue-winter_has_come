@@ -23,6 +23,12 @@ const actions = {
   setRole( { commit } , payload ) {
     commit( 'SET_ROLE' , payload )
   },
+  changeUser( { commit } , payload ) {
+    return API.post( `user/edit/${ payload[0] }` , payload[1] )
+  },
+  updateTasks( { commit } , payload ) {
+    commit( 'UPDATE_TASKS' , payload )
+  },
   updateAbout( { commit } , { id , user } ) {
     return API.post( `user/edit/${ id }` , user )
       .then( ({ body }) => console.log(body) )
@@ -74,6 +80,10 @@ const mutations = {
   },
   UPDATE_TELEGRAM( { social } , payload ) {
     social.contacts.telegram = payload;
+  },
+  // TASKS
+  UPDATE_TASKS( { tasks } , payload ) {
+    tasks.push( payload );
   },
   // Auth methods
   CREATE_INSTANCE( state , payload ) {

@@ -13,7 +13,7 @@
 										 :class="{ '_is-rush' : taskItem.isRush , '_is-engaged' : taskItem.isEngaged }"
 										 class="about-information__title">{{ taskItem.title }}
 				</router-link>
-				<router-link :to=" Author._id === currentUserID ? { name: 'profile' } : { name: 'agent', params: { id: Author._id } }"
+				<router-link :to=" Author._id === currentUserID ? { name: 'profile' } : { name: 'user', params: { id: Author._id } }"
                      tag="img" :src=" backendLocation + '/upload/' + Author.personal.avatar"
                      :title="Author.personal.name + ' ' + Author.personal.sename"
 					           class="about-information__author-avatar"

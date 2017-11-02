@@ -34,6 +34,9 @@
       }
     },
     computed: {
+      currentUserID() {
+        return this.$store.state.User._id;
+      },
       backendLocation() {
         return this.$store.state.General;
       }

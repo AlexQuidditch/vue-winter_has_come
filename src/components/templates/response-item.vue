@@ -1,19 +1,21 @@
 <template lang="html">
   <li class="response-item">
     <div class="response-header">
-      <router-link :to="Author._id === currentUserID ? { name: 'profile' } : { name: 'user', params: { id : Author._id }}" tag="img"
-                   :src=" backendLocation + '/upload/' + Author.avatar"
-                   :title="Author.name + ' ' + Author.sename"
+      <router-link :to="Author._id === currentUserID ? { name: 'profile' } : { name: 'user', params: { id : Author._id }}"
+                   tag="img"
+                   :src=" backendLocation + '/upload/' + Author.personal.avatar"
+                   :title="Author.personal.name + ' ' + Author.personal.sename"
                    class="response-header__avatar"
                    alt="Открыть профиль">
       </router-link>
       <div class="response-header__container">
-        <router-link :to="Author._id === currentUserID ? { name: 'profile' } : { name: 'user', params: { id : Author._id }}" tag="p"
+        <router-link :to="Author._id === currentUserID ? { name: 'profile' } : { name: 'user', params: { id : Author._id }}"
+                     tag="p"
                      class="response-header__name">
-          {{ Author.name }} {{ Author.sename }}
-          <span>({{ Author.rating }})</span>
+          {{ Author.personal.name }} {{ Author.personal.sename }}
+          <span>({{ Author.ratings.mainRate }})</span>
         </router-link>
-        <p class="response-header__time-ago">({{ responseItem.postedAgo }} минут назад)</p>
+        <p class="response-header__time-ago">{{ published }}</p>
       </div>
     </div>
     <div class="response-main">
@@ -23,7 +25,7 @@
         <p class="response-main__caption">{{ responseItem.caption }}</p>
       </div>
       <ul class="response-main__column portfolio-list">
-        <router-link v-for="work in Author.works" :key="work._id"
+        <router-link v-for="work in Author.personal.works" :key="work._id"
                      :to="{ name: 'task', params: { id : work._id }}" tag="li"
                      class="portfolio-list__item">
           <img :src=" backendLocation + '/upload/' + work.preview " :alt="work._id"
@@ -45,7 +47,9 @@
 
   import API from '@api';
 
-  import userTemplate from '@collections/userTemplate.json';
+  import { longDate } from '@helpers/dateFormat.js';
+
+  // import authorTemplate from '@collections/userTemplate.json';
 
   export default {
     name: "response-item",
@@ -63,15 +67,80 @@
         caption: '',
         isEngage: ''
       },
-      Author: userTemplate
+      Author: {
+      	_id: '',
+      	isAgent: null,
+      	wallID: '',
+      	personal: {
+      		avatar: '',
+      		name: '',
+      		sename: '',
+      		email: '',
+      		password: '',
+      		born: '',
+      		gender: '',
+      		caption: '',
+          about: ''
+      	},
+      	information: {
+      		specialization: '',
+      		lastVisit: '',
+      		status: '',
+      		town: '',
+      		country: '',
+      		education: {
+      			place: '',
+      			faculty: ''
+      		},
+      		company: {
+      			title: '',
+      			link: ''
+      		}
+      	},
+      	registrationDate: '',
+      	popularity: '',
+      	responses: {
+      		issued: 0,
+      		positive: 0,
+      		negative: 0
+      	},
+      	ratings: {
+      		mainRate: 0,
+      		average: 0,
+      		completed: 0,
+      		tests: {
+      			value: 0,
+      			total: 0,
+      			rate: 0
+      		}
+      	},
+      	social: {
+      		contacts: {
+      			vk: '',
+      			fb: '',
+      			skype: '',
+      			telegram: ''
+      		},
+      		teams: [],
+      		company: {
+      			activities: '',
+      			starts: '',
+      			achivements: ''
+      		}
+      	},
+      	portfolio: [],
+        reviews: [],
+      	tasks: []
+      }
     }),
     created() {
-      API.get( `user/${ this.responseItem.authorID }` )
-        .then( ({ body }) => this.Author = body )
-        .catch( error => console.error(error) )
-
       API.get( `response/get/${ this.responseID }` )
-        .then( ({ body }) => Object.assign( this.responseItem , body ) )
+        .then( ({ body }) => {
+          Object.assign( this.responseItem , body );
+          API.get( `users/get/${ this.responseItem.authorID }` )
+            .then( ({ body }) => Object.assign( this.Author , body ) )
+            .catch( error => console.error(error) )
+        })
         .catch( error => console.error(error) )
     },
     computed: {
@@ -80,6 +149,9 @@
       },
       backendLocation() {
         return this.$store.state.General
+      },
+      published() {
+        return new Date(this.responseItem.postedAgo).toLocaleString('ru-RU' , longDate );
       }
     }
   };

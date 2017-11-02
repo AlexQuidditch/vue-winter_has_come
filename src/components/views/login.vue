@@ -250,6 +250,7 @@
       size: 100px;
       padding: 5px;
       margin-bottom: 14px;
+      object-fit: contain;
       background-color: #fff;
       background-color: var(--whited);
       border-radius: 50%;

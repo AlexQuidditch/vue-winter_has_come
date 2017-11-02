@@ -1,8 +1,8 @@
 <template lang="html">
   <transition-group tag="ul" name="friend-list" mode="out-in"
                     class="friend-list _all">
-    <friends-item v-for="( friendItem , index ) in Friends" :key="friendItem._id"
-                  :friendItem = "friendItem">
+    <friends-item v-for="( userItem , index ) in Users" :key="userItem._id"
+                  :friendItem = "userItem">
     </friends-item>
   </transition-group>
 </template>
@@ -12,11 +12,11 @@
   import friendsItem from '@templates/friends-item';
 
   export default {
-    name: "friend-list_all",
+    name: "users-list_all",
     components: { friendsItem },
     computed: {
-      Friends() {
-        return this.$store.state.Stub.friends
+      Users() {
+        return this.$store.state.Users
       }
     }
   };

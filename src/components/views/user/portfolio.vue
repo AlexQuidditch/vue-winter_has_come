@@ -23,12 +23,19 @@
   export default {
     name: "portfolio",
     components: { portfolioItem },
+    props: {
+      'User': {
+        type: Object,
+        required: true
+      }
+    },
     data: () => ({
       isFolded: false
     }),
     computed: {
       Portfolio() {
-        const storePortfolio = this.$store.state.User.portfolio;
+        // const storePortfolio = this.$store.state.User.portfolio;
+        const storePortfolio = this.$store.state.Portfolio;
         // const Portfolio = [];
         // storePortfolio.forEach( item => {
         //   this.$store.state.Portfolio.filter( portfolio => {

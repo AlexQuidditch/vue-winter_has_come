@@ -16,14 +16,11 @@
   export default {
     name: "navigation-panel",
     computed: {
-      Friends() {
-        return this.$store.state.Menu.list.friends
-      },
       usersQuantity() {
-        return this.$store.state.Stub.friends.length;
+        return this.$store.state.Users.length;
       },
       usersOnline() {
-        const online = this.$store.state.Stub.friends
+        const online = this.$store.state.Users
           .filter( user => user.isOnline );
         return online.length;
       }

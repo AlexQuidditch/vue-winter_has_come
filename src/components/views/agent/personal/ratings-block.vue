@@ -16,7 +16,7 @@
 
 	import StarRating from 'vue-star-rating';
 
-	import ratingItem from '@templates/rating-item';
+	import ratingItem from '@templates/rating-item.vue';
 
     export default {
       name: "ratings",

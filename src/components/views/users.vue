@@ -13,18 +13,21 @@
 
 <script>
 
-	import filterPanel from './users/filter-panel';
-	import searchFriend from './users/search-friend';
-	import navigationPanel from './users/navigation-panel';
+	import filterPanel from './users/filter-panel.vue';
+	import searchFriend from './users/search-friend.vue';
+	import navigationPanel from './users/navigation-panel.vue';
 
-	import all from './users/all';
+	import all from './users/all.vue';
 
 	export default {
 		name: "users",
 		components: {
 			filterPanel , searchFriend , navigationPanel,
 			all
-		}
+		},
+    beforeRouteEnter ( to , from , next ) {
+      next( vm => vm.$store.dispatch('getUsers') )
+    }
 	};
 
 </script>

@@ -4,7 +4,7 @@
 			<h1 class="complete-task__title">
 				<span>Завершить задание</span> | {{ taskItem.title }}
 			</h1>
-			<form @submit.prevent="saveComplete()"
+			<form @submit.prevent="changeTask()"
 						class="complete-task-container">
 
 				<header class="complete-task-header">
@@ -123,8 +123,8 @@
 		},
 		methods: {
 			...mapActions([ 'updateRate' , 'updateReview' , 'updateStatus' ]),
-			saveComplete() {
-				this.$store.dispatch( 'saveComplete' , [ this.id , this.taskItem.completed ] )
+			changeTask() {
+				this.$store.dispatch( 'changeTask' , [ this.id , this.taskItem.completed ] )
 					.then( response => {
             console.log(response);
             this.$router.push({ name: 'task' , query : { id : this.id } })

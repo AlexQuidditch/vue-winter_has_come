@@ -1,6 +1,6 @@
 <template lang="html">
   <transition-group name="fade" mode="out-in" class="find-job _all">
-    <task-item v-for="( taskItem , index ) in Tasks" :key="index"
+    <task-item v-for="( taskItem , index ) in Tasks" :key="taskItem._id"
                :taskItem = "taskItem">
     </task-item>
   </transition-group>

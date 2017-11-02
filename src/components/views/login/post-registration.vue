@@ -187,7 +187,7 @@
         this.$http.post( `auth/post-registration/${ this.User._id }` , this.User )
           .then( ({ body }) => {
             console.log(body);
-            this.User.isAgent ? this.$router.push({ name : 'agent' , params : { id : 'this.User._id' } }) : this.$router.push( 'profile' )
+            this.$router.push( 'profile' )
           })
       }
     }

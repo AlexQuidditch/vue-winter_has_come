@@ -3,7 +3,6 @@ import { getRandomInt } from '@helpers/randomGenerators';
 import API from '../api';
 
 const state = {
-  posts: [],
   postDraft: {
     content: '',
     attacments: []
@@ -12,7 +11,7 @@ const state = {
 
 const actions = {
   likeWallPost( { commit } , { wallID , postID , value } ) {
-    API.post( `wall/${ wallID }/edit-post/${ postID }` , { like : value } )
+    API.post( `wall/edit-post/${ postID }` , { like : value } )
       .then( ({ body }) => {
         let data = { postID , likes : body };
     		commit( 'LIKE_WALL_POST' , data )
@@ -27,7 +26,7 @@ const actions = {
   updateDraft( { commit } , payload ) {
     commit( 'UPDATE_DRAFT' , payload )
   },
-  addNewPost( { commit , state } , { authorID , wallID } ) {
+  addNewPost( { commit , state } , { authorID , userID } ) {
     const newPost = {
       authorID: authorID,
       time: new Date(),
@@ -37,11 +36,7 @@ const actions = {
       reposts: 0,
       comments: []
     };
-    return API.post( `wall/${ wallID }/create-post/` , newPost )
-      .then( ({ body }) => {
-        console.log(body);
-        commit( 'SET_POSTS' , body.posts )
-      })
+    return API.post( `wall/create-post/` , newPost )
   },
   getPostByWallID( { commit } , payload ) {
     return API.get(`wall/get/${ payload }`)

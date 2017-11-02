@@ -1,14 +1,15 @@
 <template lang="html">
   <li class="wall-post">
     <header class="post-header">
-      <router-link :to="{ name: 'user', query: { id: Author._id }}" tag="img"
-                   :src=" backendLocation + '/upload/' + Author.avatar" :title="Author.name + ' ' + Author.sename"
+      <router-link :to=" currentUserID === Author._id ? { name: 'profile' } : { name: 'user', query: { id: Author._id }} " tag="img"
+                   :src=" backendLocation + '/upload/' + Author.avatar"
+                   :title="Author.personal.name + ' ' + Author.personal.sename"
                    class="post-header__avatar">
       </router-link>
       <div class="post-header__container">
-        <router-link :to="{ name: 'user', query: { id: Author._id }}" tag="h6"
+        <router-link :to=" currentUserID === Author._id ? { name: 'profile' } : { name: 'user', query: { id: Author._id }} " tag="h6"
                      class="post-header__name"
-          >{{ Author.name + ' ' + Author.sename }}
+          >{{ Author.personal.name + ' ' + Author.personal.sename }}
           <transition name="heartbeat" mode="out-in">
             <span v-if="Author.isOnline" class="post-header__online"></span>
           </transition>
@@ -22,7 +23,7 @@
         </icon-comments>
       </span>
     </header>
-    <article class="post-content">{{ WallPost.content }}</article>
+    <article class="post-content">{{ Post.content }}</article>
     <footer class="post-footer">
       <button @click="toComment = true"
               class="post-footer__button _comment waves-effect waves-light"
@@ -34,7 +35,7 @@
               :class="{ '_update' : hasLiked }"
               class="post-footer__button waves-effect waves-dark"
               type="button">
-        <span class="post-footer__button-content _likes" aria-label="Количество лайков">{{ WallPost.likes.length }}</span>
+        <span class="post-footer__button-content _likes" aria-label="Количество лайков">{{ Post.likes.length }}</span>
         <icon-heart :Width="2"
                     :class="{ '_active' : isLiked }"
                     class="post-footer__button-icon _likes"
@@ -43,7 +44,7 @@
       </button>
     </footer>
     <transition-group name="list" tag="ul" mode="out-in" class="comments-list">
-      <comments-item v-for="( commentItem , index ) in WallPost.comments" :key="index"
+      <comments-item v-for="( commentItem , index ) in Post.comments" :key="index"
                      :CommentItem="commentItem">
       </comments-item>
     </transition-group>
@@ -56,7 +57,7 @@
         </textarea>
         <button class="post-form__submit waves-effect waves-light"
                 type="submit">
-          Оставить комментарий
+          Отправить
           <icon-comments :Width="2" :Stroke="'#fff'" class="post-footer__button-icon _comment"></icon-comments>
         </button>
       </form>
@@ -65,6 +66,8 @@
 </template>
 
 <script>
+
+  import API from '@api';
 
   import { longDate } from '@helpers/dateFormat';
 
@@ -76,12 +79,90 @@
     name: "wall-post",
     components: { iconHeart , iconComments , commentsItem },
     props: {
-      'WallPost': {
+      'WallPostID': {
+        type: String,
+        required: true
+      },
+      'User': {
         type: Object,
         required: true
       }
     },
     data: () => ({
+      Post: {
+      	authorID: '',
+      	time: '',
+      	content: '',
+      	attacments: '',
+      	likes: [],
+      	reposts: '',
+      	comments: []
+      },
+      Author: {
+      	_id: '',
+      	isAgent: null,
+      	wall: [],
+      	personal: {
+      		avatar: '',
+      		name: '',
+      		sename: '',
+      		email: '',
+      		password: '',
+      		born: '',
+      		gender: '',
+      		caption: '',
+          about: ''
+      	},
+      	information: {
+      		specialization: '',
+      		lastVisit: '',
+      		status: '',
+      		town: '',
+      		country: '',
+      		education: {
+      			place: '',
+      			faculty: ''
+      		},
+      		company: {
+      			title: '',
+      			link: ''
+      		}
+      	},
+      	registrationDate: '',
+      	popularity: '',
+      	responses: {
+      		issued: 0,
+      		positive: 0,
+      		negative: 0
+      	},
+      	ratings: {
+      		mainRate: 0,
+      		average: 0,
+      		completed: 0,
+      		tests: {
+      			value: 0,
+      			total: 0,
+      			rate: 0
+      		}
+      	},
+      	social: {
+      		contacts: {
+      			vk: '',
+      			fb: '',
+      			skype: '',
+      			telegram: ''
+      		},
+      		teams: [],
+      		company: {
+      			activities: '',
+      			starts: '',
+      			achivements: ''
+      		}
+      	},
+      	portfolio: [],
+        reviews: [],
+      	tasks: []
+      },
       hasLiked: false,
       hasComment: false,
       toComment: false,
@@ -98,32 +179,41 @@
       }
     },
     computed: {
-      Author() {
-        return this.$store.state.Stub.friends
-          .find( item => item._id == this.WallPost.authorID )
+      currentUserID() {
+        return this.$store.state.User._id;
       },
       published() {
-        return new Date(this.WallPost.time).toLocaleString('ru-RU' , longDate );
+        return new Date(this.Post.time).toLocaleString('ru-RU' , longDate );
       },
       commentsLength() {
-        return this.WallPost.comments.length
+        return this.Post.comments.length
       },
       isLiked() {
-        return this.WallPost.likes
+        return this.Post.likes
           .some( ID => ID == this.$store.state.User._id )
       },
       backendLocation() {
         return this.$store.state.General;
       }
     },
+    created() {
+      API.get( `wall/get/${ this.WallPostID }` )
+        .then( ({ body }) => {
+          Object.assign( this.Post , body );
+          API.get( `users/get/${ this.Post.authorID }` )
+            .then( ({ body }) => Object.assign( this.Author , body ) )
+            .catch( error => console.error(error) )
+        })
+        .catch( error => console.error(error) )
+    },
     methods: {
       likeIt() {
         const payload = {
           wallID: this.$store.state.User.wallID,
-          postID: this.WallPost._id,
+          postID: this.Post._id,
           value: this.$store.state.User._id
         };
-        this.$store.dispatch( 'likeWallPost' , payload );
+        this.$store.dispatch( 'likePost' , payload );
       },
       commentIt() {
         const newComment = {                    // подготовка новго объекта комментария
@@ -133,7 +223,15 @@
           attacments: '',                       // Array || Object - приложения
           likes: []                             // Array массив лайкнувших
         };
-        this.$store.dispatch( 'addComment' , [ this.WallPost._id , newComment ] );
+
+        this.Post.comments.push(newComment);
+        API.post( `wall/edit/${ this.WallPostID }` , this.Post )
+          .then( ({ body }) => {
+            API.post( `user/edit/${ this.User._id }` , this.User )
+              .then( ({ body }) => console.log(body) )
+          })
+          .catch( error => console.error(error) )
+
         this.postComment = '';
       }
     }
@@ -290,7 +388,7 @@
     justify-content: space-between;
     align-items: center;
     &__textarea {
-      width: 430px;
+      width: 410px;
       min-height: 55px;
       padding: 10px;
       font-size: 14px;

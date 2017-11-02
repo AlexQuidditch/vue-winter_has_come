@@ -1,14 +1,15 @@
 <template lang="html">
   <li class="comment-item">
     <header class="comment-header">
-      <router-link :to="{ name: 'user', query: { id: Author.id }}" tag="img"
-                   :src="'/static/assets/shared/' + Author.avatar" :alt="Author.name + ' ' + Author.sename"
+      <router-link :to=" currentUserID === Author._id ? { name: 'profile' } : { name: 'user', params: { id : Author._id }} " tag="img"
+                   :src=" backendLocation + '/upload/' + Author.personal.avatar"
+                   :alt="Author.personal.name + ' ' + Author.personal.sename"
                    class="comment-header__avatar">
       </router-link>
       <div class="comment-header__container">
-        <router-link :to="{ name: 'user', query: { id: Author.id }}" tag="h6"
+        <router-link :to=" currentUserID === Author._id ? { name: 'profile' } : { name: 'user', params: { id : Author.id }}" tag="h6"
                      class="comment-header__name"
-          >{{ Author.name + ' ' + Author.sename }}
+          >{{ Author.personal.name + ' ' + Author.personal.sename }}
           <transition name="heartbeat" mode="out-in">
             <span v-if="Author.isOnline" class="comment-header__online"></span>
           </transition>
@@ -22,7 +23,7 @@
               :class="{ '_update' : hasLiked }"
               class="comment-footer__button waves-effect waves-dark"
               type="button">
-        <span class="comment-footer__button-content _likes" aria-label="Количество лайков">{{ CommentItem.likes }}</span>
+        <span class="comment-footer__button-content _likes" aria-label="Количество лайков">{{ CommentItem.likes.length }}</span>
         <icon-heart :Width="2"
                     :class="{ '_active' : isLiked }"
                     class="comment-footer__button-icon _likes"
@@ -34,6 +35,8 @@
 </template>
 
 <script>
+
+  import API from '@api';
 
   import iconHeart from '@icons/heart.js';
 
@@ -47,6 +50,71 @@
       }
     },
     data: () => ({
+      Author: {
+      	_id: '',
+      	isAgent: null,
+      	wall: [],
+      	personal: {
+      		avatar: '',
+      		name: '',
+      		sename: '',
+      		email: '',
+      		password: '',
+      		born: '',
+      		gender: '',
+      		caption: '',
+          about: ''
+      	},
+      	information: {
+      		specialization: '',
+      		lastVisit: '',
+      		status: '',
+      		town: '',
+      		country: '',
+      		education: {
+      			place: '',
+      			faculty: ''
+      		},
+      		company: {
+      			title: '',
+      			link: ''
+      		}
+      	},
+      	registrationDate: '',
+      	popularity: '',
+      	responses: {
+      		issued: 0,
+      		positive: 0,
+      		negative: 0
+      	},
+      	ratings: {
+      		mainRate: 0,
+      		average: 0,
+      		completed: 0,
+      		tests: {
+      			value: 0,
+      			total: 0,
+      			rate: 0
+      		}
+      	},
+      	social: {
+      		contacts: {
+      			vk: '',
+      			fb: '',
+      			skype: '',
+      			telegram: ''
+      		},
+      		teams: [],
+      		company: {
+      			activities: '',
+      			starts: '',
+      			achivements: ''
+      		}
+      	},
+      	portfolio: [],
+        reviews: [],
+      	tasks: []
+      },
       isLiked: false,
       hasLiked: false
     }),
@@ -57,14 +125,20 @@
       }
     },
     computed: {
-      Author() {
-        return this.$store.state.Stub.friends.find( item => {
-          if ( item.id === this.CommentItem.authorID ) return item
-        })
+      currentUserID() {
+        return this.$store.state.User._id;
       },
       published() {
         return new Date(this.CommentItem.time).toLocaleString('ru-RU' , { hour: '2-digit' , minute: '2-digit' , day: '2-digit' , month: 'long' })
+      },
+      backendLocation() {
+        return this.$store.state.General;
       }
+    },
+    created() {
+      API.get( `users/get/${ this.CommentItem.authorID }` )
+        .then( ({ body }) => Object.assign( this.Author , body ) )
+        .catch( error => console.error(error) )
     },
     methods: {
       likeIt() {

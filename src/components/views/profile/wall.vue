@@ -3,7 +3,7 @@
     <icon-wall class="wall__icon"></icon-wall>
     <h3 class="wall__title">Стена пользователя</h3>
     <div class="wall__container">
-      <wall-form></wall-form>
+      <wall-form :User="User"></wall-form>
       <transition-group name="fade" tag="ul" mode="out-in"
                         v-if="wallPosts.length"
                         class="wall-posts-list">
@@ -28,11 +28,11 @@
     components: { wallForm , wallPost , iconWall , iconHeart },
     computed: {
       wallPosts() {
-        return this.$store.state.Wall.posts
+        return this.$store.state.User.wall
       }
     },
     created() {
-      this.$store.dispatch( 'getPostByWallID' , this.$store.state.User.wallID );
+      this.$store.dispatch( 'getPostByWallID' , this.User.wallID );
     }
   };
 

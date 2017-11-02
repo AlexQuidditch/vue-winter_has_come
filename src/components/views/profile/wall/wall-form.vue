@@ -55,7 +55,7 @@
       addNewPost() {
         const IDs = {
           authorID: this.$store.state.User._id,
-          wallID: this.$store.state.User.wallID
+          userID: this.$store.state.User._id
         };
         this.$store.dispatch( 'addNewPost' , IDs );
       },

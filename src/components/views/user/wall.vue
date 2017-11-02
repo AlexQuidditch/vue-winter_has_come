@@ -3,12 +3,13 @@
     <icon-wall class="wall__icon"></icon-wall>
     <h3 class="wall__title">Стена пользователя</h3>
     <div class="wall__container">
-      <wall-form></wall-form>
+      <wall-form :User="User" @addPostUserToWall="$emit( 'addPostUserToUser' , $event )"></wall-form>
       <transition-group name="fade" tag="ul" mode="out-in"
-                        v-if="wallPosts.length"
+                        v-if="User.wall && User.wall.length"
                         class="wall-posts-list">
-        <wall-post v-for="wallPost in wallPosts" :key="wallPost._id"
-                   :WallPost="wallPost">
+        <wall-post v-for="postID in User.wall" :key="postID"
+                   :WallPostID="postID"
+                   :User="User">
         </wall-post>
       </transition-group>
     </div>
@@ -31,14 +32,6 @@
         type: Object,
         required: true
       }
-    },
-    computed: {
-      wallPosts() {
-        return this.$store.state.Wall.posts
-      }
-    },
-    created() {
-      this.$store.dispatch( 'getPostByWallID' , this.User.wallID );
     }
   };
 
@@ -57,9 +50,6 @@
     size: 640px auto;
     padding: 20px 30px;
     transition: height .4s ease;
-    &._folded {
-      height: 68px;
-    }
     &__icon {
       width: 28px;
     }

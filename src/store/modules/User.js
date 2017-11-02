@@ -33,6 +33,9 @@ const actions = {
     return API.post( `user/edit/${ id }` , user )
       .then( ({ body }) => console.log(body) )
       .catch( error => console.error(error) )
+  },
+  setPost( { commit } , payload ) {
+    commit( 'SET_POSTS' , payload )
   }
 
 };
@@ -102,6 +105,9 @@ const mutations = {
   // Post-Registration methods
   SET_ROLE( state , payload ) {
     state.isAgent = payload;
+  },
+  SET_POSTS( { wall } , payload ) {
+    wall.unshift(payload);
   }
 };
 

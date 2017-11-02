@@ -8,7 +8,8 @@
                         v-if="User.wall && User.wall.length"
                         class="wall-posts-list">
         <wall-post v-for="postID in User.wall" :key="postID"
-                   :WallPost="postID">
+                   :WallPostID="postID"
+                   :User="User">
         </wall-post>
       </transition-group>
     </div>
@@ -29,9 +30,6 @@
     computed: {
       User() {
         return this.$store.state.User
-      },
-      Wall() {
-        return this.$store.state.Wall.posts;
       }
     }
   };

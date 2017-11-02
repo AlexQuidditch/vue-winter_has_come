@@ -8,7 +8,8 @@
                         v-if="User.wall && User.wall.length"
                         class="wall-posts-list">
         <wall-post v-for="postID in User.wall" :key="postID"
-                   :WallPostID="postID">
+                   :WallPostID="postID"
+                   :User="User">
         </wall-post>
       </transition-group>
     </div>

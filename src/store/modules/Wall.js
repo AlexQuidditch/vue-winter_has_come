@@ -42,9 +42,6 @@ const actions = {
         commit( 'SET_POSTS' , body );
         return body;
       })
-  },
-  setPost( { commit } , payload ) {
-    commit( 'SET_POSTS' , payload )
   }
 };
 
@@ -73,9 +70,6 @@ const mutations = {
     posts.unshift(newPost);
     postDraft.content = '';
     postDraft.attacments = [];
-  },
-  SET_POSTS( { posts } , payload ) {
-    posts.unshift(payload);
   }
 };
 

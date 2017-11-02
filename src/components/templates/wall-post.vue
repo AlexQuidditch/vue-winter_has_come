@@ -82,6 +82,10 @@
       'WallPostID': {
         type: String,
         required: true
+      },
+      'User': {
+        type: Object,
+        required: true
       }
     },
     data: () => ({

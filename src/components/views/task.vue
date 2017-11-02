@@ -2,13 +2,15 @@
 	<main class="main _task">
 		<section class="task" v-cloak>
 			<task-detail :taskItem="taskItem" :Author="Author" :id="id"></task-detail>
-			<task-response :taskItem="taskItem" :id="id"></task-response>
+			<task-response :taskItem="taskItem" :id="id" @emitResponse="addResponse($event)"></task-response>
 		</section>
 		<task-summary :taskItem="taskItem" :id="id"></task-summary>
 	</main>
 </template>
 
 <script>
+
+  import API from '@api';
 
   import userTemplate from '@collections/userTemplate.json';
   import taskTemplate from '@collections/taskTemplate.json';
@@ -35,15 +37,24 @@
         .then( ({ body }) => {
           Object.assign( this.taskItem , body );
           this.taskItem.views += 1;
-          this.$http.get( `user/${ this.taskItem.authorID }` )
+
+          API.get( `user/${ this.taskItem.authorID }` )
             .then( ({ body }) => {
 							Object.assign( this.Author , body );
-							this.$store.dispatch( 'hasViewed' , [ this.id , this.taskItem ] )
+							this.$store.dispatch( 'changeTask' , [ this.id , this.taskItem ] )
                 .then( ({ body }) => console.log( 'Task viewed -' , body.views ))
 						})
             .catch( error => console.error(error) )
+
         })
         .catch( error => console.error(error) );
+    },
+    methods: {
+      addResponse( responseID ) {
+        this.taskItem.responses.push( responseID );
+        this.$store.dispatch( 'changeTask' , [ this.id , this.taskItem ] )
+          .then( ({ body }) => console.log( 'Response saved' ))
+      }
     }
   };
 

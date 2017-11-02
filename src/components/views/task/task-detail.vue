@@ -2,15 +2,17 @@
   <div class="task-detail">
 		<div class="detail-header">
 			<div class="header-agent">
-				<img @click="openAuthorProfile()"
-             :src=" backendLocation + '/upload/' + Author.personal.avatar"
-             :alt="Author.personal.name + ' ' + Author.personal.sename"
-					   class="header-agent__avatar"
-					   title="Открыть профиль" />
-				<p @click="openAuthorProfile()" class="header-agent__name">
-					{{ Author.personal.name }}<br />
-					{{ Author.personal.sename }}
-				</p>
+        <router-link :to=" Author._id === currentUserID ? { name: 'profile' } : { name: 'user', params: { id: Author._id } }"
+                     tag="img" :src=" backendLocation + '/upload/' + Author.personal.avatar"
+                     :title="Author.personal.name + ' ' + Author.personal.sename"
+                     class="header-agent__avatar"
+                     alt="Открыть профиль автора">
+        </router-link>
+        <router-link :to=" Author._id === currentUserID ? { name: 'profile' } : { name: 'user', params: { id: Author._id } }"
+                     tag="p" class="header-agent__name">
+          {{ Author.personal.name }}<br />
+          {{ Author.personal.sename }}
+        </router-link>
 			</div>
 			<div class="header-statistics">
 				<p class="header-statistics__responses">
@@ -24,7 +26,7 @@
 					</span>
 				</p>
 				<p class="header-statistics__issued">Заданий выдано:
-					<span class="header-statistics__issued-counter">{{ Author.responses.issued }}</span>
+					<span class="header-statistics__issued-counter">{{ Author.tasks.length }}</span>
 				</p>
 			</div>
 		</div>
@@ -69,7 +71,7 @@
         </li>
         <li class="summary-response">
           <icon-comments class="summary-response__icon"></icon-comments>
-          <span class="summary-response__value">{{ taskItem.response }} ответов</span>
+          <span class="summary-response__value">{{ taskItem.responses.length }} ответов</span>
         </li>
       </ul>
       <div v-if="taskItem.authorID === currentUserID" class="detail-footer__row">
@@ -121,13 +123,6 @@
       }
     },
     methods: {
-      openAuthorProfile() {
-        if ( this.taskItem.authorID === this.currentUserID ) {
-          this.$router.push({ name : 'profile' })
-        } else {
-          this.$router.push({ name: 'user', params: { id : this.Author._id }})
-        }
-      },
       completeTask() {
         this.$router.push({ name: 'complete-task' , params: { id : this.id } })
       },

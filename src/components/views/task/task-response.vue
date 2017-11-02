@@ -1,19 +1,18 @@
 <template lang="html">
-  <transition appear>
-    <section v-if="taskItem.authorID === currentUserID"
-             class="task-response">
-      <h4 class="task-response__title">Отклики:</h4>
+  <transition-group name="fade" mode="out-in" appear>
+    <section v-if="currentUserID === !taskItem.authorID" key="response" class="task-response">
+      <h4 class="task-response__title">Откликнуться:</h4>
+      <response-form :id="id" @emitResponse="$emit( 'emitResponse' , $event )"></response-form>
+    </section>
+    <section key="haveResponses" class="task-response">
+      <h4 class="task-response__title">{{ taskItem.responses.length ? 'Отклики:' : 'Пока что нет откликов...' }}</h4>
       <transition-group name="list" tag="ul" class="response-list">
-        <response-item v-for="( responseItem , index ) in Responses" :key="index"
-                       :responseItem="responseItem">
+        <response-item v-for="responseID in taskItem.responses" :key="responseID"
+                       :responseID="responseID">
         </response-item>
       </transition-group>
     </section>
-    <section v-else class="task-response">
-      <h4 class="task-response__title">Откликнуться:</h4>
-      <response-form></response-form>
-    </section>
-  </transition>
+  </transition-group>
 </template>
 
 <script>
@@ -28,33 +27,12 @@
       'taskItem': {
         type: Object,
         required: true
+      },
+      'id': {
+        type: String,
+        required: true
       }
     },
-    data: () => ({
-      Responses: [
-        {
-          authorID: 1,
-          postedAgo: 12,
-          feedBack: 'Готова выполнить! Пишите! Работу выполняю быстро, ответственно. Для примера смотрите мое портфолио.',
-          caption: 'Здесь находится подпись. Например, контакты. Заполняется в настройках.',
-          isEngage: true
-        },
-        {
-          authorID: 2,
-          postedAgo: 5,
-          feedBack: 'Готова выполнить! Пишите! Работу выполняю быстро, ответственно. Для примера смотрите мое портфолио.',
-          caption: 'Здесь находится подпись. Например, контакты. Заполняется в настройках.',
-          isEngage: false
-        },
-        {
-          authorID: 3,
-          postedAgo: 22,
-          feedBack: 'Здравствуйте! Сделаю оперативно, имею достаточный опыт в подобных проектах.',
-          caption: 'Всегда на связи. Телефон: 8 (800) 555 35-35',
-          isEngage: false
-        }
-      ]
-    }),
     computed: {
       currentUserID() {
         return this.$store.state.User._id;

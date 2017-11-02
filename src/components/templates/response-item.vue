@@ -34,7 +34,7 @@
       </ul>
     </div>
     <div class="response-footer">
-      <template v-if="responseItem.authorID === currentUserID && !responseItem.isEngage">
+      <template v-if=" Author._id === currentUserID">
         <button class="response-footer__button">Назначить</button>
         <button class="response-footer__button">Отклонить</button>
       </template>
@@ -54,7 +54,11 @@
   export default {
     name: "response-item",
     props: {
-      'responseID': {
+      'ResponseID': {
+        type: String,
+        required: true
+      },
+      'TaskAuthorID': {
         type: String,
         required: true
       }
@@ -134,7 +138,7 @@
       }
     }),
     created() {
-      API.get( `response/get/${ this.responseID }` )
+      API.get( `response/get/${ this.ResponseID }` )
         .then( ({ body }) => {
           Object.assign( this.responseItem , body );
           API.get( `users/get/${ this.responseItem.authorID }` )

@@ -24,6 +24,8 @@
 
 <script>
 
+  import API from '@api';
+
   import { shortDate } from '@helpers/dateFormat';
 
   export default {
@@ -35,7 +37,72 @@
 	    }
 		},
 		data: () => ({
-			hasNewMessage: false
+			hasNewMessage: false,
+      Author: {
+      	_id: '',
+      	isAgent: null,
+      	wall: [],
+      	personal: {
+      		avatar: '',
+      		name: '',
+      		sename: '',
+      		email: '',
+      		password: '',
+      		born: '',
+      		gender: '',
+      		caption: '',
+          about: ''
+      	},
+      	information: {
+      		specialization: '',
+      		lastVisit: '',
+      		status: '',
+      		town: '',
+      		country: '',
+      		education: {
+      			place: '',
+      			faculty: ''
+      		},
+      		company: {
+      			title: '',
+      			link: ''
+      		}
+      	},
+      	registrationDate: '',
+      	popularity: '',
+      	responses: {
+      		issued: 0,
+      		positive: 0,
+      		negative: 0
+      	},
+      	ratings: {
+      		mainRate: 0,
+      		average: 0,
+      		completed: 0,
+      		tests: {
+      			value: 0,
+      			total: 0,
+      			rate: 0
+      		}
+      	},
+      	social: {
+      		contacts: {
+      			vk: '',
+      			fb: '',
+      			skype: '',
+      			telegram: ''
+      		},
+      		teams: [],
+      		company: {
+      			activities: '',
+      			starts: '',
+      			achivements: ''
+      		}
+      	},
+      	portfolio: [],
+        reviews: [],
+      	tasks: []
+      },
 		}),
 		watch: {
 	    'DialogItem.unreaded'() {
@@ -46,13 +113,13 @@
 		computed: {
 			lastMessage() {
 				return new Date(this.DialogItem.lastMessage).toLocaleString('ru-RU' , shortDate );
-			},
-			Author() {
-				return this.$store.state.Stub.friends.find( item => {
-					if ( item._id === this.DialogItem.authorID ) return item
-				})
 			}
 		},
+    created() {
+      API.get( `users/get/${ this.DialogItem.authorID }` )
+        .then( ({ body }) => Object.assign( this.Author , body ) )
+        .catch( error => console.error(error) )
+    },
 		methods: {
 			spliceText (text) {
 				if ( text.length > 20 ) return text.substr( 0 , 50 ) + '...';

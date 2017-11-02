@@ -13,9 +13,10 @@
 
   export default {
     name: "social-company",
-    computed: {
-      Company() {
-        return this.$store.state.Agent.social.company
+    props: {
+      'Company': {
+        type: Object,
+        required: true
       }
     }
   };

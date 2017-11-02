@@ -1,13 +1,13 @@
 <template lang="html">
   <form @submit.prevent="addNewPost()" class="wall-form">
     <header class="wall-form-header">
-      <router-link :to="{ name: 'user', query : { id : Author._id }}" tag="img"
-                   :src=" backendLocation + '/upload/' + Author.avatar"
-                   :alt="Author.name + ' ' + Author.sename"
+      <router-link :to=" currentUserID === Author._id ? { name: 'profile' } : { name: 'user', params : { id : Author._id }} " tag="img"
+                   :src=" backendLocation + '/upload/' + Author.personal.avatar"
+                   :alt="Author.personal.name + ' ' + Author.personal.sename"
                    class="wall-form-header__avatar">
       </router-link>
       <div class="wall-form-header__container">
-        <h6 class="wall-form-header__name">{{ Author.name + ' ' + Author.sename }}</h6>
+        <h6 class="wall-form-header__name">{{ Author.personal.name + ' ' + Author.personal.sename }}</h6>
         <span class="wall-form-header__time">Опубликовать сейчас</span>
       </div>
     </header>
@@ -34,18 +34,25 @@
 
 <script>
 
+  import API from '@api';
+
   import iconComments from '@icons/comments';
 
   export default {
     name: "wall-form",
     components: { iconComments },
+    data: () => ({
+      draftContent: ''
+    }),
     computed: {
-      Author() {
-        return this.$store.state.User.personal
+      User() {
+        return this.$store.state.User
       },
-      draftContent: {
-        get () { return this.$store.state.Wall.postDraft.content },
-        set (payload) { this.$store.dispatch( 'updateDraft' , payload ) }
+      Author() {
+        return this.$store.state.User
+      },
+      currentUserID() {
+        return this.$store.state.User._id;
       },
       backendLocation() {
         return this.$store.state.General;
@@ -53,11 +60,23 @@
     },
     methods: {
       addNewPost() {
-        const IDs = {
-          authorID: this.$store.state.User._id,
-          userID: this.$store.state.User._id
+        const newPost = {
+          authorID: this.Author._id,
+          time: new Date(),
+          content: this.draftContent,
+          attacments: [],
+          likes: [],
+          reposts: 0,
+          comments: []
         };
-        this.$store.dispatch( 'addNewPost' , IDs );
+        API.post( `wall/create` , newPost )
+          .then( ({ body }) => {
+            this.$store.dispatch( 'setPost' , body._id );
+            this.draftContent = '';
+            this.$store.dispatch( 'changeUser' , [ this.User._id , this.User ] )
+              .then( ({ body }) => console.log(body) )
+          })
+          .catch( error => console.error(error) )
       },
       addAttach() {
         console.log('Attach It!');

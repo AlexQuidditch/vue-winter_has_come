@@ -13,8 +13,6 @@
 
 <script>
 
-  import API from '@api';
-
 	import tasksItem from '@templates/tasks-item.vue';
 
 	export default {

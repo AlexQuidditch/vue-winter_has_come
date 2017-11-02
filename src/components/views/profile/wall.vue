@@ -5,10 +5,10 @@
     <div class="wall__container">
       <wall-form :User="User"></wall-form>
       <transition-group name="fade" tag="ul" mode="out-in"
-                        v-if="wallPosts.length"
+                        v-if="User.wall && User.wall.length"
                         class="wall-posts-list">
-        <wall-post v-for="wallPost in wallPosts" :key="wallPost._id"
-                   :WallPost="wallPost">
+        <wall-post v-for="postID in User.wall" :key="postID"
+                   :WallPost="postID">
         </wall-post>
       </transition-group>
     </div>
@@ -27,12 +27,12 @@
     name: "wall",
     components: { wallForm , wallPost , iconWall , iconHeart },
     computed: {
-      wallPosts() {
-        return this.$store.state.User.wall
+      User() {
+        return this.$store.state.User
+      },
+      Wall() {
+        return this.$store.state.Wall.posts;
       }
-    },
-    created() {
-      this.$store.dispatch( 'getPostByWallID' , this.User.wallID );
     }
   };
 

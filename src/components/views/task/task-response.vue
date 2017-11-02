@@ -1,6 +1,6 @@
 <template lang="html">
   <transition-group name="fade" mode="out-in" appear>
-    <section v-if="currentUserID === !taskItem.authorID" key="response" class="task-response">
+    <section v-if="taskItem.authorID !== currentUserID" key="response" class="task-response">
       <h4 class="task-response__title">Откликнуться:</h4>
       <response-form :id="id" @emitResponse="$emit( 'emitResponse' , $event )"></response-form>
     </section>
@@ -8,7 +8,8 @@
       <h4 class="task-response__title">{{ taskItem.responses.length ? 'Отклики:' : 'Пока что нет откликов...' }}</h4>
       <transition-group name="list" tag="ul" class="response-list">
         <response-item v-for="responseID in taskItem.responses" :key="responseID"
-                       :responseID="responseID">
+                       :ResponseID="responseID"
+                       :TaskAuthorID="taskItem.authorID">
         </response-item>
       </transition-group>
     </section>

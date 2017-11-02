@@ -76,7 +76,7 @@
           .then( ({ body }) => {
             this.$emit( 'addPostUserToWall' , body._id );
             this.draftContent = '';
-            API.post( `user/edit/${ this.User._id }` , this.User )
+            this.$store.dispatch( 'changeUser' , [ this.User._id , this.User ] )
               .then( ({ body }) => console.log(body) )
           })
           .catch( error => console.error(error) )

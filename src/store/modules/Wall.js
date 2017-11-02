@@ -6,12 +6,13 @@ const state = {
   postDraft: {
     content: '',
     attacments: []
-  }
+  },
+  posts: []
 };
 
 const actions = {
   likeWallPost( { commit } , { wallID , postID , value } ) {
-    API.post( `wall/edit-post/${ postID }` , { like : value } )
+    API.post( `wall/edit/${ postID }` , { like : value } )
       .then( ({ body }) => {
         let data = { postID , likes : body };
     		commit( 'LIKE_WALL_POST' , data )
@@ -26,9 +27,9 @@ const actions = {
   updateDraft( { commit } , payload ) {
     commit( 'UPDATE_DRAFT' , payload )
   },
-  addNewPost( { commit , state } , { authorID , userID } ) {
+  addNewPost( { commit , state } , authorID ) {
     const newPost = {
-      authorID: authorID,
+      authorID,
       time: new Date(),
       content: state.postDraft.content,
       attacments: state.postDraft.attacments,
@@ -36,13 +37,14 @@ const actions = {
       reposts: 0,
       comments: []
     };
-    return API.post( `wall/create-post/` , newPost )
-  },
-  getPostByWallID( { commit } , payload ) {
-    return API.get(`wall/get/${ payload }`)
+    return API.post( `wall/create` , newPost )
       .then( ({ body }) => {
-        return commit( 'SET_POSTS' , body )
+        commit( 'SET_POSTS' , body );
+        return body;
       })
+  },
+  setPost( { commit } , payload ) {
+    commit( 'SET_POSTS' , payload )
   }
 };
 
@@ -73,9 +75,7 @@ const mutations = {
     postDraft.attacments = [];
   },
   SET_POSTS( { posts } , payload ) {
-    console.log( posts );
-    posts.splice( 0 , posts.length );
-    posts.push(...payload);
+    posts.unshift(payload);
   }
 };
 

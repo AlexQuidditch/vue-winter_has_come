@@ -2,10 +2,10 @@
     <section class="tasks">
 		<img src="/static/assets/profile/portfolio/case.svg" alt="Портфолио"
 				 class="tasks__icon">
-		<h3 class="tasks__title">Задания</h3>
+		<h3 class="tasks__title">{{ Tasks.length ? 'Задания' : 'Вы не создавали заданий' }}</h3>
 		<transition-group name="list" mode="out-in" class="tasks-list">
-			<tasks-item v-for="( tasksItem , index ) in Tasks" :key="index"
-									:tasksItem="tasksItem">
+			<tasks-item v-for="( tasksID , index ) in Tasks" :key="index"
+									:tasksID="tasksID">
 			</tasks-item>
 		</transition-group>
   </section>
@@ -13,21 +13,14 @@
 
 <script>
 
-	import tasksItem from '@templates/tasks-item';
+	import tasksItem from '@templates/tasks-item.vue';
 
 	export default {
 		name: "tasks",
 		components: { tasksItem },
 		computed: {
 			Tasks() {
-				const storeTasks = this.$store.state.Agent.tasks;
-				const Tasks = [];
-				storeTasks.forEach( item => {
-					this.$store.state.Tasks.filter( task => {
-						if ( task._id === item ) Tasks.push( task );
-					})
-				});
-				return Tasks;
+				return this.$store.state.User.tasks;
 			}
 		}
 	};

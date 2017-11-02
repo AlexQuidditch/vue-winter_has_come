@@ -3,9 +3,9 @@
 		<agent-personal v-if="User.isAgent" :User="User"></agent-personal>
 		<user-personal v-else :User="User"></user-personal>
     <div class="user-container">
-      <tasks v-if="User.isAgent" :User="User"></tasks>
-      <!-- <portfolio v-else :User="User"></portfolio> -->
-      <!-- <wall :User="User"></wall> -->
+      <portfolio v-if="!User.isAgent" :User="User"></portfolio>
+      <tasks v-else :User="User"></tasks>
+      <wall :User="User" @addPostUserToUser="addPostUser($event)"></wall>
     </div>
     <social :User="User"></social>
 	</main>
@@ -36,7 +36,71 @@
       }
     },
     data: () => ({
-      User: userTemplate
+      User: {
+      	_id: '',
+      	isAgent: null,
+      	wall: [],
+      	personal: {
+      		avatar: '',
+      		name: '',
+      		sename: '',
+      		email: '',
+      		password: '',
+      		born: '',
+      		gender: '',
+      		caption: '',
+          about: ''
+      	},
+      	information: {
+      		specialization: '',
+      		lastVisit: '',
+      		status: '',
+      		town: '',
+      		country: '',
+      		education: {
+      			place: '',
+      			faculty: ''
+      		},
+      		company: {
+      			title: '',
+      			link: ''
+      		}
+      	},
+      	registrationDate: '',
+      	popularity: '',
+      	responses: {
+      		issued: 0,
+      		positive: 0,
+      		negative: 0
+      	},
+      	ratings: {
+      		mainRate: 0,
+      		average: 0,
+      		completed: 0,
+      		tests: {
+      			value: 0,
+      			total: 0,
+      			rate: 0
+      		}
+      	},
+      	social: {
+      		contacts: {
+      			vk: '',
+      			fb: '',
+      			skype: '',
+      			telegram: ''
+      		},
+      		teams: [],
+      		company: {
+      			activities: '',
+      			starts: '',
+      			achivements: ''
+      		}
+      	},
+      	portfolio: [],
+        reviews: [],
+      	tasks: []
+      }
     }),
     created() {
       API.get( `users/get/${ this.id }` )
@@ -45,6 +109,11 @@
           console.error(error);
           this.$swal( 'Ошибка!' , 'Не могу получить данные' , 'error' )
         })
+    },
+    methods: {
+      addPostUser( newPostID ) {
+        this.User.wall.unshift( newPostID );
+      }
     }
 	};
 

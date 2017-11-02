@@ -16,23 +16,10 @@
         <p class="personal-more__item">{{ Information.company.title }}</p>
         <a :href="Information.company.link" class="personal-more__item _link">{{ Information.company.link }}</a>
       </div>
-      <p class="personal-info__about">{{ Information.about }}</p>
-      <div class="personal-bottom">
-        <div class="personal-bottom__column">
-          <button class="personal-bottom__button _contact-me">
-            <img src="/static/assets/agent/personal/contacts.svg" alt="Написать письмо" />
-            <span>Написать</span>
-          </button>
-        </div>
-        <div class="personal-bottom__column">
-          <button class="personal-bottom__button">
-            <img src="/static/assets/agent/personal/minus-circle-bold.svg" alt="" />
-          </button>
-          <button class="personal-bottom__button" aria-label="Заблокировать агента">
-            <img src="/static/assets/agent/personal/slash-bold.svg" alt="Заблокировать агента" />
-          </button>
-        </div>
-      </div>
+      <transition name="fade" mode="out-in">
+        <p v-if="Information.about.length" class="personal-info__about">{{ Information.about }}</p>
+        <button v-else @click="setInformationAbout()" class="personal-info__about-button">Добавить информацию о себе</button>
+      </transition>
     </div>
 
     <agent-ratings-block class="ratings-block"></agent-ratings-block>
@@ -145,6 +132,21 @@
       text-align: left;
       color: #4a4a4a;
       color: var(--charcoal-grey);
+    }
+    &__about-button {
+      position: absolute;
+      bottom: 35px; left: 200px;
+      height: 35px;
+      padding: 0 10px;
+      font-size: 12px;
+      line-height: 33px;
+      color: #4a4a4a;
+      color: var(--charcoal-grey);
+      background-color: #fff;
+      background-color: var(--whited);
+      border: solid 1px rgba(155, 155, 155, 0.2);
+      border: solid 1px var(--purpley-grey-20);
+      border-radius: 3px;
     }
   }
 

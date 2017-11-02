@@ -16,6 +16,22 @@
         <p class="personal-more__item _education">{{ User.information.education.place }}, {{ User.information.education.faculty }}</p>
       </div>
       <p class="personal-info__about">{{ User.information.about }}</p>
+      <div class="personal-bottom">
+        <div class="personal-bottom__column">
+          <button class="personal-bottom__button _contact-me">
+            <img src="/static/assets/agent/personal/contacts.svg" alt="Написать письмо" />
+            <span>Написать</span>
+          </button>
+        </div>
+        <div class="personal-bottom__column">
+          <button class="personal-bottom__button">
+            <img src="/static/assets/agent/personal/minus-circle-bold.svg" alt="" />
+          </button>
+          <button class="personal-bottom__button" aria-label="Заблокировать агента">
+            <img src="/static/assets/agent/personal/slash-bold.svg" alt="Заблокировать агента" />
+          </button>
+        </div>
+      </div>
     </div>
 
     <user-ratings-block :Ratings="User.ratings" class="ratings-block"></user-ratings-block>

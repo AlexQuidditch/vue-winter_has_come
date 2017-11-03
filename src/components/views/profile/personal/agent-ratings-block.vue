@@ -39,15 +39,15 @@
   import IconClock from '@icons/clock.js';
   import ratingsItem from '@templates/rating-item';
 
-    export default {
-      name: "ratings",
-      components: { IconCheckCircle , IconCase , IconClock },
-      computed: {
-        Ratings() {
-          return this.$store.state.User.ratings
-        }
+  export default {
+    name: "ratings",
+    components: { IconCheckCircle , IconCase , IconClock },
+    computed: {
+      Ratings() {
+        return this.$store.state.User.ratings
       }
-    };
+    }
+  };
 
 </script>
 
@@ -94,6 +94,7 @@
     flex-flow: row nowrap;
     justify-content: space-between;
     width: 100%;
+    margin: 10px 0 0 0;
   }
 
   .ratings-item {

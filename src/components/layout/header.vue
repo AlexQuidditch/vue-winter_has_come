@@ -16,7 +16,7 @@
 				<router-link :to="{ name: 'find-job' , query: { section : 'all' } }"
                      class="header-row__link waves-effect waves-light">
            <icon-home class="header-row__link-icon"></icon-home>
-          <span>Найти работу</span>
+          <span>{{ currentUserIsAgent ? 'Посмотреть задания' : 'Найти работу' }}</span>
         </router-link>
 				<div class="header-row__divider"></div>
 				<router-link :to="{ name : 'users' }" class="header-row__link waves-effect waves-light">Исполнители</router-link>
@@ -38,6 +38,11 @@
 	export default {
 		name: "header",
 		components: { search , partner , partnerMenu , iconHome },
+    computed: {
+      currentUserIsAgent() {
+        return this.$store.state.User.isAgent
+      }
+    },
     methods: {
       logout() {
         this.$store.dispatch('cleanInstance');

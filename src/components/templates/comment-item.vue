@@ -1,13 +1,15 @@
 <template lang="html">
-  <li class="comment-item">
+  <li class="comment-item" v-if="CommentItem.authorID.length">
     <header class="comment-header">
-      <router-link :to=" currentUserID === Author._id ? { name: 'profile' } : { name: 'user', params: { id : Author._id }} " tag="img"
+      <router-link :to=" currentUserID === Author._id ? { name: 'profile' } : { name: 'user', params: { id : CommentItem.authorID }} "
+                   tag="img"
                    :src=" backendLocation + '/upload/' + Author.personal.avatar"
                    :alt="Author.personal.name + ' ' + Author.personal.sename"
                    class="comment-header__avatar">
       </router-link>
       <div class="comment-header__container">
-        <router-link :to=" currentUserID === Author._id ? { name: 'profile' } : { name: 'user', params: { id : Author.id }}" tag="h6"
+        <router-link :to=" currentUserID === Author._id ? { name: 'profile' } : { name: 'user', params: { id : CommentItem.authorID }}"
+                     tag="h6"
                      class="comment-header__name"
           >{{ Author.personal.name + ' ' + Author.personal.sename }}
           <transition name="heartbeat" mode="out-in">
@@ -22,7 +24,7 @@
       <button @click="likeIt()"
               :class="{ '_update' : hasLiked }"
               class="comment-footer__button waves-effect waves-dark"
-              type="button">
+              type="button" aria-label="Лайкнуть запись">
         <span class="comment-footer__button-content _likes" aria-label="Количество лайков">{{ CommentItem.likes.length }}</span>
         <icon-heart :Width="2"
                     :class="{ '_active' : isLiked }"
@@ -99,6 +101,7 @@
       	},
       	social: {
       		contacts: {
+            phone: '',
       			vk: '',
       			fb: '',
       			skype: '',
@@ -115,7 +118,6 @@
         reviews: [],
       	tasks: []
       },
-      isLiked: false,
       hasLiked: false
     }),
     watch: {
@@ -128,8 +130,11 @@
       currentUserID() {
         return this.$store.state.User._id;
       },
+      isLiked() {
+        return this.CommentItem.likes.includes( this.currentUserID );
+      },
       published() {
-        return new Date(this.CommentItem.time).toLocaleString('ru-RU' , { hour: '2-digit' , minute: '2-digit' , day: '2-digit' , month: 'long' })
+        return new Date(this.CommentItem.time).toLocaleString('ru-RU' , { hour: '2-digit' , minute: '2-digit' , day: '2-digit' , month: 'long' });
       },
       backendLocation() {
         return this.$store.state.General;
@@ -142,8 +147,14 @@
     },
     methods: {
       likeIt() {
-        this.isLiked =! this.isLiked;
-        this.$store.dispatch( 'likeComment' , [ this.CommentItem.id , this.isLiked ? 1 : -1 ] );
+        const likedByCurrentUser = this.CommentItem.likes.includes( this.currentUserID );
+        const i = this.CommentItem.likes.indexOf( this.currentUserID );
+        if ( !likedByCurrentUser ) {
+          this.CommentItem.likes.push( this.currentUserID );
+        } else {
+          this.CommentItem.likes.splice( i , 1 )
+        }
+        this.$emit( 'likeComment' )
       }
     }
   };

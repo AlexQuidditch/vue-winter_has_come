@@ -15,7 +15,11 @@
 
         <div class="hello-message">
           <h1 class="hello-message__title">Добро пожаловать!</h1>
-          <p class="hello-message__content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam eius nisi ratione eveniet, quidem sequi molestiae! Ducimus ea, omnis, error culpa amet ab reprehenderit et neque atque soluta consectetur, quos.</p>
+          <p class="hello-message__content">
+            Присоединяйтесь к первой полезной соцсети «В деле»!<br /><br />
+
+            Именно здесь вы сможете выбирать задания по душе и получать за это реальное вознаграждение! Ежегодно «Вделе» определяет самого успешного пользователя-студента. Счастливчик станет богаче на 500 тысяч рублей
+          </p>
         </div>
 
         <div :class="{ '_registration' : !isSingIn }"
@@ -127,7 +131,7 @@
 
   .hello-message {
     flex: 1 1 300px;
-    max-width: 500px;
+    max-width: 450px;
     padding: 30px;
 		background-color: #fff;
 		background-color: var(--whited);
@@ -139,6 +143,9 @@
     }
     &__content {
       margin: 0;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 25px;
     }
   }
 

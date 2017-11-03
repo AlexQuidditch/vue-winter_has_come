@@ -95,6 +95,7 @@
     flex-flow: row nowrap;
     justify-content: space-between;
     width: 100%;
+    margin: 10px 0 0 0;
   }
 
   .ratings-item {

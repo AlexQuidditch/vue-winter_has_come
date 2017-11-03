@@ -65,7 +65,8 @@
 
   .ratings {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column;
+    align-items: center;
     size: 291px 170px;
     padding: 20px;
     border-radius: 3px;
@@ -94,6 +95,7 @@
     flex-flow: row nowrap;
     justify-content: space-between;
     width: 100%;
+    margin: 10px 0 0 0;
   }
 
   .ratings-item {

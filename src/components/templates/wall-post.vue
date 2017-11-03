@@ -1,13 +1,15 @@
 <template lang="html">
   <li class="wall-post">
     <header class="post-header">
-      <router-link :to=" currentUserID === Author._id ? { name: 'profile' } : { name: 'user', query: { id: Author._id }} " tag="img"
+      <router-link :to=" currentUserID === Author._id ? { name: 'profile' } : { name: 'user', params: { id : Post.authorID }} "
+                   tag="img"
                    :src=" backendLocation + '/upload/' + Author.avatar"
                    :title="Author.personal.name + ' ' + Author.personal.sename"
                    class="post-header__avatar">
       </router-link>
       <div class="post-header__container">
-        <router-link :to=" currentUserID === Author._id ? { name: 'profile' } : { name: 'user', query: { id: Author._id }} " tag="h6"
+        <router-link :to=" currentUserID === Author._id ? { name: 'profile' } : { name: 'user', params: { id : Post.authorID }} "
+                     tag="h6"
                      class="post-header__name"
           >{{ Author.personal.name + ' ' + Author.personal.sename }}
           <transition name="heartbeat" mode="out-in">
@@ -34,18 +36,18 @@
       <button @click="likeIt()"
               :class="{ '_update' : hasLiked }"
               class="post-footer__button waves-effect waves-dark"
-              type="button">
+              type="button" aria-label="Лайкнуть запись">
         <span class="post-footer__button-content _likes" aria-label="Количество лайков">{{ Post.likes.length }}</span>
         <icon-heart :Width="2"
                     :class="{ '_active' : isLiked }"
-                    class="post-footer__button-icon _likes"
-                    aria-label="Лайкнуть запись">
+                    class="post-footer__button-icon _likes">
         </icon-heart>
       </button>
     </footer>
     <transition-group name="list" tag="ul" mode="out-in" class="comments-list">
       <comments-item v-for="( commentItem , index ) in Post.comments" :key="index"
-                     :CommentItem="commentItem">
+                     :CommentItem="commentItem"
+                     @likeComment="savePost()">
       </comments-item>
     </transition-group>
     <transition name="fade">
@@ -147,6 +149,7 @@
       	},
       	social: {
       		contacts: {
+            phone: '',
       			vk: '',
       			fb: '',
       			skype: '',
@@ -186,11 +189,10 @@
         return new Date(this.Post.time).toLocaleString('ru-RU' , longDate );
       },
       commentsLength() {
-        return this.Post.comments.length
+        return this.Post.comments.length;
       },
       isLiked() {
-        return this.Post.likes
-          .some( ID => ID == this.$store.state.User._id )
+        return this.Post.likes.includes( this.currentUserID );
       },
       backendLocation() {
         return this.$store.state.General;
@@ -208,12 +210,16 @@
     },
     methods: {
       likeIt() {
-        const payload = {
-          wallID: this.$store.state.User.wallID,
-          postID: this.Post._id,
-          value: this.$store.state.User._id
-        };
-        this.$store.dispatch( 'likePost' , payload );
+        const likedByCurrentUser = this.Post.likes.includes( this.currentUserID );
+        const i = this.Post.likes.indexOf( this.currentUserID );
+
+        if ( !likedByCurrentUser ) {
+          this.Post.likes.push( this.currentUserID );
+        } else {
+          this.Post.likes.splice( i , 1 )
+        }
+        this.savePost()
+          .then( response => console.log( response ) );
       },
       commentIt() {
         const newComment = {                    // подготовка новго объекта комментария
@@ -225,14 +231,20 @@
         };
 
         this.Post.comments.push(newComment);
-        API.post( `wall/edit/${ this.WallPostID }` , this.Post )
-          .then( ({ body }) => {
-            API.post( `user/edit/${ this.User._id }` , this.User )
-              .then( ({ body }) => console.log(body) )
-          })
-          .catch( error => console.error(error) )
 
-        this.postComment = '';
+        this.savePost()
+          .then( response => {
+            API.post( `user/edit/${ this.User._id }` , this.User )
+              .then( ({ body }) => {
+                console.log(body);
+                this.postComment = '';
+              })
+          });
+      },
+      savePost() {
+        return API.post( `wall/edit/${ this.WallPostID }` , this.Post )
+          .then( ({ body }) => body )
+          .catch( error => console.error(error) )
       }
     }
   };

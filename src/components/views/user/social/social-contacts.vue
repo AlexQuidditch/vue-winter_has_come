@@ -7,37 +7,32 @@
 		<ul class="contacts-list">
 			<li v-for="( contactItem , key , index ) in Contacts" :key="index"
 				class="contacts-item">
-				<span v-if="key == 'mail' && contactItem.length "
-					class="contacts-item__notation"
+				<span v-if="key == 'mail' && contactItem.length" class="contacts-item__notation"
 					>Электронная почта:
 				</span>
-				<span v-else-if="key == 'vk' && contactItem.length"
-					 class="contacts-item__notation"
-					 >Вконтакте:
+				<span v-if="key == 'vk' && contactItem.length" class="contacts-item__notation"
+					>Вконтакте:
 				</span>
-				<span v-else-if="key == 'fb' && contactItem.length "
-					 class="contacts-item__notation"
-					 >Facebook:
+				<span v-if="key == 'fb' && contactItem.length"class="contacts-item__notation"
+					>Facebook:
 				</span>
-				<span v-if="key == 'phone' && contactItem.length"
-					class="contacts-item__notation"
+				<span v-if="key == 'phone' && contactItem.length" class="contacts-item__notation"
 					>Телефон:
 				</span>
-				<span v-if="key == 'skype' && contactItem.length"
-					class="contacts-item__notation"
+				<span v-if="key == 'skype' && contactItem.length" class="contacts-item__notation"
 					>Skype:
 				</span>
-				<a v-if="key == 'mail' && contactItem.length "
+				<a v-if="key == 'mail' && contactItem.length"
 					:href=" 'mailto:' + contactItem" target="_blank"
 					class="contacts-item__link"
 					>&nbsp;{{ contactItem }}
 				</a>
-				<a v-else-if="key == 'vk' && contactItem.length"
+				<a v-if="key == 'vk' && contactItem.length"
 					:href=" '//vk.com/' + contactItem" target="_blank"
 					class="contacts-item__link"
 					>&nbsp;{{ contactItem }}
 				</a>
-				<a v-else-if="key == 'fb' && contactItem.length "
+				<a v-if="key == 'fb' && contactItem.length"
 					:href=" '//facebook.com/' + contactItem" target="_blank"
 					class="contacts-item__link"
 					>&nbsp;{{ contactItem }}

@@ -23,16 +23,16 @@
 				<label class="settings-column__label">
 					<h6 class="settings-column__title">Ссылка на страницу:</h6>
 					<input :value="Common.link" @input="updateLink($event.target.value)"
-      					 :placeholder="Placeholders.link"
+      					 :placeholder="Placeholders.link" disabled
       					 type="email" class="settings-column__input" />
 				</label>
 				<label class="settings-column__label">
 					<h6 class="settings-column__title">Дата рождения:</h6>
-					<datepicker :value="Common.bornDate" @selected="updateBornDate($event)"
-          						:format="Datepicker.format"
-          						:language="Datepicker.language"
-          						:inputClass=" 'settings-column__input' ">
-					</datepicker>
+          <datepicker :value="Common.bornDate" @selected="updateBornDate($event)"
+                      :config="{ wrap: true }"
+                      class="settings-column__datepicker">
+            <icon-calendar class="settings-column__label-icon" data-toggle></icon-calendar>
+          </datepicker>
 					<icon-calendar class="settings-column__label-icon"></icon-calendar>
 				</label>
 			</div>
@@ -77,9 +77,11 @@
 	import iconCheck from '@icons/check-square';
 	import iconCalendar from '@icons/calendar.js';
 
+	import Datepicker from 'vue-bulma-datepicker';
+
 	export default {
 		name: "Settings_Common",
-		components: { iconCheck , iconCalendar },
+		components: { iconCheck , iconCalendar , Datepicker },
 		data: () => ({
       Datepicker: {
         format: 'dd-MM-yyyy',
@@ -88,18 +90,29 @@
         calendarButton: true
       },
       Placeholders: {
-        email: 'elena.ivanova@gmail.com',
-        phone: '+7 *** *** ** 35',
-        link: 'elena.ivanova',
-        bornDate: '22-06-1994',
-        password: 'Обновлен 6 дней назад',
-        caption: 'Здесь находится Ваша подпись.\nНапример, контакты. '
+        email: '',
+        phone: '',
+        link: '',
+        bornDate: '',
+        password: '',
+        caption: ''
       }
     }),
 		created() {
-			this.$store.dispatch( 'getCommon' , this.$store.state.User._id )
+      const currentUser = this.$store.state.User;
+      this.Placeholders = {
+        email: currentUser.personal.email,
+        phone: currentUser.social.contacts.phone,
+        link: currentUser._id,
+        bornDate: currentUser.personal.born,
+        password: currentUser.personal.password,
+        caption: currentUser.personal.caption
+      };
 		},
 		computed: {
+      currentUserID() {
+        return this.$store.state.User._id;
+      },
 			Common() {
 				return this.$store.state.Settings.common
 			}
@@ -111,10 +124,10 @@
 				'updateCheck'
 			]),
 			saveCommon() {
-				this.$store.dispatch( 'saveCommon' , this.$store.state.User._id )
-					.then( ({ date }) => {
-						console.log( data );
-						this.$swal( 'Есть ответ!' , JSON.stringify( data ) , 'success' )
+				this.$store.dispatch( 'saveCommon' , this.currentUserID )
+					.then( ({ body }) => {
+            this.$store.dispatch( 'updateInstance' , body );
+						this.$swal( 'Ура!' , 'Изменения сохранены' , 'success' )
 					})
 					.catch( err => {
 						console.error(err);
@@ -186,6 +199,15 @@
 				resize: none;
 			}
 		}
+    &__datepicker {
+      @extend .settings-column__input;
+      input {
+        position: absolute;
+        padding: 0;
+        margin: 0;
+        border: none;
+      }
+    }
 	}
 	.settings-bottom {
 		display: flex;

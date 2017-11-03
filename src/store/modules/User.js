@@ -13,6 +13,9 @@ const actions = {
   createInstance( { commit } , payload ) {
     commit( 'CREATE_INSTANCE' , payload )
   },
+  updateInstance( { commit } , payload ) {
+    commit( 'UPDATE_INSTANCE' , payload )
+  },
   cleanInstance({ commit }) {
     commit( 'CLEAN_INSTANCE' )
   },
@@ -92,6 +95,9 @@ const mutations = {
   CREATE_INSTANCE( state , payload ) {
     state = Object.assign( state , payload );
   },
+  UPDATE_INSTANCE( state , payload ) {
+    state = Object.assign( state , payload );
+  },
   CLEAN_INSTANCE( state ) {
     state = Object.assign( state , template );
     state.personal.username = '';
@@ -107,7 +113,7 @@ const mutations = {
     state.isAgent = payload;
   },
   SET_POSTS( { wall } , payload ) {
-    wall.unshift(payload);
+    wall.unshift( payload );
   }
 };
 

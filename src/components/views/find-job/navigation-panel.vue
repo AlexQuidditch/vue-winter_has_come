@@ -1,13 +1,17 @@
 <template lang="html">
   <nav class="find-job-navigation">
     <router-link v-for="( route , index ) in Routes" :key="index"
+                 tag="button"
                  :to="{ name: route.name || 'find-job' , query: route.query }"
-                 :class="[ Routes.indexOf( route ) === Routes.length - 1 ? 'waves-light' : 'waves-dark' ]"
+                 :class="[ index == Routes.length - 1 ? 'waves-light' : 'waves-dark' ]"
+                 :disabled="(index == Routes.length - 1) && !currentUserIsAgent"
                  class="find-job-navigation__link waves-effect"
       >{{ route.text }}
     </router-link>
   </nav>
 </template>
+
+<!-- :class="[ index == Routes.length - 1 ? 'waves-light' : 'waves-dark', currentUserIsAgent ? '_disabled' : '' ] -->
 
 <script>
 
@@ -44,7 +48,12 @@
           text: 'Создать задание'
         }
       ]
-    })
+    }),
+    computed: {
+      currentUserIsAgent() {
+        return this.$store.state.User.isAgent
+      }
+    }
   };
 
 </script>
@@ -69,6 +78,9 @@
       line-height: 45px;
       color: #4b4b4b;
       color: var(--purpley-grey);
+  		background-color: #fff;
+  		background-color: var(--whited);
+      border: none;
       box-shadow: inset 0 -5px 0 transparent;
       transition:
         color .3s ease-in-out,
@@ -90,6 +102,9 @@
         background-color: #009d2f;
         background-color: var(--irish-green);
         @include MDShadow-1;
+        &:disabled {
+          background-color: grey
+        }
       }
     }
   }

@@ -31,12 +31,16 @@
 							<label class="create-task-column__label">
 								<h6 class="create-task-column__title">Сроки выполнения задания:</h6>
 								<datepicker :value="CreateTask.deadline" @selected="updateDeadline($event)"
+                            :config="{ wrap: true }"
+                            class="create-task-column__datepicker">
+									<icon-calendar class="create-task-column__label-icon" data-toggle></icon-calendar>
+							  </datepicker>
+								<!-- <datepicker :value="CreateTask.deadline" @selected="updateDeadline($event)"
 														:format="Datepicker.format" required
 														:language="Datepicker.language"
 														:inputClass=" 'create-task-column__input' "
 														placeholder="Выберите число">
-								</datepicker>
-								<icon-calendar class="create-task-column__label-icon"></icon-calendar>
+								</datepicker> -->
 							</label>
 						</div>
 						<div class="create-task-column">
@@ -121,7 +125,6 @@
             >Сохранить как черновик
           </button>
 				</div>
-
 			</form>
 		</section>
 	</main>
@@ -137,9 +140,11 @@
   import IconClose from '@icons/close.js';
   import vChip from '@custom-elements/vue-chip';
 
+	import Datepicker from 'vue-bulma-datepicker';
+
   export default {
     name: 'create-task',
-    components: { Money , iconCheck , iconCalendar , vChip , IconClose },
+    components: { Money , iconCheck , iconCalendar , vChip , IconClose , Datepicker },
 		props: {
 		  'id': {
 		    type: String
@@ -151,12 +156,6 @@
         thousands: ' ',
         precision: 0,
         masked: true
-      },
-      Datepicker: {
-        format: 'dd-MM-yyyy',
-        language: 'ru',
-        wrapperClass: 'column-settings__label',
-        calendarButton: true
       },
       Placeholders: {
         title: 'Введите название задачи',
@@ -388,6 +387,15 @@
 				&._textarea {
 					height: 115px;
 					resize: none;
+				}
+			}
+			&__datepicker {
+				@extend .create-task-column__input;
+				input {
+					position: absolute;
+					padding: 0;
+					margin: 0;
+					border: none;
 				}
 			}
 			.attached-list {

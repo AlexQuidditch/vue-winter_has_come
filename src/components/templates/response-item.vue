@@ -120,6 +120,7 @@
       	},
       	social: {
       		contacts: {
+            phone: '',
       			vk: '',
       			fb: '',
       			skype: '',

@@ -15,7 +15,7 @@
 			<nav class="container">
 				<router-link :to="{ name: 'find-job' , query: { section : 'all' } }"
                      class="header-row__link waves-effect waves-light">
-           <icon-home class="header-row__link-icon"></icon-home>
+           <icon-home v-if="!currentUserIsAgent" class="header-row__link-icon"></icon-home>
           <span>{{ currentUserIsAgent ? 'Посмотреть задания' : 'Найти работу' }}</span>
         </router-link>
 				<div class="header-row__divider"></div>

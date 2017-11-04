@@ -1,6 +1,7 @@
 <template lang="html">
   <transition-group name="fade" mode="out-in" class="find-job _active">
-    <task-item v-for="taskItem in Tasks" :key="taskItem._id"
+    <h3 v-if="!Tasks.length" key="notActiveTasks" class="find-job__no-content-message">Заданий пока нет.</h3>
+    <task-item v-for="taskItem in Tasks" :key="taskItem._id" v-else
                :taskItem = "taskItem">
     </task-item>
   </transition-group>
@@ -8,17 +9,18 @@
 
 <script>
 
-import taskItem from '@templates/task-item';
+  import taskItem from '@templates/task-item';
 
-export default {
-  name: "find-job_active",
-  components: { taskItem },
-  computed: {
-    Tasks() {
-      return this.$store.state.Tasks
+  export default {
+    name: "find-job_active",
+    components: { taskItem },
+    computed: {
+      Tasks() {
+        return this.$store.state.Tasks
+          .filter( task => task.completed.status === 'notCompleted' )
+      }
     }
-  }
-};
+  };
 
 </script>
 

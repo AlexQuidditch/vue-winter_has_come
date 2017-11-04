@@ -1,6 +1,7 @@
 <template lang="html">
   <transition-group name="fade" mode="out-in" class="find-job _rush">
-    <task-item v-for="taskItem in Tasks" :key="taskItem._id"
+    <h3 v-if="!Tasks.length" key="noRushTasks" class="find-job__no-content-message">Заданий пока нет.</h3>
+    <task-item v-for="taskItem in Tasks" :key="taskItem._id" v-else
                :taskItem = "taskItem">
     </task-item>
   </transition-group>

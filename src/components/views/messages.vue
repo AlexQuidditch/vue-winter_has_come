@@ -19,6 +19,8 @@
 
 <script>
 
+  import API from '@api';
+
   import dialogItem from '@templates/dialog-item.vue';
   import dialogClear from '@views/messages/dialog-clear.vue';
 
@@ -30,6 +32,13 @@
       Dialogs() {
         return this.$store.state.Messages.dialogs
       }
+    },
+    beforeRouteEnter ( to , from , next ) {
+      next( vm => {
+        API.get( `users/get/${ vm.$store.state.User._id }` )
+          .then( ({ body }) => vm.$store.dispatch( 'updateInstance' , body ) )
+          .catch( error => console.error( error ) )
+      })
     }
   };
 

@@ -13,6 +13,8 @@
 
 <script>
 
+  import API from '@api';
+
 	import filterPanel from './teams/filter-panel';
 	import searchFriend from './teams/search-friend';
 	import navigationPanel from './teams/navigation-panel';
@@ -27,7 +29,14 @@
 		components: {
 			filterPanel , searchFriend , navigationPanel,
 			all , online , requests , blacklist
-		}
+		},
+    beforeRouteEnter ( to , from , next ) {
+      next( vm => {
+        API.get( `users/get/${ vm.$store.state.User._id }` )
+          .then( ({ body }) => vm.$store.dispatch( 'updateInstance' , body ) )
+          .catch( error => console.error( error ) )
+      })
+    }
 	};
 
 </script>

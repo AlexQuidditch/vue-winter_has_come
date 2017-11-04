@@ -13,6 +13,8 @@
 
 <script>
 
+  import API from '@api';
+
   import UserPersonal from './profile/user-personal.vue';
   import AgentPersonal from './profile/agent-personal.vue';
 
@@ -29,6 +31,13 @@
       User() {
         return this.$store.state.User;
       }
+    },
+    beforeRouteEnter ( to , from , next ) {
+      next( vm => {
+        API.get( `users/get/${ vm.$store.state.User._id }` )
+          .then( ({ body }) => vm.$store.dispatch( 'updateInstance' , body ) )
+          .catch( error => console.error( error ) )
+      })
     }
   };
 

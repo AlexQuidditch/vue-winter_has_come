@@ -132,6 +132,8 @@
 
 <script>
 
+  import API from '@api';
+
   import { mapActions } from 'vuex';
 
   import { Money } from 'v-money';
@@ -176,6 +178,13 @@
           .find( task => task._id == this.id );
         this.$store.dispatch( 'setTaskToEdit' , taskToEdit );
       }
+    },
+    beforeRouteEnter ( to , from , next ) {
+      next( vm => {
+        API.get( `users/get/${ vm.$store.state.User._id }` )
+          .then( ({ body }) => vm.$store.dispatch( 'updateInstance' , body ) )
+          .catch( error => console.error( error ) )
+      })
     },
     computed: {
       User() {

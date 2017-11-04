@@ -47,6 +47,10 @@
 .find-job {
   width: 100%;
   max-width: 690px;
+  &__no-content-message {
+    margin-top: 20px;
+    text-align: center;
+  }
 }
 
 </style>

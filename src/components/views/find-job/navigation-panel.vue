@@ -103,7 +103,9 @@
         background-color: var(--irish-green);
         @include MDShadow-1;
         &:disabled {
-          background-color: grey
+          background-color: #4a4a4a;
+          background-color: var(--charcoal-grey);
+          box-shadow: none;
         }
       }
     }

@@ -1,31 +1,33 @@
 <template lang="html">
 	<li class="portfolio-item">
-		<router-link :to="{ name: 'task', params: { id: PortfolioItem._id }}" tag="div"
+		<router-link :to="{ name: 'task', params: { id: tasksItem._id }}" tag="div"
                  class="portfolio-item__overlay">
-			<h5 class="portfolio-item__title">{{ PortfolioItem.title }}</h5>
-			<p class="portfolio-item__description">{{ PortfolioItem.description }}</p>
+			<h5 class="portfolio-item__title">{{ tasksItem.title }}</h5>
+			<p class="portfolio-item__description">{{ tasksItem.description }}</p>
 		</router-link>
-		<img :src=" '/static/assets/shared/' + PortfolioItem.picture " :alt="PortfolioItem.title"
+		<img :src=" backendLocation + '/upload/' + tasksItem.attached[0] " :alt="tasksItem.title"
 				 class="portfolio-item__picture" />
-		<span class="portfolio-item__title _bottom">{{ PortfolioItem.title }}</span>
+		<span class="portfolio-item__title _bottom">{{ tasksItem.title }}</span>
 		<ul class="scores-list">
 			<li class="scores-item">
         <icon-heart @click.native="likeIt()"
                     :class="{ '_active' : isLiked , '_update' : hasLiked }"
                     class="scores-item__icon">
         </icon-heart>
-				<span class="scores-item__value">{{ PortfolioItem.likes }}</span>
+				<span class="scores-item__value">{{ tasksItem.likes.length }}</span>
 			</li>
 			<li class="scores-item">
 				<img src="/static/assets/profile/portfolio/comments.svg" alt="Комментарии"
 						 class="scores-item__icon" />
-				<span class="scores-item__value">{{ PortfolioItem.comments }}</span>
+				<span class="scores-item__value">{{ tasksItem.responses.length }}</span>
 			</li>
 		</ul>
 	</li>
 </template>
 
 <script>
+
+  import API from '@api';
 
   import iconHeart from '@icons/heart.js';
 
@@ -34,15 +36,42 @@
     components: { iconHeart },
 		props: {
 			'PortfolioItem': {
-				type: Object,
+				type: String,
 				required: true
 			}
 		},
     data: () => ({
-      isLiked: false,
+      tasksItem : {
+      	_id: '',
+      	authorID: '',
+      	attached: [],
+      	engagedID: '',
+      	title: '',
+      	picture: '',
+      	published: '',
+      	description: '',
+      	budget: '',
+      	deadline: '',
+      	isRush: '',
+      	views: '',
+        likes: [],
+      	responses: [],
+      	isEngaged: '',
+      	completed: {
+      		rate: '',
+      		status: '',
+      		review: ''
+      	}
+      },
       hasLiked: false
     }),
     computed: {
+      currentUserID() {
+        return this.$store.state.User._id;
+      },
+      isLiked() {
+        return this.tasksItem.likes.includes( this.currentUserID );
+      },
       backendLocation() {
         return this.$store.state.General;
       }
@@ -50,13 +79,31 @@
     watch: {
       isLiked() {
   			this.hasLiked = true;
-  			setTimeout( () => this.hasLiked = false , 250 )
+  			setTimeout( () => this.hasLiked = false , 250 );
       }
+    },
+    created() {
+      API.get( `task/get/${ this.PortfolioItem }` )
+        .then( ({ body }) => Object.assign( this.tasksItem , body ) )
+        .catch( error => console.error(error) )
     },
     methods: {
       likeIt() {
-        this.isLiked =! this.isLiked;
-        this.$store.dispatch( 'likePortfolioItem' , [ this.PortfolioItem._id , this.isLiked ? 1 : -1 ] );
+        const likedByCurrentUser = this.tasksItem.likes.includes( this.currentUserID );
+        const i = this.tasksItem.likes.indexOf( this.currentUserID );
+
+        if ( !likedByCurrentUser ) {
+          this.tasksItem.likes.push( this.currentUserID );
+        } else {
+          this.tasksItem.likes.splice( i , 1 )
+        }
+        this.savePortfolio()
+          .then( response => console.log( response ) );
+      },
+      savePortfolio() {
+        return API.post( `task/edit/${ this.tasksItem._id }` , this.tasksItem )
+          .then( ({ body }) => body )
+          .catch( error => console.error(error) )
       }
     }
 	};

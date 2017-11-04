@@ -49,7 +49,6 @@
       	published: '',
       	description: '',
       	budget: '',
-      	isAgreement: '',
       	deadline: '',
       	isRush: '',
       	views: '',

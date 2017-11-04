@@ -26,7 +26,8 @@
       </div>
       <ul class="response-main__column portfolio-list">
         <router-link v-for="work in Author.personal.works" :key="work._id"
-                     :to="{ name: 'task', params: { id : work._id }}" tag="li"
+                     :to="{ name: 'task', params: { id : work._id }}"
+                     tag="li"
                      class="portfolio-list__item">
           <img :src=" backendLocation + '/upload/' + work.preview " :alt="work._id"
                class="portfolio-list__item-preview" />
@@ -34,11 +35,11 @@
       </ul>
     </div>
     <div class="response-footer">
-      <template v-if=" Author._id === currentUserID">
-        <button class="response-footer__button">Назначить</button>
-        <button class="response-footer__button">Отклонить</button>
+      <template v-if="taskItem.authorID === currentUserID && !taskItem.isEngaged && taskItem.completed.status == 'notCompleted'">
+        <button @click="$emit( 'takeEngaged' , Author._id )" class="response-footer__button">Назначить</button>
+        <button @click="$emit( 'cancelEngage' )" class="response-footer__button">Отклонить</button>
       </template>
-      <button v-else-if="responseItem.isEngage" class="response-footer__button">Назначен исполнителем</button>
+      <button v-else-if="taskItem.engagedID === responseItem.authorID" class="response-footer__button">Назначен исполнителем</button>
     </div>
   </li>
 </template>
@@ -58,8 +59,8 @@
         type: String,
         required: true
       },
-      'TaskAuthorID': {
-        type: String,
+      'taskItem': {
+        type: Object,
         required: true
       }
     },

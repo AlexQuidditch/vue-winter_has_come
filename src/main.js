@@ -9,13 +9,11 @@ import VueSweetAlert from 'vue-sweetalert';
 import VueChatScroll from 'vue-chat-scroll';
 import Vue2Filters from 'vue2-filters';
 
-import VueDatepicker from 'vuejs-datepicker';
 import MaskedInput from 'vue-masked-input';
 window.Waves = require('node-waves');
 
 // Глобально доступные компоненты
 Vue.component('masked-input' , MaskedInput);
-Vue.component('datepicker' , VueDatepicker);
 
 Vue.use( Vuebar );
 Vue.use( Checkbox );

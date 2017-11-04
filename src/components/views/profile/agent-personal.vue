@@ -18,7 +18,7 @@
       </div>
       <transition name="fade" mode="out-in">
         <p v-if="Information.about.length" class="personal-info__about">{{ Information.about }}</p>
-        <button v-else @click="setInformationAbout()" class="personal-info__about-button">Добавить информацию о себе</button>
+        <router-link :to="{ name: 'settings' , query: { section : 'about' } }" v-else class="personal-info__about-button">Добавить информацию о себе</router-link>
       </transition>
     </div>
 

@@ -1,50 +1,36 @@
 <template lang="html">
   <section :class="{ '_folded' : isFolded }" class="portfolio">
-    <img src="/static/assets/profile/portfolio/case.svg" alt="Портфолио"
-         class="portfolio__icon">
-    <h3 class="portfolio__title">Мои работы</h3>
+    <icon-case :Width="1" class="portfolio__icon"></icon-case>
+    <h3 class="portfolio__title">Работы пользователя</h3>
     <button @click="foldSection()"
             class="portfolio__fold-button waves-effect waves-dark"
             type="button" name="fold-portfolio"
       >{{ isFolded ? 'Развернуть' : 'Свернуть' }}
     </button>
-    <ul class="portfolio-list">
-      <portfolio-item v-for="( portfolioItem , index ) in Portfolio" :key="index"
-                      :portfolioItem="portfolioItem">
+    <transition-group tag="ul" name="list" mode="out-in" class="portfolio-list">
+      <portfolio-item v-for="( portfolioItem , index ) in User.portfolio" :key="index"
+                      :PortfolioItem="portfolioItem">
       </portfolio-item>
-    </ul>
+    </transition-group>
   </section>
 </template>
 
 <script>
 
-  import portfolioItem from '@templates/portfolio-item';
+  import IconCase from '@icons/case.js';
+
+  import portfolioItem from '@templates/portfolio-item.vue';
 
   export default {
     name: "portfolio",
-    components: { portfolioItem },
+    components: { portfolioItem , IconCase },
     props: {
       'User': {
         type: Object,
         required: true
       }
     },
-    data: () => ({
-      isFolded: false
-    }),
-    computed: {
-      Portfolio() {
-        // const storePortfolio = this.$store.state.User.portfolio;
-        const storePortfolio = this.$store.state.Portfolio;
-        const Portfolio = [];
-        storePortfolio.forEach( item => {
-          this.$store.state.Portfolio.filter( portfolio => {
-            if ( portfolio._id === item ) Portfolio.push( portfolio );
-          })
-        });
-        return Portfolio;
-      }
-    },
+    data: () => ({ isFolded : false }),
     methods: {
       foldSection() {
         this.isFolded =! this.isFolded
@@ -110,7 +96,7 @@
     overflow-y: visible;
     display: flex;
     justify-content: space-between;
-    height: 225px;
+    size: 100% 225px;
     margin: 20px 0 0 0;
   }
 

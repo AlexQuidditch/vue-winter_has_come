@@ -109,14 +109,6 @@
 		@include font-smoothing;
 	}
 
-  .background-logo {
-    z-index: -1;
-    opacity: 0.25;
-		position: absolute;
-    width: 100%;
-		height: 100vh;
-  }
-
 	.container {
 	  position: relative;
 		size: 100% auto;

@@ -16,9 +16,9 @@
       <li class="ratings-item">
         <icon-case class="ratings-item__icon"></icon-case>
         <span class="ratings-item__value">
-          {{ Ratings.completed }}
+          {{ User.tasks.length }}
         </span>
-        <p class="ratings-item__text">заданий выполнено</p>
+        <p class="ratings-item__text">заданий выдано</p>
       </li>
 
       <li class="ratings-item">
@@ -43,6 +43,9 @@
     name: "ratings",
     components: { IconCheckCircle , IconCase , IconClock },
     computed: {
+      User() {
+        return this.$store.state.User;
+      },
       Ratings() {
         return this.$store.state.User.ratings
       }

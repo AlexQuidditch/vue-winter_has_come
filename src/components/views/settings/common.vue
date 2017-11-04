@@ -79,6 +79,12 @@
 
 	import Datepicker from 'vue-bulma-datepicker';
 
+  // если не собирается
+  // node_modules/vue-bulma-datepicker/src/BasicInput.js
+  // default: function() {
+  //   return {}
+  // }
+
 	export default {
 		name: "Settings_Common",
 		components: { iconCheck , iconCalendar , Datepicker },

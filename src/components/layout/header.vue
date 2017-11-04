@@ -116,7 +116,7 @@
 			}
       &._logout {
         position: absolute;
-        right: 30px;
+        top: 0; right: 30px;
       }
 			&:first-child {
 				padding-left: 12px;

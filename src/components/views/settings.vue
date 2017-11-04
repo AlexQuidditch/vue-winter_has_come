@@ -14,10 +14,11 @@
 	import confidential from './settings/confidential.vue';
 	import payments from './settings/payments.vue';
 	import about from './settings/about.vue';
+	import company from './settings/company.vue';
 
 	export default {
 		name: "settings",
-		components: { common , confidential , payments , navigationPanel , about }
+		components: { common , confidential , payments , navigationPanel , about , company }
 	};
 
 </script>

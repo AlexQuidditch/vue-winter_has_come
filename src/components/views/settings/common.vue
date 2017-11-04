@@ -141,7 +141,7 @@
 
 <style lang="scss">
 
-	@import "../../../stylesheets/partials/_mixins";
+  @import "../../../stylesheets/partials/_mixins.scss";
 
   .settings {
     padding: 30px;
@@ -163,42 +163,42 @@
     justify-content: space-between;
   }
 
-	.settings-column {
-		width: 270px;
-		&__title {
-			width: 100%;
-			font-size: 13px;
-			font-weight: 600;
-			line-height: 1.46;
-			color: #4a4a4a;
-			color: var(--charcoal-grey);
-		}
-		&__label {
-			position: relative;
-			display: block;
-		}
-		&__label-icon {
-			position: absolute;
-			top: 34px; right: 10px;
-			width: 22px;
-		}
-		&__input {
-			display: block;
-			size: 270px 35px;
-			margin: 10px 0;
-			padding: 10px;
-			font-size: 12px;
-			line-height: 1.5;
-			color: #9b9b9b;
-			color: var(--purpley-grey);
-			border-radius: 3px;
-			border: solid 1px rgba(155, 155, 155, 0.2);
-			border: solid 1px var(--purpley-grey-20);
-			&._textarea {
-				height: 109px;
-				resize: none;
-			}
-		}
+  .settings-column {
+    width: 270px;
+    &__title {
+      width: 100%;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.46;
+      color: #4a4a4a;
+      color: var(--charcoal-grey);
+    }
+    &__label {
+      position: relative;
+      display: block;
+    }
+    &__label-icon {
+      position: absolute;
+      top: 34px; right: 10px;
+      width: 22px;
+    }
+    &__input {
+      display: block;
+      size: 270px 35px;
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #9b9b9b;
+      color: var(--purpley-grey);
+      border-radius: 3px;
+      border: solid 1px rgba(155, 155, 155, 0.2);
+      border: solid 1px var(--purpley-grey-20);
+      &._textarea {
+        height: 109px;
+        resize: none;
+      }
+    }
     &__datepicker {
       @extend .settings-column__input;
       input {
@@ -208,82 +208,85 @@
         border: none;
       }
     }
-	}
-	.settings-bottom {
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-end;
-		&__title {
-			width: 100%;
-			font-size: 13px;
-			font-weight: 600;
-			line-height: 1.46;
-			color: #4a4a4a;
-			color: var(--charcoal-grey);
-		}
-		&__label {
-			position: relative;
-			display: block;
-			&._checkbox {
-				width: 250px;
-			}
-		}
-		&__input {
-			display: block;
-			size: 270px 35px;
-			margin-top: 10px;
-			padding: 10px;
-			font-size: 12px;
-			line-height: 1.5;
-			color: #9b9b9b;
-			color: var(--purpley-grey);
-			border-radius: 3px;
-			border: solid 1px rgba(155, 155, 155, 0.2);
-			border: solid 1px var(--purpley-grey-20);
-		}
-		&__checkbox {
-			margin: 9px 0 !important;
-			.checkbox_label {
-				font-size: 12px;
-				line-height: 1.5;
-				color: #9b9b9b;
-				color: var(--purpley-grey);
-			}
-			input:focus {
-				@include MDShadow-3;
-			}
-		}
-		&__button {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			size: 270px 35px;
-			padding: 0 10px;
-			margin-top: 30px;
-			font-size: 12px;
-			line-height: 35px;
-			color: #9b9b9b;
-			color: var(--purpley-grey);
-			background-color: transparent;
-			border-radius: 3px;
-			border: solid 1px rgba(155, 155, 155, 0.2);
-			border: solid 1px var(--purpley-grey-20);
-			transition: box-shadow .35s ease-in-out;
-			&:focus,
-			&:hover {
-				@include MDShadow-1;
-			}
-			&:active {
-				@include MDShadow-2;
-			}
-		}
-		&__button-icon {
-			width: 20px;
-			margin-right: 10px;
-			stroke-width: 2;
-			stroke: #009d2f;
-			stroke: var(--irish-green);
-		}
-	}
+  }
+  .settings-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    &__title {
+      width: 100%;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.46;
+      color: #4a4a4a;
+      color: var(--charcoal-grey);
+    }
+    &__label {
+      position: relative;
+      display: block;
+      &._checkbox {
+        width: 250px;
+      }
+    }
+    &__input {
+      display: block;
+      size: 270px 35px;
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #9b9b9b;
+      color: var(--purpley-grey);
+      border-radius: 3px;
+      border: solid 1px rgba(155, 155, 155, 0.2);
+      border: solid 1px var(--purpley-grey-20);
+    }
+    &__checkbox {
+      margin: 9px 0 !important;
+      .checkbox_label {
+        font-size: 12px;
+        line-height: 1.5;
+        color: #9b9b9b;
+        color: var(--purpley-grey);
+      }
+      input:focus {
+        @include MDShadow-3;
+      }
+    }
+    &__button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      size: 270px 35px;
+      padding: 0 10px;
+      margin-top: 30px;
+      font-size: 12px;
+      line-height: 35px;
+      color: #9b9b9b;
+      color: var(--purpley-grey);
+      background-color: transparent;
+      border-radius: 3px;
+      border: solid 1px rgba(155, 155, 155, 0.2);
+      border: solid 1px var(--purpley-grey-20);
+      transition: box-shadow .35s ease-in-out;
+      &:focus,
+      &:hover {
+        @include MDShadow-1;
+      }
+      &:active {
+        @include MDShadow-2;
+      }
+      &._company {
+        margin-top: 38px;
+      }
+    }
+    &__button-icon {
+      width: 20px;
+      margin-right: 10px;
+      stroke-width: 2;
+      stroke: #009d2f;
+      stroke: var(--irish-green);
+    }
+  }
 
 </style>

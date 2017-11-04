@@ -29,7 +29,14 @@ const state = {
     fb: '',
     skype: '',
     telegram: ''
-  }
+  },
+	company: {
+    title: '',
+    link: '',
+    activities: '',
+    starts: '',
+    achivements: ''
+	}
 };
 
 const actions = {
@@ -59,6 +66,9 @@ const actions = {
 	},
 	saveAbout( { state } , payload ) {
 		return API.post( `settings/about/${ payload }` , state.about )
+	},
+	saveCompany( { state } , payload ) {
+		return API.post( `settings/company/${ payload }` , state.company )
 	},
 	// confidential
 	updateContacts( { commit } , payload ) {
@@ -148,6 +158,22 @@ const mutations = {
   },
   SETTINGS_UPDATE_TELEGRAM( { about } , payload ) {
     about.telegram = payload;
+  },
+  // company
+  COMPANY_TITLE_UPDATE( { company } , payload ) {
+    company.title = payload;
+  },
+  COMPANY_LINK_UPDATE( { company } , payload ) {
+    company.link = payload;
+  },
+  COMPANY_ACTIVITIES_UPDATE( { company } , payload ) {
+    company.activities = payload;
+  },
+  COMPANY_STARTS_UPDATE( { company } , payload ) {
+    company.starts = payload;
+  },
+  COMPANY_ACHIVEMENTS_UPDATE( { company } , payload ) {
+    company.achivements = payload;
   }
 };
 

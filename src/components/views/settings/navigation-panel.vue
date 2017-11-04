@@ -1,7 +1,8 @@
 <template lang="html">
 	<nav class="settings-navigation">
 		<router-link v-for="( route , index ) in Routes" :key="index"
-								 :to="{ name: route.name || 'settings' , query: route.query }"
+								 :to="{ name: 'settings' , query: route.query }"
+                 v-if=" !currentUserIsAgent && route.query.section == 'company' ? false : true "
 								 class="settings-navigation__link waves-effect waves-dark"
 			>{{ route.text }}
 		</router-link>
@@ -37,9 +38,20 @@
           query: {
             section: 'about'
           }
+        },
+        {
+          text: 'О компании',
+          query: {
+            section: 'company'
+          }
         }
       ]
-    })
+    }),
+    computed: {
+      currentUserIsAgent() {
+        return this.$store.state.User.isAgent
+      }
+    }
 	};
 
 </script>

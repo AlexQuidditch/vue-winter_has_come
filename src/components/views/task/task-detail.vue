@@ -74,7 +74,7 @@
           <span class="summary-response__value">{{ taskItem.responses.length }} ответов</span>
         </li>
       </ul>
-      <div v-if="taskItem.authorID === currentUserID" class="detail-footer__row">
+      <div v-if="taskItem.authorID === currentUserID && taskItem.completed.status == 'notCompleted' " class="detail-footer__row">
         <button @click="completeTask()" class="detail-footer__row-button _complete waves-effect waves-light">Завершить</button>
         <button @click="editTask()" class="detail-footer__row-button _edit waves-effect waves-light">Редактировать</button>
       </div>

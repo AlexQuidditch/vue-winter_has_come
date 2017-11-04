@@ -27,20 +27,27 @@
           								 :star-size="18"
           								 :show-rating="false"
           								 active-color="#009d2f"
-          								 inactive-color="rgba(0, 157, 47, 0.35)">
-							</star-rating><span :class="taskItem.completed.rate < 3 ? '_red' : ''">{{ taskItem.completed.rate }} из 5</span>
+          								 inactive-color="rgba(0, 157, 47, 0.35)"
+                           class="complete-task-column__rating">
+							</star-rating>
+              <span :class="taskItem.completed.rate < 3 ? '_red' : ''"
+                    class="complete-task-column__rate">
+                    {{ taskItem.completed.rate }} из 5
+              </span>
 						</label>
 					</div>
 					<div class="complete-task-column _user">
 						<h6 class="complete-task-column__title">Исполнитель:</h6>
 						<div class="user">
-							<router-link :to="{ name: 'user', query: { id: Engage._id } }"
-								tag="div" class="user-avatar">
-								<img :src=" '/static/assets/shared/' + Engage.avatar " :alt="Engage.name + ' ' + Engage.sename"
+							<router-link :to=" currentUserID === Engage._id ? { name: 'profile' } : { name: 'user', params: { id: Engage._id } } "
+								           tag="div" class="user-avatar">
+								<img :src=" backendLocation + '/upload/' + Engage.personal.avatar "
+                     :alt="Engage.personal.name + ' ' + Engage.personal.sename"
 										 class="user-avatar__image"/><h3 class="user-avatar__name">
-											 {{ Engage.name + ' ' + Engage.sename }} <span>({{ Engage.rating }})</span> <br />
-										 	 Веб-дизайн, реклама<br />
-											 СПбГУТД, графический дизайн
+											 {{ Engage.personal.name + ' ' + Engage.personal.sename }}
+                       <span>({{ Engage.ratings.mainRate }})</span> <br />
+                       {{ Engage.information.specialization }}<br />
+                       {{ Engage.information.education.place + ', ' + Engage.information.education.faculty }}
 										 </h3>
 							 </router-link>
 						</div>
@@ -71,13 +78,15 @@
 
 <script>
 
+  import API from '@api';
+
 	import { mapActions } from 'vuex';
 
   import taskTemplate from '@collections/taskTemplate.json';
 
 	import StarRating from 'vue-star-rating';
-	import vRadio from '@custom-elements/vue-radio';
-	import iconCheck from '@icons/check-square';
+	import vRadio from '@custom-elements/vue-radio.vue';
+	import iconCheck from '@icons/check-square.vue';
 
 	export default {
 		name: "complete-task",
@@ -106,43 +115,112 @@
 			Placeholders: {
 				description: 'Описание задачи ( макс. 200 символов )'
 			},
-      taskItem: taskTemplate
+      taskItem: taskTemplate,
+      Engage: {
+      	_id: '',
+      	isAgent: null,
+      	wall: [],
+      	personal: {
+      		avatar: '',
+      		name: '',
+      		sename: '',
+      		email: '',
+      		password: '',
+      		born: '',
+      		gender: '',
+      		caption: '',
+          about: ''
+      	},
+      	information: {
+      		specialization: '',
+      		lastVisit: '',
+      		status: '',
+      		town: '',
+      		country: '',
+      		education: {
+      			place: '',
+      			faculty: ''
+      		},
+      		company: {
+      			title: '',
+      			link: ''
+      		}
+      	},
+      	registrationDate: '',
+      	popularity: '',
+      	responses: {
+      		issued: 0,
+      		positive: 0,
+      		negative: 0
+      	},
+      	ratings: {
+      		mainRate: 0,
+      		average: 0,
+      		completed: 0,
+      		tests: {
+      			value: 0,
+      			total: 0,
+      			rate: 0
+      		}
+      	},
+      	social: {
+      		contacts: {
+            phone: '',
+      			vk: '',
+      			fb: '',
+      			skype: '',
+      			telegram: ''
+      		},
+      		teams: [],
+      		company: {
+      			activities: '',
+      			starts: '',
+      			achivements: ''
+      		}
+      	},
+      	portfolio: [],
+        reviews: [],
+      	tasks: []
+      }
 		}),
-    beforeCreate() {
+    created() {
       this.$store.dispatch( 'getTaskByID' , this.id )
         .then( ({ body })  => {
-          console.log(body);
           Object.assign( this.taskItem , body );
+          API.get( `users/get/${ this.taskItem.engagedID }` )
+            .then( ({ body }) => Object.assign( this.Engage , body ) )
+            .catch( error => console.error(error) )
         })
     },
+    beforeRouteEnter ( to , from , next ) {
+      next( vm => {
+        API.get( `users/get/${ vm.$store.state.User._id }` )
+          .then( ({ body }) => vm.$store.dispatch( 'updateInstance' , body ) )
+          .catch( error => console.error( error ) )
+      })
+    },
 		computed: {
-			Engage() {
-				return this.$store.state.Stub.friends
-					.find( item => item._id == this.taskItem.engagedID || 2 );
-			}
+      currentUserID() {
+        return this.$store.state.User._id;
+      },
+      backendLocation() {
+        return this.$store.state.General;
+      }
 		},
 		methods: {
 			...mapActions([ 'updateRate' , 'updateReview' , 'updateStatus' ]),
 			changeTask() {
-				this.$store.dispatch( 'changeTask' , [ this.id , this.taskItem.completed ] )
+				this.$store.dispatch( 'changeTask' , [ this.id , this.taskItem ] )
 					.then( response => {
+            this.Engage.portfolio.unshift( this.taskItem._id );
+            API.post( `user/edit/${ this.Engage._id }` , this.Engage )
+              .then( ({ body }) => {
+                console.log(body);
+                this.postComment = '';
+              })
             console.log(response);
-            this.$router.push({ name: 'task' , query : { id : this.id } })
+            this.$router.push({ name: 'task' , params : { id : this.id } })
           });
-			},
-			getEngageAvatar(ID) {
-				let avatar = '';
-				this.$store.state.Stub.friends.filter( item => {
-					if ( item._id === ID ) avatar = item.avatar;
-				});
-				return avatar;
-			},
-			getEngageName(ID) {
-				let fullName = '';
-				this.$store.state.Stub.friends.filter( item => {
-					if ( item._id === ID ) fullName = item.name + ' ' + item.sename;
-				});
-				return fullName;
 			}
 		}
 	};
@@ -219,26 +297,28 @@
 						resize: none;
 					}
 				}
-				.star-rating {
+				.complete-task-column__rating {
 					display: inline-block !important;
-					margin: 5px auto;
-					~ span {
-						display: inline-block;
-						vertical-align: top;
-						height: 33px;
-						margin: 5px 0 5px 20px;
-						font-size: 12px;
-						font-weight: 600;
-						line-height: 33px;
-						color: #009d2f;
-						color: var(--irish-green);
-						transition: color .15s ease-in-out;
-						&._red {
-							color: #d0011b;
-						  color: var(--scarlet);
-						}
-					}
+          .vue-star-rating-pointer {
+  					margin: 5px 4px;
+          }
 				}
+        &__rate {
+          display: inline-block;
+          vertical-align: top;
+          height: 33px;
+          margin: 0 0 0 10px;
+          font-size: 12px;
+          font-weight: 600;
+          line-height: 33px;
+          color: #009d2f;
+          color: var(--irish-green);
+          transition: color .15s ease-in-out;
+          &._red {
+            color: #d0011b;
+            color: var(--scarlet);
+          }
+        }
 			}
 
 			.user {

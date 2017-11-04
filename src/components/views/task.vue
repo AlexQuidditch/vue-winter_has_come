@@ -2,7 +2,10 @@
 	<main class="main _task">
 		<section class="task" v-cloak>
 			<task-detail :taskItem="taskItem" :Author="Author" :id="id"></task-detail>
-			<task-response :taskItem="taskItem" :id="id" @emitResponse="addResponse($event)"></task-response>
+			<task-response :taskItem="taskItem" :id="id"
+			               @emitResponse="addResponse($event)"
+                     @takeEngaged="takeEngaged($event)">
+      </task-response>
 		</section>
 		<task-summary :taskItem="taskItem" :id="id"></task-summary>
 	</main>
@@ -49,11 +52,44 @@
         })
         .catch( error => console.error(error) );
     },
+    beforeRouteEnter ( to , from , next ) {
+      next( vm => {
+        API.get( `users/get/${ vm.$store.state.User._id }` )
+          .then( ({ body }) => vm.$store.dispatch( 'updateInstance' , body ) )
+          .catch( error => console.error( error ) )
+      })
+    },
     methods: {
       addResponse( responseID ) {
         this.taskItem.responses.push( responseID );
         this.$store.dispatch( 'changeTask' , [ this.id , this.taskItem ] )
           .then( ({ body }) => console.log( 'Response saved' ))
+      },
+      takeEngaged( AuthorID ) {
+        console.log( AuthorID );
+        this.$swal({
+          title: 'Вы уверены?',
+          text: "Подтвердите действие",
+          type: 'question',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Назначить',
+          cancelButtonText: 'Отменить'
+        })
+        .then( () => {
+          this.taskItem.engagedID = AuthorID;
+          this.taskItem.isEngaged = true;
+          return API.post( `task/edit/${ this.taskItem._id }` , this.taskItem )
+            .then( ({ body }) => {
+              this.$swal(
+                'Отлично!',
+                'Исполнитель назначен.',
+                'success'
+              )
+            })
+            .catch( error => console.error(error) )
+        })
       }
     }
   };

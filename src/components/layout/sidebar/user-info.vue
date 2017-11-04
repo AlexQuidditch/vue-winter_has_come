@@ -1,7 +1,8 @@
 <template lang="html">
   <div class="user">
 		<router-link :to="{ name: 'profile' }" tag="div" class="user-avatar">
-			<img :src=" backendLocation + '/upload/' + Personal.avatar " :alt="Personal.name + ' ' + Personal.sename"
+			<img :src=" backendLocation + '/upload/' + Personal.avatar "
+           :alt="Personal.name + ' ' + Personal.sename"
 				   class="user-avatar__image"/><h3 class="user-avatar__name">{{ Personal.name + ' ' + Personal.sename }}</h3>
 		</router-link>
 		<nav class="user-controls">

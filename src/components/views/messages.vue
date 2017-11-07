@@ -4,7 +4,7 @@
 			<div class="vue-bar" v-bar>
 				<transition-group tag="ul" name="list" mode="out-in"
 													class="dialog-list">
-					<dialog-item v-for="dialogItem in Dialogs" :key="dialogItem.id"
+					<dialog-item v-for="dialogItem in Dialogs" :key="dialogItem._id"
 											 :DialogItem="dialogItem">
 					</dialog-item>
 				</transition-group>

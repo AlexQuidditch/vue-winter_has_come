@@ -3,7 +3,7 @@
     <header class="post-header">
       <router-link :to=" currentUserID === Author._id ? { name: 'profile' } : { name: 'user', params: { id : Post.authorID }} "
                    tag="img"
-                   :src=" backendLocation + '/upload/' + Author.avatar"
+                   :src=" backendLocation + '/upload/' + Author.personal.avatar"
                    :title="Author.personal.name + ' ' + Author.personal.sename"
                    class="post-header__avatar">
       </router-link>

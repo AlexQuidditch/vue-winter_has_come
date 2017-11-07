@@ -1,13 +1,13 @@
 <template lang="html">
   <transition-group name="fade" mode="out-in" appear>
-    <section v-if="canResponse"
+    <section v-if="canResponse()"
              key="response"
              class="task-response">
       <h4 class="task-response__title">Откликнуться:</h4>
       <response-form :id="id" @emitResponse="$emit( 'emitResponse' , $event )"></response-form>
     </section>
     <section key="haveResponses" class="task-response">
-      <h4 class="task-response__title">{{ taskItem.responses.length ? 'Отклики:' : 'Пока что нет откликов...' }}</h4>
+      <h4 class="task-response__title">{{ taskItem.responses.length ? 'Отклики:' : 'Пока что нет откликов... ' }}</h4>
       <transition-group name="list" tag="ul" class="response-list">
         <response-item v-for="responseID in taskItem.responses" :key="responseID"
                        :ResponseID="responseID"
@@ -41,9 +41,19 @@
     computed: {
       currentUserID() {
         return this.$store.state.User._id;
+      }
+    },
+    methods: {
+      log() {
+        console.log(
+          this.canResponse,
+          this.taskItem.authorID !== this.currentUserID,
+          this.taskItem.completed.status == 'notCompleted',
+          !this.taskItem.isEngaged
+        );
       },
       canResponse() {
-        this.taskItem.authorID !== this.currentUserID && this.taskItem.completed.status == 'notCompleted' && !this.taskItem.isEngaged;
+        return this.taskItem.authorID !== this.currentUserID && this.taskItem.completed.status == 'notCompleted' && !this.taskItem.isEngaged;
       }
     }
   };

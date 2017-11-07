@@ -21,19 +21,10 @@ const state = {
 	]
 };
 
-const getters = {
-    // Getters to access your store values
+const getters = {};
 
-};
+const actions = {};
 
-const actions = {
-    // Asynchronous mutations commits to modify your store
-
-};
-
-const mutations = {
-    // Synchronous modifications of  your store
-
-};
+const mutations = {};
 
 export default { state , getters , actions , mutations };

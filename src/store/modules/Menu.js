@@ -1,65 +1,56 @@
- const state = {
-	list: {
-		main: {
-			route: 'profile',
-			text: 'Моя страница'
-		},
-		messages: {
-			route: 'messages',
-			text: 'Сообщения',
-			Counters: {
-				state: 5,
-				add: 1
-			}
-		},
-		friends: {
-			route: 'friends',
-			text: 'Друзья',
-			Counters: {
-				state: 69,
-				add: 2
-			}
-		},
-		teams: {
-			route: 'teams',
-			text: 'Команды',
-			Counters: {
-				state: 2,
-				add: 2
-			}
-		},
-		settings: {
-			text: 'Настройки',
-			route: {
-        name : 'settings',
-  			query: {
-  				section : 'common'
-  			}
+const state = {
+  list: {
+    main: {
+      route: 'profile',
+      text: 'Моя страница'
+    },
+    messages: {
+      route: 'messages',
+      text: 'Сообщения',
+      Counters: {
+        state: 5,
+        add: 1
       }
-		},
-		support: {
-			text: 'Поддержка',
-			route: 'support',
-			query: {
-				section: 'opened'
-			}
-		}
-	}
+    },
+    friends: {
+      route: 'friends',
+      text: 'Друзья',
+      Counters: {
+        state: 69,
+        add: 2
+      }
+    },
+    teams: {
+      route: 'teams',
+      text: 'Команды',
+      Counters: {
+        state: 2,
+        add: 2
+      }
+    },
+    settings: {
+      text: 'Настройки',
+      route: {
+        name : 'settings',
+        query: {
+          section : 'common'
+        }
+      }
+    },
+    support: {
+      text: 'Поддержка',
+      route: 'support',
+      query: {
+        section: 'opened'
+      }
+    }
+  }
 };
 
-const getters = {
-    // Getters to access your store values
+const getters = {};
 
-};
+const actions = {};
 
-const actions = {
-    // Asynchronous mutations commits to modify your store
-
-};
-
-const mutations = {
-    // Synchronous modifications of  your store
-
-};
+const mutations = {};
 
 export default { state , getters , actions , mutations };

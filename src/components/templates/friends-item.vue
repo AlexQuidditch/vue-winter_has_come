@@ -11,7 +11,7 @@
 			</div>
 			<div class="information-detail">
 				<router-link :to=" currentUserID === friendItem._id ? { name: 'profile' } : { name: 'user', params: { id: friendItem._id }}" tag="h5"
-					 class="information-detail__name"
+					 					 class="information-detail__name"
 					>{{ friendItem.personal.name + ' ' + friendItem.personal.sename }}
 				</router-link>
 				<p v-if="friendItem.isAgent" class="information-detail__company"> Агент {{ friendItem.information.company.name }}</p>

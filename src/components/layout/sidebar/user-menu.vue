@@ -19,7 +19,7 @@
         <span class="menu-item__text">{{ Menu.friends.text }}</span>
         <span class="menu-item__counter _state">({{ friendsQuantity }})</span>
         <span v-if="Menu.friends.Counters && Menu.friends.Counters.add > 0"
-          class="menu-item__counter _add">(+{{ Menu.friends.Counters.add }})
+              class="menu-item__counter _add">(+{{ Menu.friends.Counters.add }})
         </span>
       </router-link>
     </li>

@@ -6,12 +6,20 @@
 				   class="user-avatar__image"/><h3 class="user-avatar__name">{{ Personal.name + ' ' + Personal.sename }}</h3>
 		</router-link>
 		<nav class="user-controls">
-			<router-link to="/" v-for="control in Controls" :key="control.name"
-				           class="user-control">
-				<img :src=" '/static/assets/sidebar/' + control.icon " :alt="control.name"
+			<router-link to="/" class="user-control">
+				<img src="/static/assets/sidebar/message-square.svg" alt="Сообщения"
 					   class="user-control__icon" />
-				<span v-if="control.counter !== 0 "
-					    class="user-control__counter">{{ control.counter }}</span>
+				<span v-if="newMessagesCounter > 0" class="user-control__counter">{{ newMessagesCounter }}</span>
+			</router-link>
+			<router-link to="/" class="user-control">
+				<img src="/static/assets/sidebar/credit-card.svg" alt="Кошелёк"
+					   class="user-control__icon" />
+				<span class="user-control__counter"></span>
+			</router-link>
+			<router-link to="/" class="user-control">
+				<img src="/static/assets/sidebar/message-square.svg" alt="Сообщения"
+					   class="user-control__icon" />
+				<span class="user-control__counter">1</span>
 			</router-link>
 		</nav>
   </div>
@@ -30,6 +38,15 @@
       },
       backendLocation() {
         return this.$store.state.General;
+      },
+      newMessagesCounter() {
+        const dialogs = this.$store.state.Messages.dialogs;
+        const arr = [];
+        dialogs.forEach( dialog => {
+          if ( dialog.unreaded ) arr.push(dialog.unreaded);
+        });
+        const counter = arr.reduce( ( a , b ) => a + b );
+        return counter;
       }
     }
   };

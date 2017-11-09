@@ -24,31 +24,8 @@
 	import layoutFooter from '@layout/footer';
 
 	export default {
-		name: 'Winter-has-Come',
+		name: 'VDele',
 		components: { wrapper , layoutHeader , layoutSidebar , layoutMain ,layoutFooter },
-		beforeCreate() {
-			// firebase.auth().onAuthStateChanged( user => {
-			// 	if ( user ) {
-			// 		this.user = user;
-			// 	} else {
-			// 		firebase.auth().signInAnonymously()
-			// 			.catch( console.error )
-			// 	}
-			// }),
-			auth.onChange = loggedIn => {
-				this.$store.dispatch( 'changeAuth' , !!window.localStorage.token );
-				loggedIn === false
-  				? this.isExpanded = false
-  				: this.isExpanded = true
-			}
-		},
-		methods: {
-			toggleSize() {
-				this.$store.state.Auth.isLoggedIn == true
-				? this.isExpanded =! this.isExpanded
-				: this.isExpanded = false
-			}
-		},
 		mounted() {
 			this.$nextTick( () => Waves.init() );
 		}
@@ -128,6 +105,7 @@
 
 	button {
 		cursor: pointer;
+		border-radius: none
 	}
 
 	@include waves-light( #fff , $ripple-opacity );

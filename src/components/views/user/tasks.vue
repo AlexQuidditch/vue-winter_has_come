@@ -1,14 +1,15 @@
 <template lang="html">
-  <section :class="{ '_folded' : isFolded }" class="tasks">
+  <section :class="{ '_folded' : foldedSection }" class="tasks">
     <icon-case :Width="1" class="tasks__icon"></icon-case>
 		<h3 class="tasks__title">Задания</h3>
     <button @click="foldSection()"
+            v-if="Portfolio.length"
             class="portfolio__fold-button waves-effect waves-dark"
             type="button" name="fold-portfolio"
       >{{ isFolded ? 'Развернуть' : 'Свернуть' }}
     </button>
 		<transition-group tag="ul" name="list" mode="out-in" class="tasks-list">
-			<tasks-item v-for="( tasksID , index ) in User.tasks" :key="tasksID"
+			<tasks-item v-for="tasksID in User.tasks" :key="tasksID"
 									:tasksID="tasksID">
 			</tasks-item>
 		</transition-group>
@@ -30,6 +31,22 @@
       }
     },
     data: () => ({ isFolded : false }),
+    computed: {
+      Portfolio() {
+        return this.User.portfolio;
+      },
+      foldedSection() {
+        if ( !this.Portfolio.length ) {
+          return true;
+        } else {
+          if ( this.isFolded ) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+    },
     methods: {
       foldSection() {
         this.isFolded =! this.isFolded

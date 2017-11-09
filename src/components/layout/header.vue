@@ -19,8 +19,8 @@
           <span>{{ currentUserIsAgent ? 'Посмотреть задания' : 'Найти работу' }}</span>
         </router-link>
 				<div class="header-row__divider"></div>
-				<router-link :to="{ name : 'users' }" class="header-row__link waves-effect waves-light">Исполнители</router-link>
-				<router-link :to="{ name : 'agents' }" class="header-row__link waves-effect waves-light">Агенты</router-link>
+				<router-link :to="{ name : 'users' , query: { section : 'all' }}" class="header-row__link waves-effect waves-light">Исполнители</router-link>
+				<router-link :to="{ name : 'agents' , query: { section : 'all' } }" class="header-row__link waves-effect waves-light">Агенты</router-link>
 				<router-link :to="{ name : 'teams' }" class="header-row__link waves-effect waves-light">Команды</router-link>
 				<router-link :to="{ name : 'logout' }" @click.native="logout()" class="header-row__link _logout waves-effect waves-light">Выйти</router-link>
 			</nav>

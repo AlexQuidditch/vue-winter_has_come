@@ -1,14 +1,15 @@
 <template lang="html">
-  <section :class="{ '_folded' : isFolded }" class="tasks">
+  <section :class="{ '_folded' : foldedSection }" class="tasks">
     <icon-case :Width="1" class="tasks__icon"></icon-case>
 		<h3 class="tasks__title">Мои задания</h3>
     <button @click="foldSection()"
+            v-if="Tasks.length"
             class="tasks__fold-button waves-effect waves-dark"
             type="button" name="fold-portfolio"
       >{{ isFolded ? 'Развернуть' : 'Свернуть' }}
     </button>
 		<transition-group tag="ul" name="list" mode="out-in" class="tasks-list">
-			<tasks-item v-for="( tasksID , index ) in Tasks" :key="tasksID"
+			<tasks-item v-for="tasksID in Tasks" :key="tasksID"
 									:tasksID="tasksID">
 			</tasks-item>
 		</transition-group>
@@ -18,23 +19,34 @@
 <script>
 
   import IconCase from '@icons/case.js';
-	import tasksItem from '@templates/tasks-item.vue';
+  import tasksItem from '@templates/tasks-item.vue';
 
-	export default {
-		name: "tasks",
-		components: { tasksItem , IconCase },
+  export default {
+    name: "tasks",
+    components: { tasksItem , IconCase },
     data: () => ({ isFolded : false }),
-		computed: {
-			Tasks() {
-				return this.$store.state.User.tasks;
-			}
-		},
+    computed: {
+      Tasks() {
+        return this.$store.state.User.tasks;
+      },
+      foldedSection() {
+        if ( !this.Tasks.length ) {
+          return true;
+        } else {
+          if ( this.isFolded ) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+    },
     methods: {
       foldSection() {
         this.isFolded =! this.isFolded
       }
     }
-	};
+  };
 
 </script>
 
@@ -42,10 +54,10 @@
 
   @import "../../../stylesheets/partials/_mixins.scss";
 
-	.tasks {
+  .tasks {
     overflow: hidden;
     position: relative;
-		display: flex;
+    display: flex;
     flex-flow: row wrap;
     align-items: flex-start;
     size: 100% 300px;
@@ -54,21 +66,24 @@
     &._folded {
       height: 68px;
     }
-		&__title {
-			margin-left: 10px;
-			font-size: 18px;
-			line-height: 28px;
-			color: #4a4a4a;
-			color: var(--charcoal-grey);
-		}
-		&__subtitle {
-			width: 100%;
-			margin: 10px 0 0 0;
-			font-size: 12px;
-			text-align: left;
-			color: #4a4a4a;
-			color: var(--charcoal-grey);
-		}
+    &__icon {
+      width: 28px;
+    }
+    &__title {
+      margin-left: 10px;
+      font-size: 18px;
+      line-height: 28px;
+      color: #4a4a4a;
+      color: var(--charcoal-grey);
+    }
+    &__subtitle {
+      width: 100%;
+      margin: 10px 0 0 0;
+      font-size: 12px;
+      text-align: left;
+      color: #4a4a4a;
+      color: var(--charcoal-grey);
+    }
     &__fold-button {
       position: absolute;
       top: 20px; right: 30px;
@@ -84,13 +99,13 @@
       transition: box-shadow .3s ease-in-out;
       @include MDShadow-1;
     }
-	}
+  }
 
-	.tasks-list {
-		display: flex;
-		justify-content: space-between;
-		width: 100%;
-		margin: 20px 0 0 0;
-	}
+  .tasks-list {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 20px 0 0 0;
+  }
 
 </style>

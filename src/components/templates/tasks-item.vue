@@ -1,5 +1,6 @@
 <template lang="html">
-	<router-link :to="{ name: 'task' , params: { id : tasksItem._id } }" tag="li"
+	<router-link :to="{ name: 'task' , params: { id : tasksItem._id } }"
+               tag="li"
 							 class="tasks-item">
 		<div class="tasks-item__overlay">
 			<h5 class="tasks-item__title">{{ tasksItem.title }}</h5>

@@ -3,9 +3,11 @@
     <section class="find-job">
       <navigation-panel></navigation-panel>
       <search-task></search-task>
-      <transition name="fade" mode="out-in">
-        <component :is=" $route.query.section || 'all' "></component>
-      </transition>
+      <transition-group tag="ul" name="list" mode="out-in" class="find-job _all">
+        <task-item v-for="( taskItem , index ) in Tasks" :key="taskItem._id"
+                   :taskItem = "taskItem">
+        </task-item>
+      </transition-group>
     </section>
     <filter-panel></filter-panel>
   </main>
@@ -17,19 +19,73 @@
   import searchTask from './find-job/search-task.vue';
   import navigationPanel from './find-job/navigation-panel.vue';
 
-  import all from './find-job/all.vue';
-  import rush from './find-job/rush.vue';
-  import active from './find-job/active.vue';
-  import completed from './find-job/completed.vue';
+  import taskItem from '@templates/task-item.vue';
 
   export default {
     name: "find-job",
     components: {
-      filterPanel , searchTask , navigationPanel,
-      all , rush , active , completed
+      filterPanel , searchTask , navigationPanel, taskItem
     },
+    data: () => ({
+      Tasks: []
+    }),
     beforeRouteEnter ( to , from , next ) {
-      next( vm => vm.$store.dispatch('getTasks') )
+      next( vm => {
+        vm.$store.dispatch('getTasks');
+        switch ( to.query.section ) {
+          case 'all':
+            vm.Tasks = vm.storeTasks
+              .filter( task => task.completed.status == 'notCompleted' );
+            break;
+          case 'rush':
+            vm.Tasks = vm.storeTasks
+              .filter( task => task.isRush );
+            break;
+          case 'active':
+            vm.Tasks = vm.storeTasks
+              .filter( task => task.completed.status == ( 'notCompleted' && task.engagedID === vm.currentUserID ) );
+            break;
+          case 'completed':
+            vm.Tasks = vm.storeTasks
+              .filter( task => ( task.completed.status !== 'notCompleted' && vm.currentUserID ===  task.engagedID || vm.AuthorID ) );
+            break;
+          default:
+            vm.Tasks = vm.storeTasks
+              .filter( task => task.completed.status == 'notCompleted' );
+        }
+      })
+    },
+    computed: {
+      storeTasks() {
+        return this.$store.state.Tasks
+      },
+      currentUserID() {
+        return this.$store.state.User._id;
+      }
+    },
+    beforeRouteUpdate ( to , from , next ) {
+      switch ( to.query.section ) {
+        case 'all':
+          this.Tasks = this.storeTasks
+            .filter( task => task.completed.status === 'notCompleted' );
+          break;
+        case 'rush':
+          this.Tasks = this.storeTasks
+            .filter( task => task.completed.status === 'notCompleted' && task.isRush );
+          break;
+        case 'active':
+          this.Tasks = this.storeTasks
+            .filter( task => ( task.completed.status === 'notCompleted' && ( this.currentUserID === task.engagedID || this.currentUserID === task.authorID ) ) );
+          break;
+        case 'completed':
+          this.Tasks = this.storeTasks
+            .filter( task => ( task.completed.status !== 'notCompleted' && ( this.currentUserID === task.engagedID || this.currentUserID === task.authorID ) ) );
+          break;
+        default:
+          this.Tasks = this.storeTasks
+            .filter( task => task.completed.status === 'notCompleted' );
+      }
+      next();
     }
   };
 

@@ -1,5 +1,5 @@
 <template lang="html">
-  <transition-group tag="ul" name="friend-list" mode="out-in"
+  <transition-group tag="ul" name="list" mode="out-in"
                     class="friend-list _all">
     <friends-item v-for="( userItem , index ) in Users" :key="userItem._id"
                   :friendItem = "userItem">

@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <user-ratings-block :Ratings="User.ratings" class="ratings-block"></user-ratings-block>
+    <user-ratings-block :User="User" :Ratings="User.ratings" class="ratings-block"></user-ratings-block>
 
   </section>
 </template>

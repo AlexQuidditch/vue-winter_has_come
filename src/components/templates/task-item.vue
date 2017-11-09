@@ -13,13 +13,13 @@
 										 :class="{ '_is-rush' : taskItem.isRush , '_is-engaged' : taskItem.isEngaged }"
 										 class="about-information__title">{{ taskItem.title }}
 				</router-link>
-				<router-link :to=" Author._id === currentUserID ? { name: 'profile' } : { name: 'user', params: { id: Author._id } }"
+				<router-link :to=" Author._id === currentUserID ? { name: 'profile' } : { name: 'user', params: { id : Author._id } }"
                      tag="img" :src=" backendLocation + '/upload/' + Author.personal.avatar"
                      :title="Author.personal.name + ' ' + Author.personal.sename"
 					           class="about-information__author-avatar"
 					           alt="Открыть профиль автора">
 				</router-link>
-				<p class="about-information__published">{{ new Date(taskItem.published).toLocaleString() }}</p>
+				<p class="about-information__published">{{ published }}</p>
 				<p class="about-information__description">{{ taskItem.description.substr( 0 , 160 ) }}</p>
 			</div>
 		</div>
@@ -46,9 +46,9 @@
 						    class="summary-deadline__value _is-rush"
 						>СРОЧНО!
 					</span>
-					<span v-if="!taskItem.isRush" :class="{ '_is-engaged' : taskItem.isEngaged }"
+					<span v-else :class="{ '_is-engaged' : taskItem.isEngaged }"
 						    class="summary-deadline__value"
-						>{{ deadline }}
+						>{{ taskItem.deadline }}
 					</span>
 				</li>
 			</ul>
@@ -93,8 +93,8 @@
       currentUserID() {
         return this.$store.state.User._id;
       },
-      deadline() {
-        return new Date( this.taskItem.deadline ).toLocaleString( 'ru-RU' , longDate );
+      published() {
+        return new Date( this.taskItem.published ).toLocaleString( 'ru-RU' , longDate );
       },
       backendLocation() {
         return this.$store.state.General
@@ -257,10 +257,10 @@
 		&__value {
 			margin: 0 16px 0 8px;
 			height: 24px;
-		    font-size: 12px;
-		    line-height: 26px;
-		    color: #4a4a4a;
-		    color: var(--charcoal-grey);
+	    font-size: 12px;
+	    line-height: 26px;
+			color: #009d2f;
+			color: var(--irish-green);
 			&._is-rush {
 				color: red;
 				font-weight: 600;

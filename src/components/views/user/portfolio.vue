@@ -1,8 +1,9 @@
 <template lang="html">
-  <section :class="{ '_folded' : isFolded }" class="portfolio">
+  <section :class="{ '_folded' : foldedSection }" class="portfolio">
     <icon-case :Width="1" class="portfolio__icon"></icon-case>
-    <h3 class="portfolio__title">Работы пользователя</h3>
+    <h3 class="portfolio__title">{{ User.portfolio.length ? 'Работы пользователя' : 'У пользователя ещё нет работ' }}</h3>
     <button @click="foldSection()"
+            v-if="User.portfolio.length"
             class="portfolio__fold-button waves-effect waves-dark"
             type="button" name="fold-portfolio"
       >{{ isFolded ? 'Развернуть' : 'Свернуть' }}
@@ -31,6 +32,19 @@
       }
     },
     data: () => ({ isFolded : false }),
+    computed: {
+      foldedSection() {
+        if ( !this.User.portfolio.length ) {
+          return true;
+        } else {
+          if ( this.isFolded ) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+    },
     methods: {
       foldSection() {
         this.isFolded =! this.isFolded

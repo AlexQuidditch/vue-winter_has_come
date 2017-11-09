@@ -30,8 +30,8 @@
 							</label>
 							<label class="create-task-column__label">
 								<h6 class="create-task-column__title">Сроки выполнения задания:</h6>
-								<datepicker :value="CreateTask.deadline" @selected="updateDeadline($event)"
-                            :config="{ wrap: true }"
+								<datepicker :value="CreateTask.deadline" @input="updateDeadline($event)"
+														:config="{ wrap: true , dateFormat: 'd.m.Y' }"
                             class="create-task-column__datepicker">
 									<icon-calendar class="create-task-column__label-icon" data-toggle></icon-calendar>
 							  </datepicker>
@@ -208,6 +208,7 @@
         'updateSkills' , 'removeSpecialization'
       ]),
       saveTask() {
+
         if ( !this.isEdit ) {
           this.$swal({
             title: 'Вы уверены?',
@@ -248,13 +249,14 @@
             .then( () => {
               this.$swal( 'Сохранено!' , 'Задача отредактирована.' , 'success' );
               this.$store.dispatch('clearDraft');
-              this.$router.push({ name : 'find-job' });
+              this.$router.push({ name : 'find-job' , query: { section: 'active' } });
             })
             .catch( error => {
               console.error(error);
               this.$swal( 'Упс!' , 'Что-то пошло не так...' , 'error' )
             });
         }
+
       },
       saveDraft() {
         this.$store.dispatch('saveDraft')

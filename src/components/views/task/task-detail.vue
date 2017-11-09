@@ -58,9 +58,9 @@
 						    class="summary-deadline__value _is-rush"
 						>СРОЧНО!
 					</span>
-					<span v-if="!taskItem.isRush" :class="{ '_is-rush' : taskItem.isRush }"
+					<span v-else :class="{ '_is-rush' : taskItem.isRush }"
 						    class="summary-deadline__value"
-						>{{ deadline }}
+						>{{ taskItem.deadline }}
 					</span>
 				</li>
 			</ul>
@@ -109,9 +109,6 @@
       }
 		},
     computed: {
-      deadline() {
-        return new Date( this.taskItem.deadline ).toLocaleString( 'ru-RU' , longDate );
-      },
       published() {
         return new Date( this.taskItem.published ).toLocaleString( 'ru-RU' , longDate );
       },
@@ -326,10 +323,10 @@
 		&__value {
 			margin: 0 16px 0 8px;
 			height: 24px;
-		    font-size: 12px;
-		    line-height: 26px;
-		    color: #4a4a4a;
-		    color: var(--charcoal-grey);
+	    font-size: 12px;
+	    line-height: 26px;
+			color: #009d2f;
+			color: var(--irish-green);
 			&._is-rush {
 				color: red;
 				font-weight: 600;

@@ -28,27 +28,6 @@ const state = [
 	// 		review: '' // текст отзыва
 	// 	}
 	// }
-	// {
-	// 	id: 2,
-	// 	authorID: 2,
-	// 	engagedID: 2,
-	// 	title: 'Отрисовка макетов внутренних страниц интернет-магазина',
-	// 	picture: 'project2.jpg',
-	// 	published: '3 часа 22 минуты назад',
-	// 	description: 'Уважаемые Господа!\nВы профессиональные дизайнеры, я же могу оценить вашу работу только субъективно.\nВы можете помочь мне выбрать именно Вас – для этого',
-	// 	budget: null,
-	// 	isAgreement: true,
-	// 	deadline: '7 дней',
-	// 	isRush: false,
-	// 	views: 1042,
-	// 	response: 42,
-	// 	isEngaged: true,
-	// 	completed: {
-	// 		rate: 3,
-	// 		status: 'notCompleted',
-	// 		review: ''
-	// 	}
-	// }
 ];
 
 const actions = {

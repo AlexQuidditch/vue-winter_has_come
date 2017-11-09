@@ -1,7 +1,7 @@
 <template lang="html">
   <section class="wall">
     <icon-wall class="wall__icon"></icon-wall>
-    <h3 class="wall__title">Стена пользователя</h3>
+    <h3 class="wall__title">Моя стена</h3>
     <div class="wall__container">
       <wall-form :User="User"></wall-form>
       <transition-group name="fade" tag="ul" mode="out-in"

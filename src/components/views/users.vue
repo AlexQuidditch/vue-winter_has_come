@@ -3,9 +3,12 @@
 		<section class="users">
 			<navigation-panel></navigation-panel>
 			<search-friend></search-friend>
-			<transition name="fade" mode="out-in">
-				<component :is=" $route.query.section || 'all' "></component>
-			</transition>
+      <transition-group tag="ul" name="list" mode="out-in"
+                        class="users-list">
+        <friends-item v-for="( userItem , index ) in Users" :key="userItem._id"
+                      :friendItem = "userItem">
+        </friends-item>
+      </transition-group>
 		</section>
 		<filter-panel></filter-panel>
 	</main>
@@ -13,20 +16,56 @@
 
 <script>
 
+  import friendsItem from '@templates/friends-item.vue';
+
 	import filterPanel from './users/filter-panel.vue';
 	import searchFriend from './users/search-friend.vue';
 	import navigationPanel from './users/navigation-panel.vue';
 
-	import all from './users/all.vue';
-
 	export default {
 		name: "users",
 		components: {
-			filterPanel , searchFriend , navigationPanel,
-			all
+			filterPanel , searchFriend , navigationPanel ,
+      friendsItem
 		},
+    data: () => ({
+      Users: []
+    }),
+    computed: {
+      storeUsers() {
+        return this.$store.state.Users
+      }
+    },
     beforeRouteEnter ( to , from , next ) {
-      next( vm => vm.$store.dispatch('getUsers') )
+      next( vm => {
+        console.log( to.query.section );
+        vm.$store.dispatch('getUsers');
+        switch ( to.query.section ) {
+          case 'all':
+            vm.Users = vm.storeUsers;
+            break;
+          case 'online':
+            vm.Users = vm.storeUsers
+              .filter( user => user.isOnline );
+            break;
+          default:
+            vm.Users = vm.storeUsers;
+        }
+      })
+    },
+    beforeRouteUpdate ( to , from , next ) {
+      switch ( to.query.section ) {
+        case 'all':
+          this.Users = this.storeUsers;
+          break;
+        case 'online':
+          this.Users = this.storeUsers
+            .filter( user => user.isOnline );
+          break;
+        default:
+          this.Users = this.storeUsers;
+      }
+      next();
     }
 	};
 

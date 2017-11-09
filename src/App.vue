@@ -44,6 +44,8 @@
 
 	@import "./stylesheets/layout/resets";
 
+	@import "./stylesheets/transitions.scss";
+
 	:root {
 		--black-25: rgba(0, 0, 0, 0.25);
 		--charcoal-grey: #4a4a4a;
@@ -105,60 +107,11 @@
 
 	button {
 		cursor: pointer;
-		border-radius: none
+		border-radius: 0
 	}
 
 	@include waves-light( #fff , $ripple-opacity );
 	@include waves-dark( #009d2f , $ripple-opacity );
-
-	.fade-enter,
-	.fade-leave-to {
-		opacity: 0;
-	}
-	.fade-move {
-		transition: transform 1s ease-in-out;
-	}
-	.fade-enter-active,
-	.fade-leave-active {
-		transition:
-			opacity .3s ease-in-out,
-			transform .3s ease-in-out
-	}
-
-	.fade-fast-enter,
-	.fade-fast-leave-to {
-		opacity: 0;
-	}
-	.fade-fast-enter-active,
-	.fade-fast-leave-active {
-		transition:
-			opacity .15s ease-in-out,
-			transform .15s ease-in-out
-	}
-
-	.fade-long-enter,
-	.fade-long-leave-to {
-		opacity: 0;
-	}
-	.fade-long-enter-active,
-	.fade-long-leave-active {
-		transition:
-			opacity .75s ease-in-out,
-			transform .75s ease-in-out
-	}
-
-	.list-enter,
-	.list-leave-to {
-		opacity: 0;
-		transform: scale(0.9);
-	}
-	.list-move {
-		transition: .3s ease-in-out
-	}
-	.list-enter-active,
-	.list-leave-active {
-		transition: .3s ease-in-out
-	}
 
 	.vb > .vb-dragger {
 		z-index: 5;

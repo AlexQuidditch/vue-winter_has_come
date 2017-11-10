@@ -1,5 +1,5 @@
 <template lang="html">
-	<li class="portfolio-item">
+	<li :class="{ '_small' : FriendList }" class="portfolio-item">
 		<router-link :to="{ name: 'task', params: { id: tasksItem._id }}" tag="div"
                  class="portfolio-item__overlay">
 			<h5 class="portfolio-item__title">{{ tasksItem.title }}</h5>
@@ -35,6 +35,9 @@
 		name: "Portfolio-Item",
     components: { iconHeart },
 		props: {
+			'FriendList': {
+				type: Boolean
+			},
 			'PortfolioItem': {
 				type: String,
 				required: true
@@ -208,6 +211,24 @@
 			color: #4a4a4a;
 			color: var(--charcoal-grey);
 		}
+	}
+
+	.portfolio-item._small {
+    size: 145px 120px;
+    padding: 10px;
+    .portfolio-item__overlay {
+      height: 100%;
+    }
+    .portfolio-item__picture {
+      size: 100%;
+      object-position: center;
+    }
+    .portfolio-item__title._bottom {
+      display: none;
+    }
+    .scores-list {
+      display: none;
+    }
 	}
 
 </style>

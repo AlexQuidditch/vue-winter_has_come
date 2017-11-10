@@ -104,6 +104,10 @@
       	_id: '',
       	isAgent: null,
       	wall: [],
+        friends: {
+          accepted: [],
+          requests: []
+        },
       	personal: {
       		avatar: '',
       		name: '',

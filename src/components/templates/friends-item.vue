@@ -21,13 +21,19 @@
 				<p class="information-detail__description"> {{ friendItem.information.about }} </p>
 				<div class="information-bottom">
 					<div class="information-bottom__column">
-						<button class="information-bottom__button _contact-me">
-							<img src="/static/assets/agent/personal/contacts.svg" alt="Написать письмо" />
-							<span>Написать</span>
-						</button>
+            <button v-if="isFriendsRequested" @click="acceptFriendRequest()" class="information-bottom__button _contact-me">
+              <icon-check-circle class="personal-bottom__button-icon"></icon-check-circle>
+              <span>Принять заявку</span>
+            </button>
+            <button v-else class="information-bottom__button _contact-me">
+              <img src="/static/assets/agent/personal/contacts.svg" alt="Написать письмо" />
+              <span>Написать</span>
+            </button>
 					</div>
+
 					<div class="information-bottom__column">
-						<button class="information-bottom__button" aria-label="Удалить из друзей">
+						<button v-if="isFriendsAccepted" @click="removeFriend()"
+                    class="information-bottom__button" aria-label="Удалить из друзей">
 							<img src="/static/assets/agent/personal/minus-circle-bold.svg" alt="Удалить из друзей" />
 						</button>
 						<button class="information-bottom__button" aria-label="Заблокировать пользователя">
@@ -37,33 +43,185 @@
 				</div>
 			</div>
 		</div>
-		<ul class="portfolio-list">
-			<router-link v-for="work in friendItem.works" :key="work._id"
-          				 :to="{ name: 'task' , params: { id : work._id }}" tag="li"
-          				 class="portfolio-list__item">
-				<img :src=" backendLocation + '/upload/' + work.preview " :alt="work._id"
-						 class="portfolio-list__item-preview" />
-			</router-link>
-		</ul>
+    <transition-group tag="ul" name="list" mode="out-in" class="portfolio-list">
+      <portfolio-item v-for="portfolioID in limitBy( friendItem.portfolio , 2 )" :key="portfolioID"
+                      :PortfolioItem="portfolioID" :FriendList="true">
+      </portfolio-item>
+    </transition-group>
 	</li>
 </template>
 
 <script>
 
+  import API from '@api';
+
+  import IconCheckCircle from '@icons/check-circle.js';
+  import PortfolioItem from '@templates/portfolio-item.vue';
+
 	export default {
 		name: "friend-item",
+    components: { IconCheckCircle , PortfolioItem },
 		props: {
+      'friendID': {
+        type: String
+      },
 			'friendItem': {
 				type: Object,
-				required: true
+        default() {
+          return {
+          	_id: '',
+          	isAgent: null,
+          	wall: [],
+            friends: {
+              accepted: [],
+              requests: []
+            },
+          	personal: {
+          		avatar: '',
+          		name: '',
+          		sename: '',
+          		email: '',
+          		password: '',
+          		born: '',
+          		gender: '',
+          		caption: '',
+              about: ''
+          	},
+          	information: {
+          		specialization: '',
+          		lastVisit: '',
+          		status: '',
+          		town: '',
+          		country: '',
+          		education: {
+          			place: '',
+          			faculty: ''
+          		},
+          		company: {
+          			title: '',
+          			link: ''
+          		}
+          	},
+          	registrationDate: '',
+          	popularity: '',
+          	responses: {
+          		issued: 0,
+          		positive: 0,
+          		negative: 0
+          	},
+          	ratings: {
+          		mainRate: 0,
+          		average: 0,
+          		completed: 0,
+          		tests: {
+          			value: 0,
+          			total: 0,
+          			rate: 0
+          		}
+          	},
+          	social: {
+          		contacts: {
+          			vk: '',
+          			fb: '',
+          			skype: '',
+          			telegram: ''
+          		},
+          		teams: [],
+          		company: {
+          			activities: '',
+          			starts: '',
+          			achivements: ''
+          		}
+          	},
+          	portfolio: [],
+            reviews: [],
+          	tasks: []
+          };
+        }
 			}
 		},
+    data: () => ({
+      Portfolio: []
+    }),
     computed: {
       currentUserID() {
         return this.$store.state.User._id;
       },
       backendLocation() {
         return this.$store.state.General;
+      },
+      isFriendsAccepted() {
+        return this.$store.state.User.friends.accepted.includes( this.friendID )
+      },
+      isFriendsRequested() {
+        return this.$store.state.User.friends.requests.includes( this.friendID )
+      }
+    },
+    created() {
+      if ( this.friendID ) {
+        API.get( `users/get/${ this.friendID }` )
+          .then( ({ body }) => Object.assign( this.friendItem , body ) )
+          .catch( error => console.error(error) )
+      }
+    },
+    methods: {
+      acceptFriendRequest() {
+        this.$swal({
+          title: 'Добавить в друзья?',
+          text: "Пользователь должен будет подтвердить заявку.",
+          type: 'info',
+          showCancelButton: true,
+          confirmButtonColor: '#009d2f',
+          cancelButtonColor: '#4a4a4a',
+          confirmButtonText: 'Да',
+          cancelButtonText: 'Нет'
+        })
+        .then( () => {
+          this.$store.dispatch( 'acceptFriendRequest' , this.friendID )
+            .then( response => {
+              console.log( response );
+              this.$store.dispatch( 'changeUser' , [ this.currentUserID , this.$store.state.User ] )
+                .then( ({ body }) => {
+                  this.$swal( 'Заявка принята.' , 'Пользователь добавлен в список друзей' , 'success' );
+                })
+                .catch( error => {
+                  console.error(error);
+                  this.$swal( 'Упс...' , 'Что-то пошло не так' , 'error' )
+                })
+            })
+        }, dismiss => {
+          if ( dismiss === 'cancel' ) {
+            this.$swal( 'Отменено!' , 'Заявка не была обработана' , 'info' )
+          }
+        });
+      },
+      removeFriend() {
+        this.$swal({
+          title: 'Добавить в друзья?',
+          text: "Пользователь должен будет подтвердить заявку.",
+          type: 'info',
+          showCancelButton: true,
+          confirmButtonColor: '#009d2f',
+          cancelButtonColor: '#4a4a4a',
+          confirmButtonText: 'Да',
+          cancelButtonText: 'Нет'
+        })
+        .then( () => {
+          this.$store.dispatch( 'acceptFriendRequest' , this.friendID )
+            .then( response => {
+              console.log( response );
+              this.$store.dispatch( 'changeUser' , [ this.currentUserID , this.User ] )
+                .then( ({ body }) => this.$swal( 'Заявка принята.' , 'Пользователь добавлен в список друзей' , 'success' ) )
+                .catch( error => {
+                  console.error(error);
+                  this.$swal( 'Упс...' , 'Что-то пошло не так' , 'error' )
+                })
+            })
+        }, dismiss => {
+          if ( dismiss === 'cancel' ) {
+            this.$swal( 'Отменено!' , 'Заявка не была обработана' , 'info' )
+          }
+        });
       }
     }
 	};
@@ -77,6 +235,7 @@
 	.friend-item {
 		display: flex;
 		justify-content: space-between;
+		width: 690px;
 		padding-top: 30px;
 		padding-bottom: 20px;
 		border-bottom: solid 1px rgba( #4b4b4b , .4 );
@@ -86,6 +245,7 @@
 		.information-avatar {
 			width: 100px;
 			&__picture {
+				display: block;
 				size: 100px;
 				object-fit: cover;
 				object-position: center;
@@ -190,25 +350,6 @@
 			justify-content: space-between;
 			min-width: 300px;
 			size: 300px auto;
-			&__item {
-				overflow: hidden;
-				size: 145px 120px;
-				padding: 10px;
-				background-color: #fff;
-				background-color: var(--whited);
-				border-radius: 3px;
-				cursor: pointer;
-				@include MDShadow-1;
-				transition: box-shadow .3s ease-in-out;
-				&:hover {
-					@include MDShadow-2;
-				}
-			}
-			&__item-preview {
-				size: 100%;
-				object-fit: cover;
-				object-position: center;
-			}
 		}
 	}
 

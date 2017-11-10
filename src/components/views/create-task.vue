@@ -233,7 +233,7 @@
               .then( () => {
                 this.$swal( 'Сохранено!' , 'Задача опубликована.' , 'success' );
                 this.$store.dispatch('clearDraft');
-                this.$router.push({ name : 'find-job' });
+	              this.$router.push({ name : 'find-job' , query: { section: 'active' } });
               })
               .catch( error => {
                 console.error(error);

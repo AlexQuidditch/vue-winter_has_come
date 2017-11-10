@@ -3,12 +3,13 @@
 		<section class="agents">
 			<navigation-panel></navigation-panel>
 			<search-agent></search-agent>
-        <transition-group tag="ul" name="list" mode="out-in"
-                          class="agents-list">
-          <friends-item v-for="( agentItem , index ) in Agents" :key="agentItem._id"
-                      :friendItem = "agentItem">
-          </friends-item>
-        </transition-group>
+      <transition-group tag="ul" name="list" mode="out-in"
+                        class="agents-list">
+        <friends-item v-for="( agentItem , index ) in Agents" :key="agentItem._id"
+                    :friendItem = "agentItem">
+        </friends-item>
+        <h3 v-if="!Agents.length" key="no-content" class="no-result-to-display">Нет контента для отображения</h3>
+      </transition-group>
 		</section>
 		<filter-panel></filter-panel>
 	</main>
@@ -37,7 +38,6 @@
     },
     beforeRouteEnter ( to , from , next ) {
       next( vm => {
-        console.log( to.query.section );
         vm.$store.dispatch('getAgents');
         switch ( to.query.section ) {
           case 'all':

@@ -1,7 +1,7 @@
 <template lang="html">
 	<main class="main _user">
-		<agent-personal v-if="User.isAgent" :User="User"></agent-personal>
-		<user-personal v-else :User="User"></user-personal>
+		<agent-personal v-if="User.isAgent" :User="User" @toFriendsAction="toFriendsAction($event)"></agent-personal>
+		<user-personal v-else :User="User" @toFriendsAction="toFriendsAction($event)"></user-personal>
     <div class="user-container">
       <portfolio v-if="!User.isAgent" :User="User"></portfolio>
       <tasks v-else :User="User"></tasks>
@@ -40,6 +40,10 @@
       	_id: '',
       	isAgent: null,
       	wall: [],
+        friends: {
+          accepted: [],
+          requests: []
+        },
       	personal: {
       		avatar: '',
       		name: '',
@@ -102,17 +106,53 @@
       	tasks: []
       }
     }),
+    computed: {
+      currentUserID() {
+        return this.$store.state.User._id;
+      },
+      isFriendsAccepted() {
+        return this.User.friends.accepted.includes( this.currentUserID )
+      },
+      isFriendsRequested() {
+        return this.User.friends.requests.includes( this.currentUserID )
+      }
+    },
     created() {
       API.get( `users/get/${ this.id }` )
         .then( ({ body }) => Object.assign( this.User , body ) )
         .catch( error => {
           console.error(error);
-          this.$swal( 'Ошибка!' , 'Не могу получить данные' , 'error' )
+          this.$swal( 'Ошибка!' , 'Не могу получить данные пользователя' , 'error' )
         })
     },
     methods: {
       addPostUser( newPostID ) {
         this.User.wall.unshift( newPostID );
+      },
+      toFriendsAction( action ) {
+
+        if ( action === 'add' ) {
+          this.User.friends.requests.push( this.currentUserID );
+          this.$store.dispatch( 'addFriend' , this.User._id ); // сверхоптимистичное добавление в друзья
+          this.$store.dispatch( 'changeUser' , [ this.User._id , this.User ] )
+            .then( ({ body }) => this.$swal( 'Заявка отправлена.' , 'Ожидается подтверждение от пользователя' , 'success' ) )
+            .catch( error => {
+              console.error(error);
+              this.$swal( 'Упс...' , 'Что-то пошло не так' , 'error' )
+            })
+        } else {
+          // removing user from friends
+          let i = this.User.friends.accepted.indexOf( this.currentUserID );
+          this.User.friends.accepted.splice( i , 1 );
+          this.$store.dispatch( 'removeFriend' , this.User._id ); // сверхоптимистичное удаление из друзей
+          this.$store.dispatch( 'changeUser' , [ this.User._id , this.User ] )
+            .then( ({ body }) => this.$swal( 'Пользователь удалён из друзей.' , 'Вы всегда можете добавить его' , 'success' ) )
+            .catch( error => {
+              console.error(error);
+              this.$swal( 'Упс...' , 'Что-то пошло не так' , 'error' )
+            })
+        }
+
       }
     }
 	};

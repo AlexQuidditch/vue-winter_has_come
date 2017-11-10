@@ -12,7 +12,7 @@
         <p class="personal-more__item">Статус: <span>{{ Information.status }}</span></p>
       </div>
       <div class="personal-more">
-        <p class="personal-more__item">{{ Information.town }} ({{ Information.country }})</p>
+        <p class="personal-more__item">{{ Information.town }}</p>
         <p class="personal-more__item">{{ Information.company.title }}</p>
         <a :href="Information.company.link" class="personal-more__item _link">{{ Information.company.link }}</a>
       </div>

@@ -12,7 +12,7 @@
         <p class="personal-more__item">Статус: <span>{{ User.information.status }}</span></p>
       </div>
       <div class="personal-more">
-        <p class="personal-more__item">{{ User.information.town }} ({{ User.information.country }})</p>
+        <p class="personal-more__item">{{ User.information.town }}</p>
         <p class="personal-more__item">{{ User.information.company.title }}</p>
         <a :href="User.information.company.link" class="personal-more__item _link">{{ User.information.company.link }}</a>
       </div>
@@ -20,16 +20,33 @@
       <div class="personal-bottom">
         <div class="personal-bottom__column">
           <button class="personal-bottom__button _contact-me">
-            <img src="/static/assets/agent/personal/contacts.svg" alt="Написать письмо" />
+            <img src="/static/assets/agent/personal/contacts.svg" alt="Написать письмо"
+                 class="personal-bottom__button-icon" />
             <span>Написать</span>
+          </button>
+          <button @click="toFriendsAction($event)" class="personal-bottom__button _contact-me _add-to-friends">
+            <template v-if="isFriendsRequested">
+              <icon-check-circle class="personal-bottom__button-icon"></icon-check-circle>
+              <span>Заявка отправлена</span>
+            </template>
+            <template v-else-if="isFriendsAccepted">
+              <icon-user class="personal-bottom__button-icon"></icon-user>
+              <span>У Вас в друзьях</span>
+            </template>
+            <template v-else>
+              <icon-plus class="personal-bottom__button-icon"></icon-plus>
+              <span>Добавить в друзья</span>
+            </template>
           </button>
         </div>
         <div class="personal-bottom__column">
           <button class="personal-bottom__button">
-            <img src="/static/assets/agent/personal/minus-circle-bold.svg" alt="" />
+            <img src="/static/assets/agent/personal/minus-circle-bold.svg" alt=""
+                 class="personal-bottom__button-icon" />
           </button>
           <button class="personal-bottom__button" aria-label="Заблокировать агента">
-            <img src="/static/assets/agent/personal/slash-bold.svg" alt="Заблокировать агента" />
+            <img src="/static/assets/agent/personal/slash-bold.svg" alt="Заблокировать агента"
+                 class="personal-bottom__button-icon" />
           </button>
         </div>
       </div>
@@ -44,10 +61,13 @@
 <script>
 
   import AgentRatingsBlock from './personal/agent-ratings-block.vue';
+  import IconPlus from '@icons/plus.js';
+  import IconUser from '@icons/user.js';
+  import IconCheckCircle from '@icons/check-circle.js';
 
   export default {
     name: "Agent-Personal",
-    components: { AgentRatingsBlock },
+    components: { AgentRatingsBlock , IconPlus , IconUser , IconCheckCircle },
     props: {
       'User': {
         type: Object,
@@ -57,6 +77,58 @@
     computed: {
       backendLocation() {
         return this.$store.state.General;
+      },
+      currentUserID() {
+        return this.$store.state.User._id;
+      },
+      isFriendsAccepted() {
+        return this.User.friends.accepted.includes( this.currentUserID )
+      },
+      isFriendsRequested() {
+        return this.User.friends.requests.includes( this.currentUserID )
+      }
+    },
+    methods: {
+      toFriendsAction( e ) {
+        if ( this.isFriendsRequested ) {
+          this.$swal( 'Заявка отправлена.' , 'Ожидается действие пользователя' , 'info' );
+        } else if ( this.isFriendsAccepted ) {
+          this.$swal({
+            title: 'Удалить из друзей?',
+            text: "Вы всегда сможете добавить его.",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#009d2f',
+            cancelButtonColor: '#4a4a4a',
+            confirmButtonText: 'Да',
+            cancelButtonText: 'Нет'
+          })
+          .then( () => {
+            this.$emit( 'toFriendsAction' , 'remove' );
+          }, dismiss => {
+            if ( dismiss === 'cancel' ) {
+              this.$swal( 'Отменено!' , 'Пользователь оставлен в друзьях' , 'info' )
+            }
+          });
+        } else {
+          this.$swal({
+            title: 'Добавить в друзья?',
+            text: "Пользователь должен будет подтвердить заявку.",
+            type: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#009d2f',
+            cancelButtonColor: '#4a4a4a',
+            confirmButtonText: 'Да',
+            cancelButtonText: 'Нет'
+          })
+          .then( () => {
+            this.$emit( 'toFriendsAction' , 'add' );
+          }, dismiss => {
+            if ( dismiss === 'cancel' ) {
+              this.$swal( 'Отменено!' , 'Заявка не была отправлена' , 'info' )
+            }
+          });
+        }
       }
     }
   };
@@ -135,9 +207,6 @@
       &:focus {
         @include MDShadow-1;
       }
-      img {
-        size: 20px;
-      }
       &._contact-me {
         justify-content: space-between;
         width: auto;
@@ -150,6 +219,12 @@
           margin-left: 5px
         }
       }
+      &._add-to-friends {
+        margin-left: 10px;
+      }
+    }
+    &__button-icon {
+      size: 20px;
     }
   }
 

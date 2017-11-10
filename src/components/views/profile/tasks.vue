@@ -1,7 +1,7 @@
 <template lang="html">
   <section :class="{ '_folded' : foldedSection }" class="tasks">
     <icon-case :Width="1" class="tasks__icon"></icon-case>
-		<h3 class="tasks__title">Мои задания</h3>
+		<h3 class="tasks__title">{{ Tasks.length ? 'Мои задания' : 'Вы ещё не выдавали заданий' }}</h3>
     <button @click="foldSection()"
             v-if="Tasks.length"
             class="tasks__fold-button waves-effect waves-dark"

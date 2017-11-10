@@ -113,6 +113,12 @@
 	@include waves-light( #fff , $ripple-opacity );
 	@include waves-dark( #009d2f , $ripple-opacity );
 
+  .no-result-to-display {
+    width: 690px;
+    padding: 30px;
+    text-align: center;
+  }
+
 	.vb > .vb-dragger {
 		z-index: 5;
 		width: 8px;

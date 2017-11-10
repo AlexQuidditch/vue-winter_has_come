@@ -3,15 +3,21 @@
 		<section class="friends">
 			<navigation-panel></navigation-panel>
 			<search-friend></search-friend>
-			<transition name="fade" mode="out-in">
-				<component :is=" $route.query.section || 'all' "></component>
-			</transition>
+      <transition-group tag="ul" name="list" mode="out-in"
+                        class="users-list">
+        <friends-item v-for="friendID in Friends" :key="friendID"
+                      :friendID = "friendID">
+        </friends-item>
+        <h3 v-if="!Friends.length" key="no-content" class="no-result-to-display">Нет контента для отображения</h3>
+      </transition-group>
 		</section>
 		<filter-panel></filter-panel>
 	</main>
 </template>
 
 <script>
+
+  import friendsItem from '@templates/friends-item';
 
 	import filterPanel from './friends/filter-panel';
 	import searchFriend from './friends/search-friend';
@@ -26,8 +32,49 @@
 		name: "friends",
 		components: {
 			filterPanel , searchFriend , navigationPanel,
-			all , online , requests , blacklist
-		}
+			all , online , requests , blacklist , friendsItem
+		},
+    data: () => ({
+      Friends: []
+    }),
+    computed: {
+      storeFriends() {
+        return this.$store.state.User.friends;
+      }
+    },
+    beforeRouteEnter ( to , from , next ) {
+      next( vm => {
+        switch ( to.query.section ) {
+          case 'all':
+            vm.Friends = vm.storeFriends.accepted;
+            break;
+          case 'online':
+            vm.Friends = vm.storeFriends.accepted
+            break;
+          case 'requests':
+            vm.Friends = vm.storeFriends.requests
+            break;
+          default:
+            vm.Friends = vm.storeFriends;
+        }
+      })
+    },
+    beforeRouteUpdate ( to , from , next ) {
+      switch ( to.query.section ) {
+        case 'all':
+          this.Friends = this.storeFriends.accepted;
+          break;
+        case 'online':
+          this.Friends = this.storeFriends.accepted
+          break;
+        case 'requests':
+          this.Friends = this.storeFriends.requests
+          break;
+        default:
+          this.Friends = this.storeFriends;
+      }
+      next();
+    }
 	};
 
 </script>

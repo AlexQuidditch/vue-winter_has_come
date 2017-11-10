@@ -32,13 +32,6 @@ export default [
 		component: agents,
 		beforeEnter: requireAuth
 	},
-	// {
-	// 	path: '/agent/:id',
-	// 	name: 'agent',
-	// 	component: agent,
-	// 	beforeEnter: requireAuth,
-	// 	props: true
-	// },
 	{
 		path: '/users',
 		name: 'users',
@@ -74,7 +67,8 @@ export default [
 		name: 'teams',
 		component: teams,
 		beforeEnter: requireAuth,
-		props: true
+		props: true,
+		redirect: '/'
 	},
 	{
 		path: '/find-job',

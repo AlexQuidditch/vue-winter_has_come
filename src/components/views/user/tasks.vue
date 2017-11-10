@@ -1,9 +1,9 @@
 <template lang="html">
   <section :class="{ '_folded' : foldedSection }" class="tasks">
     <icon-case :Width="1" class="tasks__icon"></icon-case>
-		<h3 class="tasks__title">Задания</h3>
+		<h3 class="tasks__title">{{ User.tasks.length ? 'Задания' : 'Пользователь не создавал заданий' }}</h3>
     <button @click="foldSection()"
-            v-if="Portfolio.length"
+            v-if="User.tasks.length"
             class="portfolio__fold-button waves-effect waves-dark"
             type="button" name="fold-portfolio"
       >{{ isFolded ? 'Развернуть' : 'Свернуть' }}
@@ -32,11 +32,8 @@
     },
     data: () => ({ isFolded : false }),
     computed: {
-      Portfolio() {
-        return this.User.portfolio;
-      },
       foldedSection() {
-        if ( !this.Portfolio.length ) {
+        if ( !this.User.tasks.length ) {
           return true;
         } else {
           if ( this.isFolded ) {

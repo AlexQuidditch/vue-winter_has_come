@@ -1,5 +1,5 @@
 export default {
-  name: 'icon-check-circle',
+  name: 'Icon-Check-Circle',
   props: {
     'Fill': {
       type: String,

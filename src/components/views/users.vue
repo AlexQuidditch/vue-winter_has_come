@@ -8,6 +8,7 @@
         <friends-item v-for="( userItem , index ) in Users" :key="userItem._id"
                       :friendItem = "userItem">
         </friends-item>
+        <h3 v-if="!Users.length" key="no-content" class="no-result-to-display">Нет контента для отображения</h3>
       </transition-group>
 		</section>
 		<filter-panel></filter-panel>
@@ -38,7 +39,6 @@
     },
     beforeRouteEnter ( to , from , next ) {
       next( vm => {
-        console.log( to.query.section );
         vm.$store.dispatch('getUsers');
         switch ( to.query.section ) {
           case 'all':
@@ -83,5 +83,10 @@
 		width: 100%;
 		max-width: 690px;
 	}
+
+  .users-list {
+    display: flex;
+    flex-flow: row wrap;
+  }
 
 </style>

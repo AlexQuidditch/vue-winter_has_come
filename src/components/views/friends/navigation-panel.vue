@@ -2,16 +2,16 @@
   <nav class="friends-navigation">
     <router-link :to="{ name: 'friends', query: { section: 'all' } }"
                  class="friends-navigation__link waves-effect waves-dark"
-      >Все друзья ({{ friendsQuantity }})
+      >Все друзья ({{ Friends.accepted.length }})
     </router-link>
     <router-link :to="{ name: 'friends', query: { section: 'online' } }"
                  class="friends-navigation__link waves-effect waves-dark"
-      >Друзья онлайн (21)
+      >Друзья онлайн ({{ Friends.accepted.length }})
     </router-link>
     <router-link :to="{ name: 'friends', query: { section: 'requests' } }"
-                 v-if="!!Friends.Counters.add"
+                 v-if="Friends.requests.length"
                  class="friends-navigation__link waves-effect waves-dark"
-      >Заявки (+{{ Friends.Counters.add }})
+      >Заявки (+{{ Friends.requests.length }})
     </router-link>
     <router-link :to="{ name: 'friends', query: { section: 'blacklist' } }"
                  class="friends-navigation__link waves-effect waves-dark"
@@ -26,10 +26,7 @@
     name: "navigation-panel",
     computed: {
       Friends() {
-        return this.$store.state.Menu.list.friends
-      },
-      friendsQuantity() {
-        return this.$store.state.Stub.friends.length;
+        return this.$store.state.User.friends;
       }
     }
   };

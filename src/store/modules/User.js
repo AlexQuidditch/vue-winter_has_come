@@ -39,6 +39,23 @@ const actions = {
   },
   setPost( { commit } , payload ) {
     commit( 'SET_POSTS' , payload )
+  },
+  // FRIENDS
+  addFriend( { commit } , payload ) {
+    commit( 'ADD_FRIEND' , payload );
+  },
+  removeFriend( { commit } , payload ) {
+    commit( 'REMOVE_FRIEND' , payload );
+  },
+  acceptFriendRequest( { commit , state } , payload ) {
+    return new Promise( ( resolve , reject ) => {
+      commit( 'ACCEPT_FRIEND_REQUEST' , payload );
+      if ( state.friends.accepted.includes( payload ) ) {
+        setTimeout( () => resolve( true ) , 100 )
+      } else {
+        reject()
+      }
+    })
   }
 
 };
@@ -114,6 +131,19 @@ const mutations = {
   },
   SET_POSTS( { wall } , payload ) {
     wall.unshift( payload );
+  },
+  // FRIENDS
+  ADD_FRIEND( { friends } , payload ) {
+    friends.accepted.push( payload );
+  },
+  REMOVE_FRIEND( { friends } , payload ) {
+    let i = friends.accepted.indexOf( payload );
+    friends.accepted.splice( i , 1 );
+  },
+  ACCEPT_FRIEND_REQUEST( { friends } , payload ) {
+    let i = friends.requests.indexOf( payload );
+    friends.requests.splice( i , 1 );
+    friends.accepted.push( payload );
   }
 };
 

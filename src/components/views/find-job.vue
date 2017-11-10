@@ -7,6 +7,7 @@
         <task-item v-for="( taskItem , index ) in Tasks" :key="taskItem._id"
                    :taskItem = "taskItem">
         </task-item>
+        <h3 v-if="!Tasks.length" key="no-content" class="no-result-to-display">Нет контента для отображения</h3>
       </transition-group>
     </section>
     <filter-panel></filter-panel>

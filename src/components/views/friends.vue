@@ -4,7 +4,7 @@
 			<navigation-panel></navigation-panel>
 			<search-friend></search-friend>
       <transition-group tag="ul" name="list" mode="out-in"
-                        class="users-list">
+                        class="friends-list">
         <friends-item v-for="friendID in Friends" :key="friendID"
                       :friendID = "friendID">
         </friends-item>
@@ -17,23 +17,20 @@
 
 <script>
 
-  import friendsItem from '@templates/friends-item';
+  import friendsItem from '@templates/friends-item.vue';
 
 	import filterPanel from './friends/filter-panel';
 	import searchFriend from './friends/search-friend';
 	import navigationPanel from './friends/navigation-panel';
 
-	import all from './friends/all';
-	import online from './friends/online';
-	import requests from './friends/requests';
 	import blacklist from './friends/blacklist';
 
 	export default {
-		name: "friends",
-		components: {
-			filterPanel , searchFriend , navigationPanel,
-			all , online , requests , blacklist , friendsItem
-		},
+    name: "friends",
+    components: {
+      filterPanel , searchFriend , navigationPanel,
+      blacklist , friendsItem
+    },
     data: () => ({
       Friends: []
     }),
@@ -91,5 +88,10 @@
 		width: 100%;
 		max-width: 690px;
 	}
+
+  .friends-list {
+    position: relative;
+    min-width: 690px;
+  }
 
 </style>

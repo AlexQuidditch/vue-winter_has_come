@@ -22,27 +22,27 @@
 
 <script>
 
-	export default {
-		name: "recommendations",
-		data: () => ({
-      recommsList: [
-    		{
-    			title: 'Проект',
-    			picture: 'project7.jpg',
-    			route: '/',
-    			budget: '10 000',
-    			deadline: '7 дней'
-    		},
-    		{
-    			title: 'Проект 2',
-    			picture: 'project8.jpg',
-    			route: '/',
-    			budget: '25 000',
-    			deadline: '17 дней'
-    		}
-    	]
-  	})
-	};
+    export default {
+        name: "recommendations",
+        data: () => ({
+            recommsList: [
+                {
+                    title: 'Проект',
+                    picture: 'project7.jpg',
+                    route: '/',
+                    budget: '10 000',
+                    deadline: '7 дней'
+                },
+                {
+                    title: 'Проект 2',
+                    picture: 'project8.jpg',
+                    route: '/',
+                    budget: '25 000',
+                    deadline: '17 дней'
+                }
+            ]
+        })
+    };
 
 </script>
 

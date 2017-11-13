@@ -185,7 +185,7 @@
                   this.$swal( 'Заявка принята.' , 'Пользователь добавлен в список друзей' , 'success' );
                 })
                 .catch( error => {
-                  console.error(error);
+                  console.error( error );
                   this.$swal( 'Упс...' , 'Что-то пошло не так' , 'error' )
                 })
             })
@@ -213,7 +213,7 @@
               this.$store.dispatch( 'changeUser' , [ this.currentUserID , this.User ] )
                 .then( ({ body }) => this.$swal( 'Заявка принята.' , 'Пользователь добавлен в список друзей' , 'success' ) )
                 .catch( error => {
-                  console.error(error);
+                  console.error( error );
                   this.$swal( 'Упс...' , 'Что-то пошло не так' , 'error' )
                 })
             })

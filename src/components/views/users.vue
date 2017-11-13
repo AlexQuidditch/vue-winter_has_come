@@ -23,12 +23,12 @@
 	import searchFriend from './users/search-friend.vue';
 	import navigationPanel from './users/navigation-panel.vue';
 
-	export default {
-		name: "users",
-		components: {
-			filterPanel , searchFriend , navigationPanel ,
+  export default {
+    name: "users",
+    components: {
+      filterPanel , searchFriend , navigationPanel ,
       friendsItem
-		},
+    },
     data: () => ({
       Users: []
     }),
@@ -85,8 +85,7 @@
 	}
 
   .users-list {
-    display: flex;
-    flex-flow: row wrap;
+    min-width: 690px;
   }
 
 </style>

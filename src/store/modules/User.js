@@ -26,6 +26,17 @@ const actions = {
   setRole( { commit } , payload ) {
     commit( 'SET_ROLE' , payload )
   },
+  // Set Status
+  updateStatus( { commit , state } , payload ) {
+    return new Promise( ( resolve , reject ) => {
+      commit( 'UPDATE_STATUS' , payload );
+      if ( state.information.status === payload ) {
+        setTimeout( () => resolve( true ) , 100 )
+      } else {
+        reject()
+      }
+    })
+  },
   changeUser( { commit } , payload ) {
     return API.post( `user/edit/${ payload[0] }` , payload[1] )
   },
@@ -128,6 +139,9 @@ const mutations = {
   // Post-Registration methods
   SET_ROLE( state , payload ) {
     state.isAgent = payload;
+  },
+  UPDATE_STATUS( state , payload ) {
+    state.information.status = payload;
   },
   SET_POSTS( { wall } , payload ) {
     wall.unshift( payload );

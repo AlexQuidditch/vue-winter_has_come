@@ -28,12 +28,8 @@
 				</label>
 				<label class="settings-column__label">
 					<h6 class="settings-column__title">Дата рождения:</h6>
-          <datepicker :value="Common.bornDate" @selected="updateBornDate($event)"
-                      :config="{ wrap: true }"
-                      class="settings-column__datepicker">
-            <icon-calendar class="settings-column__label-icon" data-toggle></icon-calendar>
-          </datepicker>
-					<icon-calendar class="settings-column__label-icon"></icon-calendar>
+					<input :placeholder="Placeholders.bornDate" disabled
+      					 type="email" class="settings-column__input" />
 				</label>
 			</div>
 			<div class="settings-column">

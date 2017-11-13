@@ -35,12 +35,6 @@
                             class="create-task-column__datepicker">
 									<icon-calendar class="create-task-column__label-icon" data-toggle></icon-calendar>
 							  </datepicker>
-								<!-- <datepicker :value="CreateTask.deadline" @selected="updateDeadline($event)"
-														:format="Datepicker.format" required
-														:language="Datepicker.language"
-														:inputClass=" 'create-task-column__input' "
-														placeholder="Выберите число">
-								</datepicker> -->
 							</label>
 						</div>
 						<div class="create-task-column">

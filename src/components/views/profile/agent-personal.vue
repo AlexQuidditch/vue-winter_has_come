@@ -9,7 +9,7 @@
       <div class="personal-more">
         <p class="personal-more__item _is-agent">Агент</p>
         <p class="personal-more__item">Последний визит: <span>{{ Information.lastVisit }}</span></p>
-        <p class="personal-more__item">Статус: <span>{{ Information.status }}</span></p>
+        <p class="personal-more__item _status">Статус: <span @click="updateStatus()">{{ Information.status | placeholder('не указан') }}</span></p>
       </div>
       <div class="personal-more">
         <p class="personal-more__item">{{ Information.town }}</p>
@@ -50,37 +50,30 @@
       }
     },
     methods: {
-      setInformationAbout() {
+      updateStatus() {
         this.$swal({
-          title: 'Расскажите о себе.\nУ вас 150 символов.',
-          input: 'textarea',
-          showCancelButton: true,
-          confirmButtonText: 'Сохранить',
-          showLoaderOnConfirm: true,
-          preConfirm: textarea => {
-            const payload = {
-              user: this.User,
-              id: this.User._id
-            };
-            // return new Promise( ( resolve , reject ) => {
-            //   setTimeout( () => {
-            //     if ( textarea === 'taken@example.com') {
-            //       reject('This textarea is already taken.')
-            //     } else {
-            //       resolve()
-            //     }
-            //   }, 2000)
-            // })
-            return this.$store.dispatch( 'updateAbout' , payload )
+          title: 'Выберите статус',
+          input: 'select',
+          inputOptions: {
+            'Свободен': 'Свободен',
+            'Занят': 'Занят',
+            'Не беспокоить': 'Не беспокоить',
+            'Йа креветко': 'Йа креветко'
           },
-          allowOutsideClick: false
+          inputPlaceholder: 'Доступные статусы',
+          showCancelButton: true
         })
-        .then( textarea => {
-          this.$swal({
-            type: 'success',
-            title: 'Ajax request finished!',
-            html: 'Submitted textarea: ' + textarea
-          })
+        .then( result => {
+          this.$store.dispatch( 'updateStatus' , result )
+            .then( success => {
+              this.$store.dispatch( 'changeUser' , [ this.User._id , this.User ] )
+                .then( response => {
+                  this.$swal({
+                    type: 'success',
+                    html: `Ваш новый статус: ${ result }`
+                  });
+                })
+            })
         })
       }
     }
@@ -220,6 +213,14 @@
       span {
         color: #4b4b4b;
         color: var(--purpley-grey);
+      }
+      &._status {
+        display: inline-block;
+        width: auto;
+        cursor: pointer;
+        &:hover {
+          text-decoration: underline !important;
+        }
       }
       &._is-agent,
       &._link {

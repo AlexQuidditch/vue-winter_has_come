@@ -19,8 +19,11 @@
 
         <label class="post-registration-column__label">
           <h6 class="post-registration-column__title">Дата рождения</h6>
-          <input v-model="born" placeholder="Ваша дата рождения"
-                 type="text" class="post-registration-column__input" />
+          <datepicker v-model="born" placeholder="Ваша дата рождения"
+                      :config="{ wrap: true , dateFormat: 'd.m.Y' }"
+                      class="post-registration-column__datepicker">
+            <icon-calendar class="post-registration-column__label-icon" data-toggle></icon-calendar>
+          </datepicker>
         </label>
 
         <label class="post-registration-column__label">
@@ -124,8 +127,13 @@
 
 <script>
 
+  import iconCalendar from '@icons/calendar.js';
+
+  import Datepicker from 'vue-bulma-datepicker';
+
   export default {
     name: "Post-Registration",
+    components: { iconCalendar , Datepicker },
     computed: {
       User() {
         return this.$store.state.User;
@@ -254,6 +262,15 @@
       &._textarea {
         height: 109px;
         resize: none;
+      }
+    }
+    &__datepicker {
+      @extend .post-registration-column__input;
+      input {
+        position: absolute;
+        padding: 0;
+        margin: 0;
+        border: none;
       }
     }
   }

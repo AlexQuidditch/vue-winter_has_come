@@ -124,7 +124,7 @@
       		lastVisit: '',
       		status: '',
       		town: '',
-      		country: '',
+      		country: 'Россия',
       		education: {
       			place: '',
       			faculty: ''

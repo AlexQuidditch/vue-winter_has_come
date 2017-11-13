@@ -1,7 +1,8 @@
 <template lang="html">
 	<li class="task-item">
 		<div class="task-item__about">
-			<router-link :to="{ name: 'task', params: { id: taskItem._id }}" tag="img"
+			<router-link :to="{ name: 'task', params: { id: taskItem._id }}"
+									 tag="img"
 									 :src=" backendLocation + '/upload/' + taskItem.attached[0]"
                    :alt="taskItem.title" class="about-picture">
 			</router-link>
@@ -266,6 +267,8 @@
 				font-weight: 600;
 			}
 			&._is-engaged {
+				color: #4b4b4b;
+				color: var(--purpley-grey);
 				stroke: #4b4b4b;
 				stroke: var(--purpley-grey);
 			}

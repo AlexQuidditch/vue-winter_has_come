@@ -17,9 +17,9 @@
     <li class="menu-item">
       <router-link :to="{ name: Menu.friends.route, query: { section: 'all' } }" class="menu-item__link">
         <span class="menu-item__text">{{ Menu.friends.text }}</span>
-        <span class="menu-item__counter _state">({{ friendsQuantity }})</span>
-        <span v-if="Menu.friends.Counters && Menu.friends.Counters.add > 0"
-              class="menu-item__counter _add">(+{{ Menu.friends.Counters.add }})
+        <span class="menu-item__counter _state">({{ Friends.accepted.length }})</span>
+        <span v-if="Friends.requests && Friends.requests.length"
+              class="menu-item__counter _add">(+{{ Friends.requests.length }})
         </span>
       </router-link>
     </li>
@@ -27,7 +27,7 @@
       <router-link :to="{ name: Menu.teams.route }" class="menu-item__link">
         <span class="menu-item__text">{{ Menu.teams.text }}</span>
         <span class="menu-item__counter _state">({{ Menu.teams.Counters.state }})</span>
-        <span v-if="Menu.teams.Counters && Menu.teams.Counters.add > 0"
+        <span v-if="Menu.teams.Counters && Menu.teams.Counters.add"
               class="menu-item__counter _add">(+{{ Menu.teams.Counters.add }})
         </span>
       </router-link>
@@ -59,6 +59,9 @@
       Menu() {
         return this.$store.state.Menu.list
       },
+      Friends() {
+        return this.$store.state.User.friends;
+      },
       newMessagesCounter() {
         const dialogs = this.$store.state.Messages.dialogs;
         const arr = [];
@@ -68,9 +71,6 @@
         const counter = arr.reduce( ( a , b ) => a + b );
         this.messagesCounter = counter;
         return counter;
-      },
-      friendsQuantity() {
-        return this.$store.state.Stub.friends.length;
       }
     },
     watch: {

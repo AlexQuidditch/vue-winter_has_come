@@ -27,7 +27,11 @@
   export default {
     name: 'messages',
     components: { dialogItem , dialogClear },
-    props: ['id'], //  получаем из роутера
+    props: {
+      'id': { //  получаем из роутера
+        type: [ String , Number ]
+      }
+    },
     computed: {
       Dialogs() {
         return this.$store.state.Messages.dialogs
@@ -53,6 +57,7 @@
 		top: 130px;
 		display: flex;
 		justify-content: space-between;
+    height: 100%;
     max-height: calc( 100vh - 160px );
 		background-color: #fff;
 		background-color: var(--whited);

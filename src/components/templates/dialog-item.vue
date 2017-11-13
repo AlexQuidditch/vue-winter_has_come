@@ -1,12 +1,14 @@
 <template lang="html">
-	<router-link :to="{ name: 'dialog', params: { id: DialogItem.id } }" tag="li"
+	<router-link :to="{ name: 'dialog', params: { id: DialogItem._id } }" tag="li"
 							 class="dialog-item waves-effect waves-dark">
 		<transition name="heartbeat" mode="out-in">
 			<span v-if="Author.isOnline" class="dialog-item__online"></span>
 		</transition>
-		<img :src=" '/static/assets/shared/' + Author.avatar" :alt="Author.name + ' ' + Author.sename" class="dialog-item__avatar">
+    <img :src=" backendLocation + '/upload/' + Author.personal.avatar"
+         :alt="Author.personal.name + ' ' + Author.personal.sename"
+         class="dialog-item__avatar" />
 		<div class="dialog-item__container">
-			<h6 class="dialog-item__fullname">{{ Author.name + ' ' + Author.sename }}</h6>
+			<h6 class="dialog-item__fullname">{{ Author.personal.name + ' ' + Author.personal.sename }}</h6>
 			<p class="dialog-item__preview">{{ spliceText(DialogItem.previewMessage) }}</p>
 		</div>
 		<div class="dialog-item__container">
@@ -39,71 +41,74 @@
 		data: () => ({
 			hasNewMessage: false,
       Author: {
-      	_id: '',
-      	isAgent: null,
-      	wall: [],
-      	personal: {
-      		avatar: '',
-      		name: '',
-      		sename: '',
-      		email: '',
-      		password: '',
-      		born: '',
-      		gender: '',
-      		caption: '',
+        _id: '',
+        isAgent: null,
+        wall: [],
+        friends: {
+          accepted: [],
+          requests: []
+        },
+        personal: {
+          avatar: '',
+          name: '',
+          sename: '',
+          email: '',
+          password: '',
+          born: '',
+          gender: '',
+          caption: '',
           about: ''
-      	},
-      	information: {
-      		specialization: '',
-      		lastVisit: '',
-      		status: '',
-      		town: '',
-      		country: '',
-      		education: {
-      			place: '',
-      			faculty: ''
-      		},
-      		company: {
-      			title: '',
-      			link: ''
-      		}
-      	},
-      	registrationDate: '',
-      	popularity: '',
-      	responses: {
-      		issued: 0,
-      		positive: 0,
-      		negative: 0
-      	},
-      	ratings: {
-      		mainRate: 0,
-      		average: 0,
-      		completed: 0,
-      		tests: {
-      			value: 0,
-      			total: 0,
-      			rate: 0
-      		}
-      	},
-      	social: {
-      		contacts: {
-            phone: '',
-      			vk: '',
-      			fb: '',
-      			skype: '',
-      			telegram: ''
-      		},
-      		teams: [],
-      		company: {
-      			activities: '',
-      			starts: '',
-      			achivements: ''
-      		}
-      	},
-      	portfolio: [],
+        },
+        information: {
+          specialization: '',
+          lastVisit: '',
+          status: '',
+          town: '',
+          country: 'Россия',
+          education: {
+            place: '',
+            faculty: ''
+          },
+          company: {
+            title: '',
+            link: ''
+          }
+        },
+        registrationDate: '',
+        popularity: '',
+        responses: {
+          issued: 0,
+          positive: 0,
+          negative: 0
+        },
+        ratings: {
+          mainRate: 0,
+          average: 0,
+          completed: 0,
+          tests: {
+            value: 0,
+            total: 0,
+            rate: 0
+          }
+        },
+        social: {
+          contacts: {
+            vk: '',
+            fb: '',
+            skype: '',
+            telegram: ''
+          },
+          teams: [],
+          company: {
+            activities: '',
+            starts: '',
+            achivements: ''
+          }
+        },
+        portfolio: [],
         reviews: [],
-      	tasks: []
-      },
+        tasks: []
+      }
 		}),
 		watch: {
 	    'DialogItem.unreaded'() {
@@ -112,6 +117,12 @@
 			}
 		},
 		computed: {
+      currentUserID() {
+        return this.$store.state.User._id;
+      },
+      backendLocation() {
+        return this.$store.state.General;
+      },
 			lastMessage() {
 				return new Date(this.DialogItem.lastMessage).toLocaleString('ru-RU' , shortDate );
 			}

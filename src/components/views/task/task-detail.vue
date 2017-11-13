@@ -54,11 +54,11 @@
 					<icon-clock :class="{ '_is-rush' : taskItem.isRush , '_is-engaged' : taskItem.isEngaged }"
 						          class="summary-deadline__icon">
 					</icon-clock>
-					<span v-if="taskItem.isRush" :class="{ '_is-engaged' : taskItem.isRush }"
+					<span v-if="taskItem.isRush" :class="{ '_is-engaged' : taskItem.isEngaged }"
 						    class="summary-deadline__value _is-rush"
 						>СРОЧНО!
 					</span>
-					<span v-else :class="{ '_is-rush' : taskItem.isRush }"
+					<span v-else :class="{ '_is-rush' : taskItem.isRush , '_is-engaged' : taskItem.isEngaged }"
 						    class="summary-deadline__value"
 						>{{ taskItem.deadline }}
 					</span>
@@ -332,6 +332,8 @@
 				font-weight: 600;
 			}
 			&._is-engaged {
+				color: #4b4b4b;
+				color: var(--purpley-grey);
 				stroke: #4b4b4b;
 				stroke: var(--purpley-grey);
 			}

@@ -1,10 +1,14 @@
 <template lang="html">
   <div class="dialog-view">
 		<header class="dialog-header">
-			<img :src=" '/static/assets/shared/' + Author.avatar" :alt="Author.name + ' ' + Author.sename"
-					 class="dialog-header__avatar" />
+      <transition name="fade" mode="out-in">
+  			<img :src=" backendLocation + '/upload/' + Author.personal.avatar"
+             :alt="Author.personal.name + ' ' + Author.personal.sename"
+             :key="Author.personal.avatar"
+  					 class="dialog-header__avatar" />
+      </transition>
 			<div class="dialog-header__user">
-				<h4 class="dialog-header__user-name">{{ Author.name + ' ' + Author.sename }}</h4>
+				<h4 class="dialog-header__user-name">{{ Author.personal.name + ' ' + Author.personal.sename }}</h4>
 				<span class="dialog-header__user-column">
 					{{ Author.information.specialization }} <br />
 					Статус: {{ Author.information.status }}
@@ -15,7 +19,7 @@
 				</span>
 			</div>
 			<transition name="fade">
-				<span v-if="Dialog.isOnline" class="dialog-header__user-online">Онлайн</span>
+				<span v-if="Author.isOnline" class="dialog-header__user-online">Онлайн</span>
 			</transition>
 		</header>
 		<div id="v-bar" class="dialog-main vue-bar">
@@ -24,7 +28,7 @@
 				<li v-for="( instanceItem , index ) in dialogInstance"
 						:key="index"
 						class="message-item _right">
-						<span class="message-item__content">{{ instanceItem.content }}</span>
+					<span class="message-item__content">{{ instanceItem.content }}</span>
 				</li>
 			</transition-group>
 		</div>
@@ -34,7 +38,7 @@
 									name="newMessage"
 									placeholder="Новое сообщение..."
 									class="dialog-footer__form-textarea"
-									required>
+									required >
 				</textarea>
 				<button class="dialog-footer__form-submit waves-effect waves-light"
 								type="submit" name="sendMessage">
@@ -47,43 +51,130 @@
 
 <script>
 
-	import iconSend from '@icons/send.vue';
+  import API from '@api';
+
+	import IconSend from '@icons/send.vue';
 
 	export default {
-		name: "dialog-view",
-		components: { iconSend },
+		name: "Dialog-View",
+		components: { IconSend },
 		props: ['id'],
+    data: () => ({
+      Author: {
+        _id: '',
+        isAgent: null,
+        wall: [],
+        friends: {
+          accepted: [],
+          requests: []
+        },
+        personal: {
+          avatar: '',
+          name: '',
+          sename: '',
+          email: '',
+          password: '',
+          born: '',
+          gender: '',
+          caption: '',
+          about: ''
+        },
+        information: {
+          specialization: '',
+          lastVisit: '',
+          status: '',
+          town: '',
+          country: 'Россия',
+          education: {
+            place: '',
+            faculty: ''
+          },
+          company: {
+            title: '',
+            link: ''
+          }
+        },
+        registrationDate: '',
+        popularity: '',
+        responses: {
+          issued: 0,
+          positive: 0,
+          negative: 0
+        },
+        ratings: {
+          mainRate: 0,
+          average: 0,
+          completed: 0,
+          tests: {
+            value: 0,
+            total: 0,
+            rate: 0
+          }
+        },
+        social: {
+          contacts: {
+            vk: '',
+            fb: '',
+            skype: '',
+            telegram: ''
+          },
+          teams: [],
+          company: {
+            activities: '',
+            starts: '',
+            achivements: ''
+          }
+        },
+        portfolio: [],
+        reviews: [],
+        tasks: []
+      }
+    }),
+    watch: {
+      '$route' (to, from) {
+        this.fetchUserData();
+      }
+    },
 		computed: {
-			Dialog() {
-				return this.$store.state.Messages.dialogs
-				.find( dialog => dialog.id == this.id )
-			},
+      Dialog() {
+        return this.$store.state.Messages.dialogs
+          .find( dialog => dialog._id == this.id );
+      },
 			dialogInstance() {
-				const thread = this.$store.state.Messages.threads
-				.find( thread => thread.id == this.id );
-				return thread.dialogInstance
+				const Thread = this.$store.state.Messages.threads
+  				.find( thread => thread._id == this.id );
+				return Thread.dialogInstance
 			},
-			Author() {
-				return this.$store.state.Stub.friends
-				.find( item => item._id === this.Dialog.authorID )
-			},
+      backendLocation() {
+        return this.$store.state.General;
+      },
 			newMessage: {
 				get() {
-					return this.$store.state.Messages.dialogs[this.id].draft
+					const target = this.$store.state.Messages.dialogs
+            .find( dialog => dialog._id == this.id );
+          return target.draft;
 				},
 				set(payload) {
 					this.$store.dispatch( 'updateMessage' , [ this.id , payload ] )
 				}
 			}
 		},
+    created() {
+      this.fetchUserData();
+    },
 		methods: {
+      fetchUserData() {
+        return API.get( `users/get/${ this.Dialog.authorID }` )
+          .then( ({ body }) => Object.assign( this.Author , body ) )
+          .catch( error => console.error(error) )
+      },
 			sentMessage() {
 				this.$store.dispatch( 'sendMessage' , this.id )
-				.then( response => {
-					this.newMessage = '';
-					this.scrollToEnd();
-				})
-				.catch( error => console.error(error) )
+  				.then( response => {
+  					this.newMessage = '';
+  					this.scrollToEnd();
+  				})
+  				.catch( error => console.error(error) )
 			},
 			scrollToEnd() {
 				const container = document.querySelector("#v-bar");

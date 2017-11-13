@@ -110,6 +110,7 @@ export default [
 		name: 'messages',
 		component: messages,
 		beforeEnter: requireAuth,
+    props: true,
 		children: [
 			{
 				path: ':id',

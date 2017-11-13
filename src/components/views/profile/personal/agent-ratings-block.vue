@@ -26,7 +26,7 @@
         <span class="ratings-item__value">
           {{ Ratings.tests.total + ' / ' + Ratings.tests.rate }}
         </span>
-        <p class="ratings-item__text">тестов и оценка</p>
+        <p class="ratings-item__text">получено отзывов</p>
       </li>
     </ul>
   </div>

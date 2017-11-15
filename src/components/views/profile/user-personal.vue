@@ -60,7 +60,7 @@
           },
           inputPlaceholder: 'Доступные статусы',
           showCancelButton: true,
-          cancelButtonText: 'Отмена'
+          cancelButtonText: 'Отмена'ndcfn
         })
         .then( result => {
           this.$store.dispatch( 'updateStatus' , result )

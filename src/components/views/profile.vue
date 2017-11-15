@@ -3,8 +3,8 @@
 		<agent-personal v-if="User.isAgent"></agent-personal>
 		<user-personal v-else></user-personal>
     <div class="profile-container">
-      <tasks v-if="User.isAgent"></tasks>
-      <portfolio v-else></portfolio>
+      <tasks v-if="User.isAgent" :Tasks="User.tasks"></tasks>
+      <portfolio v-else :Portfolio="User.portfolio"></portfolio>
       <wall></wall>
     </div>
     <social></social>

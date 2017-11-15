@@ -8,15 +8,19 @@
             type="button" name="fold-portfolio"
       >{{ isFolded ? 'Развернуть' : 'Свернуть' }}
     </button>
-    <transition-group tag="ul" name="list" mode="out-in" class="portfolio-list">
+    <flickity-slider v-if="User.portfolio && User.portfolio.length"
+                     ref="flickity" :options="flickityOptions"
+                     class="tasks-list">
       <portfolio-item v-for="( portfolioItem , index ) in User.portfolio" :key="index"
                       :PortfolioItem="portfolioItem">
       </portfolio-item>
-    </transition-group>
+    </flickity-slider>
   </section>
 </template>
 
 <script>
+
+  import FlickitySlider from 'vue-flickity';
 
   import IconCase from '@icons/case.js';
 
@@ -24,14 +28,23 @@
 
   export default {
     name: "portfolio",
-    components: { portfolioItem , IconCase },
+    components: { portfolioItem , IconCase , FlickitySlider },
     props: {
       'User': {
         type: Object,
         required: true
       }
     },
-    data: () => ({ isFolded : false }),
+    data: () => ({
+      isFolded : false,
+      flickityOptions: {
+        pageDots: false,
+        contain: true,
+        groupCells: true,
+        groupCells: 2,
+        draggable: false
+      }
+    }),
     computed: {
       foldedSection() {
         if ( !this.User.portfolio.length ) {
@@ -106,12 +119,14 @@
   }
 
   .portfolio-list {
-    overflow-x: auto;
-    overflow-y: visible;
-    display: flex;
-    justify-content: space-between;
-    size: 100% 225px;
+    overflow: hidden;
+    width: 100%;
     margin: 20px 0 0 0;
+    padding: 0 10px;
+    .flickity-viewport {
+      overflow: visible;
+      width: 100%;
+		}
   }
 
 </style>

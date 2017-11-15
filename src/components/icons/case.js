@@ -1,5 +1,5 @@
 export default {
-  name: 'icon-case',
+  name: 'Icon-Case',
   props: {
     'Fill': {
       type: String,

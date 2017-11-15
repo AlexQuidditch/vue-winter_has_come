@@ -11,11 +11,11 @@
 					class="contacts-item__notation"
 					>Электронная почта:
 				</span>
-				<span v-else-if="linkItem.type == 'vk' && linkItem.value.length"
+				<span v-if="linkItem.type == 'vk' && linkItem.value.length"
 					 class="contacts-item__notation"
 					 >Вконтакте:
 				</span>
-				<span v-else-if="linkItem.type == 'fb' && linkItem.value.length "
+				<span v-if="linkItem.type == 'fb' && linkItem.value.length "
 					 class="contacts-item__notation"
 					 >Facebook:
 				</span>
@@ -28,12 +28,12 @@
 					class="contacts-item__link"
 					>&nbsp;{{ linkItem.value }}
 				</a>
-				<a v-else-if="linkItem.type == 'vk' && linkItem.value.length"
+				<a v-if="linkItem.type == 'vk' && linkItem.value.length"
 					:href=" '//' + linkItem.value"
 					class="contacts-item__link"
 					>&nbsp;{{ linkItem.value }}
 				</a>
-				<a v-else-if="linkItem.type == 'fb' && linkItem.value.length"
+				<a v-if="linkItem.type == 'fb' && linkItem.value.length"
 					:href=" '//' + linkItem.value"
 					class="contacts-item__link"
 					>&nbsp;{{ linkItem.value }}
@@ -43,6 +43,9 @@
 					class="contacts-item__link"
 					>&nbsp;{{ linkItem.value }}
 				</a>
+				<p class="contacts-item__link"
+					>Контакты не указаны
+				</p>
 			</li>
 		</ul>
     </div>
@@ -94,6 +97,7 @@
 			color: var(--charcoal-grey);
 		}
 		.contacts-list {
+		  width: 100%;
 			margin-top: 20px;
 		}
 		.contacts-item {

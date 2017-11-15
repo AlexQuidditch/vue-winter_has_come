@@ -9,7 +9,7 @@
       >{{ isFolded ? 'Развернуть' : 'Свернуть' }}
     </button>
     <transition-group tag="ul" name="list" mode="out-in" class="portfolio-list">
-      <portfolio-item v-for="( portfolioItem , index ) in limitBy( Portfolio , 2 ) " :key="index"
+      <portfolio-item v-for="( portfolioItem , index ) in Portfolio" :key="index"
                       :PortfolioItem="portfolioItem">
       </portfolio-item>
     </transition-group>
@@ -25,11 +25,29 @@
   export default {
     name: "portfolio",
     components: { portfolioItem , IconCase },
-    data: () => ({ isFolded : false }),
+    props: {
+      'Portfolio': {
+        type: Array,
+        required: true,
+        default() {
+          return [];
+        }
+      }
+    },
+    data: () => ({
+      isFolded : false,
+      flickityOptions: {
+        pageDots: false,
+        contain: true,
+        groupCells: true,
+        groupCells: 2,
+        draggable: false
+      }
+    }),
     computed: {
-      Portfolio() {
-        return this.$store.state.User.portfolio;
-      },
+      // Portfolio() {
+      //   return this.$store.state.User.portfolio;
+      // },
       foldedSection() {
         if ( !this.Portfolio.length ) {
           return true;
@@ -103,11 +121,14 @@
   }
 
   .portfolio-list {
-		display: flex;
-		justify-content: space-between;
-    flex-flow: row wrap;
-		width: 100%;
-		margin: 20px 0 0 0;
+    overflow: hidden;
+    width: 100%;
+    margin: 20px 0 0 0;
+    padding: 0 10px;
+    .flickity-viewport {
+      overflow: visible;
+      width: 100%;
+		}
   }
 
 </style>

@@ -18,7 +18,7 @@
         <span class="ratings-item__value">
           {{ Ratings.completed }}
         </span>
-        <p class="ratings-item__text">заданий выполнено</p>
+        <p class="ratings-item__text">заданий выдано</p>
       </li>
 
       <li class="ratings-item">

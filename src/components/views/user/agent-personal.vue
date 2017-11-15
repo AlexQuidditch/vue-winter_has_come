@@ -9,7 +9,7 @@
       <div class="personal-more">
         <p class="personal-more__item _is-agent">Агент</p>
         <p class="personal-more__item">Последний визит: <span>{{ User.information.lastVisit }}</span></p>
-        <p class="personal-more__item">Статус: <span>{{ User.information.status }}</span></p>
+        <p class="personal-more__item">Статус: <span>{{ User.information.status | placeholder('не указан') }}</span></p>
       </div>
       <div class="personal-more">
         <p class="personal-more__item">{{ User.information.town }}</p>

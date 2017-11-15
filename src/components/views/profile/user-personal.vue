@@ -59,7 +59,8 @@
             'Йа креветко': 'Йа креветко'
           },
           inputPlaceholder: 'Доступные статусы',
-          showCancelButton: true
+          showCancelButton: true,
+          cancelButtonText: 'Отмена'
         })
         .then( result => {
           this.$store.dispatch( 'updateStatus' , result )

@@ -84,7 +84,7 @@
   .tasks-item {
     position: relative;
     size: 280px 211px;
-    margin-bottom: 20px;
+    margin: 0 10px 20px 10px;
     background-color: #fff;
     background-color: var(--whited);
     cursor: pointer;

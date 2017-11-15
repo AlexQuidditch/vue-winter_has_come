@@ -6,20 +6,25 @@
 				   class="user-avatar__image"/><h3 class="user-avatar__name">{{ Personal.name + ' ' + Personal.sename }}</h3>
 		</router-link>
 		<nav class="user-controls">
-			<router-link to="/" class="user-control">
-				<img src="/static/assets/sidebar/message-square.svg" alt="Сообщения"
-					   class="user-control__icon" />
+			<router-link :to="{ name: 'messages' }" class="user-control">
+        <icon-message :Width="newMessagesCounter > 0 ? 2 : 1"
+                      :Stroke="newMessagesCounter ? '#009d2f' : '#9B9B9B'"
+                      aria-label="Сообщения"
+                      class="user-control__icon">
+        </icon-message>
 				<span v-if="newMessagesCounter > 0" class="user-control__counter">{{ newMessagesCounter }}</span>
 			</router-link>
 			<router-link to="/" class="user-control">
-				<img src="/static/assets/sidebar/credit-card.svg" alt="Кошелёк"
-					   class="user-control__icon" />
-				<span class="user-control__counter"></span>
+        <icon-card :Width="1"
+                   aria-label="Кошелёк"
+                   class="user-control__icon">
+        </icon-card>
 			</router-link>
 			<router-link to="/" class="user-control">
-				<img src="/static/assets/sidebar/message-square.svg" alt="Сообщения"
-					   class="user-control__icon" />
-				<span class="user-control__counter">1</span>
+        <icon-bell :Width="1"
+                   aria-label="Уведомления"
+                   class="user-control__icon">
+         </icon-bell>
 			</router-link>
 		</nav>
   </div>
@@ -27,8 +32,13 @@
 
 <script>
 
+  import IconMessage from '@icons/message.js';
+  import IconCard from '@icons/card.js';
+  import IconBell from '@icons/bell.js';
+
   export default {
     name: "user-info",
+    components: { IconMessage , IconCard , IconBell },
     computed: {
       Personal() {
         return this.$store.state.User.personal
@@ -101,7 +111,7 @@
 		padding: 15px;
 		margin: 9px 0;
 		&__icon {
-			size: 20px;
+			width: 22px;
 		}
 		&__counter {
 			position: absolute 11px 11px auto auto;

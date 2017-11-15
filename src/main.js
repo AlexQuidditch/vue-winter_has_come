@@ -13,7 +13,7 @@ import MaskedInput from 'vue-masked-input';
 window.Waves = require('node-waves');
 
 // Глобально доступные компоненты
-Vue.component('masked-input' , MaskedInput);
+Vue.component( 'masked-input' , MaskedInput );
 
 Vue.use( Vuebar );
 Vue.use( Checkbox );

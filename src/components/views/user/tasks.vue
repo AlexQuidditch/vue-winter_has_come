@@ -8,29 +8,43 @@
             type="button" name="fold-portfolio"
       >{{ isFolded ? 'Развернуть' : 'Свернуть' }}
     </button>
-		<transition-group tag="ul" name="list" mode="out-in" class="tasks-list">
-			<tasks-item v-for="tasksID in User.tasks" :key="tasksID"
-									:tasksID="tasksID">
+    <flickity-slider v-if="User.tasks && User.tasks.length"
+                     ref="flickity" :options="flickityOptions"
+                     class="tasks-list">
+      <tasks-item v-for="tasksID in User.tasks" :key="tasksID"
+									:tasksID="tasksID"
+                  class="carousel-cell">
 			</tasks-item>
-		</transition-group>
+    </flickity-slider>
   </section>
 </template>
 
 <script>
+
+  import FlickitySlider from 'vue-flickity';
 
   import IconCase from '@icons/case.js';
 	import tasksItem from '@templates/tasks-item.vue';
 
 	export default {
 		name: "tasks",
-		components: { tasksItem , IconCase },
+		components: { tasksItem , IconCase , FlickitySlider },
     props: {
       'User': {
         type: Object,
         required: true
       }
     },
-    data: () => ({ isFolded : false }),
+    data: () => ({
+      isFolded : false,
+      flickityOptions: {
+        pageDots: false,
+        contain: true,
+        groupCells: true,
+        groupCells: 2,
+        draggable: false
+      }
+    }),
     computed: {
       foldedSection() {
         if ( !this.User.tasks.length ) {
@@ -105,11 +119,14 @@
 	}
 
 	.tasks-list {
-		display: flex;
-		justify-content: space-between;
-    flex-flow: row wrap;
-		width: 100%;
-		margin: 20px 0 0 0;
+    overflow: hidden;
+    width: 100%;
+    margin: 20px 0 0 0;
+    padding: 0 10px;
+    .flickity-viewport {
+      overflow: visible;
+      width: 100%;
+		}
 	}
 
 </style>

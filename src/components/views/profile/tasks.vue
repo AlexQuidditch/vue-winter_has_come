@@ -1,5 +1,5 @@
 <template lang="html">
-  <section :class="{ '_folded' : foldedSection }" class="tasks">
+  <section :class="{ '_folded' : foldedSection }" class="tasks" v-cloak>
     <icon-case :Width="1" class="tasks__icon"></icon-case>
 		<h3 class="tasks__title">{{ Tasks.length ? 'Мои задания' : 'Вы ещё не выдавали заданий' }}</h3>
     <button @click="foldSection()"
@@ -8,27 +8,50 @@
             type="button" name="fold-portfolio"
       >{{ isFolded ? 'Развернуть' : 'Свернуть' }}
     </button>
-		<transition-group tag="ul" name="list" mode="out-in" class="tasks-list">
-			<tasks-item v-for="tasksID in Tasks" :key="tasksID"
-									:tasksID="tasksID">
+    <flickity-slider v-if="Tasks && Tasks.length"
+                     ref="flickity" :options="flickityOptions"
+                     class="tasks-list">
+      <tasks-item v-for="tasksID in Tasks" :key="tasksID"
+									:tasksID="tasksID"
+                  class="carousel-cell">
 			</tasks-item>
-		</transition-group>
+    </flickity-slider>
   </section>
 </template>
 
 <script>
+
+  import FlickitySlider from 'vue-flickity';
 
   import IconCase from '@icons/case.js';
   import tasksItem from '@templates/tasks-item.vue';
 
   export default {
     name: "tasks",
-    components: { tasksItem , IconCase },
-    data: () => ({ isFolded : false }),
+    components: { tasksItem , IconCase , FlickitySlider },
+    props: {
+      'Tasks': {
+        type: Array,
+        required: true,
+        default() {
+          return [];
+        }
+      }
+    },
+    data: () => ({
+      isFolded : false,
+      flickityOptions: {
+        pageDots: false,
+        contain: true,
+        groupCells: true,
+        groupCells: 2,
+        draggable: false
+      }
+    }),
     computed: {
-      Tasks() {
-        return this.$store.state.User.tasks;
-      },
+      // Tasks() {
+      //   return this.$store.state.User.tasks;
+      // },
       foldedSection() {
         if ( !this.Tasks.length ) {
           return true;
@@ -61,7 +84,7 @@
     flex-flow: row wrap;
     align-items: flex-start;
     size: 100% 300px;
-    padding: 20px 30px 0 30px;
+    padding: 20px 30px;
     transition: height .4s ease;
     &._folded {
       height: 68px;
@@ -102,10 +125,14 @@
   }
 
   .tasks-list {
-    display: flex;
-    justify-content: space-between;
+    overflow: hidden;
     width: 100%;
     margin: 20px 0 0 0;
+    padding: 0 10px;
+    .flickity-viewport {
+      overflow: visible;
+      width: 100%;
+		}
   }
 
 </style>

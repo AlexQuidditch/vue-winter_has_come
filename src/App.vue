@@ -65,11 +65,12 @@
 
 	html , body {
 		font-size: 16px;
+		@include font-smoothing;
+		-webkit-tap-highlight-color: transparent;
 	}
 	body {
 		height: 100%;
 		font-family: 'Lato', Arial, sans-serif;
-		-webkit-tap-highlight-color: transparent;
 		background-color: #f0f4f7;
 		background-color: var(--pale-grey);
 		::selection {
@@ -85,7 +86,6 @@
 		min-height: 100vh;
 		color: #4a4a4a;
 		color: var(--charcoal-grey);
-		@include font-smoothing;
 	}
 
 	.container {

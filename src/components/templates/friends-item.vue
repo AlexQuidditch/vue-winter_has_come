@@ -43,10 +43,23 @@
 				</div>
 			</div>
 		</div>
-    <transition-group tag="ul" name="list" mode="out-in" class="portfolio-list">
+    <transition-group v-if="friendItem.isAgent" tag="ul" name="list" mode="out-in" class="portfolio-list">
+      <portfolio-item v-for="portfolioID in limitBy( friendItem.tasks , 2 )" :key="portfolioID"
+                      :PortfolioItem="portfolioID" :FriendList="true">
+      </portfolio-item>
+			<li v-if="!friendItem.tasks.length" key="no-content"
+          class="no-content-list-placeholder">
+				<h5>Пока нет заданий</h5>
+			</li>
+    </transition-group>
+    <transition-group v-else tag="ul" name="list" mode="out-in" class="portfolio-list">
       <portfolio-item v-for="portfolioID in limitBy( friendItem.portfolio , 2 )" :key="portfolioID"
                       :PortfolioItem="portfolioID" :FriendList="true">
       </portfolio-item>
+			<li v-if="!friendItem.portfolio.length" key="no-content"
+          class="no-content-list-placeholder">
+				<h5>Пока нет работ</h5>
+			</li>
     </transition-group>
 	</li>
 </template>
@@ -350,7 +363,14 @@
 			justify-content: space-between;
 			min-width: 300px;
 			size: 300px auto;
+      padding: 0;
 		}
+    .no-content-list-placeholder {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
 	}
 
 

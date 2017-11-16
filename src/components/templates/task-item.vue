@@ -115,6 +115,7 @@
 	@import "../../stylesheets/partials/_mixins";
 
 	.task-item {
+		width: 690px;
 		margin-top: 20px;
 		padding: 15px 20px;
 		background-color: #fff;

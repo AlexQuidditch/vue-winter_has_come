@@ -14,7 +14,7 @@
 					Статус: {{ Author.information.status }}
 				</span>
 				<span class="dialog-header__user-column _right">
-					{{ Author.information.town }} ({{ Author.information.country }}) <br />
+					{{ Author.information.town }} <br />
 					{{ Author.information.education.place }}, {{ Author.information.education.faculty }}
 				</span>
 			</div>

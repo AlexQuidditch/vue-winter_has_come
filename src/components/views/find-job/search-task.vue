@@ -3,27 +3,37 @@
 		<img src="/static/assets/header/ic-search-24-px.svg" alt="Поиск..."
 			class="search-task__icon" />
 		<input v-model="request" @input="searchByRequest(request)"
-			placeholder="Поиск по ключевым словам"
-			id="search-task" name="search-task"
-			class="search-task__input" />
+    			 placeholder="Поиск по названию"
+    			 id="search-task" name="search-task"
+    			 class="search-task__input" />
+    <transition name="fade">
+      <button v-if="request.length" @click.prevent="clearRequest()"
+              type="button" aria-label="Очистить запрос"
+              class="search-task__clear-button">
+        <icon-close class="search-task__clear-icon"></icon-close>
+      </button>
+    </transition>
 	</label>
 </template>
 
 <script>
 
-    export default {
-        name: "search-task",
-		data() {
-			return {
-				request: ''
-			}
-		},
-		methods: {
-		    searchByRequest(q) {
-		        this.$swal( 'Идёт поиск...' , q , 'info' )
-		    }
-		}
-    };
+  import IconClose from '@icons/close.js';
+
+  export default {
+    name: "Search-Task",
+    components: { IconClose },
+    data: () => ({ request: '' }),
+    methods: {
+      searchByRequest( q ) {
+        this.$emit( 'searchByTitle' , q );
+      },
+      clearRequest() {
+        this.request = '';
+        this.searchByRequest( '' );
+      }
+    }
+  };
 
 </script>
 
@@ -56,6 +66,24 @@
 				color: var(--purpley-grey);
 			}
 		}
+    &__clear-button {
+      position: absolute;
+      top: 0; right: 0;
+      size: 35px;
+			background-color: transparent;
+			border: none;
+    }
+    &__clear-icon {
+      display: inline-block;
+      vertical-align: middle;
+      size: 20px;
+      border-radius: 3px;
+      fill: #fff;
+      fill: var(--whited);
+      background-color: #d0011b;
+      background-color: var(--scarlet);
+      @include MDShadow-1;
+    }
 	}
 
 </style>

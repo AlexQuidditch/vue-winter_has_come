@@ -217,15 +217,23 @@
     size: 145px 120px;
     padding: 10px;
     .portfolio-item__overlay {
+			overflow: hidden;
       height: 100%;
     }
     .portfolio-item__picture {
       size: 100%;
       object-position: center;
     }
-    .portfolio-item__title._bottom {
-      display: none;
-    }
+    .portfolio-item__title {
+			overflow: hidden;
+			height: 100%;
+			&._bottom {
+	      display: none;
+	    }
+		}
+		.portfolio-item__description {
+			display: none;
+		}
     .scores-list {
       display: none;
     }

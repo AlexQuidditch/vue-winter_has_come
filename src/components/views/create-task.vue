@@ -31,7 +31,7 @@
 							<label class="create-task-column__label">
 								<h6 class="create-task-column__title">Сроки выполнения задания:</h6>
 								<datepicker :value="CreateTask.deadline" @input="updateDeadline($event)"
-														:config="{ wrap: true , dateFormat: 'd.m.Y' }"
+														:config="{ wrap: true , dateFormat: 'd.m.Y' , locale: ru }"
                             class="create-task-column__datepicker">
 									<icon-calendar class="create-task-column__label-icon" data-toggle></icon-calendar>
 							  </datepicker>
@@ -50,7 +50,8 @@
                       <icon-close class="attached-item__remove-icon"></icon-close>
                     </button>
 									</li>
-                  <label v-if="CreateTask.attached.length < 4" key="label" for="attachFile" class="attached-item _label">
+                  <label v-if="CreateTask.attached.length < 4" key="label"
+												 for="attachFile" class="attached-item _label">
                     <input @change="filler($event.target.files)"
                            id="attachFile" type="file"
                            multiple accept="image"
@@ -137,6 +138,7 @@
   import vChip from '@custom-elements/vue-chip';
 
 	import Datepicker from 'vue-bulma-datepicker';
+  import { ru } from "flatpickr/dist/l10n/ru.js";
 
   export default {
     name: 'create-task',
@@ -181,6 +183,7 @@
       })
     },
     computed: {
+      ru () { return ru },
       User() {
         return this.$store.state.User;
       },

@@ -20,7 +20,7 @@
         <label class="post-registration-column__label">
           <h6 class="post-registration-column__title">Дата рождения</h6>
           <datepicker v-model="born" placeholder="Ваша дата рождения"
-                      :config="{ wrap: true , dateFormat: 'd.m.Y' }"
+                      :config="{ wrap: true , dateFormat: 'd.m.Y' , locale: ru }"
                       class="post-registration-column__datepicker">
             <icon-calendar class="post-registration-column__label-icon" data-toggle></icon-calendar>
           </datepicker>
@@ -130,11 +130,13 @@
   import iconCalendar from '@icons/calendar.js';
 
   import Datepicker from 'vue-bulma-datepicker';
+  import { ru } from "flatpickr/dist/l10n/ru.js";
 
   export default {
     name: "Post-Registration",
     components: { iconCalendar , Datepicker },
     computed: {
+      ru () { return ru },
       User() {
         return this.$store.state.User;
       },

@@ -6,13 +6,11 @@
 				   class="user-avatar__image"/><h3 class="user-avatar__name">{{ Personal.name + ' ' + Personal.sename }}</h3>
 		</router-link>
 		<nav class="user-controls">
-			<router-link :to="{ name: 'messages' }" class="user-control">
-        <icon-message :Width="newMessagesCounter > 0 ? 2 : 1"
-                      :Stroke="newMessagesCounter ? '#009d2f' : '#9B9B9B'"
-                      aria-label="Сообщения"
-                      class="user-control__icon">
-        </icon-message>
-				<span v-if="newMessagesCounter > 0" class="user-control__counter">{{ newMessagesCounter }}</span>
+			<router-link to="/" class="user-control">
+        <icon-case :Width="1"
+                   aria-label="Сообщения"
+                   class="user-control__icon">
+        </icon-case>
 			</router-link>
 			<router-link to="/" class="user-control">
         <icon-card :Width="1"
@@ -32,13 +30,13 @@
 
 <script>
 
-  import IconMessage from '@icons/message.js';
+  import IconCase from '@icons/case.js';
   import IconCard from '@icons/card.js';
   import IconBell from '@icons/bell.js';
 
   export default {
     name: "user-info",
-    components: { IconMessage , IconCard , IconBell },
+    components: { IconCase , IconCard , IconBell },
     computed: {
       Personal() {
         return this.$store.state.User.personal

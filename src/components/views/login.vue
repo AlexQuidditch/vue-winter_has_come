@@ -1,14 +1,10 @@
 <template lang="html">
   <main class="main _login">
-    <button @click="logOut()" key="wqdkq"
+    <button @click="logOut()" key="logOut"
             :class="{ '_visible' : isLoggedIn.length }"
             class="logout-button waves-effect waves-light"
             >Это не я
     </button>
-    <!-- <button @click="registred =! registred"
-            class="logout-button _second waves-effect waves-light"
-            >Это не sqdя
-    </button> -->
     <transition name="fade" mode="out-in">
 
       <div v-if="!registred" key="notRegistred" class="login-hello-container">
@@ -18,7 +14,7 @@
           <p class="hello-message__content">
             Присоединяйтесь к первой полезной соцсети «В деле»!<br /><br />
 
-            Именно здесь вы сможете выбирать задания по душе и получать за это реальное вознаграждение! Ежегодно «Вделе» определяет самого успешного пользователя-студента. Счастливчик станет богаче на 500 тысяч рублей
+            Именно здесь вы сможете выбирать задания по душе и получать за это реальное вознаграждение! Ежегодно «Вделе» определяет самого успешного пользователя-студента. Счастливчик станет богаче на 500 тысяч рублей!
           </p>
         </div>
 
